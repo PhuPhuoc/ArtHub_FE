@@ -1,19 +1,15 @@
-import { Route, Routes } from 'react-router-dom'
-import './App.css'
-import WelcomePage from './page/Welcome/WelcomePage'
-import LoginPage from './page/Login/LoginPage'
-import AdminRouter from './routers/AdminRouters'
-
+import { Route, Routes } from "react-router-dom";
+import "./App.css";
+import LoginPage from "./page/Login/LoginPage";
+import WelcomeRouter from "./routers/WelcomeRouters";
 
 function App() {
-
   return (
     <Routes>
-      <Route path="/welcome" element={<WelcomePage />}/>
-      <Route path="" element={<LoginPage />}/>
-      <Route path="admin/*" element={<AdminRouter />} /> 
-         </Routes>
-  )
+      <Route path="/login" element={<LoginPage />} />
+      <Route path="/*" element={<WelcomeRouter />} />
+    </Routes>
+  );
 }
 
-export default App
+export default App;

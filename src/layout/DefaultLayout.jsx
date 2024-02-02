@@ -2,13 +2,12 @@ import {
   DatabaseOutlined,
   TeamOutlined,
   HomeOutlined,
-  SolutionOutlined,
 } from "@ant-design/icons";
-import { Layout, Menu } from "antd";
+import { Layout } from "antd";
 import { Content, Footer, Header } from "antd/es/layout/layout";
 import Title from "antd/es/typography/Title";
 import PropTypes from "prop-types";
-import { useNavigate } from "react-router-dom";
+import MenuArthub from "../components/Menu/MenuArthub";
 
 function getItem(label, key, icon, children, type) {
   return {
@@ -20,24 +19,13 @@ function getItem(label, key, icon, children, type) {
   };
 }
 
-  
-
-const items_WelcomePage = [
-  getItem("Dashboard", "1", <HomeOutlined />, [
-    getItem("Statistics", "dashboard"),
-  ]),
-  getItem("Collaborators & Teams", "collaborators", <TeamOutlined />),
-  getItem("Manager Zone", "management", <DatabaseOutlined />),
-  getItem("My Task", "task", <SolutionOutlined />),
+const items_welcomepage = [
+  getItem("Find Talent", "findtalent", <HomeOutlined />),
+  getItem("Our Hub", "ourhub", <TeamOutlined />),
+  getItem("Post Your Art", "postart", <DatabaseOutlined />),
 ];
 
-
-
 const DefaultLayout = ({ children }) => {
-  const navigate = useNavigate()
-  const handleMenuClick = ({ key }) => {
-    navigate(key);
-  };
   return (
     <>
       <Layout>
@@ -51,17 +39,7 @@ const DefaultLayout = ({ children }) => {
             alignItems: "center",
           }}
         >
-          <Menu
-            theme="dark"
-            mode="horizontal"
-            onClick={handleMenuClick}
-            defaultSelectedKeys={["2"]}
-            items={items_WelcomePage}
-            style={{
-              flex: 1,
-              minWidth: 0,
-            }}
-          ></Menu>
+          <MenuArthub items={items_welcomepage} />
           <Title></Title>
         </Header>
         <Content
