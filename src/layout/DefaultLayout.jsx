@@ -6,7 +6,9 @@ import {
 } from "@ant-design/icons";
 import { Layout, Menu } from "antd";
 import { Content, Footer, Header } from "antd/es/layout/layout";
+import Title from "antd/es/typography/Title";
 import PropTypes from "prop-types";
+import { useNavigate } from "react-router-dom";
 
 function getItem(label, key, icon, children, type) {
   return {
@@ -18,14 +20,24 @@ function getItem(label, key, icon, children, type) {
   };
 }
 
+  
+
 const items_WelcomePage = [
-  getItem("Dashboard", "dashboard", <HomeOutlined />),
+  getItem("Dashboard", "1", <HomeOutlined />, [
+    getItem("Statistics", "dashboard"),
+  ]),
   getItem("Collaborators & Teams", "collaborators", <TeamOutlined />),
   getItem("Manager Zone", "management", <DatabaseOutlined />),
   getItem("My Task", "task", <SolutionOutlined />),
 ];
 
+
+
 const DefaultLayout = ({ children }) => {
+  const navigate = useNavigate()
+  const handleMenuClick = ({ key }) => {
+    navigate(key);
+  };
   return (
     <>
       <Layout>
@@ -42,6 +54,7 @@ const DefaultLayout = ({ children }) => {
           <Menu
             theme="dark"
             mode="horizontal"
+            onClick={handleMenuClick}
             defaultSelectedKeys={["2"]}
             items={items_WelcomePage}
             style={{
@@ -49,6 +62,7 @@ const DefaultLayout = ({ children }) => {
               minWidth: 0,
             }}
           ></Menu>
+          <Title></Title>
         </Header>
         <Content
           style={{

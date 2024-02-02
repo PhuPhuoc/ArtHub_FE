@@ -2,7 +2,8 @@ import { Route, Routes } from 'react-router-dom'
 import './App.css'
 import WelcomePage from './page/Welcome/WelcomePage'
 import LoginPage from './page/Login/LoginPage'
-import DefaultLayout from './layout/DefaultLayout'
+import AdminRouter from './routers/AdminRouters'
+
 
 function App() {
 
@@ -10,8 +11,8 @@ function App() {
     <Routes>
       <Route path="/welcome" element={<WelcomePage />}/>
       <Route path="" element={<LoginPage />}/>
-      <Route path="/layout" element={<DefaultLayout />}/>
-    </Routes>
+      <Route path="admin/*" element={<AdminRouter />} /> 
+         </Routes>
   )
 }
 
