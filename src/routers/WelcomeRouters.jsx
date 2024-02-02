@@ -3,6 +3,7 @@ import DefaultLayout from "../layout/DefaultLayout";
 import FindTalent from "../page/FindTalent/Findtalent";
 import OurHub from "../page/OurHub/OurHub";
 import PostArt from "../page/PostArt/PostArt";
+import HomePage from "../page/Home/HomePage";
 
 const welcomeRouterData = [
   { path: "findtalent", component: <FindTalent /> },
@@ -10,11 +11,17 @@ const welcomeRouterData = [
   { path: "postart", component: <PostArt /> },
 ];
 
+const DefaultComponent = () => {
+  // Replace this with the component you want to display by default
+  return <HomePage />;
+};
+
 const WelcomeRouter = () => {
   return (
     <>
       <DefaultLayout>
         <Routes>
+          <Route path="/" element={<DefaultComponent />} />
           {welcomeRouterData.map((route, index) => (
             <Route key={index} path={route.path} element={route.component} />
           ))}
