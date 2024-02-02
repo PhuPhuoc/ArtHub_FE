@@ -3,11 +3,13 @@ import {
   TeamOutlined,
   HomeOutlined,
 } from "@ant-design/icons";
-import { Layout } from "antd";
+import { Avatar, Button, Dropdown, Layout, Menu } from "antd";
 import { Content, Footer, Header } from "antd/es/layout/layout";
 import Title from "antd/es/typography/Title";
 import PropTypes from "prop-types";
 import MenuArthub from "../components/Menu/MenuArthub";
+import { useNavigate } from "react-router-dom";
+import { useState } from "react";
 
 function getItem(label, key, icon, children, type) {
   return {
@@ -26,6 +28,20 @@ const items_welcomepage = [
 ];
 
 const DefaultLayout = ({ children }) => {
+  const [menuVisible, setMenuVisible] = useState(false);
+
+  const navigate = useNavigate();
+  const menu = (
+    <Menu
+      onClick={() => {
+        navigate("/home");
+      }}
+    >
+      <Menu.Item key="vercel" icon={<HomeOutlined />}>
+        Profile
+      </Menu.Item>
+    </Menu>
+  );
   return (
     <>
       <Layout>
@@ -40,7 +56,30 @@ const DefaultLayout = ({ children }) => {
           }}
         >
           <MenuArthub items={items_welcomepage} />
-          <Title></Title>
+          <div style={{ display:"flex" }}>
+          <Title style={{ color: "white",  }}>ARTHUB</Title>
+          <Dropdown
+            overlay={menu}
+            trigger={["click"]}
+            visible={menuVisible}
+            onVisibleChange={(visible) => setMenuVisible(visible)}
+            placement="bottomCenter"
+            
+          >
+            <Button type="text" className="custom-ellipsis-button">
+              <Avatar
+                style={{
+                  color: "white",
+                  backgroundColor: "white",
+                  verticalAlign: "middle",
+                }}
+                size="large"
+              >
+                a
+              </Avatar>
+            </Button>
+          </Dropdown>
+          </div>
         </Header>
         <Content
           style={{

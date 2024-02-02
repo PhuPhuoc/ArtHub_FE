@@ -15,7 +15,7 @@ const MenuArthub = ({ items }) => {
       //defaultSelectedKeys={["ourhub"]}
       items={items}
       style={{
-        flex: 1,
+        flex: 0.5,
         minWidth: 0,
       }}
     >
