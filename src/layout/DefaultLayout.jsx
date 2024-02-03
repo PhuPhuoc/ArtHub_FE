@@ -10,6 +10,7 @@ import PropTypes from "prop-types";
 import MenuArthub from "../components/Menu/MenuArthub";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
+import Search from "antd/es/input/Search";
 
 function getItem(label, key, icon, children, type) {
   return {
@@ -56,9 +57,15 @@ const DefaultLayout = ({ children }) => {
           }}
         >
           <MenuArthub items={items_welcomepage} />
-          <div style={{ display:"flex" }}>
+          <div style={{flex:0.6, display:"flex", justifyContent:"space-between", alignItems: "center" }}>
           <Title style={{ color: "white",  }}>ARTHUB</Title>
+          <div style={{display:"flex",}}>
+          <Search placeholder="Search" allowClear />
+          
+          </div>
+          </div>
           <Dropdown
+          
             overlay={menu}
             trigger={["click"]}
             visible={menuVisible}
@@ -66,7 +73,8 @@ const DefaultLayout = ({ children }) => {
             placement="bottomCenter"
             
           >
-            <Button type="text" className="custom-ellipsis-button">
+         
+            <Button style={{marginBottom:"20px"}} type="text">
               <Avatar
                 style={{
                   color: "white",
@@ -79,7 +87,6 @@ const DefaultLayout = ({ children }) => {
               </Avatar>
             </Button>
           </Dropdown>
-          </div>
         </Header>
         <Content
           style={{
