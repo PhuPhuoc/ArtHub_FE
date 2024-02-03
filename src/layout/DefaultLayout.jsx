@@ -58,7 +58,9 @@ const DefaultLayout = ({ children }) => {
         >
           <MenuArthub items={items_welcomepage} />
           <div style={{flex:0.6, display:"flex", justifyContent:"space-between", alignItems: "center" }}>
-          <Title style={{ color: "white",  }}>ARTHUB</Title>
+          <Button size="large" type="text" onClick={()=>{navigate("/")}}>
+          <Title style={{ color: "white"  }}>ARTHUB</Title>
+          </Button>
           <div style={{display:"flex",}}>
           <Search placeholder="Search" allowClear />
           
