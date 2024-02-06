@@ -57,26 +57,43 @@ const DefaultLayout = ({ children }) => {
           }}
         >
           <MenuArthub items={items_welcomepage} />
-          <div style={{flex:0.6, display:"flex", justifyContent:"space-between", alignItems: "center" }}>
-          <Button size="large" type="text" onClick={()=>{navigate("/")}}>
-          <Title style={{ color: "white"  }}>ARTHUB</Title>
-          </Button>
-          <div style={{display:"flex",}}>
-          <Search placeholder="Search" allowClear />
-          
-          </div>
+          <div
+            style={{
+              flex: 0.6,
+              display: "flex",
+              justifyContent: "space-between",
+              alignItems: "center",
+            }}
+          >
+            <Button
+              size="large"
+              type="text"
+              onClick={() => {
+                navigate("/");
+              }}
+            >
+              <Title
+                style={{
+                  color: "white",
+                  display: "flex",
+                  transform: "translateY(-10px)",
+                }}
+              >
+                ARTHUB
+              </Title>
+            </Button>
+            <div style={{ display: "flex" }}>
+              <Search placeholder="Search" allowClear />
+            </div>
           </div>
           <Dropdown
-          
             overlay={menu}
             trigger={["click"]}
             visible={menuVisible}
             onVisibleChange={(visible) => setMenuVisible(visible)}
             placement="bottomCenter"
-            
           >
-         
-            <Button style={{marginBottom:"20px"}} type="text">
+            <Button style={{ marginBottom: "20px" }} type="text">
               <Avatar
                 style={{
                   color: "white",
