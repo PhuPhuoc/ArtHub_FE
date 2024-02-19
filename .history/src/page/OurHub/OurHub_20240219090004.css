@@ -1,0 +1,46 @@
+@use postcss-color-function;
+@use postcss-nested;
+/* Base styling */
+
+
+
+.search {
+    &__container {
+        padding-top: 64px;
+    }
+    
+ 
+        &:hover,
+        &:focus {
+            padding: 12px 0;
+            outline: 0;
+            border: 1px solid transparent;
+            border-bottom: 1px solid #575756;
+            border-radius: 0;
+            background-position: 100% center;
+        }
+    }
+}
+
+.credits {
+    &__container {
+        margin-top: 24px;
+    }
+    
+    &__text {
+        text-align: center;
+        font-size: 13px;
+        line-height: 18px;
+    }
+    
+    &__link {
+        color: #ff8b88;
+        text-decoration: none;
+        transition: color 250ms ease-in;
+        
+        &:hover,
+        &:focus {
+            color: color(#ff8b88 blackness(+25%));
+        }
+    }
+}

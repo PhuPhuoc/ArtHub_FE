@@ -1,16 +1,6 @@
 import React, { useState } from 'react';
+import { Col, Card, Avatar } from 'antd';
 import './OurHub.css';
-
-// Define a new Card component
-const Card = ({ title, content }) => {
-  return (
-    <div className="card">
-          <h2>{title}</h2>
-          <p>{content}</p>
-          <img src="../images/bird" alt="Bird" />
-        </div>
-  );
-};
 
 const TextContainer = () => {
   return (
@@ -37,6 +27,8 @@ const SearchBar = ({ searchText, setSearchText, handleSearch }) => {
     </div>
   );
 };
+
+
 
 const Filters = ({ activeFilters, handleFilterChange, handleRemoveFilter }) => {
   return (
@@ -93,24 +85,6 @@ const OurHub = () => {
         handleFilterChange={handleFilterChange}
         handleRemoveFilter={handleRemoveFilter}
       />
-
-      {/* Rendering cards */}
-      <div className="cards__container">
-        {/* Assuming card data is provided as an array */}
-        {[
-          { title: 'Card 1', content: 'Content 1' },
-          { title: 'Card 2', content: 'Content 2' },
-          { title: 'Card 3', content: 'Content 3' },
-          { title: 'Card 4', content: 'Content 4' },
-          { title: 'Card 5', content: 'Content 5' },
-          { title: 'Card 6', content: 'Content 6' },
-          { title: 'Card 7', content: 'Content 7' },
-          { title: 'Card 8', content: 'Content 8' },
-          { title: 'Card 9', content: 'Content 9' },
-        ].map((card, index) => (
-          <Card key={index} title={card.title} content={card.content} />
-        ))}
-      </div>
     </div>
   );
 };

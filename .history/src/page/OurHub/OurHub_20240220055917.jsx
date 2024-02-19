@@ -9,6 +9,12 @@ const Card = ({ title, content }) => {
           <p>{content}</p>
           <img src="../images/bird" alt="Bird" />
         </div>
+      );
+    };
+      
+      <h2>{title}</h2>
+      <p>{content}</p>
+    </div>
   );
 };
 

@@ -779,7 +779,7 @@ const HomePage = () => {
                     Minus eos voluptates, enim officiis tempore esse voluptatem!
                     Excepturi rem commodi tempora.
                   </span>
-                } 
+                }
               />
             </Card>
           </Col>
