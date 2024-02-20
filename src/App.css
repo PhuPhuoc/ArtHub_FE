@@ -430,3 +430,13 @@ html *::-webkit-scrollbar-track {
 .test {
   font-size: 16px;
 }
+
+.ant-menu-item-active {
+  color: black !important;
+  background-color: transparent !important;
+}
+.ant-menu-overflow-item {
+  background-color: transparent !important;
+  color: black !important;
+  border-bottom: 1px solid black;
+}

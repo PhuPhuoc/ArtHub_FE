@@ -1,4 +1,5 @@
 import { Menu } from "antd";
+
 import PropTypes from "prop-types";
 import { Link, useNavigate } from "react-router-dom";
 
@@ -17,6 +18,8 @@ const MenuArthub = ({ items }) => {
       style={{
         flex: 0.5,
         minWidth: 0,
+        backgroundColor: "white",
+        color: "black",
       }}
     >
       <Menu.Item key={items.key} icon={items.icon}>

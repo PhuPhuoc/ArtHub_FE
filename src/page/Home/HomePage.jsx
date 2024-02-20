@@ -94,7 +94,7 @@ const HomePage = () => {
           </Button>
         </div>
       </div>
-      <div className="firstSection">
+      <div className="firstSection" style={{ overflow: "hidden" }}>
         <Carousel autoplay autoplaySpeed={3000}>
           <div>
             <img
@@ -899,6 +899,28 @@ const HomePage = () => {
               Are You Designer ?
               <Button className="btnJoinDribbble">Join Dribbble</Button>
             </Typography.Text>
+          </div>
+        </div>
+      </div>
+      <div className="logosContainer">
+        <div className="logos">
+          <div className="logoSlides">
+            <span>Facebook</span>
+            <span>Instagram</span>
+            <span>GitHub</span>
+            <span>Pinterest</span>
+            <span>Twitter</span>
+            <span>Whatsapp</span>
+            <span>Microsoft</span>
+          </div>
+          <div className="logoSlides">
+            <span>Facebook</span>
+            <span>Instagram</span>
+            <span>GitHub</span>
+            <span>Pinterest</span>
+            <span>Twitter</span>
+            <span>Whatsapp</span>
+            <span>Microsoft</span>
           </div>
         </div>
       </div>

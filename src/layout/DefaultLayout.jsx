@@ -54,6 +54,7 @@ const DefaultLayout = ({ children }) => {
             width: "100%",
             display: "flex",
             alignItems: "center",
+            backgroundColor: "white",
           }}
         >
           <MenuArthub items={items_welcomepage} />
@@ -74,7 +75,7 @@ const DefaultLayout = ({ children }) => {
             >
               <Title
                 style={{
-                  color: "white",
+                  color: "black",
                   display: "flex",
                   transform: "translateY(-10px)",
                 }}
@@ -83,7 +84,11 @@ const DefaultLayout = ({ children }) => {
               </Title>
             </Button>
             <div style={{ display: "flex" }}>
-              <Search placeholder="Search" allowClear />
+              <Search
+                placeholder="Search"
+                allowClear
+                style={{ color: "white" }}
+              />
             </div>
           </div>
           <Dropdown
@@ -93,18 +98,19 @@ const DefaultLayout = ({ children }) => {
             onVisibleChange={(visible) => setMenuVisible(visible)}
             placement="bottomCenter"
           >
-            <Button style={{ marginBottom: "20px" }} type="text">
-              <Avatar
-                style={{
-                  color: "white",
-                  backgroundColor: "white",
-                  verticalAlign: "middle",
-                }}
-                size="large"
-              >
-                a
-              </Avatar>
-            </Button>
+            <Avatar
+              style={{
+                color: "black",
+                backgroundColor: "white",
+                verticalAlign: "middle",
+                cursor: "pointer",
+                border: "1px solid black",
+                marginLeft: "30px",
+              }}
+              size="large"
+            >
+              a
+            </Avatar>
           </Dropdown>
         </Header>
         <Content
