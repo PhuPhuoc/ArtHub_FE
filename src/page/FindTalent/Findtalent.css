@@ -1,0 +1,107 @@
+
+.findtalent{
+    display: flex;
+    min-height: 100vh;
+    width: auto;
+}
+.btnVolume {
+    position: absolute;
+    right: 15%;
+    top: 75%;
+    height: 50px;
+    width: 50px;
+    cursor: pointer;
+    border-radius: 50%;
+    border: 1px solid #fff;
+    padding: 6px;
+    color: #bbb;
+    transition: all 0.3s ease-in-out;
+    scale: 1;
+
+    &:hover {
+    scale: 1.2;
+    color: #fff;
+    background-color: rgba(211, 211, 211, 0.18);
+    }
+}
+.btnJoinDribbble {
+    border: none;
+    background-color: transparent;
+    box-shadow: none;
+    border-bottom: 1px solid black;
+}
+.btn-getStarted {
+    height: 100px;
+    display: flex;
+    align-items: center;
+    transform: translateY(20px);
+}
+@keyframes slide{
+    from{
+        transform: translateX(0);
+    }
+    to{
+        transform: translateX(-160%);
+    }
+}
+.sectionEightPage{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    overflow:hidden;
+    padding:50px 0;
+    background-color: #F8DA7C;
+    white-space:nowrap;
+    position: relative;
+}
+.sectionEightPage:hover .logo-Slides{
+    animation-play-state: paused;
+}
+
+.sectionEightPage:before,
+.sectionEightPage:after{
+    position: absolute;
+    top: 0;
+    width: 250px;
+    height: 100%;
+    content: "";
+    z-index: 2;
+}
+.sectionEightPage::before{
+    left: 0;
+    background:linear-gradient(to left,rgba(255,255,255,0),#F8DA7C);
+}
+.sectionEightPage:after{
+    right: 0;
+    background:linear-gradient(to right,rgba(255,255,255,0),#F8DA7C);
+}
+
+.logo-Slides{
+    animation: 20s slide infinite linear;
+    display: inline-flex ;
+    justify-content:flex-start;
+    width: 157%;
+    transition: transform 1s linear;
+
+    
+}
+@keyframes slide {
+    0% {
+        transform: translateX(0); /* Start from initial position */
+    }
+    100% {
+        transform: translateX(-100%); /* Move to the left by the width of one image */
+    }
+}
+.logo-Slides img{
+    height: 300px;
+    margin: 0 20px;
+    transition: transform 1s linear;
+    
+    
+
+}
+
+
+
+
