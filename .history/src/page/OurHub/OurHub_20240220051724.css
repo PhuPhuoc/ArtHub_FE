@@ -1,0 +1,90 @@
+@use postcss-color-function;
+@use postcss-nested;
+
+/* Base styling */
+
+.search__container {
+    width: 60%;
+    margin-left: 20%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.search {
+    size: 50%;
+}
+
+.search__title {
+    font-size: 22px;
+    font-weight: 900;
+    text-align: center;
+    color: #ff8b88;
+}
+
+.search__input {
+    width: 100%;
+    padding: 12px 24px;
+    background-color: transparent;
+    transition: transform 250ms ease-in-out;
+    font-size: 14px;
+    line-height: 18px;
+    color: #575756;
+    background-color: transparent;
+    background-repeat: no-repeat;
+    background-size: 18px 18px;
+    background-position: 95% center;
+    border-radius: 50px;
+    border: 1px solid #575756;
+    transition: all 250ms ease-in-out;
+    backface-visibility: hidden;
+    transform-style: preserve-3d;
+    margin-bottom: 10px; /* Add some space between input and buttons */
+}
+
+
+.search__input::placeholder {
+    color: color(#575756 a(0.8));
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+}
+
+.search__input:focus {
+    padding: 12px 0;
+    outline: 0;
+    border: 1px solid transparent;
+    border-bottom: 1px solid #575756;
+    border-radius: 0;
+    background-position: 100% center;
+}
+
+
+.filter__container {
+    display: flex;
+    justify-content: center;
+}
+
+.filter__button {
+    padding: 8px 16px;
+    margin: 0 5px;
+    border: 1px solid #969696;
+    border-radius: 20px;
+    cursor: pointer;
+    background-color: transparent;
+    color: #575756;
+    transition: all 0.3s ease;
+}
+
+.filter__button.active {
+    background-color: #ff8b88;
+    color: white;
+}
+
+.filter__button:hover {
+    border-color: #575756;
+}
+
+.filter__button:hover::after {
+    content: '✖'; /* Add cross icon when hovered */
+    margin-left: 5px;
+}

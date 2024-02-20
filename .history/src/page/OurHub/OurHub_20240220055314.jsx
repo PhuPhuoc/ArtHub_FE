@@ -1,17 +1,6 @@
 import React, { useState } from 'react';
 import './OurHub.css';
 
-// Define a new Card component
-const Card = ({ title, content }) => {
-  return (
-    <div className="card">
-          <h2>{title}</h2>
-          <p>{content}</p>
-          <img src="../images/bird" alt="Bird" />
-        </div>
-  );
-};
-
 const TextContainer = () => {
   return (
     <div className="text__container__1">
@@ -37,6 +26,46 @@ const SearchBar = ({ searchText, setSearchText, handleSearch }) => {
     </div>
   );
 };
+
+
+
+const { Meta } = Card;
+
+const CustomContainer = () => {
+  return (
+    <div className="custom__container">
+      <Col className="gutter-row" span={6}>
+        <Card cover={<img src="your_image_url_here" alt="image" />}>
+          <Meta
+            style={{ display: "flex", justifyContent: "center" }}
+            avatar={
+              <Avatar
+                className="avatar"
+                src="https://api.dicebear.com/7.x/miniavs/svg?seed=8"
+                style={{ cursor: "pointer" }}
+              />
+            }
+            title={
+              <span style={{ color: "black", fontSize: "15px" }}>
+                Custom Title
+              </span>
+            }
+            description={
+              <span style={{ color: "black", fontSize: "12px" }}>
+                Lorem, ipsum dolor sit amet consectetur adipisicing elit.
+                Minus eos voluptates, enim officiis tempore esse voluptatem!
+                Excepturi rem commodi tempora.
+              </span>
+            } 
+          />
+        </Card>
+      </Col>
+    </div>
+  );
+};
+
+export default CustomContainer;
+
 
 const Filters = ({ activeFilters, handleFilterChange, handleRemoveFilter }) => {
   return (
@@ -93,24 +122,6 @@ const OurHub = () => {
         handleFilterChange={handleFilterChange}
         handleRemoveFilter={handleRemoveFilter}
       />
-
-      {/* Rendering cards */}
-      <div className="cards__container">
-        {/* Assuming card data is provided as an array */}
-        {[
-          { title: 'Card 1', content: 'Content 1' },
-          { title: 'Card 2', content: 'Content 2' },
-          { title: 'Card 3', content: 'Content 3' },
-          { title: 'Card 4', content: 'Content 4' },
-          { title: 'Card 5', content: 'Content 5' },
-          { title: 'Card 6', content: 'Content 6' },
-          { title: 'Card 7', content: 'Content 7' },
-          { title: 'Card 8', content: 'Content 8' },
-          { title: 'Card 9', content: 'Content 9' },
-        ].map((card, index) => (
-          <Card key={index} title={card.title} content={card.content} />
-        ))}
-      </div>
     </div>
   );
 };

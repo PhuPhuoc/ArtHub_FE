@@ -5,10 +5,10 @@ import './OurHub.css';
 const Card = ({ title, content }) => {
   return (
     <div className="card">
-          <h2>{title}</h2>
-          <p>{content}</p>
-          <img src="../images/bird" alt="Bird" />
-        </div>
+      
+      <h2>{title}</h2>
+      <p>{content}</p>
+    </div>
   );
 };
 
