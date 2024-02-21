@@ -50,7 +50,7 @@ const DefaultLayout = ({ children }) => {
           style={{
             position: "sticky",
             top: 0,
-            zIndex: 1,
+            zIndex: 1000,
             width: "100%",
             display: "flex",
             alignItems: "center",

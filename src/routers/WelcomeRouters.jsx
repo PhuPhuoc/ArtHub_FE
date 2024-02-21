@@ -12,7 +12,6 @@ const welcomeRouterData = [
 ];
 
 const DefaultComponent = () => {
-  // Replace this with the component you want to display by default
   return <HomePage />;
 };
 

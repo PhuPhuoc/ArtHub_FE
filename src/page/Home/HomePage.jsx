@@ -13,7 +13,7 @@ const HomePage = () => {
     const intervalId = setInterval(() => {
       const newColor = getRandomColor();
       setButtonColor(newColor);
-    }, 5000);
+    }, 1500);
     return () => clearInterval(intervalId);
   }, []);
   const getRandomColor = () => {
@@ -779,7 +779,7 @@ const HomePage = () => {
                     Minus eos voluptates, enim officiis tempore esse voluptatem!
                     Excepturi rem commodi tempora.
                   </span>
-                } 
+                }
               />
             </Card>
           </Col>
@@ -902,26 +902,37 @@ const HomePage = () => {
           </div>
         </div>
       </div>
-      <div className="logosContainer">
-        <div className="logos">
-          <div className="logoSlides">
-            <span>Facebook</span>
-            <span>Instagram</span>
-            <span>GitHub</span>
-            <span>Pinterest</span>
-            <span>Twitter</span>
-            <span>Whatsapp</span>
-            <span>Microsoft</span>
-          </div>
-          <div className="logoSlides">
-            <span>Facebook</span>
-            <span>Instagram</span>
-            <span>GitHub</span>
-            <span>Pinterest</span>
-            <span>Twitter</span>
-            <span>Whatsapp</span>
-            <span>Microsoft</span>
-          </div>
+      <div className="fifthSection">
+        <div className="logo-Slides">
+          <img
+            src="https://i.pinimg.com/564x/ea/dd/a3/eadda33f4baf6b79f3e41ee8a8d9327e.jpg"
+            loading="lazy"
+          />
+          <img src="https://i.pinimg.com/564x/23/50/4e/23504ed890aa846557891b393ccdd65d.jpg" />
+          <img src="https://i.pinimg.com/564x/b5/30/08/b53008f66bdaacf2fac8bd3c9e3ec364.jpg" />
+          <img src="https://i.pinimg.com/564x/36/b6/7c/36b67ce844d8919d954d4f754b562e4e.jpg" />
+          <img src="https://i.pinimg.com/564x/c8/b8/b0/c8b8b099505dc65f288dcf18090d4a64.jpg" />
+          <img src="https://i.pinimg.com/564x/7f/83/fa/7f83fa427a0aac4de8a557c75bc753cc.jpg" />
+          <img src="https://i.pinimg.com/564x/3d/85/21/3d85212f0b48a6203f7dd759f1964e07.jpg" />
+          <img src="https://i.pinimg.com/564x/cd/32/12/cd3212a2c156350ba1fb74a533124198.jpg" />
+          <img src="https://i.pinimg.com/564x/9a/f2/df/9af2df4f0cb2159c9f7d67d984f5d672.jpg" />
+          <img src="https://i.pinimg.com/564x/39/04/0b/39040b29e84ed9e5c30559781aae4d9f.jpg" />
+        </div>
+
+        <div className="logo-Slides">
+          <img
+            src="https://i.pinimg.com/564x/ea/dd/a3/eadda33f4baf6b79f3e41ee8a8d9327e.jpg"
+            loading="lazy"
+          />
+          <img src="https://i.pinimg.com/564x/23/50/4e/23504ed890aa846557891b393ccdd65d.jpg" />
+          <img src="https://i.pinimg.com/564x/b5/30/08/b53008f66bdaacf2fac8bd3c9e3ec364.jpg" />
+          <img src="https://i.pinimg.com/564x/36/b6/7c/36b67ce844d8919d954d4f754b562e4e.jpg" />
+          <img src="https://i.pinimg.com/564x/c8/b8/b0/c8b8b099505dc65f288dcf18090d4a64.jpg" />
+          <img src="https://i.pinimg.com/564x/7f/83/fa/7f83fa427a0aac4de8a557c75bc753cc.jpg" />
+          <img src="https://i.pinimg.com/564x/3d/85/21/3d85212f0b48a6203f7dd759f1964e07.jpg" />
+          <img src="https://i.pinimg.com/564x/cd/32/12/cd3212a2c156350ba1fb74a533124198.jpg" />
+          <img src="https://i.pinimg.com/564x/9a/f2/df/9af2df4f0cb2159c9f7d67d984f5d672.jpg" />
+          <img src="https://i.pinimg.com/564x/39/04/0b/39040b29e84ed9e5c30559781aae4d9f.jpg" />
         </div>
       </div>
     </div>

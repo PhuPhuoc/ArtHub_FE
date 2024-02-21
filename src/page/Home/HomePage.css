@@ -36,3 +36,64 @@
   align-items: center;
   transform: translateY(20px);
 }
+@keyframes slide {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-160%);
+  }
+}
+.fifthSection {
+  overflow: hidden;
+  padding: 50px 0;
+  background-color: transparent;
+  white-space: nowrap;
+  position: relative;
+  margin-top: 100px;
+  cursor: pointer;
+}
+.fifthSection:hover .logo-Slides {
+  animation-play-state: paused;
+}
+
+.fifthSection:before,
+.fifthSection:after {
+  position: absolute;
+  top: 0;
+  width: 250px;
+  height: 100%;
+  content: "";
+  z-index: 2;
+}
+.fifthSection::before {
+  left: 0;
+  background: linear-gradient(to left, rgba(255, 255, 255, 0), #fff);
+}
+.fifthSection:after {
+  right: 0;
+  background: linear-gradient(to right, rgba(255, 255, 255, 0), #fff);
+}
+
+.logo-Slides {
+  animation: 20s slide infinite linear;
+  display: inline-flex;
+  justify-content: flex-start;
+  width: 157%;
+  transition: transform 1s linear;
+}
+@keyframes slide {
+  0% {
+    transform: translateX(0); /* Start from initial position */
+  }
+  100% {
+    transform: translateX(
+      -100%
+    ); /* Move to the left by the width of one image */
+  }
+}
+.logo-Slides img {
+  height: 300px;
+  margin: 0 20px;
+  transition: transform 1s linear;
+}
