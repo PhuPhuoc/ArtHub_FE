@@ -1,9 +1,8 @@
 const Profile = () => {
-  <div>
-    <h1>Hello</h1>
-    <h1>Hello</h1>
-    <h1>Hello</h1>
-    <h1>Hello</h1>
-  </div>;
+  return (
+    <div>
+      <h1>asdasdjs</h1>
+    </div>
+  );
 };
 export default Profile;
