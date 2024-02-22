@@ -33,12 +33,14 @@ const DefaultLayout = ({ children }) => {
 
   const navigate = useNavigate();
   const menu = (
-    <Menu
-      onClick={() => {
-        navigate("/home");
-      }}
-    >
-      <Menu.Item key="vercel" icon={<HomeOutlined />}>
+    <Menu>
+      <Menu.Item
+        key="vercel"
+        icon={<HomeOutlined />}
+        onClick={() => {
+          navigate("/profile");
+        }}
+      >
         Profile
       </Menu.Item>
     </Menu>

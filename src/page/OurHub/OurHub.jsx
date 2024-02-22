@@ -652,6 +652,298 @@ const OurHub = () => {
         );
 
       case "Culture":
+      case "Technology":
+        return (
+          <div className="imagesContain">
+            <div className="title">Images for Technologies</div>
+            <Row gutter={16}>
+              <Col className="gutter-row" span={6}>
+                <Card
+                  cover={
+                    <img
+                      src="https://images.unsplash.com/photo-1589798312995-8428138bb1ae?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+                      alt="image"
+                    />
+                  }
+                >
+                  <Meta
+                    style={{
+                      display: "flex",
+                      justifyContent: "center",
+                      height: "100px",
+                    }}
+                    avatar={
+                      <Avatar
+                        className="avatar"
+                        src="https://api.dicebear.com/7.x/miniavs/svg?seed=8"
+                        style={{ cursor: "pointer" }}
+                      />
+                    }
+                    title={
+                      <span
+                        style={{
+                          color: "black",
+                          fontSize: "15px",
+                          borderBottom: "1px solid black",
+                        }}
+                      >
+                        Iphone 15 Pro Max
+                      </span>
+                    }
+                    description={
+                      <span style={{ color: "black", fontSize: "12px" }}>
+                        The iPhone 15 Pro and iPhone 15 Pro Max are smartphones
+                        designed, developed, and marketed by Apple Inc
+                      </span>
+                    }
+                  />
+                </Card>
+              </Col>
+              <Col className="gutter-row" span={6}>
+                <Card
+                  cover={
+                    <img
+                      src="https://images.unsplash.com/photo-1575718120842-54e388d8cc6f?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+                      alt="image"
+                    />
+                  }
+                >
+                  <Meta
+                    style={{
+                      display: "flex",
+                      justifyContent: "center",
+                      height: "100px",
+                    }}
+                    avatar={
+                      <Avatar
+                        className="avatar"
+                        src="https://api.dicebear.com/7.x/miniavs/svg?seed=8"
+                        style={{ cursor: "pointer" }}
+                      />
+                    }
+                    title={
+                      <span
+                        style={{
+                          color: "black",
+                          fontSize: "15px",
+                          borderBottom: "1px solid black",
+                        }}
+                      >
+                        Pizza
+                      </span>
+                    }
+                    description={
+                      <span style={{ color: "black", fontSize: "12px" }}>
+                        pizza evolved from similar flatbread dishes in Naples,
+                        Italy, between the 16th and mid-18th century.
+                      </span>
+                    }
+                  />
+                </Card>
+              </Col>
+              <Col className="gutter-row" span={6}>
+                <Card
+                  cover={
+                    <img
+                      src="https://images.unsplash.com/photo-1551817958-20204d6ab212?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+                      alt="image"
+                    />
+                  }
+                >
+                  <Meta
+                    style={{ display: "flex", justifyContent: "center" }}
+                    avatar={
+                      <Avatar
+                        className="avatar"
+                        src="https://api.dicebear.com/7.x/miniavs/svg?seed=8"
+                        style={{ cursor: "pointer" }}
+                      />
+                    }
+                    title={
+                      <span style={{ color: "black", fontSize: "15px" }}>
+                        Custom Title
+                      </span>
+                    }
+                    description={
+                      <span style={{ color: "black", fontSize: "12px" }}>
+                        Lorem, ipsum dolor sit amet consectetur adipisicing
+                        elit. Minus eos voluptates, enim officiis tempore esse
+                        voluptatem! Excepturi rem commodi tempora.
+                      </span>
+                    }
+                  />
+                </Card>
+              </Col>
+              <Col className="gutter-row" span={6}>
+                <Card
+                  cover={
+                    <img
+                      src="https://images.unsplash.com/photo-1615494488092-b13b68fe0eb5?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+                      alt="image"
+                    />
+                  }
+                >
+                  <Meta
+                    style={{ display: "flex", justifyContent: "center" }}
+                    avatar={
+                      <Avatar
+                        className="avatar"
+                        src="https://api.dicebear.com/7.x/miniavs/svg?seed=8"
+                        style={{ cursor: "pointer" }}
+                      />
+                    }
+                    title={
+                      <span style={{ color: "black", fontSize: "15px" }}>
+                        Custom Title
+                      </span>
+                    }
+                    description={
+                      <span style={{ color: "black", fontSize: "12px" }}>
+                        Lorem, ipsum dolor sit amet consectetur adipisicing
+                        elit. Minus eos voluptates, enim officiis tempore esse
+                        voluptatem! Excepturi rem commodi tempora.
+                      </span>
+                    }
+                  />
+                </Card>
+              </Col>
+            </Row>
+            <Row gutter={16}>
+              <Col className="gutter-row" span={6}>
+                <Card
+                  cover={
+                    <img
+                      src="https://images.unsplash.com/photo-1575571536958-38aa1227786a?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+                      alt="image"
+                    />
+                  }
+                >
+                  <Meta
+                    style={{ display: "flex", justifyContent: "center" }}
+                    avatar={
+                      <Avatar
+                        className="avatar"
+                        src="https://api.dicebear.com/7.x/miniavs/svg?seed=8"
+                        style={{ cursor: "pointer" }}
+                      />
+                    }
+                    title={
+                      <span style={{ color: "black", fontSize: "15px" }}>
+                        Custom Title
+                      </span>
+                    }
+                    description={
+                      <span style={{ color: "black", fontSize: "12px" }}>
+                        Lorem, ipsum dolor sit amet consectetur adipisicing
+                        elit. Minus eos voluptates, enim officiis tempore esse
+                        voluptatem! Excepturi rem commodi tempora.
+                      </span>
+                    }
+                  />
+                </Card>
+              </Col>
+              <Col className="gutter-row" span={6}>
+                <Card
+                  cover={
+                    <img
+                      src="https://images.unsplash.com/photo-1551818014-fa14764bc121?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+                      alt="image"
+                    />
+                  }
+                >
+                  <Meta
+                    style={{ display: "flex", justifyContent: "center" }}
+                    avatar={
+                      <Avatar
+                        className="avatar"
+                        src="https://api.dicebear.com/7.x/miniavs/svg?seed=8"
+                        style={{ cursor: "pointer" }}
+                      />
+                    }
+                    title={
+                      <span style={{ color: "black", fontSize: "15px" }}>
+                        Custom Title
+                      </span>
+                    }
+                    description={
+                      <span style={{ color: "black", fontSize: "12px" }}>
+                        Lorem, ipsum dolor sit amet consectetur adipisicing
+                        elit. Minus eos voluptates, enim officiis tempore esse
+                        voluptatem! Excepturi rem commodi tempora.
+                      </span>
+                    }
+                  />
+                </Card>
+              </Col>
+              <Col className="gutter-row" span={6}>
+                <Card
+                  cover={
+                    <img
+                      src="https://images.unsplash.com/photo-1616016048007-9315ac44c696?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+                      alt="image"
+                    />
+                  }
+                >
+                  <Meta
+                    style={{ display: "flex", justifyContent: "center" }}
+                    avatar={
+                      <Avatar
+                        className="avatar"
+                        src="https://api.dicebear.com/7.x/miniavs/svg?seed=8"
+                        style={{ cursor: "pointer" }}
+                      />
+                    }
+                    title={
+                      <span style={{ color: "black", fontSize: "15px" }}>
+                        Custom Title
+                      </span>
+                    }
+                    description={
+                      <span style={{ color: "black", fontSize: "12px" }}>
+                        Lorem, ipsum dolor sit amet consectetur adipisicing
+                        elit. Minus eos voluptates, enim officiis tempore esse
+                        voluptatem! Excepturi rem commodi tempora.
+                      </span>
+                    }
+                  />
+                </Card>
+              </Col>
+              <Col className="gutter-row" span={6}>
+                <Card
+                  cover={
+                    <img
+                      src="https://images.unsplash.com/photo-1524656855800-59465ebcec69?q=80&w=2069&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+                      alt="image"
+                    />
+                  }
+                >
+                  <Meta
+                    style={{ display: "flex", justifyContent: "center" }}
+                    avatar={
+                      <Avatar
+                        className="avatar"
+                        src="https://api.dicebear.com/7.x/miniavs/svg?seed=8"
+                        style={{ cursor: "pointer" }}
+                      />
+                    }
+                    title={
+                      <span style={{ color: "black", fontSize: "15px" }}>
+                        Custom Title
+                      </span>
+                    }
+                    description={
+                      <span style={{ color: "black", fontSize: "12px" }}>
+                        Lorem, ipsum dolor sit amet consectetur adipisicing
+                        elit. Minus eos voluptates, enim officiis tempore esse
+                        voluptatem! Excepturi rem commodi tempora.
+                      </span>
+                    }
+                  />
+                </Card>
+              </Col>
+            </Row>
+          </div>
+        );
         return (
           <div className="imagesContain">
             <div className="title">Images for Cultures</div>
@@ -990,23 +1282,26 @@ const OurHub = () => {
             </Row>
           </div>
         );
-      case "Technology":
-        // Implement logic to render images for Animation
+      case "Food":
         return (
           <div className="imagesContain">
-            <div className="title">Images for Technologies</div>
+            <div className="title">Images for Foods</div>
             <Row gutter={16}>
               <Col className="gutter-row" span={6}>
                 <Card
                   cover={
                     <img
-                      src="https://images.unsplash.com/photo-1596558450255-7c0b7be9d56a?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+                      src="https://images.unsplash.com/photo-1647169953827-a7c85f324caf?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
                       alt="image"
                     />
                   }
                 >
                   <Meta
-                    style={{ display: "flex", justifyContent: "center" }}
+                    style={{
+                      display: "flex",
+                      justifyContent: "center",
+                      height: "100px",
+                    }}
                     avatar={
                       <Avatar
                         className="avatar"
@@ -1015,15 +1310,20 @@ const OurHub = () => {
                       />
                     }
                     title={
-                      <span style={{ color: "black", fontSize: "15px" }}>
-                        Custom Title
+                      <span
+                        style={{
+                          color: "black",
+                          fontSize: "15px",
+                          borderBottom: "1px solid black",
+                        }}
+                      >
+                        Banh Mi Ha Noi
                       </span>
                     }
                     description={
                       <span style={{ color: "black", fontSize: "12px" }}>
-                        Lorem, ipsum dolor sit amet consectetur adipisicing
-                        elit. Minus eos voluptates, enim officiis tempore esse
-                        voluptatem! Excepturi rem commodi tempora.
+                        This is one of the most delicious traditional food in
+                        VietNam
                       </span>
                     }
                   />
@@ -1033,13 +1333,17 @@ const OurHub = () => {
                 <Card
                   cover={
                     <img
-                      src="https://images.unsplash.com/photo-1557690267-fad2f168bb95?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+                      src="https://images.unsplash.com/photo-1513104890138-7c749659a591?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
                       alt="image"
                     />
                   }
                 >
                   <Meta
-                    style={{ display: "flex", justifyContent: "center" }}
+                    style={{
+                      display: "flex",
+                      justifyContent: "center",
+                      height: "100px",
+                    }}
                     avatar={
                       <Avatar
                         className="avatar"
@@ -1048,15 +1352,20 @@ const OurHub = () => {
                       />
                     }
                     title={
-                      <span style={{ color: "black", fontSize: "15px" }}>
-                        Custom Title
+                      <span
+                        style={{
+                          color: "black",
+                          fontSize: "15px",
+                          borderBottom: "1px solid black",
+                        }}
+                      >
+                        Pizza
                       </span>
                     }
                     description={
                       <span style={{ color: "black", fontSize: "12px" }}>
-                        Lorem, ipsum dolor sit amet consectetur adipisicing
-                        elit. Minus eos voluptates, enim officiis tempore esse
-                        voluptatem! Excepturi rem commodi tempora.
+                        pizza evolved from similar flatbread dishes in Naples,
+                        Italy, between the 16th and mid-18th century.
                       </span>
                     }
                   />

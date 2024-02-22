@@ -12,3 +12,8 @@
   background-color: black;
   color: white;
 }
+lable {
+  display: flex;
+  justify-content: flex-start;
+  align-items: flex-start;
+}
