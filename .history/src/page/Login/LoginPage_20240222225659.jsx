@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import './LoginPage.css'; // Make sure to import your CSS file
+import './style.css'; // Make sure to import your CSS file
 
 function LoginForm() {
     useEffect(() => {
