@@ -6,7 +6,7 @@ const LoginPage = () => {
     const navigate = useNavigate();
 
     const handleLogin = () => {
-        navigate("../");
+        navigate();
     };
 
     return (
