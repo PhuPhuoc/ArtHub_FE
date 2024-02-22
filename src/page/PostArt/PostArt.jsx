@@ -1,4 +1,3 @@
-<<<<<<< Updated upstream
 import { Button, Form, Input, Modal, Typography } from "antd";
 import { FaPlus } from "react-icons/fa";
 import "./PostArt.css";
@@ -70,44 +69,6 @@ const PostArt = () => {
       </Modal>
     </div>
   );
-=======
-import React from 'react';
-import './PostArt.css';
-
-
-const TitleText = () => {
-    return (
-        <div className = "title__text">
-            <h1>Post Art</h1>
-            <p>Share your art with the community</p>
-        </div>
-    );
-}
-
-const Form = () => {
-    return (
-        <div className="form__container">
-            <form className="form">
-                <label for="artTitle" id="artTitle">Title</label>
-                <input type="text" id="artTitle" name="artTitle" required></input>
-                <label for="artDescription">Description</label>
-                <input type="text" id="artDescription" name="artDescription" required></input>
-                <label for="artFile">Upload File</label>
-                <input type="file" id="artFile" name="artFile" required></input>
-                <input type="submit" value="Submit"></input>
-            </form>
-        </div>
-    );
-};
-
-const PostArt = () => {
-    return (
-        <div>
-            <TitleText />
-            <Form />
-        </div>
-    );
->>>>>>> Stashed changes
 };
 
 export default PostArt;
