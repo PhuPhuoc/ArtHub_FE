@@ -1,39 +1,24 @@
-.imagesContain {
-  display: flex;
-  align-items: center;
-  margin-top: 30px;
-  font-size: 40px;
-  flex-direction: column;
-}
-.title {
-  margin-top: 50px;
-  margin-bottom: 80px;
-}
-.avatar {
-  border-radius: 50%;
-  border: 1px solid black;
-  padding: 1px;
-  scale: 1;
-  transition: 0.5s ease-in-out;
 
-  &&:hover {
-    scale: 1.2;
+/* Base styling */
+.text__container__1 {
+    text-align: center;
+    margin-top: 2%; /* Adjust as needed to center vertically */
+    margin-bottom: 10%; /* Adjust as needed to center vertically */
+    
   }
-}
-img {
-  scale: 1;
-  position: relative;
-  cursor: pointer;
-  transition: all 0.3s ease-in-out;
-  z-index: 1;
+  
+  .text__container__1 h1 {
+    margin-bottom: 2%;
+    font-size: 36px; /* Adjust font size as needed */
+  }
 
-  &&:hover {
-    scale: 1.2;
-    z-index: 100;
-  }
+.search__container {
+    width: 60%;
+    margin-left: 20%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
-<<<<<<< Updated upstream
-=======
 
 .search {
     size: 50%;
@@ -124,4 +109,3 @@ img {
     margin-top: 24px;
   }
   
->>>>>>> Stashed changes

@@ -1,3 +1,4 @@
+<<<<<<< Updated upstream
 import {
   Space,
   Typography,
@@ -15,6 +16,67 @@ import { CiSearch } from "react-icons/ci";
 import "./OurHub.css";
 import Meta from "antd/es/card/Meta";
 import bird from "../../assets/images/bird.jpg";
+=======
+import React, { useState } from 'react';
+import bird from '../../assets/images/bird.jpg';
+import './OurHub.css';
+
+// Define a new Card component
+const Card = ({ title, content }) => {
+  return (
+    <div className="card">
+          <img src={content} alt="Bird" />
+        </div>
+  );
+};
+
+const TextContainer = () => {
+  return (
+    <div className="text__container__1">
+      <h1>Our Hub</h1>
+      <p>
+        Welcome to Our Hub! Here you can find the latest news, updates, and
+        events from our community.
+      </p>
+    </div>
+  );
+};
+
+const SearchBar = ({ searchText, setSearchText, handleSearch }) => {
+  return (
+    <div className="search__container">
+      <input
+        className="search__input"
+        type="text"
+        placeholder="Search"
+        value={searchText}
+        onChange={(e) => setSearchText(e.target.value)}
+      />
+    </div>
+  );
+};
+
+const Filters = ({ activeFilters, handleFilterChange, handleRemoveFilter }) => {
+  return (
+    <div className="filter__container">
+      {['filter 1', 'filter 2', 'filter 3', 'filter 4', 'filter 5', 'filter 6 ', 'filter 7', 'filter 8'].map((filter) => (
+        <button
+          key={filter}
+          className={`filter__button ${activeFilters.includes(filter) && 'active'}`}
+          onClick={() => handleFilterChange(filter)}
+        >
+          {filter}
+          {activeFilters.includes(filter) && (
+            <span className="remove__filter" onClick={() => handleRemoveFilter(filter)}>
+              
+            </span>
+          )}
+        </button>
+      ))}
+    </div>
+  );
+};
+>>>>>>> Stashed changes
 
 const { Search } = Input;
 const onSearch = (value, _e, info) => console.log(info?.source, value);
@@ -1271,6 +1333,7 @@ const OurHub = () => {
     }
   };
   return (
+<<<<<<< Updated upstream
     <div className="OurHubPage">
       <div className="firstSection" style={{ height: "60vh", width: "100%" }}>
         <div className="mainTitle">
@@ -1336,6 +1399,33 @@ const OurHub = () => {
           <Segmented options={justifyOptions} onChange={setJustify} />
         </div>
         {renderImages()}
+=======
+    <div>
+      <SearchBar searchText={searchText} setSearchText={setSearchText} handleSearch={handleSearch} />
+      <TextContainer />
+      <Filters
+        activeFilters={activeFilters}
+        handleFilterChange={handleFilterChange}
+        handleRemoveFilter={handleRemoveFilter}
+      />
+
+      {/* Rendering cards */}
+      <div className="cards__container">
+        {/* Assuming card data is provided as an array */}
+        {[
+          { title: 'Card 1', content: bird},
+          { title: 'Card 2', content: bird},
+          { title: 'Card 3', content: bird},
+          { title: 'Card 4', content: bird},
+          { title: 'Card 5', content: bird},
+          { title: 'Card 6', content: bird},
+          { title: 'Card 7', content: bird},
+          { title: 'Card 8', content: bird},
+          { title: 'Card 9', content: bird},
+        ].map((card, index) => (
+          <Card key={index} title={card.title} content={card.content}/>
+        ))}
+>>>>>>> Stashed changes
       </div>
     </div>
   );

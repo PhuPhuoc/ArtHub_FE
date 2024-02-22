@@ -1,3 +1,4 @@
+<<<<<<< Updated upstream
 .postArtBtn {
   height: 60px;
   width: 300px;
@@ -12,3 +13,58 @@
   background-color: black;
   color: white;
 }
+=======
+.title__text {
+    text-align: center;
+    margin-top: 2%; /* Adjust as needed to center vertically */
+    margin-bottom: 10%; /* Adjust as needed to center vertically */
+    font-size: 16px; /* Adjust font size as needed */
+    
+  }
+  
+  .title__text h1 {
+    margin-bottom: 2%;
+    font-size: 100px;
+    font-weight: 400;
+    font-family: "Source Serif Pro", serif; 
+  }
+  
+  .form {
+    width: 60%;
+    margin-left: 20%;
+    display: flex;
+    flex-direction: column;
+    align-items: left;
+    font-size: 22px;
+    font-weight: 900;
+    text-align: center;
+  }
+
+  .form input {
+    transition: transform 2500ms ease-in-out;
+    transition-duration: 2500ms;
+    width: 100%;
+    padding: 12px 24px;
+    background-color: transparent;
+    font-size: 14px;
+    line-height: 18px;
+    color:  #575756;
+    background-color: transparent;
+    background-size: 18px 18px;
+    background-position: 95% center;
+    border-radius: 10px;
+    border: 1px solid #e7e7e9;
+    margin-bottom: 10px; 
+}
+  
+
+  .form input:hover {
+    transition: transform 2500ms ease-in-out;
+    transition-duration: 2500ms;
+    border: 1px solid #ff8b88;
+  }
+
+  
+
+  
+>>>>>>> Stashed changes

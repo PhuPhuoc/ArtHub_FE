@@ -11,6 +11,7 @@ const LoginPage = () => {
 
     return (
         <div style={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
+            <h1>Login Page</h1>
             <Input prefix={<UserOutlined />} placeholder="Username" style={{ width: 300, marginBottom: 16 }} />
             <Input.Password prefix={<LockOutlined />} placeholder="Password" style={{ width: 300, marginBottom: 16 }} />
             <Checkbox style={{ marginBottom: 16 }}>Remember me</Checkbox>
