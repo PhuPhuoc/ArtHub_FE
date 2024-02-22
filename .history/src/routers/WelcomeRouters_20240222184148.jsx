@@ -4,12 +4,11 @@ import FindTalent from "../page/FindTalent/Findtalent";
 import OurHub from "../page/OurHub/OurHub";
 import PostArt from "../page/PostArt/PostArt";
 import HomePage from "../page/Home/HomePage";
-import LoginPage from "../page/Login/LoginPage";
+import 
 const welcomeRouterData = [
   { path: "findtalent", component: <FindTalent /> },
   { path: "ourhub", component: <OurHub /> },
   { path: "postart", component: <PostArt /> },
-  { path: "loginpage", component: <LoginPage /> },
 ];
 
 const DefaultComponent = () => {

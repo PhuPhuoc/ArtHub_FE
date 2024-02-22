@@ -9,7 +9,7 @@ const welcomeRouterData = [
   { path: "findtalent", component: <FindTalent /> },
   { path: "ourhub", component: <OurHub /> },
   { path: "postart", component: <PostArt /> },
-  { path: "loginpage", component: <LoginPage /> },
+  { path: "login", component: <LoginPage /> },
 ];
 
 const DefaultComponent = () => {
