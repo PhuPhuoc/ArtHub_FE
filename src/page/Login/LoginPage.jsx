@@ -1,36 +1,32 @@
 import React, { useEffect, useState } from "react";
 import "./LoginPage.css";
-import Audience from "../../entities/audience.js"; // Make sure to import your CSS file
 
 function LoginForm() {
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [users, setUsers] = useState([]);
 
-  const[name,setName]=useState('')
-  const[email,setEmail]=useState('')
-  const[password, setPassword]=useState('')
-  const[users,setUsers]=useState([])
+  const handleClick = (e) => {
+    e.preventDefault();
+    const user = { name, email };
+    console.log(user);
+    fetch("http://localhost:5173/loginpage", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(user),
+    }).then(() => {
+      console.log("New User added");
+    });
+  };
 
-  const handleClick=(e)=>{
-    e.preventDefault()
-    const user={name,email}
-    console.log(user)
-    fetch("http://localhost:5173/loginpage",{
-      method:"POST",
-      headers:{"Content-Type":"application/json"},
-      body:JSON.stringify(user)
-
-    }).then(()=>{
-      console.log("New User added")
-    })
-  }
-
-  useEffect(()=>{
+  useEffect(() => {
     fetch("http://localhost:5173/loginpage")
-        .then(res=>res.json())
-        .then((result)=>{
-              setUsers(result);
-            }
-        )
-  },[])
+      .then((res) => res.json())
+      .then((result) => {
+        setUsers(result);
+      });
+  }, []);
 
   useEffect(() => {
     const container = document.getElementById("container");
@@ -75,10 +71,20 @@ function LoginForm() {
             </a>
           </div>
           <span>or use your email for registration</span>
-          <input id="name" type="text" placeholder="Name" value={name}
-                 onChange={(e)=>setName(e.target.value)} />
-          <input id="email" type="email" placeholder="Email" value={email}
-                 onChange={(e)=>setEmail(e.target.value)} />
+          <input
+            id="name"
+            type="text"
+            placeholder="Name"
+            value={name}
+            onChange={(e) => setName(e.target.value)}
+          />
+          <input
+            id="email"
+            type="email"
+            placeholder="Email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+          />
           <input id="password" type="password" placeholder="Password" />
           <button onClick={handleClick}>Sign Up</button>
         </form>
