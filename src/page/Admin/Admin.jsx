@@ -1,10 +1,12 @@
-import React, { useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
+import "./Admin.css";
 import {
   Button,
   Card,
   Form,
   Input,
   Modal,
+  Radio,
   Select,
   Space,
   Table,
@@ -13,6 +15,11 @@ import {
 } from "antd";
 import { dataAdmin } from "./dataAdmin";
 const columns = [
+  {
+    title: "Stt",
+    dataIndex: "key",
+    key: "key",
+  },
   {
     title: "Name",
     dataIndex: "name",
@@ -41,25 +48,29 @@ const columns = [
     dataIndex: "tags",
     render: (_, { tags }) => (
       <>
-        {tags.map((tag) => {
-          let color = tag.length > 100 ? "  " : "green";
+        {Array.isArray(tags) ? (
+          tags.map((tag) => {
+            let color = tag.length > 100 ? "  " : "green";
 
-          if (tag.toLowerCase() === "developer") {
-            color = "geekblue";
-          }
-          if (tag.toLowerCase() === "user") {
-            color = "volcano";
-          }
-          if (tag.toLowerCase() === "creator") {
-            color = "yellow";
-          }
+            if (tag.toLowerCase() === "developer") {
+              color = "geekblue";
+            }
+            if (tag.toLowerCase() === "user") {
+              color = "volcano";
+            }
+            if (tag.toLowerCase() === "creator") {
+              color = "yellow";
+            }
 
-          return (
-            <Tag color={color} key={tag}>
-              {tag.toUpperCase()}
-            </Tag>
-          );
-        })}
+            return (
+              <Tag color={color} key={tag}>
+                {tag.toUpperCase()}
+              </Tag>
+            );
+          })
+        ) : (
+          <Tag color="default">Invalid Tags</Tag>
+        )}
       </>
     ),
   },
@@ -84,7 +95,7 @@ const columns = [
         type="link"
         onClick={() => {
           Modal.info({
-            width: 1800,
+            width: "800px",
             title: "User's Posts",
             content: (
               <div>
@@ -95,8 +106,11 @@ const columns = [
                       alt={`Post ${index + 1}`}
                       style={{ maxWidth: "50%", marginBottom: "10px" }}
                     />
-                    <h1>Description:</h1>
-                    <p>{post.description}</p>
+                    <h1 className="post-title">Description:</h1>
+                    <p className="post-description">{post.description}</p>
+                    <Button type="link" style={{ color: "red" }}>
+                      Delete Post
+                    </Button>
                   </Card>
                 ))}
               </div>
@@ -111,9 +125,92 @@ const columns = [
 ];
 
 const Admin = () => {
-  const [form] = Form.useForm()  
+  const [form] = Form.useForm();
   const [data, setData] = useState(dataAdmin);
   const [isModalVisible, setIsModalVisible] = useState(false);
+  const [selectedUser, setSelectedUser] = useState(null);
+  const [formEdit] = Form.useForm();
+  const [editModalVisible, setEditModalVisible] = useState(false);
+  const [deleteModalVisible, setDeleteModalVisible] = useState(false);
+
+  const [titleBackgroundColor, setTitleBackgroundColor] = useState("#ffffff");
+  const [titleTextColor, setTitleTextColor] = useState("#000000");
+
+  const titleRef = useRef(null);
+
+  const textColors = ["#000000", "#ffffff", "#ff0000", "#00ff00", "#0000ff"];
+
+  useEffect(() => {
+    const intervalId = setInterval(() => {
+      const newBackgroundColor = getRandomColor();
+      setTitleBackgroundColor(newBackgroundColor);
+
+      const newTextColor =
+        textColors[Math.floor(Math.random() * textColors.length)];
+      setTitleTextColor(newTextColor);
+    }, 2000);
+
+    return () => clearInterval(intervalId);
+  }, []);
+
+  const getRandomColor = () => {
+    const letters = "0123456789ABCDEF";
+    let color = "#";
+    for (let i = 0; i < 6; i++) {
+      color += letters[Math.floor(Math.random() * 16)];
+    }
+    return color;
+  };
+  const updateSttColumn = (data) => {
+    return data.map((item, index) => {
+      return { ...item, key: index + 1 };
+    });
+  };
+
+  const handleRowClick = (user) => {
+    setSelectedUser(user);
+  };
+
+  const rowSelection = {
+    type: "radio",
+    selectedRowKeys: selectedUser ? [selectedUser.key] : [],
+    onChange: (selectedRowKeys, selectedRows) => {
+      if (selectedRows.length > 0) {
+        setSelectedUser(selectedRows[0]);
+      } else {
+        setSelectedUser(null);
+      }
+    },
+  };
+  const handleEditClick = () => {
+    if (!selectedUser) {
+      Modal.warning({
+        title: "Warning",
+        content: "Please select a user to edit.",
+      });
+      return;
+    }
+
+    formEdit.setFieldsValue(selectedUser);
+    setEditModalVisible(true);
+  };
+
+  const handleSaveEdit = () => {
+    formEdit
+      .validateFields()
+      .then((values) => {
+        const updatedData = data.map((user) =>
+          user.key === selectedUser.key ? { ...user, ...values } : user
+        );
+
+        setData(updatedData);
+        setEditModalVisible(false);
+        setSelectedUser(null);
+      })
+      .catch((errorInfo) => {
+        console.log("Failed:", errorInfo);
+      });
+  };
   const handleAddUser = (values) => {
     const newUser = {
       key: data.length + 1,
@@ -128,11 +225,27 @@ const Admin = () => {
     setData([...data, newUser]);
     setIsModalVisible(false);
   };
+
+  const handleDeleteUser = () => {
+    if (selectedUser) {
+      const updatedData = data.filter((user) => user.key !== selectedUser.key);
+      const updatedDataWithStt = updateSttColumn(updatedData);
+      setData(updatedDataWithStt);
+      setDeleteModalVisible(false);
+      setSelectedUser(null);
+    }
+  };
+
   return (
     <div style={{ width: "100%", height: "100vh" }}>
       <div
         className="adminPageTitle"
-        style={{ width: "100%", display: "flex", justifyContent: "center" }}
+        style={{
+          width: "100%",
+          display: "flex",
+          justifyContent: "center",
+        }}
+        ref={titleRef}
       >
         <Typography.Title
           style={{
@@ -143,13 +256,24 @@ const Admin = () => {
             alignItems: "center",
             borderRadius: "20px",
             border: "2px dashed black",
+            transition: "background-color 1s ease",
+            backgroundColor: titleBackgroundColor,
+            color: titleTextColor,
           }}
         >
           ADMIN'S DASHBOARD
         </Typography.Title>
       </div>
 
-      <Table columns={columns} dataSource={data} />
+      <Table
+        columns={columns}
+        dataSource={data}
+        rowKey="key"
+        rowSelection={rowSelection}
+        onRow={(record) => ({
+          onClick: () => handleRowClick(record),
+        })}
+      />
 
       <div
         className="btnTableContainer"
@@ -163,6 +287,7 @@ const Admin = () => {
             width: "100px",
             height: "40px",
           }}
+          onClick={handleEditClick}
         >
           Edit
         </Button>
@@ -185,16 +310,89 @@ const Admin = () => {
             width: "100px",
             height: "40px",
           }}
+          onClick={() => setDeleteModalVisible(true)}
         >
           Delete
         </Button>
       </div>
       <Modal
+        title="Edit User"
+        visible={editModalVisible}
+        onCancel={() => setEditModalVisible(false)}
+        destroyOnClose
+        footer={null}
+      >
+        <Form form={formEdit} name="editUserForm">
+          <Form.Item
+            label="Name"
+            name="name"
+            rules={[{ required: true, message: "Please input the name!" }]}
+          >
+            <Input />
+          </Form.Item>
+
+          <Form.Item
+            label="Birthday"
+            name="birthday"
+            rules={[{ required: true, message: "Please input the birthday!" }]}
+          >
+            <Input type="date" />
+          </Form.Item>
+
+          <Form.Item
+            label="Email"
+            name="email"
+            rules={[
+              { required: true, message: "Please input the email!" },
+              { type: "email", message: "Invalid email address" },
+            ]}
+          >
+            <Input />
+          </Form.Item>
+
+          <Form.Item
+            label="Gender"
+            name="gender"
+            rules={[{ required: true, message: "Please select the gender!" }]}
+          >
+            <Select>
+              <Select.Option value="male">Male</Select.Option>
+              <Select.Option value="female">Female</Select.Option>
+              <Select.Option value="other">Other</Select.Option>
+            </Select>
+          </Form.Item>
+
+          <Form.Item label="Tags" name="tags">
+            <Input />
+          </Form.Item>
+
+          <Form.Item
+            label="Avatar URL"
+            name="avatarUrl"
+            rules={[
+              { required: true, message: "Please input the avatar URL!" },
+            ]}
+          >
+            <Input />
+          </Form.Item>
+
+          <Space>
+            <Button type="primary" onClick={handleSaveEdit}>
+              Save
+            </Button>
+            <Button onClick={() => formEdit.resetFields()} type="default">
+              Reset
+            </Button>
+          </Space>
+        </Form>
+      </Modal>
+
+      <Modal
         title="Add User"
-        open={isModalVisible}
+        visible={isModalVisible}
         onCancel={() => {
           setIsModalVisible(false);
-          form.resetFields()
+          form.resetFields();
         }}
         footer={null}
       >
@@ -253,11 +451,41 @@ const Admin = () => {
           </Form.Item>
 
           <Form.Item>
-            <Button type="primary" htmlType="submit">
-              Add User
-            </Button>
+            <Space>
+              <Button type="primary" htmlType="submit">
+                Add User
+              </Button>
+              <Button onClick={() => form.resetFields()} type="default">
+                Reset
+              </Button>
+            </Space>
           </Form.Item>
         </Form>
+      </Modal>
+
+      <Modal
+        title="Delete User"
+        visible={deleteModalVisible}
+        onCancel={() => setDeleteModalVisible(false)}
+        onOk={handleDeleteUser}
+        bodyStyle={{ borderBottom: "2px solid #e8e8e8" }}
+      >
+        <Radio.Group
+          onChange={(e) =>
+            setSelectedUser(data.find((user) => user.key === e.target.value))
+          }
+          value={selectedUser ? selectedUser.key : undefined}
+        >
+          {data.map((user, index) => (
+            <Radio
+              key={user.key}
+              value={user.key}
+              style={{ marginBottom: "20px" }}
+            >
+              {`${index + 1}. ${user.name}`}
+            </Radio>
+          ))}
+        </Radio.Group>
       </Modal>
     </div>
   );

@@ -652,10 +652,363 @@ const OurHub = () => {
         );
 
       case "Culture":
+        return (
+          <div className="imagesContain">
+            <div className="title">Images for Cultures</div>
+            <Row gutter={16}>
+              <Col className="gutter-row" span={6}>
+                <Card
+                  cover={
+                    <img
+                      src="https://images.unsplash.com/photo-1609952917837-2394b5a4d2fb?q=80&w=2069&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+                      alt="image"
+                    />
+                  }
+                >
+                  <Meta
+                    style={{
+                      display: "flex",
+                      justifyContent: "center",
+                      height: "100px",
+                    }}
+                    avatar={
+                      <Avatar
+                        className="avatar"
+                        src="https://api.dicebear.com/7.x/miniavs/svg?seed=8"
+                        style={{ cursor: "pointer" }}
+                      />
+                    }
+                    title={
+                      <span
+                        style={{
+                          color: "black",
+                          fontSize: "15px",
+                          borderBottom: "1px solid black",
+                        }}
+                      >
+                        Ao Dai Viet Nam
+                      </span>
+                    }
+                    description={
+                      <span style={{ color: "black", fontSize: "12px" }}>
+                        The iPhone 15 Pro and iPhone 15 Pro Max are smartphones
+                        designed, developed, and marketed by Apple Inc
+                      </span>
+                    }
+                  />
+                </Card>
+              </Col>
+              <Col className="gutter-row" span={6}>
+                <Card
+                  cover={
+                    <img
+                      src="https://images.unsplash.com/photo-1524413840807-0c3cb6fa808d?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+                      alt="image"
+                    />
+                  }
+                >
+                  <Meta
+                    style={{
+                      display: "flex",
+                      justifyContent: "center",
+                      height: "100px",
+                    }}
+                    avatar={
+                      <Avatar
+                        className="avatar"
+                        src="https://api.dicebear.com/7.x/miniavs/svg?seed=8"
+                        style={{ cursor: "pointer" }}
+                      />
+                    }
+                    title={
+                      <span
+                        style={{
+                          color: "black",
+                          fontSize: "15px",
+                          borderBottom: "1px solid black",
+                        }}
+                      >
+                        Sakura Japan Trees
+                      </span>
+                    }
+                    description={
+                      <span style={{ color: "black", fontSize: "12px" }}>
+                        pizza evolved from similar flatbread dishes in Naples,
+                        Italy, between the 16th and mid-18th century.
+                      </span>
+                    }
+                  />
+                </Card>
+              </Col>
+              <Col className="gutter-row" span={6}>
+                <Card
+                  cover={
+                    <img
+                      src="https://plus.unsplash.com/premium_photo-1698279879963-a59b3c84f56e?q=80&w=2069&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+                      alt="image"
+                    />
+                  }
+                >
+                  <Meta
+                    style={{ display: "flex", justifyContent: "center" }}
+                    avatar={
+                      <Avatar
+                        className="avatar"
+                        src="https://api.dicebear.com/7.x/miniavs/svg?seed=8"
+                        style={{ cursor: "pointer" }}
+                      />
+                    }
+                    title={
+                      <span
+                        style={{
+                          color: "black",
+                          fontSize: "15px",
+                          borderBottom: "1px solid black",
+                        }}
+                      >
+                        The festival of the died
+                      </span>
+                    }
+                    description={
+                      <span
+                        style={{
+                          color: "black",
+                          fontSize: "12px",
+                          height: "100px",
+                        }}
+                      >
+                        Lorem, ipsum dolor sit amet consectetur adipisicing
+                        elit. Minus eos voluptates, enim officiis tempore esse
+                        voluptatem! Excepturi rem commodi tempora.
+                      </span>
+                    }
+                  />
+                </Card>
+              </Col>
+              <Col className="gutter-row" span={6}>
+                <Card
+                  cover={
+                    <img
+                      src="https://i2.wp.com/www.tixup.com/medias/static/uploads/2017/06/La-f%C3%AAte-de-la-musique-Tous-%C3%A0-Toulouse-en-direct-sur-France-2-et-France-T%C3%A9l%C3%A9visions.jpg?fit=1200%2C768"
+                      alt="image"
+                    />
+                  }
+                >
+                  <Meta
+                    style={{
+                      display: "flex",
+                      justifyContent: "center",
+                      height: "100px",
+                    }}
+                    avatar={
+                      <Avatar
+                        className="avatar"
+                        src="https://api.dicebear.com/7.x/miniavs/svg?seed=8"
+                        style={{ cursor: "pointer" }}
+                      />
+                    }
+                    title={
+                      <span
+                        style={{
+                          color: "black",
+                          fontSize: "15px",
+                          borderBottom: "1px solid black",
+                        }}
+                      >
+                        fête de la musique française
+                      </span>
+                    }
+                    description={
+                      <span style={{ color: "black", fontSize: "12px" }}>
+                        Lorem, ipsum dolor sit amet consectetur adipisicing
+                        elit. Minus eos voluptates, enim officiis tempore esse
+                        voluptatem! Excepturi rem commodi tempora.
+                      </span>
+                    }
+                  />
+                </Card>
+              </Col>
+            </Row>
+            <Row gutter={16}>
+              <Col className="gutter-row" span={6}>
+                <Card
+                  cover={
+                    <img
+                      src="https://plus.unsplash.com/premium_photo-1673611878649-ca56724a2119?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+                      alt="image"
+                    />
+                  }
+                >
+                  <Meta
+                    style={{
+                      display: "flex",
+                      justifyContent: "center",
+                      height: "100px",
+                    }}
+                    avatar={
+                      <Avatar
+                        className="avatar"
+                        src="https://api.dicebear.com/7.x/miniavs/svg?seed=8"
+                        style={{ cursor: "pointer" }}
+                      />
+                    }
+                    title={
+                      <span
+                        style={{
+                          color: "black",
+                          fontSize: "15px",
+                          borderBottom: "1px solid black",
+                        }}
+                      >
+                        A Dragon handmade
+                      </span>
+                    }
+                    description={
+                      <span style={{ color: "black", fontSize: "12px" }}>
+                        Lorem, ipsum dolor sit amet consectetur adipisicing
+                        elit. Minus eos voluptates, enim officiis tempore esse
+                        voluptatem! Excepturi rem commodi tempora.
+                      </span>
+                    }
+                  />
+                </Card>
+              </Col>
+              <Col className="gutter-row" span={6}>
+                <Card
+                  cover={
+                    <img
+                      src="https://images.unsplash.com/photo-1543906965-f9520aa2ed8a?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+                      alt="image"
+                    />
+                  }
+                >
+                  <Meta
+                    style={{
+                      display: "flex",
+                      justifyContent: "center",
+                      height: "100px",
+                    }}
+                    avatar={
+                      <Avatar
+                        className="avatar"
+                        src="https://api.dicebear.com/7.x/miniavs/svg?seed=8"
+                        style={{ cursor: "pointer" }}
+                      />
+                    }
+                    title={
+                      <span
+                        style={{
+                          color: "black",
+                          fontSize: "15px",
+                          borderBottom: "1px solid black",
+                        }}
+                      >
+                        Colorful かさ
+                      </span>
+                    }
+                    description={
+                      <span style={{ color: "black", fontSize: "12px" }}>
+                        Lorem, ipsum dolor sit amet consectetur adipisicing
+                        elit. Minus eos voluptates, enim officiis tempore esse
+                        voluptatem! Excepturi rem commodi tempora.
+                      </span>
+                    }
+                  />
+                </Card>
+              </Col>
+              <Col className="gutter-row" span={6}>
+                <Card
+                  cover={
+                    <img
+                      src="https://images.unsplash.com/photo-1505932794465-147d1f1b2c97?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+                      alt="image"
+                    />
+                  }
+                >
+                  <Meta
+                    style={{
+                      display: "flex",
+                      justifyContent: "center",
+                      height: "100px",
+                    }}
+                    avatar={
+                      <Avatar
+                        className="avatar"
+                        src="https://api.dicebear.com/7.x/miniavs/svg?seed=8"
+                        style={{ cursor: "pointer" }}
+                      />
+                    }
+                    title={
+                      <span
+                        style={{
+                          color: "black",
+                          fontSize: "15px",
+                          borderBottom: "1px solid black",
+                        }}
+                      >
+                        Hands with tatoo
+                      </span>
+                    }
+                    description={
+                      <span style={{ color: "black", fontSize: "12px" }}>
+                        Lorem, ipsum dolor sit amet consectetur adipisicing
+                        elit. Minus eos voluptates, enim officiis tempore esse
+                        voluptatem! Excepturi rem commodi tempora.
+                      </span>
+                    }
+                  />
+                </Card>
+              </Col>
+              <Col className="gutter-row" span={6}>
+                <Card
+                  cover={
+                    <img
+                      src="https://images.unsplash.com/photo-1488861859915-4b5a5e57649f?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+                      alt="image"
+                    />
+                  }
+                >
+                  <Meta
+                    style={{
+                      display: "flex",
+                      justifyContent: "center",
+                      height: "100px",
+                    }}
+                    avatar={
+                      <Avatar
+                        className="avatar"
+                        src="https://api.dicebear.com/7.x/miniavs/svg?seed=8"
+                        style={{ cursor: "pointer" }}
+                      />
+                    }
+                    title={
+                      <span
+                        style={{
+                          color: "black",
+                          fontSize: "15px",
+                          borderBottom: "1px solid black",
+                        }}
+                      >
+                        India Festival
+                      </span>
+                    }
+                    description={
+                      <span style={{ color: "black", fontSize: "12px" }}>
+                        Lorem, ipsum dolor sit amet consectetur adipisicing
+                        elit. Minus eos voluptates, enim officiis tempore esse
+                        voluptatem! Excepturi rem commodi tempora.
+                      </span>
+                    }
+                  />
+                </Card>
+              </Col>
+            </Row>
+          </div>
+        );
       case "Technology":
         return (
           <div className="imagesContain">
-            <div className="title">Images for Technologies</div>
+            <div className="title">Images for Techonologies</div>
             <Row gutter={16}>
               <Col className="gutter-row" span={6}>
                 <Card
@@ -703,7 +1056,7 @@ const OurHub = () => {
                 <Card
                   cover={
                     <img
-                      src="https://images.unsplash.com/photo-1575718120842-54e388d8cc6f?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+                      src="https://images.unsplash.com/photo-1434493789847-2f02dc6ca35d?q=80&w=2071&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
                       alt="image"
                     />
                   }
@@ -729,7 +1082,7 @@ const OurHub = () => {
                           borderBottom: "1px solid black",
                         }}
                       >
-                        Pizza
+                        Apple Watch
                       </span>
                     }
                     description={
@@ -745,7 +1098,7 @@ const OurHub = () => {
                 <Card
                   cover={
                     <img
-                      src="https://images.unsplash.com/photo-1551817958-20204d6ab212?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+                      src="https://plus.unsplash.com/premium_photo-1681286767876-5260ad9eff9c?q=80&w=2071&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
                       alt="image"
                     />
                   }
@@ -760,12 +1113,24 @@ const OurHub = () => {
                       />
                     }
                     title={
-                      <span style={{ color: "black", fontSize: "15px" }}>
-                        Custom Title
+                      <span
+                        style={{
+                          color: "black",
+                          fontSize: "15px",
+                          borderBottom: "1px solid black",
+                        }}
+                      >
+                        Ipad
                       </span>
                     }
                     description={
-                      <span style={{ color: "black", fontSize: "12px" }}>
+                      <span
+                        style={{
+                          color: "black",
+                          fontSize: "12px",
+                          height: "100px",
+                        }}
+                      >
                         Lorem, ipsum dolor sit amet consectetur adipisicing
                         elit. Minus eos voluptates, enim officiis tempore esse
                         voluptatem! Excepturi rem commodi tempora.
@@ -778,13 +1143,17 @@ const OurHub = () => {
                 <Card
                   cover={
                     <img
-                      src="https://images.unsplash.com/photo-1615494488092-b13b68fe0eb5?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+                      src="https://plus.unsplash.com/premium_photo-1663091701962-2ae72a2ad2ac?q=80&w=2087&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
                       alt="image"
                     />
                   }
                 >
                   <Meta
-                    style={{ display: "flex", justifyContent: "center" }}
+                    style={{
+                      display: "flex",
+                      justifyContent: "center",
+                      height: "100px",
+                    }}
                     avatar={
                       <Avatar
                         className="avatar"
@@ -793,8 +1162,14 @@ const OurHub = () => {
                       />
                     }
                     title={
-                      <span style={{ color: "black", fontSize: "15px" }}>
-                        Custom Title
+                      <span
+                        style={{
+                          color: "black",
+                          fontSize: "15px",
+                          borderBottom: "1px solid black",
+                        }}
+                      >
+                        Visual Reality Headset
                       </span>
                     }
                     description={
@@ -813,13 +1188,17 @@ const OurHub = () => {
                 <Card
                   cover={
                     <img
-                      src="https://images.unsplash.com/photo-1575571536958-38aa1227786a?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+                      src="https://images.unsplash.com/photo-1606144042614-b2417e99c4e3?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
                       alt="image"
                     />
                   }
                 >
                   <Meta
-                    style={{ display: "flex", justifyContent: "center" }}
+                    style={{
+                      display: "flex",
+                      justifyContent: "center",
+                      height: "100px",
+                    }}
                     avatar={
                       <Avatar
                         className="avatar"
@@ -828,8 +1207,14 @@ const OurHub = () => {
                       />
                     }
                     title={
-                      <span style={{ color: "black", fontSize: "15px" }}>
-                        Custom Title
+                      <span
+                        style={{
+                          color: "black",
+                          fontSize: "15px",
+                          borderBottom: "1px solid black",
+                        }}
+                      >
+                        PlayStation 5
                       </span>
                     }
                     description={
@@ -846,13 +1231,17 @@ const OurHub = () => {
                 <Card
                   cover={
                     <img
-                      src="https://images.unsplash.com/photo-1551818014-fa14764bc121?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+                      src="https://images.unsplash.com/photo-1593640408182-31c70c8268f5?q=80&w=2042&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
                       alt="image"
                     />
                   }
                 >
                   <Meta
-                    style={{ display: "flex", justifyContent: "center" }}
+                    style={{
+                      display: "flex",
+                      justifyContent: "center",
+                      height: "100px",
+                    }}
                     avatar={
                       <Avatar
                         className="avatar"
@@ -861,8 +1250,14 @@ const OurHub = () => {
                       />
                     }
                     title={
-                      <span style={{ color: "black", fontSize: "15px" }}>
-                        Custom Title
+                      <span
+                        style={{
+                          color: "black",
+                          fontSize: "15px",
+                          borderBottom: "1px solid black",
+                        }}
+                      >
+                        A Beatiful Computer Design
                       </span>
                     }
                     description={
@@ -879,13 +1274,17 @@ const OurHub = () => {
                 <Card
                   cover={
                     <img
-                      src="https://images.unsplash.com/photo-1616016048007-9315ac44c696?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+                      src="https://images.unsplash.com/photo-1525338078858-d762b5e32f2c?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
                       alt="image"
                     />
                   }
                 >
                   <Meta
-                    style={{ display: "flex", justifyContent: "center" }}
+                    style={{
+                      display: "flex",
+                      justifyContent: "center",
+                      height: "100px",
+                    }}
                     avatar={
                       <Avatar
                         className="avatar"
@@ -894,8 +1293,14 @@ const OurHub = () => {
                       />
                     }
                     title={
-                      <span style={{ color: "black", fontSize: "15px" }}>
-                        Custom Title
+                      <span
+                        style={{
+                          color: "black",
+                          fontSize: "15px",
+                          borderBottom: "1px solid black",
+                        }}
+                      >
+                        The development of AI Robot
                       </span>
                     }
                     description={
@@ -912,13 +1317,17 @@ const OurHub = () => {
                 <Card
                   cover={
                     <img
-                      src="https://images.unsplash.com/photo-1524656855800-59465ebcec69?q=80&w=2069&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+                      src="https://images.unsplash.com/photo-1553260188-75a8d6205b6c?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
                       alt="image"
                     />
                   }
                 >
                   <Meta
-                    style={{ display: "flex", justifyContent: "center" }}
+                    style={{
+                      display: "flex",
+                      justifyContent: "center",
+                      height: "100px",
+                    }}
                     avatar={
                       <Avatar
                         className="avatar"
@@ -927,8 +1336,14 @@ const OurHub = () => {
                       />
                     }
                     title={
-                      <span style={{ color: "black", fontSize: "15px" }}>
-                        Custom Title
+                      <span
+                        style={{
+                          color: "black",
+                          fontSize: "15px",
+                          borderBottom: "1px solid black",
+                        }}
+                      >
+                        New model of electric car
                       </span>
                     }
                     description={
@@ -944,344 +1359,7 @@ const OurHub = () => {
             </Row>
           </div>
         );
-        return (
-          <div className="imagesContain">
-            <div className="title">Images for Cultures</div>
-            <Row gutter={16}>
-              <Col className="gutter-row" span={6}>
-                <Card
-                  cover={
-                    <img
-                      src="https://images.unsplash.com/photo-1605552666921-bd313f851541?q=80&w=2069&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
-                      alt="image"
-                    />
-                  }
-                >
-                  <Meta
-                    style={{
-                      display: "flex",
-                      justifyContent: "center",
-                      height: "100px",
-                    }}
-                    avatar={
-                      <Avatar
-                        className="avatar"
-                        src="https://api.dicebear.com/7.x/miniavs/svg?seed=8"
-                        style={{ cursor: "pointer" }}
-                      />
-                    }
-                    title={
-                      <span
-                        style={{
-                          color: "black",
-                          fontSize: "15px",
-                          borderBottom: "1px solid black",
-                        }}
-                      >
-                        Viet Nam Street
-                      </span>
-                    }
-                    description={
-                      <span style={{ color: "black", fontSize: "12px" }}>
-                        It is a super cool VietNam Street
-                      </span>
-                    }
-                  />
-                </Card>
-              </Col>
-              <Col className="gutter-row" span={6}>
-                <Card
-                  cover={
-                    <img
-                      src="https://plus.unsplash.com/premium_photo-1661371927364-e3aec9079c66?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
-                      alt="image"
-                    />
-                  }
-                >
-                  <Meta
-                    style={{
-                      display: "flex",
-                      justifyContent: "center",
-                      height: "100px",
-                    }}
-                    avatar={
-                      <Avatar
-                        className="avatar"
-                        src="https://api.dicebear.com/7.x/miniavs/svg?seed=8"
-                        style={{ cursor: "pointer" }}
-                      />
-                    }
-                    title={
-                      <span
-                        style={{
-                          color: "black",
-                          fontSize: "15px",
-                          borderBottom: "1px solid black",
-                        }}
-                      >
-                        Japan Street
-                      </span>
-                    }
-                    description={
-                      <span style={{ color: "black", fontSize: "12px" }}>
-                        It is just a japan street
-                      </span>
-                    }
-                  />
-                </Card>
-              </Col>
-              <Col className="gutter-row" span={6}>
-                <Card
-                  cover={
-                    <img
-                      src="https://images.unsplash.com/photo-1463592177119-bab2a00f3ccb?q=80&w=2069&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
-                      alt="image"
-                    />
-                  }
-                >
-                  <Meta
-                    style={{
-                      display: "flex",
-                      justifyContent: "center",
-                      height: "100px",
-                    }}
-                    avatar={
-                      <Avatar
-                        className="avatar"
-                        src="https://api.dicebear.com/7.x/miniavs/svg?seed=8"
-                        style={{ cursor: "pointer" }}
-                      />
-                    }
-                    title={
-                      <span
-                        style={{
-                          color: "black",
-                          fontSize: "15px",
-                          borderBottom: "1px solid black",
-                        }}
-                      >
-                        India dancing
-                      </span>
-                    }
-                    description={
-                      <span style={{ color: "black", fontSize: "12px" }}>
-                        It is a india dancing
-                      </span>
-                    }
-                  />
-                </Card>
-              </Col>
-              <Col className="gutter-row" span={6}>
-                <Card
-                  cover={
-                    <img
-                      src="https://images.unsplash.com/photo-1517309230475-6736d926b979?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
-                      alt="image"
-                    />
-                  }
-                >
-                  <Meta
-                    style={{
-                      display: "flex",
-                      justifyContent: "center",
-                      height: "100px",
-                    }}
-                    avatar={
-                      <Avatar
-                        className="avatar"
-                        src="https://api.dicebear.com/7.x/miniavs/svg?seed=8"
-                        style={{ cursor: "pointer" }}
-                      />
-                    }
-                    title={
-                      <span
-                        style={{
-                          color: "black",
-                          fontSize: "15px",
-                          borderBottom: "1px solid black",
-                        }}
-                      >
-                        China Street
-                      </span>
-                    }
-                    description={
-                      <span style={{ color: "black", fontSize: "12px" }}>
-                        Its a china Street
-                      </span>
-                    }
-                  />
-                </Card>
-              </Col>
-            </Row>
-            <Row gutter={16}>
-              <Col className="gutter-row" span={6}>
-                <Card
-                  cover={
-                    <img
-                      src="https://images.unsplash.com/photo-1682826556364-adb438cf8e3d?q=80&w=2066&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
-                      alt="image"
-                    />
-                  }
-                >
-                  <Meta
-                    style={{
-                      display: "flex",
-                      justifyContent: "center",
-                      height: "100px",
-                    }}
-                    avatar={
-                      <Avatar
-                        className="avatar"
-                        src="https://api.dicebear.com/7.x/miniavs/svg?seed=8"
-                        style={{ cursor: "pointer" }}
-                      />
-                    }
-                    title={
-                      <span
-                        style={{
-                          color: "black",
-                          fontSize: "15px",
-                          borderBottom: "1px solid black",
-                        }}
-                      >
-                        Thai Land Pagoda
-                      </span>
-                    }
-                    description={
-                      <span style={{ color: "black", fontSize: "12px" }}>
-                        It is just a ThaiLand Pagoda with 4 men
-                      </span>
-                    }
-                  />
-                </Card>
-              </Col>
-              <Col className="gutter-row" span={6}>
-                <Card
-                  cover={
-                    <img
-                      src="https://images.unsplash.com/photo-1509384088852-1edd58d93617?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
-                      alt="image"
-                    />
-                  }
-                >
-                  <Meta
-                    style={{
-                      display: "flex",
-                      justifyContent: "center",
-                      height: "100px",
-                    }}
-                    avatar={
-                      <Avatar
-                        className="avatar"
-                        src="https://api.dicebear.com/7.x/miniavs/svg?seed=8"
-                        style={{ cursor: "pointer" }}
-                      />
-                    }
-                    title={
-                      <span
-                        style={{
-                          color: "black",
-                          fontSize: "15px",
-                          borderBottom: "1px solid black",
-                        }}
-                      >
-                        British Soldier
-                      </span>
-                    }
-                    description={
-                      <span style={{ color: "black", fontSize: "12px" }}>
-                        This is a cool British Soldier
-                      </span>
-                    }
-                  />
-                </Card>
-              </Col>
-              <Col className="gutter-row" span={6}>
-                <Card
-                  cover={
-                    <img
-                      src="https://plus.unsplash.com/premium_photo-1664303467567-17891a27998a?q=80&w=2076&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
-                      alt="image"
-                    />
-                  }
-                >
-                  <Meta
-                    style={{
-                      display: "flex",
-                      justifyContent: "center",
-                      height: "100px",
-                    }}
-                    avatar={
-                      <Avatar
-                        className="avatar"
-                        src="https://api.dicebear.com/7.x/miniavs/svg?seed=8"
-                        style={{ cursor: "pointer" }}
-                      />
-                    }
-                    title={
-                      <span
-                        style={{
-                          color: "black",
-                          fontSize: "15px",
-                          borderBottom: "1px solid black",
-                        }}
-                      >
-                        Egypt Pyramid
-                      </span>
-                    }
-                    description={
-                      <span style={{ color: "black", fontSize: "12px" }}>
-                        This is a beautiful view of the Pyramid
-                      </span>
-                    }
-                  />
-                </Card>
-              </Col>
-              <Col className="gutter-row" span={6}>
-                <Card
-                  cover={
-                    <img
-                      src="https://images.unsplash.com/photo-1487546331507-fcf8a5d27ab3?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
-                      alt="image"
-                    />
-                  }
-                >
-                  <Meta
-                    style={{
-                      display: "flex",
-                      justifyContent: "center",
-                      height: "100px",
-                    }}
-                    avatar={
-                      <Avatar
-                        className="avatar"
-                        src="https://api.dicebear.com/7.x/miniavs/svg?seed=8"
-                        style={{ cursor: "pointer" }}
-                      />
-                    }
-                    title={
-                      <span
-                        style={{
-                          color: "black",
-                          fontSize: "15px",
-                          borderBottom: "1px solid black",
-                        }}
-                      >
-                        African people
-                      </span>
-                    }
-                    description={
-                      <span style={{ color: "black", fontSize: "12px" }}>
-                        This is a beatiful moment of the African woman with her
-                        child
-                      </span>
-                    }
-                  />
-                </Card>
-              </Col>
-            </Row>
-          </div>
-        );
+
       case "Food":
         return (
           <div className="imagesContain">
@@ -1375,13 +1453,17 @@ const OurHub = () => {
                 <Card
                   cover={
                     <img
-                      src="https://images.unsplash.com/photo-1551817958-20204d6ab212?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+                      src="https://observatoirecetelem.com/wp-content/uploads/2018/03/istock_110933888.5110a165224.original.jpg "
                       alt="image"
                     />
                   }
                 >
                   <Meta
-                    style={{ display: "flex", justifyContent: "center" }}
+                    style={{
+                      display: "flex",
+                      justifyContent: "center",
+                      height: "100px",
+                    }}
                     avatar={
                       <Avatar
                         className="avatar"
@@ -1390,8 +1472,14 @@ const OurHub = () => {
                       />
                     }
                     title={
-                      <span style={{ color: "black", fontSize: "15px" }}>
-                        Custom Title
+                      <span
+                        style={{
+                          color: "black",
+                          fontSize: "15px",
+                          borderBottom: "1px solid black",
+                        }}
+                      >
+                        Foie Gras
                       </span>
                     }
                     description={
@@ -1408,13 +1496,17 @@ const OurHub = () => {
                 <Card
                   cover={
                     <img
-                      src="https://images.unsplash.com/photo-1615494488092-b13b68fe0eb5?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+                      src="https://plus.unsplash.com/premium_photo-1676466884050-3b95749bd1eb?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
                       alt="image"
                     />
                   }
                 >
                   <Meta
-                    style={{ display: "flex", justifyContent: "center" }}
+                    style={{
+                      display: "flex",
+                      justifyContent: "center",
+                      height: "100px",
+                    }}
                     avatar={
                       <Avatar
                         className="avatar"
@@ -1423,8 +1515,14 @@ const OurHub = () => {
                       />
                     }
                     title={
-                      <span style={{ color: "black", fontSize: "15px" }}>
-                        Custom Title
+                      <span
+                        style={{
+                          color: "black",
+                          fontSize: "15px",
+                          borderBottom: "1px solid black",
+                        }}
+                      >
+                        Taco
                       </span>
                     }
                     description={
@@ -1443,13 +1541,17 @@ const OurHub = () => {
                 <Card
                   cover={
                     <img
-                      src="https://images.unsplash.com/photo-1575571536958-38aa1227786a?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+                      src="https://images.unsplash.com/photo-1509680859026-7d8cfc6894f4?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
                       alt="image"
                     />
                   }
                 >
                   <Meta
-                    style={{ display: "flex", justifyContent: "center" }}
+                    style={{
+                      display: "flex",
+                      justifyContent: "center",
+                      height: "100px",
+                    }}
                     avatar={
                       <Avatar
                         className="avatar"
@@ -1458,8 +1560,14 @@ const OurHub = () => {
                       />
                     }
                     title={
-                      <span style={{ color: "black", fontSize: "15px" }}>
-                        Custom Title
+                      <span
+                        style={{
+                          color: "black",
+                          fontSize: "15px",
+                          borderBottom: "1px solid black",
+                        }}
+                      >
+                        Egg Noodles
                       </span>
                     }
                     description={
@@ -1476,13 +1584,17 @@ const OurHub = () => {
                 <Card
                   cover={
                     <img
-                      src="https://images.unsplash.com/photo-1551818014-fa14764bc121?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+                      src="https://plus.unsplash.com/premium_photo-1668143363479-b8cd08698c0d?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
                       alt="image"
                     />
                   }
                 >
                   <Meta
-                    style={{ display: "flex", justifyContent: "center" }}
+                    style={{
+                      display: "flex",
+                      justifyContent: "center",
+                      height: "100px",
+                    }}
                     avatar={
                       <Avatar
                         className="avatar"
@@ -1491,8 +1603,14 @@ const OurHub = () => {
                       />
                     }
                     title={
-                      <span style={{ color: "black", fontSize: "15px" }}>
-                        Custom Title
+                      <span
+                        style={{
+                          color: "black",
+                          fontSize: "15px",
+                          borderBottom: "1px solid black",
+                        }}
+                      >
+                        Curry
                       </span>
                     }
                     description={
@@ -1509,13 +1627,17 @@ const OurHub = () => {
                 <Card
                   cover={
                     <img
-                      src="https://images.unsplash.com/photo-1616016048007-9315ac44c696?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+                      src="https://images.unsplash.com/photo-1631709497146-a239ef373cf1?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
                       alt="image"
                     />
                   }
                 >
                   <Meta
-                    style={{ display: "flex", justifyContent: "center" }}
+                    style={{
+                      display: "flex",
+                      justifyContent: "center",
+                      height: "100px",
+                    }}
                     avatar={
                       <Avatar
                         className="avatar"
@@ -1524,8 +1646,14 @@ const OurHub = () => {
                       />
                     }
                     title={
-                      <span style={{ color: "black", fontSize: "15px" }}>
-                        Custom Title
+                      <span
+                        style={{
+                          color: "black",
+                          fontSize: "15px",
+                          borderBottom: "1px solid black",
+                        }}
+                      >
+                        Pho Ha Noi
                       </span>
                     }
                     description={
@@ -1542,13 +1670,17 @@ const OurHub = () => {
                 <Card
                   cover={
                     <img
-                      src="https://images.unsplash.com/photo-1524656855800-59465ebcec69?q=80&w=2069&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+                      src="https://images.unsplash.com/photo-1547592166-23ac45744acd?q=80&w=2071&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
                       alt="image"
                     />
                   }
                 >
                   <Meta
-                    style={{ display: "flex", justifyContent: "center" }}
+                    style={{
+                      display: "flex",
+                      justifyContent: "center",
+                      height: "100px",
+                    }}
                     avatar={
                       <Avatar
                         className="avatar"
@@ -1557,8 +1689,14 @@ const OurHub = () => {
                       />
                     }
                     title={
-                      <span style={{ color: "black", fontSize: "15px" }}>
-                        Custom Title
+                      <span
+                        style={{
+                          color: "black",
+                          fontSize: "15px",
+                          borderBottom: "1px solid black",
+                        }}
+                      >
+                        A bottle of Soup
                       </span>
                     }
                     description={
