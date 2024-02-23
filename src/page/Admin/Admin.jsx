@@ -1,5 +1,17 @@
-import React from "react";
-import { Button, Space, Table, Tag, Typography } from "antd";
+import React, { useState } from "react";
+import {
+  Button,
+  Card,
+  Form,
+  Input,
+  Modal,
+  Select,
+  Space,
+  Table,
+  Tag,
+  Typography,
+} from "antd";
+import { dataAdmin } from "./dataAdmin";
 const columns = [
   {
     title: "Name",
@@ -66,52 +78,56 @@ const columns = [
   {
     title: "Image",
     key: "image",
-    dataIndex: "imageURL",
-    render: (imageURL) => (
-      <img
-        src={imageURL}
-        alt="User"
-        style={{ maxWidth: "100px", maxHeight: "100px" }}
-      />
+    dataIndex: "posts",
+    render: (posts) => (
+      <Button
+        type="link"
+        onClick={() => {
+          Modal.info({
+            width: 1800,
+            title: "User's Posts",
+            content: (
+              <div>
+                {posts?.map((post, index) => (
+                  <Card key={index} title={post.title}>
+                    <img
+                      src={post.imageURL}
+                      alt={`Post ${index + 1}`}
+                      style={{ maxWidth: "50%", marginBottom: "10px" }}
+                    />
+                    <h1>Description:</h1>
+                    <p>{post.description}</p>
+                  </Card>
+                ))}
+              </div>
+            ),
+          });
+        }}
+      >
+        View All Posts
+      </Button>
     ),
   },
 ];
-const data = [
-  {
-    key: "1",
-    name: "John Brown",
-    email: "JohnBrown123@gmail.com",
-    birthday: "10/2/2010",
-    gender: "male",
-    tags: ["developer", "nice"],
-    avatarUrl: "https://api.dicebear.com/7.x/miniavs/svg?seed=8",
-    imageURL:
-      "https://images.unsplash.com/photo-1575718120842-54e388d8cc6f?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-  },
-  {
-    key: "2",
-    name: "Jim Green",
-    email: "JimGreen456@gmail.com",
-    birthday: "13/12/2009",
-    gender: "female",
-    tags: ["user"],
-    avatarUrl: "https://api.dicebear.com/7.x/miniavs/svg?seed=8",
-    imageURL:
-      "https://images.unsplash.com/photo-1551817958-20204d6ab212?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-  },
-  {
-    key: "3",
-    name: "Joe Black",
-    email: "JoeBlack789@gmail.com",
-    birthday: "1/3/2008",
-    gender: "I don't know",
-    tags: ["Creator"],
-    avatarUrl: "https://api.dicebear.com/7.x/miniavs/svg?seed=8",
-    imageURL:
-      "https://images.unsplash.com/photo-1615494488092-b13b68fe0eb5?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-  },
-];
+
 const Admin = () => {
+  const [form] = Form.useForm()  
+  const [data, setData] = useState(dataAdmin);
+  const [isModalVisible, setIsModalVisible] = useState(false);
+  const handleAddUser = (values) => {
+    const newUser = {
+      key: data.length + 1,
+      name: values.name,
+      birthday: values.birthday,
+      email: values.email,
+      gender: values.gender,
+      tags: values.tags ? values.tags.split(",") : [],
+      avatarUrl: values.avatarUrl,
+      posts: [],
+    };
+    setData([...data, newUser]);
+    setIsModalVisible(false);
+  };
   return (
     <div style={{ width: "100%", height: "100vh" }}>
       <div
@@ -158,6 +174,7 @@ const Admin = () => {
             width: "100px",
             height: "40px",
           }}
+          onClick={() => setIsModalVisible(true)}
         >
           Add
         </Button>
@@ -172,6 +189,76 @@ const Admin = () => {
           Delete
         </Button>
       </div>
+      <Modal
+        title="Add User"
+        open={isModalVisible}
+        onCancel={() => {
+          setIsModalVisible(false);
+          form.resetFields()
+        }}
+        footer={null}
+      >
+        <Form form={form} name="addUserForm" onFinish={handleAddUser}>
+          <Form.Item
+            label="Name"
+            name="name"
+            rules={[{ required: true, message: "Please input the name!" }]}
+          >
+            <Input />
+          </Form.Item>
+
+          <Form.Item
+            label="Birthday"
+            name="birthday"
+            rules={[{ required: true, message: "Please input the birthday!" }]}
+          >
+            <Input type="date" />
+          </Form.Item>
+
+          <Form.Item
+            label="Email"
+            name="email"
+            rules={[
+              { required: true, message: "Please input the email!" },
+              { type: "email", message: "Invalid email address" },
+            ]}
+          >
+            <Input />
+          </Form.Item>
+
+          <Form.Item
+            label="Gender"
+            name="gender"
+            rules={[{ required: true, message: "Please select the gender!" }]}
+          >
+            <Select>
+              <Select.Option value="male">Male</Select.Option>
+              <Select.Option value="female">Female</Select.Option>
+              <Select.Option value="other">Other</Select.Option>
+            </Select>
+          </Form.Item>
+
+          <Form.Item label="Tags" name="tags">
+            <Input />
+          </Form.Item>
+
+          <Form.Item
+            label="Avatar URL"
+            name="avatarUrl"
+            rules={[
+              { required: true, message: "Please input the avatar URL!" },
+            ]}
+          >
+            <Input />
+          </Form.Item>
+
+          <Form.Item>
+            <Button type="primary" htmlType="submit">
+              Add User
+            </Button>
+          </Form.Item>
+        </Form>
+      </Modal>
     </div>
   );
 };
