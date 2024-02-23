@@ -14,6 +14,18 @@ import {
   Typography,
 } from "antd";
 import { dataAdmin } from "./dataAdmin";
+const getTagColor = (tag) => {
+  switch (tag.toLowerCase()) {
+    case "developer":
+      return "geekblue";
+    case "user":
+      return "volcano";
+    case "creator":
+      return "yellow";
+    default:
+      return "green";
+  }
+};
 const columns = [
   {
     title: "Stt",
@@ -49,25 +61,11 @@ const columns = [
     render: (_, { tags }) => (
       <>
         {Array.isArray(tags) ? (
-          tags.map((tag) => {
-            let color = tag.length > 100 ? "  " : "green";
-
-            if (tag.toLowerCase() === "developer") {
-              color = "geekblue";
-            }
-            if (tag.toLowerCase() === "user") {
-              color = "volcano";
-            }
-            if (tag.toLowerCase() === "creator") {
-              color = "yellow";
-            }
-
-            return (
-              <Tag color={color} key={tag}>
-                {tag.toUpperCase()}
-              </Tag>
-            );
-          })
+          tags.map((tag) => (
+            <Tag color={getTagColor(tag)} key={tag}>
+              {tag.toUpperCase()}
+            </Tag>
+          ))
         ) : (
           <Tag color="default">Invalid Tags</Tag>
         )}
@@ -125,13 +123,24 @@ const columns = [
 ];
 
 const Admin = () => {
+  const getTagColor = (tag) => {
+    switch (tag.toLowerCase()) {
+      case "developer":
+        return "geekblue";
+      case "user":
+        return "volcano";
+      case "creator":
+        return "yellow";
+      default:
+        return "green";
+    }
+  };
   const [form] = Form.useForm();
   const [data, setData] = useState(dataAdmin);
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [selectedUser, setSelectedUser] = useState(null);
   const [formEdit] = Form.useForm();
   const [editModalVisible, setEditModalVisible] = useState(false);
-  const [deleteModalVisible, setDeleteModalVisible] = useState(false);
 
   const [titleBackgroundColor, setTitleBackgroundColor] = useState("#ffffff");
   const [titleTextColor, setTitleTextColor] = useState("#000000");
@@ -228,11 +237,21 @@ const Admin = () => {
 
   const handleDeleteUser = () => {
     if (selectedUser) {
-      const updatedData = data.filter((user) => user.key !== selectedUser.key);
-      const updatedDataWithStt = updateSttColumn(updatedData);
-      setData(updatedDataWithStt);
-      setDeleteModalVisible(false);
-      setSelectedUser(null);
+      Modal.confirm({
+        title: "Are you sure?",
+        content: "This action cannot be undone.",
+        okText: "Yes",
+        cancelText: "Cancel",
+        onOk: () => {
+          const updatedData = data.filter(
+            (user) => user.key !== selectedUser.key
+          );
+          const updatedDataWithStt = updateSttColumn(updatedData);
+          setData(updatedDataWithStt);
+          setSelectedUser(null);
+        },
+        onCancel: () => {},
+      });
     }
   };
 
@@ -310,7 +329,8 @@ const Admin = () => {
             width: "100px",
             height: "40px",
           }}
-          onClick={() => setDeleteModalVisible(true)}
+          onClick={handleDeleteUser}
+          disabled={!selectedUser}
         >
           Delete
         </Button>
@@ -461,31 +481,6 @@ const Admin = () => {
             </Space>
           </Form.Item>
         </Form>
-      </Modal>
-
-      <Modal
-        title="Delete User"
-        visible={deleteModalVisible}
-        onCancel={() => setDeleteModalVisible(false)}
-        onOk={handleDeleteUser}
-        bodyStyle={{ borderBottom: "2px solid #e8e8e8" }}
-      >
-        <Radio.Group
-          onChange={(e) =>
-            setSelectedUser(data.find((user) => user.key === e.target.value))
-          }
-          value={selectedUser ? selectedUser.key : undefined}
-        >
-          {data.map((user, index) => (
-            <Radio
-              key={user.key}
-              value={user.key}
-              style={{ marginBottom: "20px" }}
-            >
-              {`${index + 1}. ${user.name}`}
-            </Radio>
-          ))}
-        </Radio.Group>
       </Modal>
     </div>
   );
