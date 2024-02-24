@@ -86,6 +86,14 @@ const PostArt = () => {
     },
   };
   const [isOpen, setIsOpen] = useState(false);
+  const [form] = Form.useForm();
+
+  const handleReset = () => {
+    form.resetFields();
+    form.setFieldsValue({ fileList: [] });
+    form.setFieldsValue({ designType: "" });
+  };
+
   return (
     <div className="PostArtPage">
       <div
@@ -149,6 +157,7 @@ const PostArt = () => {
         footer={null}
       >
         <Form
+          form={form}
           {...formItemLayout}
           variant="filled"
           style={{
@@ -191,6 +200,13 @@ const PostArt = () => {
           <Form.Item
             label="What type of designs you want"
             style={{ height: "100px" }}
+            name="designType"
+            rules={[
+              {
+                required: true,
+                message: "Please select a design type!",
+              },
+            ]}
           >
             <Select onChange={handleTypeDesignChange}>
               <Select.Option value="discover">Discover</Select.Option>
@@ -202,11 +218,22 @@ const PostArt = () => {
           </Form.Item>
           <Form.Item
             label="Upload"
+            name="fileList"
             valuePropName="fileList"
             getValueFromEvent={normFile}
             style={{ marginTop: "-40px" }}
           >
-            <Upload action="/upload.do" listType="picture-card" onChange={handleImageUpload}>
+            <Upload
+              action="/upload.do"
+              listType="picture-card"
+              fileList={form.getFieldValue("fileList")}
+              beforeUpload={(file) => {
+                form.setFieldsValue({ fileList: [] });
+
+                return false;
+              }}
+              onChange={handleImageUpload}
+            >
               <button
                 style={{
                   border: 0,
@@ -228,7 +255,7 @@ const PostArt = () => {
 
           <Form.Item
             label="Your Name"
-            name="Input"
+            name="name"
             rules={[
               {
                 required: true,
@@ -245,7 +272,11 @@ const PostArt = () => {
             rules={[
               {
                 required: true,
-                message: "Please input!",
+                message: "Please input your email!",
+              },
+              {
+                type: "email",
+                message: "Please enter a valid email address!",
               },
             ]}
             value={email} onChange={(e) => setEmail(e.target.value)}
@@ -273,13 +304,38 @@ const PostArt = () => {
               <Select.Option value="male">Don't want answer</Select.Option>
             </Select>
           </Form.Item>
-
+          <Form.Item
+            label="Price of the Image"
+            name="imagePrice"
+            rules={[
+              {
+                required: true,
+                message: "Please input the price of the image!",
+              },
+            ]}
+          >
+            <Input type="number" placeholder="Enter the price" prefix="$" />
+          </Form.Item>
+          <Form.Item
+            label="Dimensions"
+            name="imageDimensions"
+            rules={[
+              {
+                required: true,
+                message: "Please input the dimensions of the image!",
+              },
+            ]}
+          >
+            <Input placeholder="Enter the dimensions (e.g., 800x600)" />
+          </Form.Item>
           <Form.Item>
             <Space>
               <Button type="primary" htmlType="submit" onClick={handleFormSubmit}>
                 Submit
               </Button>
-              <Button htmlType="button">Reset</Button>
+              <Button htmlType="button" onClick={handleReset}>
+                Reset
+              </Button>
             </Space>
           </Form.Item>
         </Form>
