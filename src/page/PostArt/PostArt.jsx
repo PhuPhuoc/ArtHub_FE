@@ -22,6 +22,51 @@ const normFile = (e) => {
 };
 
 const PostArt = () => {
+
+    const [title, setTitle] = useState('');
+    const [description, setDescription] = useState('');
+    const [typeDesign, setTypeDesign] = useState('');
+    const [image, setImage] = useState('');
+    const [name, setName] = useState('');
+    const [email, setEmail] = useState('');
+    const [birthday, setBirthday] = useState('');
+    const [gender, setGender] = useState('');
+
+    const handleGenderChange = (value) => {
+        setGender(value);
+    };
+
+    const handleTypeDesignChange = (value) => {
+        setTypeDesign(value);
+    };
+
+    const handleImageUpload = (info) => {
+        if (info.file.status === 'done') {
+            setImage(info.file.response.url);
+        }
+    };
+
+    const handleFormSubmit = (e) => {
+        e.preventDefault();
+        const artwork = { title: title, description: description, typeDesign: typeDesign, image: image, name: name, email: email, birthday: birthday, gender: gender };
+        fetch("http://localhost:5000/api/addartwork", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(artwork)
+        })
+            .then(response => {
+                if (!response.ok)
+                    throw new Error('Invalid artwork form');
+                return response.json();
+            })
+            .then(data => {
+                console.log("New artwork added", data);
+            })
+            .catch(error => {
+                console.error("Error while sending artwork:", error.message);
+            })
+    };
+
   const formItemLayout = {
     labelCol: {
       xs: {
@@ -122,7 +167,7 @@ const PostArt = () => {
               },
             ]}
           >
-            <Input placeholder="Input Title" />
+            <Input placeholder="Input Title" value={title} onChange={(e) => setTitle(e.target.value)}/>
           </Form.Item>
 
           <Form.Item
@@ -139,6 +184,7 @@ const PostArt = () => {
             <Input.TextArea
               placeholder="Post Descriptions"
               style={{ height: "100px" }}
+              value={description} onChange={(e) => setDescription(e.target.value)}
             />
           </Form.Item>
 
@@ -146,8 +192,7 @@ const PostArt = () => {
             label="What type of designs you want"
             style={{ height: "100px" }}
           >
-            <Select>
-              <Select.Option value=""></Select.Option>
+            <Select onChange={handleTypeDesignChange}>
               <Select.Option value="discover">Discover</Select.Option>
               <Select.Option value="animation">Animation</Select.Option>
               <Select.Option value="culture">Culture</Select.Option>
@@ -161,7 +206,7 @@ const PostArt = () => {
             getValueFromEvent={normFile}
             style={{ marginTop: "-40px" }}
           >
-            <Upload action="/upload.do" listType="picture-card">
+            <Upload action="/upload.do" listType="picture-card" onChange={handleImageUpload}>
               <button
                 style={{
                   border: 0,
@@ -190,6 +235,7 @@ const PostArt = () => {
                 message: "Please input!",
               },
             ]}
+            value={name} onChange={(e) => setName(e.target.value)}
           >
             <Input placeholder="Your full name" />
           </Form.Item>
@@ -202,6 +248,7 @@ const PostArt = () => {
                 message: "Please input!",
               },
             ]}
+            value={email} onChange={(e) => setEmail(e.target.value)}
           >
             <Input placeholder="Your email" />
           </Form.Item>
@@ -215,11 +262,12 @@ const PostArt = () => {
                 message: "Please input!",
               },
             ]}
+            value={birthday} onChange={(e) => setBirthday(e.target.value)}
           >
             <DatePicker style={{ width: "300px" }} />
           </Form.Item>
           <Form.Item label="Gender">
-            <Select>
+            <Select onChange={handleGenderChange}>
               <Select.Option value="male">Male</Select.Option>
               <Select.Option value="male">Female</Select.Option>
               <Select.Option value="male">Don't want answer</Select.Option>
@@ -228,7 +276,7 @@ const PostArt = () => {
 
           <Form.Item>
             <Space>
-              <Button type="primary" htmlType="submit">
+              <Button type="primary" htmlType="submit" onClick={handleFormSubmit}>
                 Submit
               </Button>
               <Button htmlType="button">Reset</Button>
