@@ -33,12 +33,23 @@ const DefaultLayout = ({ children }) => {
 
   const navigate = useNavigate();
   const menu = (
+<<<<<<< HEAD
     <Menu
       onClick={() => {
         navigate("/home");
       }}
     >
       <Menu.Item key="vercel" icon={<HomeOutlined />}>
+=======
+    <Menu>
+      <Menu.Item
+        key="vercel"
+        icon={<HomeOutlined />}
+        onClick={() => {
+          navigate("/profile");
+        }}
+      >
+>>>>>>> af540e7 (findTalentPage)
         Profile
       </Menu.Item>
     </Menu>
@@ -54,6 +65,10 @@ const DefaultLayout = ({ children }) => {
             width: "100%",
             display: "flex",
             alignItems: "center",
+<<<<<<< HEAD
+=======
+            backgroundColor: "white",
+>>>>>>> af540e7 (findTalentPage)
           }}
         >
           <MenuArthub items={items_welcomepage} />
@@ -74,7 +89,11 @@ const DefaultLayout = ({ children }) => {
             >
               <Title
                 style={{
+<<<<<<< HEAD
                   color: "white",
+=======
+                  color: "black",
+>>>>>>> af540e7 (findTalentPage)
                   display: "flex",
                   transform: "translateY(-10px)",
                 }}
@@ -83,7 +102,15 @@ const DefaultLayout = ({ children }) => {
               </Title>
             </Button>
             <div style={{ display: "flex" }}>
+<<<<<<< HEAD
               <Search placeholder="Search" allowClear />
+=======
+              <Search
+                placeholder="Search"
+                allowClear
+                style={{ color: "white" }}
+              />
+>>>>>>> af540e7 (findTalentPage)
             </div>
           </div>
           <Dropdown
@@ -93,6 +120,7 @@ const DefaultLayout = ({ children }) => {
             onVisibleChange={(visible) => setMenuVisible(visible)}
             placement="bottomCenter"
           >
+<<<<<<< HEAD
             <Button style={{ marginBottom: "20px" }} type="text">
               <Avatar
                 style={{
@@ -105,6 +133,21 @@ const DefaultLayout = ({ children }) => {
                 a
               </Avatar>
             </Button>
+=======
+            <Avatar
+              style={{
+                color: "black",
+                backgroundColor: "white",
+                verticalAlign: "middle",
+                cursor: "pointer",
+                border: "1px solid black",
+                marginLeft: "30px",
+              }}
+              size="large"
+            >
+              a
+            </Avatar>
+>>>>>>> af540e7 (findTalentPage)
           </Dropdown>
         </Header>
         <Content
@@ -122,7 +165,10 @@ const DefaultLayout = ({ children }) => {
             textAlign: "center",
           }}
         >
+<<<<<<< HEAD
           
+=======
+>>>>>>> af540e7 (findTalentPage)
           ArtHub ©{new Date().getFullYear()} Created by SWP391
         </Footer>
       </Layout>

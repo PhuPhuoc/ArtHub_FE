@@ -69,12 +69,22 @@ const FindTalent = () => {
             fontSize: "20px",
             display: "flex",
             textAlign: "center",
+<<<<<<< HEAD
             transform: "translateY(-20px)",
           }}
         >
           Find the perfect match for your next project using Designer Search, '
           or let designers come to you through our Job Board. Arthub Hiring
           makes it easier than ever to source top-notch design talent.
+=======
+            justifyContent: "center",
+            color: "gray",
+          }}
+        >
+          Find the perfect match for your next project using Designer Search, '
+          or let designers come to you through our Job <br /> Board. Arthub
+          Hiring makes it easier than ever to source top-notch design talent.
+>>>>>>> af540e7 (findTalentPage)
         </Typography.Text>
       </div>
       <div
@@ -89,6 +99,7 @@ const FindTalent = () => {
         <div
           className="leftFirstSection"
           style={{
+<<<<<<< HEAD
             height: "270px",
             width: "48%",
             border: "1px solid black",
@@ -115,17 +126,66 @@ const FindTalent = () => {
             Easily hire for full-time or freelance placements
           </Typography.Text>
           <Typography.Text style={{ display: "flex", alignItems: "center" }}>
+=======
+            height: "400px",
+            width: "48%",
+            border: "1px solid black",
+            borderRadius: "24px",
+            padding: "20px",
+            boxSizing: "border-box",
+          }}
+        >
+          <Typography.Title
+            style={{
+              fontSize: "30px",
+              width: "153px",
+              borderBottom: "1px solid black",
+              fontWeight: "900",
+            }}
+          >
+            Job Board
+          </Typography.Title>
+          <p style={{ fontSize: "18px" }}>
+            Let top creative talent come to you by posting your listing on #1
+            design job board.
+          </p>
+          <Typography.Title style={{ fontSize: "25px", marginTop: "20px" }}>
+            $5/day
+          </Typography.Title>
+          <p style={{ fontSize: "18px", marginTop: "10px" }}>billed monthly</p>
+          <Typography.Text
+            style={{ display: "flex", alignItems: "center", fontSize: "20px" }}
+          >
+            <TiTick style={{ marginRight: "8px", color: "green" }} />
+            Average of 1.1k targeted clicks per month
+          </Typography.Text>
+          <Typography.Text
+            style={{ display: "flex", alignItems: "center", fontSize: "20px" }}
+          >
+            <TiTick style={{ marginRight: "8px", color: "green" }} />
+            Easily hire for full-time or freelance placements
+          </Typography.Text>
+          <Typography.Text
+            style={{ display: "flex", alignItems: "center", fontSize: "20px" }}
+          >
+>>>>>>> af540e7 (findTalentPage)
             <TiTick style={{ marginRight: "8px", color: "green" }} />
             Swap out listings as needed
           </Typography.Text>
           <Button
             style={{
               height: "50px",
+<<<<<<< HEAD
               display: "flex",
               justifyContent: "center",
               width: "60%",
               alignItems: "center",
               transform: "translateX(110px)",
+=======
+              width: "50%",
+              display: "block",
+              margin: "20px auto",
+>>>>>>> af540e7 (findTalentPage)
               borderRadius: "24px",
             }}
           >
@@ -165,9 +225,24 @@ const FindTalent = () => {
             height: "400px",
             border: "5px solid pink",
             borderRadius: "24px",
+<<<<<<< HEAD
           }}
         >
           <Typography.Title style={{ fontSize: "25px" }}>
+=======
+            padding: "10px",
+            boxSizing: "border-box",
+          }}
+        >
+          <Typography.Title
+            style={{
+              fontSize: "25px",
+              fontWeight: "900",
+              borderBottom: "1px solid black",
+              width: "300px",
+            }}
+          >
+>>>>>>> af540e7 (findTalentPage)
             Hiring Suite
           </Typography.Title>
           <p>
@@ -320,7 +395,11 @@ const FindTalent = () => {
         <div
           className="leftThirdSection"
           style={{
+<<<<<<< HEAD
             height: "400px",
+=======
+            height: "500px",
+>>>>>>> af540e7 (findTalentPage)
             width: "50%",
             border: "30px solid pink",
             borderRadius: "8px",
@@ -409,7 +488,11 @@ const FindTalent = () => {
         <div
           className="rightFourtSection"
           style={{
+<<<<<<< HEAD
             height: "400px",
+=======
+            height: "500px",
+>>>>>>> af540e7 (findTalentPage)
             width: "50%",
             border: "30px solid pink",
             borderRadius: "8px",
@@ -486,10 +569,24 @@ const FindTalent = () => {
           />
         </div>
       </div>
+<<<<<<< HEAD
       <div className="sectionSixPage" style={{ height: "750px", width: "100%" }}>
         <div className="supporttext">
           <Typography.Title
             style={{ display: "flex", justifyContent: "center",height:"20vh" }}
+=======
+      <div
+        className="sectionSixPage"
+        style={{ height: "750px", width: "100%" }}
+      >
+        <div className="supporttext">
+          <Typography.Title
+            style={{
+              display: "flex",
+              justifyContent: "center",
+              height: "20vh",
+            }}
+>>>>>>> af540e7 (findTalentPage)
           >
             Why brands choose Arthub to hire design talent
           </Typography.Title>
@@ -552,7 +649,11 @@ const FindTalent = () => {
                 marginTop: "20px",
               }}
             >
+<<<<<<< HEAD
             $0 PLACEMENT FEES
+=======
+              $0 PLACEMENT FEES
+>>>>>>> af540e7 (findTalentPage)
             </span>
           </Typography.Text>
           <Typography.Text
@@ -585,7 +686,11 @@ const FindTalent = () => {
                 marginTop: "20px",
               }}
             >
+<<<<<<< HEAD
             GLOBAL REACH
+=======
+              GLOBAL REACH
+>>>>>>> af540e7 (findTalentPage)
             </span>
           </Typography.Text>
           <Typography.Text
@@ -602,9 +707,15 @@ const FindTalent = () => {
         <div
           className="rightsectionsixpage"
           style={{
+<<<<<<< HEAD
             height: "270px",
             width: "35%",
             transform: "translateX(700px) translateY(-250px)",
+=======
+            height: "290px",
+            width: "40%",
+            transform: "translateX(850px) translateY(-290px)",
+>>>>>>> af540e7 (findTalentPage)
           }}
         >
           <img
@@ -662,7 +773,11 @@ const FindTalent = () => {
               borderRadius: "24px",
               backgroundColor: "white",
               transform: "translateX(40px)",
+<<<<<<< HEAD
             zIndex: "2" 
+=======
+              zIndex: "2",
+>>>>>>> af540e7 (findTalentPage)
             }}
           >
             <Typography.Title style={{ fontSize: "25px" }}>
@@ -724,7 +839,11 @@ const FindTalent = () => {
               justifyContent: "center",
               alignItems: "center",
               transform: "translateX(320px) translateY(-12px)",
+<<<<<<< HEAD
               zIndex: "1"
+=======
+              zIndex: "1",
+>>>>>>> af540e7 (findTalentPage)
             }}
           >
             <Typography.Text
@@ -743,6 +862,7 @@ const FindTalent = () => {
             style={{
               width: "48%",
               height: "400px",
+<<<<<<< HEAD
               border: "5px solid pink",
               borderRadius: "24px",
               backgroundColor: "white",
@@ -750,6 +870,16 @@ const FindTalent = () => {
             }}
           >
             <Typography.Title style={{ fontSize: "25px" }}>
+=======
+              border: "10px solid pink",
+              borderRadius: "24px",
+              backgroundColor: "white",
+            }}
+          >
+            <Typography.Title
+              style={{ fontSize: "25px", borderBottom: "1px solid black" }}
+            >
+>>>>>>> af540e7 (findTalentPage)
               Hiring Suite
             </Typography.Title>
             <p>
@@ -810,6 +940,7 @@ const FindTalent = () => {
           </div>
         </div>
       </div>
+<<<<<<< HEAD
       <div className="sectionEightPage" >
         <div className="logo-Slides">
               <img src="https://i.pinimg.com/564x/ea/dd/a3/eadda33f4baf6b79f3e41ee8a8d9327e.jpg" loading="lazy"/>
@@ -840,6 +971,41 @@ const FindTalent = () => {
       </div>
 
 
+=======
+      <div className="sectionEightPage">
+        <div className="logo-Slides">
+          <img
+            src="https://i.pinimg.com/564x/ea/dd/a3/eadda33f4baf6b79f3e41ee8a8d9327e.jpg"
+            loading="lazy"
+          />
+          <img src="https://i.pinimg.com/564x/23/50/4e/23504ed890aa846557891b393ccdd65d.jpg" />
+          <img src="https://i.pinimg.com/564x/b5/30/08/b53008f66bdaacf2fac8bd3c9e3ec364.jpg" />
+          <img src="https://i.pinimg.com/564x/36/b6/7c/36b67ce844d8919d954d4f754b562e4e.jpg" />
+          <img src="https://i.pinimg.com/564x/c8/b8/b0/c8b8b099505dc65f288dcf18090d4a64.jpg" />
+          <img src="https://i.pinimg.com/564x/7f/83/fa/7f83fa427a0aac4de8a557c75bc753cc.jpg" />
+          <img src="https://i.pinimg.com/564x/3d/85/21/3d85212f0b48a6203f7dd759f1964e07.jpg" />
+          <img src="https://i.pinimg.com/564x/cd/32/12/cd3212a2c156350ba1fb74a533124198.jpg" />
+          <img src="https://i.pinimg.com/564x/9a/f2/df/9af2df4f0cb2159c9f7d67d984f5d672.jpg" />
+          <img src="https://i.pinimg.com/564x/39/04/0b/39040b29e84ed9e5c30559781aae4d9f.jpg" />
+        </div>
+
+        <div className="logo-Slides">
+          <img
+            src="https://i.pinimg.com/564x/ea/dd/a3/eadda33f4baf6b79f3e41ee8a8d9327e.jpg"
+            loading="lazy"
+          />
+          <img src="https://i.pinimg.com/564x/23/50/4e/23504ed890aa846557891b393ccdd65d.jpg" />
+          <img src="https://i.pinimg.com/564x/b5/30/08/b53008f66bdaacf2fac8bd3c9e3ec364.jpg" />
+          <img src="https://i.pinimg.com/564x/36/b6/7c/36b67ce844d8919d954d4f754b562e4e.jpg" />
+          <img src="https://i.pinimg.com/564x/c8/b8/b0/c8b8b099505dc65f288dcf18090d4a64.jpg" />
+          <img src="https://i.pinimg.com/564x/7f/83/fa/7f83fa427a0aac4de8a557c75bc753cc.jpg" />
+          <img src="https://i.pinimg.com/564x/3d/85/21/3d85212f0b48a6203f7dd759f1964e07.jpg" />
+          <img src="https://i.pinimg.com/564x/cd/32/12/cd3212a2c156350ba1fb74a533124198.jpg" />
+          <img src="https://i.pinimg.com/564x/9a/f2/df/9af2df4f0cb2159c9f7d67d984f5d672.jpg" />
+          <img src="https://i.pinimg.com/564x/39/04/0b/39040b29e84ed9e5c30559781aae4d9f.jpg" />
+        </div>
+      </div>
+>>>>>>> af540e7 (findTalentPage)
     </div>
   );
 };

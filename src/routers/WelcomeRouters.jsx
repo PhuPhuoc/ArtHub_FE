@@ -4,15 +4,31 @@ import FindTalent from "../page/FindTalent/Findtalent";
 import OurHub from "../page/OurHub/OurHub";
 import PostArt from "../page/PostArt/PostArt";
 import HomePage from "../page/Home/HomePage";
+<<<<<<< HEAD
 
+=======
+import Profile from "../page/Profile/Profile";
+
+import LoginPage from "../page/Login/LoginPage";
+import Admin from "../page/Admin/Admin";
+>>>>>>> af540e7 (findTalentPage)
 const welcomeRouterData = [
   { path: "findtalent", component: <FindTalent /> },
   { path: "ourhub", component: <OurHub /> },
   { path: "postart", component: <PostArt /> },
+<<<<<<< HEAD
 ];
 
 const DefaultComponent = () => {
   // Replace this with the component you want to display by default
+=======
+  { path: "profile", component: <Profile /> },
+  { path: "loginpage", component: <LoginPage /> },
+  { path: "admin", component: <Admin /> },
+];
+
+const DefaultComponent = () => {
+>>>>>>> af540e7 (findTalentPage)
   return <HomePage />;
 };
 
