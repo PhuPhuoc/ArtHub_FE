@@ -1,1 +1,12 @@
-    
+.fileupload{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+}
+.fileupload img{
+    width: 200px;
+    height: 200px;
+    border-radius: 50%;
+    z-index: 0;
+}    

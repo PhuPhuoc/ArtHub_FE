@@ -16,6 +16,7 @@ import pic1 from "../../assets/images/phamNhatVuong.jpg";
 import "../../page/FindTalent/Findtalent.css";
 import { useEffect, useState } from "react";
 
+
 const getRandomColor = () => {
   const letters = "0123456789ABCDEF";
   let color = "#";
@@ -27,6 +28,8 @@ const getRandomColor = () => {
 
 const FindTalent = () => {
   const [titleColor, setTitleColor] = useState(getRandomColor);
+
+
 
   useEffect(() => {
     const intervalId = setInterval(() => {
@@ -320,7 +323,7 @@ const FindTalent = () => {
         <div
           className="leftThirdSection"
           style={{
-            height: "400px",
+            height: "500px",
             width: "50%",
             border: "30px solid pink",
             borderRadius: "8px",
@@ -361,7 +364,12 @@ const FindTalent = () => {
                 "var(--token-117cbcaa-8127-4416-9f92-fcbce9f99a50, rgb(13, 12, 34))",
               color: "white",
             }}
-          >
+            onClick={() => {
+              const sectionSevenPage = document.getElementById('sectionSevenPage');
+              if (sectionSevenPage) {
+                sectionSevenPage.scrollIntoView({ behavior: "smooth" });
+              }
+            }}>
             Start your search
           </Button>
         </div>
@@ -402,6 +410,7 @@ const FindTalent = () => {
                 "var(--token-117cbcaa-8127-4416-9f92-fcbce9f99a50, rgb(13, 12, 34))",
               color: "white",
             }}
+            
           >
             Post your job
           </Button>
@@ -409,7 +418,7 @@ const FindTalent = () => {
         <div
           className="rightFourtSection"
           style={{
-            height: "400px",
+            height: "500px",
             width: "50%",
             border: "30px solid pink",
             borderRadius: "8px",
@@ -602,9 +611,9 @@ const FindTalent = () => {
         <div
           className="rightsectionsixpage"
           style={{
-            height: "270px",
+            height: "290px",
             width: "35%",
-            transform: "translateX(700px) translateY(-250px)",
+            transform: "translateX(850px) translateY(-290px)",
           }}
         >
           <img
@@ -646,6 +655,7 @@ const FindTalent = () => {
         </div>
         <div
           className="sectionSevenPage"
+          id="sectionSevenPage"
           style={{
             height: "70vh",
             width: "100%",
