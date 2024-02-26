@@ -24,6 +24,11 @@ const Profile = () => {
             });
     };
 
+    const handleLogout = () => {
+        Cookies.remove('sessionCookie');
+        window.location.href = '/loginpage';
+    };
+
     return (
         <div>
             <h1>Your profile</h1>
@@ -33,6 +38,7 @@ const Profile = () => {
                     <p>{artwork.description}</p>
                 </div>
             ))}
+            <button onClick={handleLogout}>Logout</button>
         </div>
     );
 };

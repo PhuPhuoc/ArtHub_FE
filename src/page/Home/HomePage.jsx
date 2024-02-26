@@ -24,7 +24,7 @@ const HomePage = () => {
     const [isMuted, setIsMuted] = useState(false);
     const [buttonColor, setButtonColor] = useState("palevioletred");
     const [sessionCookie, setSessionCookie] = useState('');
-    const [userArtworks, setUserArtworks] = useState([]);
+    const [username, setUsername] = useState('');
     const userId = sessionCookie.toString();
 
     useEffect(() => {
@@ -40,14 +40,14 @@ const HomePage = () => {
         console.log("COOKIE", cookieValue);
         if (cookieValue) {
             setSessionCookie(cookieValue);
-            fetchUserPosts(userId);
+            fetchUsername();
         }
     }, []);
 
-    const fetchUserPosts = (userId) => {
-        axios.get(`http://localhost:5000/api/users/${userId}/posts`)
+    const fetchUsername = () => {
+        axios.get(`http://localhost:5000/api/users/${userId}/info`)
             .then(response => {
-                setUserArtworks(response.data);
+                setUsername(response.data);
             })
             .catch(error => {
                 console.error('Error fetching user posts:', error);
@@ -62,7 +62,7 @@ const HomePage = () => {
     <div className="home" style={{ position: "relative" }}>
 
         {sessionCookie ? (
-            <p>Welcome, {sessionCookie.toString()}</p>
+            <p>Welcome, {username.toString()}</p>
         ) : (
             <p></p>
         )}
