@@ -408,20 +408,9 @@ const OurHub = () => {
       />
     </Col>
     <Col span={12} style={{ paddingLeft: "20px" }}>
-      <h2 style={{ fontSize: "200%", fontFamily: "serif", fontWeight: "bold", paddingBottom: "10px" }}>{modalContent.title}</h2>
-      <p style={{ fontSize: "130%", paddingBottom: "10px"}}>{modalContent.description}</p>
-      <p style={{ fontSize: "130%",paddingBottom: "10px" }}>100 x 100 cm</p>
-      <p style={{ fontSize: "130%",paddingBottom: "250px", fontStyle:"italic" }}>10.99$</p>
-      <Row style={{paddingLeft:"10px"}}>
-      <Avatar
-          className="avatar"
-          src="https://api.dicebear.com/7.x/miniavs/svg?seed=8"
-          style={{ cursor: "pointer", width:"10%", height:"10%" }}
-        />
-        <p style={{paddingLeft:"10px", marginTop:"20px", fontSize:"120%"}}>Jean Paul</p>
-        </Row>
+      <h2 style={{ fontSize: "200%", fontFamily: "serif", font-weight:}}>{modalContent.title}</h2>
+      <p style={{ fontSize: "130%" }}>{modalContent.description}</p>
     </Col>
-    
   </Row>
 </Modal>
 

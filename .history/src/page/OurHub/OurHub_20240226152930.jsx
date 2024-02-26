@@ -418,7 +418,7 @@ const OurHub = () => {
           src="https://api.dicebear.com/7.x/miniavs/svg?seed=8"
           style={{ cursor: "pointer", width:"10%", height:"10%" }}
         />
-        <p style={{paddingLeft:"10px", marginTop:"20px", fontSize:"120%"}}>Jean Paul</p>
+        <p style={{paddingLeft:"10px", marginTop:"25px"}}>Jean Paul</p>
         </Row>
     </Col>
     
