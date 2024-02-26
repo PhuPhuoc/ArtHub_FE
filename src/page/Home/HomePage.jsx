@@ -5,23 +5,47 @@ import "./HomePage.css";
 import ReactPlayer from "react-player";
 import { FaVolumeMute, FaVolumeUp } from "react-icons/fa";
 import { useEffect, useState } from "react";
+import axios from "axios";
+import Cookies from 'js-cookie';
 
 const HomePage = () => {
-  const [isMuted, setIsMuted] = useState(false);
-  const [buttonColor, setButtonColor] = useState("palevioletred");
-  useEffect(() => {
-    const intervalId = setInterval(() => {
-      const newColor = getRandomColor();
-      setButtonColor(newColor);
-    }, 1500);
-    return () => clearInterval(intervalId);
-  }, []);
-  const getRandomColor = () => {
-    return `#${Math.floor(Math.random() * 16777215).toString(16)}`;
-  };
+    const [isMuted, setIsMuted] = useState(false);
+    const [buttonColor, setButtonColor] = useState("palevioletred");
+    const [user, setUser] = useState('');
+    const [sessionCookie, setSessionCookie] = useState('');
+
+    console.log(user);
+
+
+    useEffect(() => {
+        const intervalId = setInterval(() => {
+        const newColor = getRandomColor();
+        setButtonColor(newColor);
+        }, 1500);
+        return () => clearInterval(intervalId);
+    }, []);
+
+    useEffect(() => {
+        const cookieValue = Cookies.get('sessionCookie');
+        console.log("COOKIE", cookieValue);
+        if (cookieValue) {
+            setSessionCookie(cookieValue);
+        }
+    }, []);
+
+    const getRandomColor = () => {
+        return `#${Math.floor(Math.random() * 16777215).toString(16)}`;
+    };
 
   return (
     <div className="home">
+
+        {sessionCookie ? (
+            <p>Bienvenue, {sessionCookie.toString()}</p>
+        ) : (
+            <p>Non connecté</p>
+        )}
+
       <div
         className="first-button"
         style={{

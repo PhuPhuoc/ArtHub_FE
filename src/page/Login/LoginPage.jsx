@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from "react";
 import "./LoginPage.css";
+import Cookies from 'js-cookie';
 
 function LoginForm() {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [users, setUsers] = useState([]);
-
 
   const [loginMail, setLoginMail] = useState('');
   const [loginPassword, setLoginPassword] = useState('');
@@ -46,8 +46,8 @@ function LoginForm() {
           return response.json();
         })
         .then(data => {
+          Cookies.set('sessionCookie', data.user.name, { expires: 1 });
           console.log("Login successful:", data);
-          localStorage.setItem('token', data.token);
           setRedirect(true);
         })
         .catch(error => {
@@ -56,8 +56,9 @@ function LoginForm() {
         });
   };
 
+
   useEffect(()=>{
-    fetch("http://localhost:5173/loginpage")
+    fetch("http://localhost:5173/api/login")
         .then((res) => res.json())
         .then((result) => {
           setUsers(result);
@@ -89,7 +90,7 @@ function LoginForm() {
 
   useEffect(() => {
     if (redirect) {
-      window.location.href = "http://localhost:5173"; // Rediriger vers une autre page
+      window.location.href = "http://localhost:5173";
     }
   }, [redirect]);
 

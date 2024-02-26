@@ -31,6 +31,8 @@ const PostArt = () => {
     const [email, setEmail] = useState('');
     const [birthday, setBirthday] = useState('');
     const [gender, setGender] = useState('');
+    const [price, setPrice] = useState('');
+    const [dimensions, setDimensions] = useState('');
 
     const handleGenderChange = (value) => {
         setGender(value);
@@ -325,6 +327,8 @@ const PostArt = () => {
                 message: "Please input the dimensions of the image!",
               },
             ]}
+            value={dimensions}
+            onChange={(e) => setDimensions(e.target.value)}
           >
             <Input placeholder="Enter the dimensions (e.g., 800x600)" />
           </Form.Item>

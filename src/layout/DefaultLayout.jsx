@@ -1,7 +1,8 @@
 import {
-  DatabaseOutlined,
-  TeamOutlined,
-  HomeOutlined,
+    DatabaseOutlined,
+    TeamOutlined,
+    HomeOutlined,
+    UserOutlined, AreaChartOutlined
 } from "@ant-design/icons";
 import { Avatar, Button, Dropdown, Layout, Menu } from "antd";
 import { Content, Footer, Header } from "antd/es/layout/layout";
@@ -36,13 +37,22 @@ const DefaultLayout = ({ children }) => {
     <Menu>
       <Menu.Item
         key="vercel"
-        icon={<HomeOutlined />}
+        icon={<UserOutlined />}
         onClick={() => {
-          navigate("/profile");
+          navigate("/loginpage");
         }}
       >
-        Profile
+        Login
       </Menu.Item>
+        <Menu.Item
+            key="vercel"
+            icon={<AreaChartOutlined />}
+            onClick={() => {
+                navigate("/myartworks");
+            }}
+        >
+            My Artworks
+        </Menu.Item>
     </Menu>
   );
   return (
@@ -111,7 +121,7 @@ const DefaultLayout = ({ children }) => {
               }}
               size="large"
             >
-              a
+              <UserOutlined/>
             </Avatar>
           </Dropdown>
         </Header>
