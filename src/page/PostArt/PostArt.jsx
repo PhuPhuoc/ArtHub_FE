@@ -18,6 +18,7 @@ import { FaPlus } from "react-icons/fa";
 import "./PostArt.css";
 import { useEffect, useRef, useState } from "react";
 import { PlusOutlined } from "@ant-design/icons";
+import Cookies from "js-cookie";
 const normFile = (e) => {
   if (Array.isArray(e)) {
     return e;
@@ -37,19 +38,30 @@ const PostArt = () => {
     const [gender, setGender] = useState('');
     const [price, setPrice] = useState('');
     const [dimensions, setDimensions] = useState('');
-  const [isPageVisible, setIsPageVisible] = useState(false);
+    const [isPageVisible, setIsPageVisible] = useState(false);
 
-  const titleRef = useRef(null);
-  const moonRef = useRef(null);
-  const btnRef = useRef(null);
-  const firstSectionRef = useRef(null);
-  const mountains_frontRef = useRef(null);
-  const mountains_behindRef = useRef(null);
+    const titleRef = useRef(null);
+    const moonRef = useRef(null);
+    const btnRef = useRef(null);
+    const firstSectionRef = useRef(null);
+    const mountains_frontRef = useRef(null);
+    const mountains_behindRef = useRef(null);
+
+    const [sessionCookie, setSessionCookie] = useState('');
+    const userId = sessionCookie.toString();
   const handleExploreClick = () => {
     const firstSectionElement = firstSectionRef.current;
 
     firstSectionElement.scrollIntoView({ behavior: "smooth" });
   };
+
+    useEffect(() => {
+        const cookieValue = Cookies.get('sessionCookie');
+        console.log("COOKIE", cookieValue);
+        if (cookieValue) {
+            setSessionCookie(cookieValue);
+        }
+    }, []);
 
   const [lastScrollY, setLastScrollY] = useState(0);
 
@@ -129,14 +141,15 @@ const PostArt = () => {
   const handleFormSubmit = (e) => {
     e.preventDefault();
     const artwork = {
-      title: title,
-      description: description,
-      typeDesign: typeDesign,
-      image: image,
-      name: name,
-      email: email,
-      birthday: birthday,
-      gender: gender,
+        userid: userId,
+        title: title,
+        description: description,
+        typeDesign: typeDesign,
+        image: image,
+        name: name,
+        email: email,
+        birthday: birthday,
+        gender: gender,
     };
     fetch("http://localhost:5000/api/addartwork", {
       method: "POST",

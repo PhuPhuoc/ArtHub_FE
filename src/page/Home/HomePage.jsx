@@ -24,6 +24,8 @@ const HomePage = () => {
     const [isMuted, setIsMuted] = useState(false);
     const [buttonColor, setButtonColor] = useState("palevioletred");
     const [sessionCookie, setSessionCookie] = useState('');
+    const [userArtworks, setUserArtworks] = useState([]);
+    const userId = sessionCookie.toString();
 
     useEffect(() => {
         const intervalId = setInterval(() => {
@@ -38,8 +40,19 @@ const HomePage = () => {
         console.log("COOKIE", cookieValue);
         if (cookieValue) {
             setSessionCookie(cookieValue);
+            fetchUserPosts(userId);
         }
     }, []);
+
+    const fetchUserPosts = (userId) => {
+        axios.get(`http://localhost:5000/api/users/${userId}/posts`)
+            .then(response => {
+                setUserArtworks(response.data);
+            })
+            .catch(error => {
+                console.error('Error fetching user posts:', error);
+            });
+    };
 
     const getRandomColor = () => {
         return `#${Math.floor(Math.random() * 16777215).toString(16)}`;
