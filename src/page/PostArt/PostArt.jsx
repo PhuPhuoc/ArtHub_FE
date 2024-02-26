@@ -1,5 +1,4 @@
 import {
-  Alert,
   Button,
   DatePicker,
   Form,
@@ -10,9 +9,14 @@ import {
   Typography,
   Upload,
 } from "antd";
+import gsap from "gsap";
+import star from "../../assets/images/stars.png";
+import moon from "../../assets/images/moon.png";
+import mountains_behind from "../../assets/images/mountains_behind.png";
+import mountains_front from "../../assets/images/mountains_front.png";
 import { FaPlus } from "react-icons/fa";
 import "./PostArt.css";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { PlusOutlined } from "@ant-design/icons";
 const normFile = (e) => {
   if (Array.isArray(e)) {
@@ -33,41 +37,123 @@ const PostArt = () => {
     const [gender, setGender] = useState('');
     const [price, setPrice] = useState('');
     const [dimensions, setDimensions] = useState('');
+  const [isPageVisible, setIsPageVisible] = useState(false);
 
-    const handleGenderChange = (value) => {
-        setGender(value);
+  const titleRef = useRef(null);
+  const moonRef = useRef(null);
+  const btnRef = useRef(null);
+  const firstSectionRef = useRef(null);
+  const mountains_frontRef = useRef(null);
+  const mountains_behindRef = useRef(null);
+  const handleExploreClick = () => {
+    const firstSectionElement = firstSectionRef.current;
+
+    firstSectionElement.scrollIntoView({ behavior: "smooth" });
+  };
+
+  const [lastScrollY, setLastScrollY] = useState(0);
+
+  useEffect(() => {
+    const titleElement = titleRef.current;
+    const moonElement = moonRef.current;
+    const btnElement = btnRef.current;
+    const mountainsFrontElement = mountains_frontRef.current;
+    const mountainsBehindElement = mountains_behindRef.current;
+    const timeout = setTimeout(() => {
+      setIsPageVisible(true);
+    }, 500);
+
+    const handleScroll = () => {
+      const scrollY = window.scrollY;
+      const scrollDirection = scrollY > lastScrollY ? "down" : "up";
+
+      gsap.to(titleElement, {
+        y: scrollY / 2,
+        opacity: scrollY > 100 ? 0 : 1,
+        zIndex: scrollDirection === "up" ? 10000 : scrollY > 100 ? 0 : 2,
+        duration: 0.5,
+        ease: "power2.inOut",
+      });
+      gsap.to(moonElement, {
+        y: scrollY / 2,
+        opacity: scrollY > 100 ? 0 : 1,
+        duration: 0.5,
+        ease: "power2.inOut",
+      });
+      gsap.to(btnElement, {
+        marginTop: `${scrollY / 2}px`,
+        opacity: scrollY > 100 ? 0 : 1,
+        duration: 0.5,
+        ease: "power2.inOut",
+      });
+      // Adjust the animation for mountainsBehind
+      gsap.to(mountainsBehindElement, {
+        y: scrollY / 2,
+        opacity: scrollY > 100 ? 0 : 1,
+        duration: 0.5,
+        ease: "power2.inOut",
+      });
+      gsap.to(mountainsFrontElement, {
+        y: scrollY / 2,
+        opacity: scrollY > 100 ? 0 : 1,
+        duration: 0.5,
+        ease: "power2.inOut",
+      });
+
+      setLastScrollY(scrollY);
+
+      setLastScrollY(scrollY);
     };
 
-    const handleTypeDesignChange = (value) => {
-        setTypeDesign(value);
-    };
+    window.addEventListener("scroll", handleScroll);
 
-    const handleImageUpload = (info) => {
-        if (info.file.status === 'done') {
-            setImage(info.file.response.url);
-        }
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+      clearTimeout(timeout);
     };
+  }, [lastScrollY]);
+  const handleGenderChange = (value) => {
+    setGender(value);
+  };
 
-    const handleFormSubmit = (e) => {
-        e.preventDefault();
-        const artwork = { title: title, description: description, typeDesign: typeDesign, image: image, name: name, email: email, birthday: birthday, gender: gender };
-        fetch("http://localhost:5000/api/addartwork", {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify(artwork)
-        })
-            .then(response => {
-                if (!response.ok)
-                    throw new Error('Invalid artwork form');
-                return response.json();
-            })
-            .then(data => {
-                console.log("New artwork added", data);
-            })
-            .catch(error => {
-                console.error("Error while sending artwork:", error.message);
-            })
+  const handleTypeDesignChange = (value) => {
+    setTypeDesign(value);
+  };
+
+  const handleImageUpload = (info) => {
+    if (info.file.status === "done") {
+      setImage(info.file.response.url);
+    }
+  };
+
+  const handleFormSubmit = (e) => {
+    e.preventDefault();
+    const artwork = {
+      title: title,
+      description: description,
+      typeDesign: typeDesign,
+      image: image,
+      name: name,
+      email: email,
+      birthday: birthday,
+      gender: gender,
     };
+    fetch("http://localhost:5000/api/addartwork", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(artwork),
+    })
+      .then((response) => {
+        if (!response.ok) throw new Error("Invalid artwork form");
+        return response.json();
+      })
+      .then((data) => {
+        console.log("New artwork added", data);
+      })
+      .catch((error) => {
+        console.error("Error while sending artwork:", error.message);
+      });
+  };
 
   const formItemLayout = {
     labelCol: {
@@ -97,15 +183,73 @@ const PostArt = () => {
   };
 
   return (
-    <div className="PostArtPage">
+    <div
+      className={`PostArtPage ${isPageVisible ? "visible" : ""}`}
+      style={{
+        minHeight: "100vh",
+        overflow: "hidden",
+      }}
+    >
+      <div
+        className="mainBackground"
+        style={{
+          background: "linear-gradient(#2b1055,#7597de)",
+          height: "100vh",
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          textAlign: "center",
+          position: "relative",
+        }}
+      >
+        <img src={star} id="star" />
+        <img ref={moonRef} src={moon} id="moon" />
+        <img
+          ref={mountains_behindRef}
+          src={mountains_behind}
+          id="mountains_behind"
+        />
+        <h1
+          style={{
+            fontSize: "90px",
+            position: "absolute",
+            color: "white",
+            fontWeight: "900",
+            whiteSpace: "nowrap",
+            zIndex: "10000",
+            borderBottom: "5px solid white",
+          }}
+          ref={titleRef}
+        >
+          This is where <br /> success comes from
+        </h1>
+        <img
+          ref={mountains_frontRef}
+          src={mountains_front}
+          id="mountains_front"
+        />
+        <Button
+          ref={btnRef}
+          style={{ zIndex: 1 }}
+          className="exploreBtn"
+          id="btn"
+          onClick={handleExploreClick}
+        >
+          Explore
+        </Button>
+      </div>
+
       <div
         className="firstSection"
+        ref={firstSectionRef}
         style={{
-          height: "70vh",
+          height: "100vh",
           width: "100%",
+          marginTop: "100px",
           display: "flex",
           flexDirection: "column",
           justifyContent: "center",
+          backgroundColor: "#1c0522",
         }}
       >
         <Typography.Title
@@ -116,6 +260,7 @@ const PostArt = () => {
             textAlign: "center",
             marginTop: "60px",
             fontWeight: "900",
+            color: "white",
           }}
         >
           The #1 job board for <br /> graphic design jobs
@@ -178,7 +323,11 @@ const PostArt = () => {
               },
             ]}
           >
-            <Input placeholder="Input Title" value={title} onChange={(e) => setTitle(e.target.value)}/>
+            <Input
+              placeholder="Input Title"
+              value={title}
+              onChange={(e) => setTitle(e.target.value)}
+            />
           </Form.Item>
 
           <Form.Item
@@ -195,7 +344,8 @@ const PostArt = () => {
             <Input.TextArea
               placeholder="Post Descriptions"
               style={{ height: "100px" }}
-              value={description} onChange={(e) => setDescription(e.target.value)}
+              value={description}
+              onChange={(e) => setDescription(e.target.value)}
             />
           </Form.Item>
 
@@ -264,7 +414,8 @@ const PostArt = () => {
                 message: "Please input!",
               },
             ]}
-            value={name} onChange={(e) => setName(e.target.value)}
+            value={name}
+            onChange={(e) => setName(e.target.value)}
           >
             <Input placeholder="Your full name" />
           </Form.Item>
@@ -281,7 +432,8 @@ const PostArt = () => {
                 message: "Please enter a valid email address!",
               },
             ]}
-            value={email} onChange={(e) => setEmail(e.target.value)}
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
           >
             <Input placeholder="Your email" />
           </Form.Item>
@@ -295,7 +447,8 @@ const PostArt = () => {
                 message: "Please input!",
               },
             ]}
-            value={birthday} onChange={(e) => setBirthday(e.target.value)}
+            value={birthday}
+            onChange={(e) => setBirthday(e.target.value)}
           >
             <DatePicker style={{ width: "300px" }} />
           </Form.Item>
@@ -334,7 +487,11 @@ const PostArt = () => {
           </Form.Item>
           <Form.Item>
             <Space>
-              <Button type="primary" htmlType="submit" onClick={handleFormSubmit}>
+              <Button
+                type="primary"
+                htmlType="submit"
+                onClick={handleFormSubmit}
+              >
                 Submit
               </Button>
               <Button htmlType="button" onClick={handleReset}>
