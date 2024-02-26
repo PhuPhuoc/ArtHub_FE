@@ -10,8 +10,9 @@ import Title from "antd/es/typography/Title";
 import PropTypes from "prop-types";
 import MenuArthub from "../components/Menu/MenuArthub";
 import { useNavigate } from "react-router-dom";
-import { useState } from "react";
+import {useEffect, useState} from "react";
 import Search from "antd/es/input/Search";
+import Cookies from "js-cookie";
 
 function getItem(label, key, icon, children, type) {
   return {
@@ -30,29 +31,55 @@ const items_welcomepage = [
 ];
 
 const DefaultLayout = ({ children }) => {
-  const [menuVisible, setMenuVisible] = useState(false);
+    const [menuVisible, setMenuVisible] = useState(false);
+    const [sessionCookie, setSessionCookie] = useState('');
+
+    useEffect(() => {
+        const cookieValue = Cookies.get('sessionCookie');
+        console.log("COOKIE", cookieValue);
+        if (cookieValue) {
+            setSessionCookie(cookieValue);
+        }
+    }, []);
 
   const navigate = useNavigate();
   const menu = (
     <Menu>
-      <Menu.Item
-        key="vercel"
-        icon={<UserOutlined />}
-        onClick={() => {
-          navigate("/loginpage");
-        }}
-      >
-        Login
-      </Menu.Item>
-        <Menu.Item
-            key="vercel"
-            icon={<AreaChartOutlined />}
-            onClick={() => {
-                navigate("/myartworks");
-            }}
-        >
-            My Artworks
-        </Menu.Item>
+        {sessionCookie ? (
+            <>
+                <Menu.Item
+                    key="vercel"
+                    icon={<UserOutlined />}
+                    onClick={() => {
+                        navigate("/profile");
+                    }}
+                >
+                    Profile
+                </Menu.Item>
+            </>
+        ) : (
+            <>
+                <Menu.Item
+                    key="vercel"
+                    icon={<UserOutlined />}
+                    onClick={() => {
+                        navigate("/loginpage");
+                    }}
+                >
+                    Login
+                </Menu.Item>
+                <Menu.Item
+                    key="vercel"
+                    icon={<UserOutlined />}
+                    onClick={() => {
+                        navigate("/loginpage");
+                    }}
+                >
+                    Login
+                </Menu.Item>
+            </>
+        )}
+
     </Menu>
   );
   return (
