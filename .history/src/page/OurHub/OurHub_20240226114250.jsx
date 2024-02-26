@@ -29,6 +29,9 @@ const OurHub = () => {
     "Food",
   ];
 
+  //Create a type "Data" with : _id, title, description, image, dimensions
+
+  
 
   const [modalVisible, setModalVisible] = React.useState(false);
   const [modalContent, setModalContent] = React.useState({});
@@ -49,10 +52,10 @@ const OurHub = () => {
               <Col className="gutter-row" span={6}>
                 <Card
                   onClick={() =>
-                    handleArtworkClick(
+                    handleCardClick(
                       "Landmark 81 Ho Chi Minh City",
                       "This is the second highest building in southeast Asia",
-                      "https://images.unsplash.com/photo-1549654917-9ddb6fed998f?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+                      "https://images.unsplash.com/photo-1549654917-9ddb6fed998f?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
                     )
                   }
                   cover={
@@ -393,27 +396,27 @@ const OurHub = () => {
               </Col>
             </Row>
             <Modal
-  title={null}
-  visible={modalVisible}
-  onCancel={() => setModalVisible(false)}
-  footer={null}
-  style={{ top: 20, minWidth: "80%", maxWidth: "80%" }} // Adjust width here
->
-  <Row>
-    <Col span={12}>
-      <img
-        src={modalContent.image}
-        alt={modalContent.title}
-        style={{ width: "100%", height: "100%", paddingRight: "20px" }}
-      />
-    </Col>
-    <Col span={12} style={{ paddingLeft: "20px" }}>
-      <h2 style={{ fontSize: "200%" }}>{modalContent.title}</h2>
-      <p style={{ fontSize: "200%" }}>{modalContent.description}</p>
-    </Col>
-  </Row>
-</Modal>
-
+              title={null}
+              visible={modalVisible}
+              onCancel={() => setModalVisible(false)}
+              footer={null}
+              style={{ top: 20 }}
+            >
+              <Row>
+                <Col span={12}>
+                  <img
+                    src={modalContent.image}
+                    alt={modalContent.title}
+                    style={{ width: "100%", height: "auto" }}
+                  />
+                </Col>
+                <Col span={12}>
+                  <h2>{modalContent.title}</h2>
+                  <p>{modalContent.description}</p>
+                </Col>
+              </Row>
+            </Modal>
+            
           </div>
         );
 

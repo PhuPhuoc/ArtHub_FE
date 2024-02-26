@@ -29,6 +29,9 @@ const OurHub = () => {
     "Food",
   ];
 
+  //Create a type "Data" with : _id, title, description, image, dimensions
+
+  
 
   const [modalVisible, setModalVisible] = React.useState(false);
   const [modalContent, setModalContent] = React.useState({});
@@ -40,6 +43,16 @@ const OurHub = () => {
       setModalContent({ title, description, image });
       setModalVisible(true);
     };
+    <Modal
+            title={modalContent.title}
+            visible={modalVisible}
+            onCancel={() => setModalVisible(false)}
+            footer={null}
+            style={{ top: 20 }} // Example of styling: move the modal 20px from the top
+          >
+            <img src={modalContent.image} alt={modalContent.title} style={{ maxWidth: '100%', height: 'auto' }} />
+            <p style={{ fontSize: 16, marginTop: 10 }}>{modalContent.description}</p>
+          </Modal>
     switch (justify) {
       case "Discover":
         return (
@@ -392,28 +405,7 @@ const OurHub = () => {
                 </Card>
               </Col>
             </Row>
-            <Modal
-  title={null}
-  visible={modalVisible}
-  onCancel={() => setModalVisible(false)}
-  footer={null}
-  style={{ top: 20, minWidth: "80%", maxWidth: "80%" }} // Adjust width here
->
-  <Row>
-    <Col span={12}>
-      <img
-        src={modalContent.image}
-        alt={modalContent.title}
-        style={{ width: "100%", height: "100%", paddingRight: "20px" }}
-      />
-    </Col>
-    <Col span={12} style={{ paddingLeft: "20px" }}>
-      <h2 style={{ fontSize: "200%" }}>{modalContent.title}</h2>
-      <p style={{ fontSize: "200%" }}>{modalContent.description}</p>
-    </Col>
-  </Row>
-</Modal>
-
+            
           </div>
         );
 

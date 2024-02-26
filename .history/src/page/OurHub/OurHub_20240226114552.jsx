@@ -397,14 +397,14 @@ const OurHub = () => {
   visible={modalVisible}
   onCancel={() => setModalVisible(false)}
   footer={null}
-  style={{ top: 20, minWidth: "80%", maxWidth: "80%" }} // Adjust width here
+  style={{ top: 20 }}
 >
   <Row>
     <Col span={12}>
       <img
         src={modalContent.image}
         alt={modalContent.title}
-        style={{ width: "100%", height: "100%", paddingRight: "20px" }}
+        style={{ width: "200%", height: "auto", paddingRight: "20px" }}
       />
     </Col>
     <Col span={12} style={{ paddingLeft: "20px" }}>

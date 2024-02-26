@@ -29,394 +29,93 @@ const OurHub = () => {
     "Food",
   ];
 
+  //Create a type "Data" with : _id, title, description, image, dimensions
+
+  
 
   const [modalVisible, setModalVisible] = React.useState(false);
   const [modalContent, setModalContent] = React.useState({});
 
   const [justify, setJustify] = React.useState(justifyOptions[0]);
   const renderImages = () => {
-        
     const handleArtworkClick = (title, description, image) => {
       setModalContent({ title, description, image });
       setModalVisible(true);
     };
+  
     switch (justify) {
       case "Discover":
         return (
           <div className="imagesContain">
             <div className="title">Images for Discovers</div>
             <Row gutter={16}>
-              <Col className="gutter-row" span={6}>
-                <Card
-                  onClick={() =>
-                    handleArtworkClick(
-                      "Landmark 81 Ho Chi Minh City",
-                      "This is the second highest building in southeast Asia",
-                      "https://images.unsplash.com/photo-1549654917-9ddb6fed998f?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-                    )
-                  }
-                  cover={
-                    <img
-                      src="https://images.unsplash.com/photo-1549654917-9ddb6fed998f?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
-                      alt="image"
+              {/* Mapping over data to generate Card components */}
+              {data.map((artwork, index) => (
+                <Col className="gutter-row" span={6} key={index}>
+                  <Card
+                    onClick={() =>
+                      handleArtworkClick(
+                        artwork.title,
+                        artwork.description,
+                        artwork.image
+                      )
+                    }
+                    cover={<img src={artwork.image} alt="image" />}
+                  >
+                    <Meta
+                      style={{
+                        display: "flex",
+                        justifyContent: "center",
+                        height: "100px",
+                      }}
+                      avatar={
+                        <Avatar
+                          className="avatar"
+                          src="https://api.dicebear.com/7.x/miniavs/svg?seed=8"
+                          style={{ cursor: "pointer" }}
+                        />
+                      }
+                      title={
+                        <span
+                          style={{
+                            color: "black",
+                            fontSize: "15px",
+                            borderBottom: "1px solid black",
+                          }}
+                        >
+                          {artwork.title}
+                        </span>
+                      }
+                      description={
+                        <span style={{ color: "black", fontSize: "12px" }}>
+                          {artwork.description}
+                        </span>
+                      }
                     />
-                  }
-                >
-                  <Meta
-                    style={{
-                      display: "flex",
-                      justifyContent: "center",
-                      height: "100px",
-                    }}
-                    avatar={
-                      <Avatar
-                        className="avatar"
-                        src="https://api.dicebear.com/7.x/miniavs/svg?seed=8"
-                        style={{ cursor: "pointer" }}
-                      />
-                    }
-                    title={
-                      <span
-                        style={{
-                          color: "black",
-                          fontSize: "15px",
-                          borderBottom: "1px solid black",
-                        }}
-                      >
-                        Landmark 81 Ho Chi Minh City
-                      </span>
-                    }
-                    description={
-                      <span style={{ color: "black", fontSize: "12px" }}>
-                        This is the second highest building in southeast Asia
-                      </span>
-                    }
-                  />
-                </Card>
-              </Col>
-              <Col className="gutter-row" span={6}>
-                <Card
-                  cover={
-                    <img
-                      src="https://images.unsplash.com/photo-1508804052814-cd3ba865a116?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
-                      alt="image"
-                    />
-                  }
-                >
-                  <Meta
-                    style={{
-                      display: "flex",
-                      justifyContent: "center",
-                      height: "100px",
-                    }}
-                    avatar={
-                      <Avatar
-                        className="avatar"
-                        src="https://api.dicebear.com/7.x/miniavs/svg?seed=8"
-                        style={{ cursor: "pointer" }}
-                      />
-                    }
-                    title={
-                      <span
-                        style={{
-                          color: "black",
-                          fontSize: "15px",
-                          borderBottom: "1px solid black",
-                        }}
-                      >
-                        Great Wall China
-                      </span>
-                    }
-                    description={
-                      <span style={{ color: "black", fontSize: "12px" }}>
-                        This is one of the world heritage site of China
-                      </span>
-                    }
-                  />
-                </Card>
-              </Col>
-              <Col className="gutter-row" span={6}>
-                <Card
-                  cover={
-                    <img
-                      src="https://images.unsplash.com/photo-1484923720570-4bc210954735?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
-                      alt="image"
-                    />
-                  }
-                >
-                  <Meta
-                    style={{
-                      display: "flex",
-                      justifyContent: "center",
-                      height: "100px",
-                    }}
-                    avatar={
-                      <Avatar
-                        className="avatar"
-                        src="https://api.dicebear.com/7.x/miniavs/svg?seed=8"
-                        style={{ cursor: "pointer" }}
-                      />
-                    }
-                    title={
-                      <span
-                        style={{
-                          color: "black",
-                          fontSize: "15px",
-                          borderBottom: "1px solid black",
-                        }}
-                      >
-                        Disneyland
-                      </span>
-                    }
-                    description={
-                      <span style={{ color: "black", fontSize: "12px" }}>
-                        Disneyland Resort theme park located in Paris
-                      </span>
-                    }
-                  />
-                </Card>
-              </Col>
-              <Col className="gutter-row" span={6}>
-                <Card
-                  cover={
-                    <img
-                      src="https://images.unsplash.com/photo-1502602898657-3e91760cbb34?q=80&w=2073&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
-                      alt="image"
-                    />
-                  }
-                >
-                  <Meta
-                    style={{
-                      display: "flex",
-                      justifyContent: "center",
-                      height: "100px",
-                    }}
-                    avatar={
-                      <Avatar
-                        className="avatar"
-                        src="https://api.dicebear.com/7.x/miniavs/svg?seed=8"
-                        style={{ cursor: "pointer" }}
-                      />
-                    }
-                    title={
-                      <span
-                        style={{
-                          color: "black",
-                          fontSize: "15px",
-                          borderBottom: "1px solid black",
-                        }}
-                      >
-                        Eifel Tower
-                      </span>
-                    }
-                    description={
-                      <span style={{ color: "black", fontSize: "12px" }}>
-                        This is a wrought-iron lattice tower on the Champ de
-                        Mars in Paris, France.
-                      </span>
-                    }
-                  />
-                </Card>
-              </Col>
+                  </Card>
+                </Col>
+              ))}
             </Row>
-            <Row gutter={16}>
-              <Col className="gutter-row" span={6}>
-                <Card
-                  cover={
-                    <img
-                      src="https://images.unsplash.com/photo-1565475783696-96001eff1b45?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
-                      alt="image"
-                    />
-                  }
-                >
-                  <Meta
-                    style={{
-                      display: "flex",
-                      justifyContent: "center",
-                      height: "100px",
-                    }}
-                    avatar={
-                      <Avatar
-                        className="avatar"
-                        src="https://api.dicebear.com/7.x/miniavs/svg?seed=8"
-                        style={{ cursor: "pointer" }}
-                      />
-                    }
-                    title={
-                      <span
-                        style={{
-                          color: "black",
-                          fontSize: "15px",
-                          borderBottom: "1px solid black",
-                        }}
-                      >
-                        The statue of liberty
-                      </span>
-                    }
-                    description={
-                      <span style={{ color: "black", fontSize: "12px" }}>
-                        The Statue of Liberty is a colossal neoclassical
-                        sculpture on Liberty Island in New York Harbor in New
-                        York City, United States.
-                      </span>
-                    }
-                  />
-                </Card>
-              </Col>
-              <Col className="gutter-row" span={6}>
-                <Card
-                  cover={
-                    <img
-                      src="https://images.unsplash.com/photo-1621453728762-5a95731038d5?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
-                      alt="image"
-                    />
-                  }
-                >
-                  <Meta
-                    style={{
-                      display: "flex",
-                      justifyContent: "center",
-                      height: "100px",
-                    }}
-                    avatar={
-                      <Avatar
-                        className="avatar"
-                        src="https://api.dicebear.com/7.x/miniavs/svg?seed=8"
-                        style={{ cursor: "pointer" }}
-                      />
-                    }
-                    title={
-                      <span
-                        style={{
-                          color: "black",
-                          fontSize: "15px",
-                          borderBottom: "1px solid black",
-                        }}
-                      >
-                        Marina Bay Sands
-                      </span>
-                    }
-                    description={
-                      <span style={{ color: "black", fontSize: "12px" }}>
-                        Marina Bay Sands is an integrated resort fronting Marina
-                        Bay in Singapore and a landmark of the city
-                      </span>
-                    }
-                  />
-                </Card>
-              </Col>
-              <Col className="gutter-row" span={6}>
-                <Card
-                  cover={
-                    <img
-                      src="https://images.unsplash.com/photo-1508952817440-fefa6a425539?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
-                      alt="image"
-                    />
-                  }
-                >
-                  <Meta
-                    style={{
-                      display: "flex",
-                      justifyContent: "center",
-                      height: "100px",
-                    }}
-                    avatar={
-                      <Avatar
-                        className="avatar"
-                        src="https://api.dicebear.com/7.x/miniavs/svg?seed=8"
-                        style={{ cursor: "pointer" }}
-                      />
-                    }
-                    title={
-                      <span
-                        style={{
-                          color: "black",
-                          fontSize: "15px",
-                          borderBottom: "1px solid black",
-                        }}
-                      >
-                        The Pizza Tower
-                      </span>
-                    }
-                    description={
-                      <span style={{ color: "black", fontSize: "12px" }}>
-                        The Leaning Tower of Pisa, or simply the Tower of Pisa,
-                        is the campanile, or freestanding bell tower, of Pisa
-                        Cathedral
-                      </span>
-                    }
-                  />
-                </Card>
-              </Col>
-              <Col className="gutter-row" span={6}>
-                <Card
-                  cover={
-                    <img
-                      src="https://images.unsplash.com/photo-1609237756221-88c4a93846b2?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
-                      alt="image"
-                    />
-                  }
-                >
-                  <Meta
-                    style={{
-                      display: "flex",
-                      justifyContent: "center",
-                      height: "100px",
-                    }}
-                    avatar={
-                      <Avatar
-                        className="avatar"
-                        src="https://api.dicebear.com/7.x/miniavs/svg?seed=8"
-                        style={{ cursor: "pointer" }}
-                      />
-                    }
-                    title={
-                      <span
-                        style={{
-                          color: "black",
-                          fontSize: "15px",
-                          borderBottom: "1px solid black",
-                        }}
-                      >
-                        Neuschwanstein Castle
-                      </span>
-                    }
-                    description={
-                      <span style={{ color: "black", fontSize: "12px" }}>
-                        Neuschwanstein Castle is a 19th-century historicist
-                        palace on a rugged hill of the foothills of the Alps in
-                        the very south of Germany, close to border with Austria.
-                      </span>
-                    }
-                  />
-                </Card>
-              </Col>
-            </Row>
+  
+            {/* Modal */}
             <Modal
-  title={null}
-  visible={modalVisible}
-  onCancel={() => setModalVisible(false)}
-  footer={null}
-  style={{ top: 20, minWidth: "80%", maxWidth: "80%" }} // Adjust width here
->
-  <Row>
-    <Col span={12}>
-      <img
-        src={modalContent.image}
-        alt={modalContent.title}
-        style={{ width: "100%", height: "100%", paddingRight: "20px" }}
-      />
-    </Col>
-    <Col span={12} style={{ paddingLeft: "20px" }}>
-      <h2 style={{ fontSize: "200%" }}>{modalContent.title}</h2>
-      <p style={{ fontSize: "200%" }}>{modalContent.description}</p>
-    </Col>
-  </Row>
-</Modal>
-
+              title={modalContent.title}
+              visible={modalVisible}
+              onCancel={() => setModalVisible(false)}
+              footer={null}
+              style={{ top: 20 }} // Example of styling: move the modal 20px from the top
+            >
+              <img
+                src={modalContent.image}
+                alt={modalContent.title}
+                style={{ maxWidth: "100%", height: "auto" }}
+              />
+              <p style={{ fontSize: 16, marginTop: 10 }}>
+                {modalContent.description}
+              </p>
+            </Modal>
           </div>
-        );
-
+        );  
       case "Animation":
         return (
           <div className="imagesContain">

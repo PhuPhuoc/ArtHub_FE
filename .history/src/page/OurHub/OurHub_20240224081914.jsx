@@ -15,8 +15,6 @@ import { CiSearch } from "react-icons/ci";
 import "./OurHub.css";
 import Meta from "antd/es/card/Meta";
 import bird from "../../assets/images/bird.jpg";
-import { Modal } from "antd";
-
 
 const { Search } = Input;
 const onSearch = (value, _e, info) => console.log(info?.source, value);
@@ -28,18 +26,8 @@ const OurHub = () => {
     "Technology",
     "Food",
   ];
-
-
-  const [modalVisible, setModalVisible] = React.useState(false);
-  const [modalContent, setModalContent] = React.useState({});
-
   const [justify, setJustify] = React.useState(justifyOptions[0]);
   const renderImages = () => {
-        
-    const handleArtworkClick = (title, description, image) => {
-      setModalContent({ title, description, image });
-      setModalVisible(true);
-    };
     switch (justify) {
       case "Discover":
         return (
@@ -48,13 +36,6 @@ const OurHub = () => {
             <Row gutter={16}>
               <Col className="gutter-row" span={6}>
                 <Card
-                  onClick={() =>
-                    handleArtworkClick(
-                      "Landmark 81 Ho Chi Minh City",
-                      "This is the second highest building in southeast Asia",
-                      "https://images.unsplash.com/photo-1549654917-9ddb6fed998f?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-                    )
-                  }
                   cover={
                     <img
                       src="https://images.unsplash.com/photo-1549654917-9ddb6fed998f?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
@@ -392,28 +373,6 @@ const OurHub = () => {
                 </Card>
               </Col>
             </Row>
-            <Modal
-  title={null}
-  visible={modalVisible}
-  onCancel={() => setModalVisible(false)}
-  footer={null}
-  style={{ top: 20, minWidth: "80%", maxWidth: "80%" }} // Adjust width here
->
-  <Row>
-    <Col span={12}>
-      <img
-        src={modalContent.image}
-        alt={modalContent.title}
-        style={{ width: "100%", height: "100%", paddingRight: "20px" }}
-      />
-    </Col>
-    <Col span={12} style={{ paddingLeft: "20px" }}>
-      <h2 style={{ fontSize: "200%" }}>{modalContent.title}</h2>
-      <p style={{ fontSize: "200%" }}>{modalContent.description}</p>
-    </Col>
-  </Row>
-</Modal>
-
           </div>
         );
 
@@ -1565,268 +1524,41 @@ const OurHub = () => {
                       >
                         Taco
                       </span>
-                    }
-                    description={
-                      <span style={{ color: "black", fontSize: "12px" }}>
-                        Lorem, ipsum dolor sit amet consectetur adipisicing
-                        elit. Minus eos voluptates, enim officiis tempore esse
-                        voluptatem! Excepturi rem commodi tempora.
-                      </span>
-                    }
-                  />
-                </Card>
-              </Col>
-            </Row>
-            <Row gutter={16}>
-              <Col className="gutter-row" span={6}>
-                <Card
-                  cover={
-                    <img
-                      src="https://images.unsplash.com/photo-1509680859026-7d8cfc6894f4?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
-                      alt="image"
-                    />
-                  }
-                >
-                  <Meta
-                    style={{
-                      display: "flex",
-                      justifyContent: "center",
-                      height: "100px",
-                    }}
-                    avatar={
-                      <Avatar
-                        className="avatar"
-                        src="https://api.dicebear.com/7.x/miniavs/svg?seed=8"
-                        style={{ cursor: "pointer" }}
-                      />
-                    }
-                    title={
-                      <span
-                        style={{
-                          color: "black",
-                          fontSize: "15px",
-                          borderBottom: "1px solid black",
-                        }}
-                      >
-                        Egg Noodles
-                      </span>
-                    }
-                    description={
-                      <span style={{ color: "black", fontSize: "12px" }}>
-                        Lorem, ipsum dolor sit amet consectetur adipisicing
-                        elit. Minus eos voluptates, enim officiis tempore esse
-                        voluptatem! Excepturi rem commodi tempora.
-                      </span>
-                    }
-                  />
-                </Card>
-              </Col>
-              <Col className="gutter-row" span={6}>
-                <Card
-                  cover={
-                    <img
-                      src="https://plus.unsplash.com/premium_photo-1668143363479-b8cd08698c0d?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
-                      alt="image"
-                    />
-                  }
-                >
-                  <Meta
-                    style={{
-                      display: "flex",
-                      justifyContent: "center",
-                      height: "100px",
-                    }}
-                    avatar={
-                      <Avatar
-                        className="avatar"
-                        src="https://api.dicebear.com/7.x/miniavs/svg?seed=8"
-                        style={{ cursor: "pointer" }}
-                      />
-                    }
-                    title={
-                      <span
-                        style={{
-                          color: "black",
-                          fontSize: "15px",
-                          borderBottom: "1px solid black",
-                        }}
-                      >
-                        Curry
-                      </span>
-                    }
-                    description={
-                      <span style={{ color: "black", fontSize: "12px" }}>
-                        Lorem, ipsum dolor sit amet consectetur adipisicing
-                        elit. Minus eos voluptates, enim officiis tempore esse
-                        voluptatem! Excepturi rem commodi tempora.
-                      </span>
-                    }
-                  />
-                </Card>
-              </Col>
-              <Col className="gutter-row" span={6}>
-                <Card
-                  cover={
-                    <img
-                      src="https://images.unsplash.com/photo-1631709497146-a239ef373cf1?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
-                      alt="image"
-                    />
-                  }
-                >
-                  <Meta
-                    style={{
-                      display: "flex",
-                      justifyContent: "center",
-                      height: "100px",
-                    }}
-                    avatar={
-                      <Avatar
-                        className="avatar"
-                        src="https://api.dicebear.com/7.x/miniavs/svg?seed=8"
-                        style={{ cursor: "pointer" }}
-                      />
-                    }
-                    title={
-                      <span
-                        style={{
-                          color: "black",
-                          fontSize: "15px",
-                          borderBottom: "1px solid black",
-                        }}
-                      >
-                        Pho Ha Noi
-                      </span>
-                    }
-                    description={
-                      <span style={{ color: "black", fontSize: "12px" }}>
-                        Lorem, ipsum dolor sit amet consectetur adipisicing
-                        elit. Minus eos voluptates, enim officiis tempore esse
-                        voluptatem! Excepturi rem commodi tempora.
-                      </span>
-                    }
-                  />
-                </Card>
-              </Col>
-              <Col className="gutter-row" span={6}>
-                <Card
-                  cover={
-                    <img
-                      src="https://images.unsplash.com/photo-1547592166-23ac45744acd?q=80&w=2071&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
-                      alt="image"
-                    />
-                  }
-                >
-                  <Meta
-                    style={{
-                      display: "flex",
-                      justifyContent: "center",
-                      height: "100px",
-                    }}
-                    avatar={
-                      <Avatar
-                        className="avatar"
-                        src="https://api.dicebear.com/7.x/miniavs/svg?seed=8"
-                        style={{ cursor: "pointer" }}
-                      />
-                    }
-                    title={
-                      <span
-                        style={{
-                          color: "black",
-                          fontSize: "15px",
-                          borderBottom: "1px solid black",
-                        }}
-                      >
-                        A bottle of Soup
-                      </span>
-                    }
-                    description={
-                      <span style={{ color: "black", fontSize: "12px" }}>
-                        Lorem, ipsum dolor sit amet consectetur adipisicing
-                        elit. Minus eos voluptates, enim officiis tempore esse
-                        voluptatem! Excepturi rem commodi tempora.
-                      </span>
-                    }
-                  />
-                </Card>
-              </Col>
-            </Row>
-          </div>
-        );
+                    import { useState } from "react";
+                    import { Modal } from "antd";
 
-      default:
-        return <div>No images found</div>;
-    }
-  };
-  return (
-    <div className="OurHubPage">
-      <div className="firstSection" style={{ height: "60vh", width: "100%" }}>
-        <div className="mainTitle">
-          <Typography.Title
-            style={{
-              display: "flex",
-              textAlign: "center",
-              justifyContent: "center",
-              fontSize: "70px",
-              fontWeight: "900",
-            }}
-          >
-            Discover the world’s top
-            <br />
-            designers & creatives
-          </Typography.Title>
-          <Typography.Text
-            style={{
-              display: "flex",
-              justifyContent: "center",
-              textAlign: "center",
-              fontSize: "20px",
-              color: "gray",
-              marginTop: "40px",
-            }}
-          >
-            Dribbble is the leading destination to find & showcase creative work{" "}
-            <br />
-            and home to the world's best design professionals.
-          </Typography.Text>
-        </div>
-        <div
-          className="searchBox"
-          style={{
-            width: "100%",
-            display: "flex",
-            justifyContent: "center",
-            marginTop: "60px",
-            height: "100px",
-          }}
-        >
-          <Space direction="vertical">
-            <Search
-              className="searchBar"
-              icon={CiSearch}
-              placeholder="Search anything you want !"
-              size="large"
-              onSearch={onSearch}
-              style={{
-                width: "800px",
-                fontSize: "30px",
-                padding: "10px",
-              }}
-            />
-          </Space>
-        </div>
-      </div>
-      <div className="secondSection">
-        <div
-          className="buttonsContainer"
-          style={{ display: "flex", justifyContent: "center" }}
-        >
-          <Segmented options={justifyOptions} onChange={setJustify} />
-        </div>
-        {renderImages()}
-      </div>
-    </div>
-  );
-};
+                    const OurHub = () => {
+                      // State to control the visibility of the modal
+                      const [isModalVisible, setIsModalVisible] = useState(false);
+Z
+                      // Function to handle the card click event
+                      const handleCardClick = () => {
+                        setIsModalVisible(true);
+                      };
 
-export default OurHub;
+                      // Function to handle the modal close event
+                      const handleModalClose = () => {
+                        setIsModalVisible(false);
+                      };
+
+                      // Rest of the code...
+
+                      return (
+                        <div className="OurHubPage">
+                          {/* Rest of the code... */}
+
+                          {/* Modal component */}
+                          <Modal
+                            title="Card Details"
+                            visible={isModalVisible}
+                            onCancel={handleModalClose}
+                            footer={null}
+                          >
+                            {/* Content of the modal */}
+                            {/* Add your desired content here */}
+                          </Modal>
+                        </div>
+                      );
+                    };
+
+                    export default OurHub;

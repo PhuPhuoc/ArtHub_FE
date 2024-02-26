@@ -9,6 +9,7 @@ import {
   Typography,
   Upload,
 } from "antd";
+import gsap from "gsap";
 import star from "../../assets/images/stars.png";
 import moon from "../../assets/images/moon.png";
 import mountains_behind from "../../assets/images/mountains_behind.png";

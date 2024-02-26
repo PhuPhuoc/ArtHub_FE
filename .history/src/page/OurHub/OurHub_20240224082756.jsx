@@ -15,11 +15,12 @@ import { CiSearch } from "react-icons/ci";
 import "./OurHub.css";
 import Meta from "antd/es/card/Meta";
 import bird from "../../assets/images/bird.jpg";
-import { Modal } from "antd";
+
 
 
 const { Search } = Input;
-const onSearch = (value, _e, info) => console.log(info?.source, value);
+
+
 const OurHub = () => {
   const justifyOptions = [
     "Discover",
@@ -29,17 +30,20 @@ const OurHub = () => {
     "Food",
   ];
 
+  const onSearch = (value, _e, info) => console.log(info?.source, value);
 
-  const [modalVisible, setModalVisible] = React.useState(false);
-  const [modalContent, setModalContent] = React.useState({});
 
   const [justify, setJustify] = React.useState(justifyOptions[0]);
+  const [modalVisible, setModalVisible] = useState(false); 
+  const [modalContent, setModalContent] = useState(null); 
+
+  const openModal = (title, description) => {
+    setModalContent({ title, description });
+    setModalVisible(true);
+  };
+
+
   const renderImages = () => {
-        
-    const handleArtworkClick = (title, description, image) => {
-      setModalContent({ title, description, image });
-      setModalVisible(true);
-    };
     switch (justify) {
       case "Discover":
         return (
@@ -48,19 +52,18 @@ const OurHub = () => {
             <Row gutter={16}>
               <Col className="gutter-row" span={6}>
                 <Card
-                  onClick={() =>
-                    handleArtworkClick(
-                      "Landmark 81 Ho Chi Minh City",
-                      "This is the second highest building in southeast Asia",
-                      "https://images.unsplash.com/photo-1549654917-9ddb6fed998f?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-                    )
-                  }
                   cover={
                     <img
                       src="https://images.unsplash.com/photo-1549654917-9ddb6fed998f?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
                       alt="image"
                     />
                   }
+                    onClick={() =>
+                      openModal(
+                        "Landmark 81 Ho Chi Minh City",
+                        "This is the second highest building in southeast Asia"
+                      )
+                    }
                 >
                   <Meta
                     style={{
@@ -392,28 +395,6 @@ const OurHub = () => {
                 </Card>
               </Col>
             </Row>
-            <Modal
-  title={null}
-  visible={modalVisible}
-  onCancel={() => setModalVisible(false)}
-  footer={null}
-  style={{ top: 20, minWidth: "80%", maxWidth: "80%" }} // Adjust width here
->
-  <Row>
-    <Col span={12}>
-      <img
-        src={modalContent.image}
-        alt={modalContent.title}
-        style={{ width: "100%", height: "100%", paddingRight: "20px" }}
-      />
-    </Col>
-    <Col span={12} style={{ paddingLeft: "20px" }}>
-      <h2 style={{ fontSize: "200%" }}>{modalContent.title}</h2>
-      <p style={{ fontSize: "200%" }}>{modalContent.description}</p>
-    </Col>
-  </Row>
-</Modal>
-
           </div>
         );
 
@@ -1828,5 +1809,20 @@ const OurHub = () => {
     </div>
   );
 };
+
+return (
+  <>
+    {renderImages()}
+    {/* Modal component */}
+    <Modal
+      title={modalContent?.title}
+      visible={modalVisible}
+      onCancel={() => setModalVisible(false)}
+      footer={null}
+    >
+      <p>{modalContent?.description}</p>
+    </Modal>
+  </>
+);
 
 export default OurHub;
