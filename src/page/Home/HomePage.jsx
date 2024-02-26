@@ -5,8 +5,23 @@ import "./HomePage.css";
 import ReactPlayer from "react-player";
 import { FaVolumeMute, FaVolumeUp } from "react-icons/fa";
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 const HomePage = () => {
+  const navigate = useNavigate();
+
+  const handleLearnAboutHiring = () => {
+    navigate("/findtalent");
+  };
+
+  const handleBrowseMoreInspiration = () => {
+    navigate("/ourhub");
+  };
+
+  const getRandomColor = () => {
+    return `#${Math.floor(Math.random() * 16777215).toString(16)}`;
+  };
+
   const [isMuted, setIsMuted] = useState(false);
   const [buttonColor, setButtonColor] = useState("palevioletred");
   useEffect(() => {
@@ -16,16 +31,27 @@ const HomePage = () => {
     }, 1500);
     return () => clearInterval(intervalId);
   }, []);
-  const getRandomColor = () => {
-    return `#${Math.floor(Math.random() * 16777215).toString(16)}`;
-  };
 
   return (
-    <div className="home">
+    <div className="home" style={{ position: "relative" }}>
+      <div className="animated-background">
+        {/* Bubbles container */}
+        <div className="bubble-container">
+          {/* Bubbles */}
+          <div className="bubble bubble1" />
+          <div className="bubble bubble2" />
+          <div className="bubble bubble3" />
+          <div className="bubble bubble3" />
+          <div className="bubble bubble3" />
+          <div className="bubble bubble3" />
+
+          {/* Add more bubbles as needed */}
+        </div>
+      </div>
       <div
         className="first-button"
         style={{
-          height: "200px",
+          height: "450px",
           width: "100%",
           display: "flex",
           justifyContent: "center",
@@ -64,6 +90,8 @@ const HomePage = () => {
             display: "flex",
             textAlign: "center",
             transform: "translateY(-30px)",
+            color: "black",
+            fontWeight: 900,
           }}
           className="custom-title"
         >
@@ -75,6 +103,8 @@ const HomePage = () => {
             display: "flex",
             textAlign: "center",
             transform: "translateY(-20px)",
+            fontWeight: "600",
+            color: "black",
           }}
         >
           Get inspired by the work of millions of top-rated designers & agencies
@@ -1007,7 +1037,10 @@ const HomePage = () => {
           <Button
             style={{ height: "60px", borderRadius: "30px", width: "400px" }}
           >
-            <Typography.Text style={{ fontSize: "30px" }}>
+            <Typography.Text
+              style={{ fontSize: "30px" }}
+              onClick={handleBrowseMoreInspiration}
+            >
               Browse more inspiration
             </Typography.Text>
           </Button>
@@ -1056,6 +1089,7 @@ const HomePage = () => {
             >
               Get Started Now
             </Button>
+
             <Button
               style={{
                 height: "45px",
@@ -1063,6 +1097,7 @@ const HomePage = () => {
                 width: "200px",
                 fontSize: "18px",
               }}
+              onClick={handleLearnAboutHiring}
             >
               Learn About Hiring
             </Button>

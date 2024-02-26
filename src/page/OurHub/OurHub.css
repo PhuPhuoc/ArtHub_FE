@@ -20,7 +20,7 @@
     scale: 1.2;
   }
 }
-img {
+.imagesContain img {
   scale: 1;
   position: relative;
   cursor: pointer;
