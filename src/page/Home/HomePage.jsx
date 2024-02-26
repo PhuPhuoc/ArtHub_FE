@@ -20,14 +20,10 @@ const HomePage = () => {
         navigate("/ourhub");
     };
 
-}
+
     const [isMuted, setIsMuted] = useState(false);
     const [buttonColor, setButtonColor] = useState("palevioletred");
-    const [user, setUser] = useState('');
     const [sessionCookie, setSessionCookie] = useState('');
-
-    console.log(user);
-
 
     useEffect(() => {
         const intervalId = setInterval(() => {
@@ -53,9 +49,9 @@ const HomePage = () => {
     <div className="home" style={{ position: "relative" }}>
 
         {sessionCookie ? (
-            <p>Bienvenue, {sessionCookie.toString()}</p>
+            <p>Welcome, {sessionCookie.toString()}</p>
         ) : (
-            <p>Non connecté</p>
+            <p></p>
         )}
       <div className="animated-background">
         {/* Bubbles container */}
@@ -1178,6 +1174,6 @@ const HomePage = () => {
       </div>
     </div>
   );
-};
+}
 
 export default HomePage;

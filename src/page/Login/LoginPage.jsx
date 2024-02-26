@@ -46,7 +46,7 @@ function LoginForm() {
           return response.json();
         })
         .then(data => {
-          Cookies.set('sessionCookie', data.user.name, { expires: 1 });
+          Cookies.set('sessionCookie', data.user._id, { expires: 1 });
           console.log("Login successful:", data);
           setRedirect(true);
         })
