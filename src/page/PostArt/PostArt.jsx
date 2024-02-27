@@ -39,6 +39,7 @@ const PostArt = () => {
     const [price, setPrice] = useState('');
     const [dimensions, setDimensions] = useState('');
     const [isPageVisible, setIsPageVisible] = useState(false);
+    const[message, setMessage] = useState('');
 
     const titleRef = useRef(null);
     const moonRef = useRef(null);
@@ -57,7 +58,6 @@ const PostArt = () => {
 
     useEffect(() => {
         const cookieValue = Cookies.get('sessionCookie');
-        console.log("COOKIE", cookieValue);
         if (cookieValue) {
             setSessionCookie(cookieValue);
         }
@@ -145,6 +145,7 @@ const PostArt = () => {
         title: title,
         description: description,
         typeDesign: typeDesign,
+        price: price,
         image: image,
         name: name,
         email: email,
@@ -157,13 +158,17 @@ const PostArt = () => {
       body: JSON.stringify(artwork),
     })
       .then((response) => {
-        if (!response.ok) throw new Error("Invalid artwork form");
+        if (!response.ok) {
+            throw new Error("Invalid artwork form");
+        }
         return response.json();
       })
       .then((data) => {
+          setMessage("New artwork added");
         console.log("New artwork added", data);
       })
       .catch((error) => {
+          setMessage(error);
         console.error("Error while sending artwork:", error.message);
       });
   };
@@ -393,7 +398,7 @@ const PostArt = () => {
               listType="picture-card"
               fileList={form.getFieldValue("fileList")}
               beforeUpload={(file) => {
-                form.setFieldsValue({ fileList: [] });
+                form.setFieldsValue({ fileList: [file] });
 
                 return false;
               }}
@@ -481,6 +486,8 @@ const PostArt = () => {
                 message: "Please input the price of the image!",
               },
             ]}
+            value={price}
+            onChange={(e) => setPrice(e.target.value)}
           >
             <Input type="number" placeholder="Enter the price" prefix="$" />
           </Form.Item>

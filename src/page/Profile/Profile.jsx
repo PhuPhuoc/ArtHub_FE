@@ -10,7 +10,7 @@ const Profile = () => {
         const cookieValue = Cookies.get('sessionCookie');
         if (cookieValue) {
             setSessionCookie(cookieValue);
-            fetchUserPosts(cookieValue); // Pass the cookie value to the fetchUserPosts function
+            fetchUserPosts(cookieValue);
         }
     }, []);
 

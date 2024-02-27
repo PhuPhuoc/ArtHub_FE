@@ -68,15 +68,6 @@ const DefaultLayout = ({ children }) => {
                 >
                     Login
                 </Menu.Item>
-                <Menu.Item
-                    key="vercel"
-                    icon={<UserOutlined />}
-                    onClick={() => {
-                        navigate("/loginpage");
-                    }}
-                >
-                    Login
-                </Menu.Item>
             </>
         )}
 

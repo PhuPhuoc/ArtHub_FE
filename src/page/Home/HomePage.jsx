@@ -20,12 +20,10 @@ const HomePage = () => {
         navigate("/ourhub");
     };
 
-
     const [isMuted, setIsMuted] = useState(false);
     const [buttonColor, setButtonColor] = useState("palevioletred");
     const [sessionCookie, setSessionCookie] = useState('');
     const [username, setUsername] = useState('');
-    const userId = sessionCookie.toString();
 
     useEffect(() => {
         const intervalId = setInterval(() => {
@@ -37,21 +35,21 @@ const HomePage = () => {
 
     useEffect(() => {
         const cookieValue = Cookies.get('sessionCookie');
-        console.log("COOKIE", cookieValue);
         if (cookieValue) {
             setSessionCookie(cookieValue);
-            fetchUsername();
+            fetchUsername(cookieValue);
         }
     }, []);
 
-    const fetchUsername = () => {
+    const fetchUsername = (userId) => {
         axios.get(`http://localhost:5000/api/users/${userId}/info`)
             .then(response => {
-                setUsername(response.data);
+                setUsername(response.data.name);
             })
             .catch(error => {
-                console.error('Error fetching user posts:', error);
+                console.error('Error fetching user infos:', error);
             });
+
     };
 
     const getRandomColor = () => {
@@ -61,7 +59,7 @@ const HomePage = () => {
   return (
     <div className="home" style={{ position: "relative" }}>
 
-        {sessionCookie ? (
+        { sessionCookie ? (
             <p>Welcome, {username.toString()}</p>
         ) : (
             <p></p>

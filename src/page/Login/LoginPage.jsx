@@ -13,6 +13,10 @@ function LoginForm() {
 
   const [redirect, setRedirect] = useState(false);
   const [loginError, setLoginError] = useState("");
+  const [registerError, setRegisterError] = useState("");
+
+  const [redirectSignIn, setRedirectSignIn] = useState(false);
+  const [redirectAdmin, setRedirectAdmin] = useState(false);
 
   const handleRegisterClick = (e) => {
     e.preventDefault();
@@ -22,12 +26,19 @@ function LoginForm() {
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(user),
     })
-      .then(() => {
-        console.log("New User added");
-        setRedirect(true);
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error('Mail already registered');
+        }
+        return response.json();
       })
+        .then(() => {
+          setRedirectSignIn(true);
+        })
       .catch((error) => {
-        console.error("Error registering user:", error);
+        console.error("Mail already registerd:", error.message);
+        setRegisterError(error.message);
+        throw new Error('Mail already registered');
       });
   };
 
@@ -48,7 +59,10 @@ function LoginForm() {
         .then(data => {
           Cookies.set('sessionCookie', data.user._id, { expires: 1 });
           console.log("Login successful:", data);
-          setRedirect(true);
+          if (data.admin === true)
+            setRedirectAdmin(true)
+          else
+            setRedirect(true);
         })
         .catch(error => {
           console.error("Error logging in:", error.message);
@@ -94,6 +108,18 @@ function LoginForm() {
     }
   }, [redirect]);
 
+  useEffect(() => {
+    if (redirectSignIn) {
+      window.location.href = "http://localhost:5173/loginpage";
+    }
+  }, [redirectSignIn]);
+
+  useEffect(() => {
+    if (redirectAdmin) {
+      window.location.href = "http://localhost:5173/admin";
+    }
+  }, [redirectAdmin]);
+
   return (
     <div className="container" id="container">
       <div className="form-container sign-up">
@@ -114,6 +140,7 @@ function LoginForm() {
             </a>
           </div>
           <span>or use your email for registration</span>
+          <div className="error-message">{registerError}</div>
           <input
             id="name"
             type="text"
