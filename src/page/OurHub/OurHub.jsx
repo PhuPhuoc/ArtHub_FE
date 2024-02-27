@@ -16,6 +16,7 @@ import "./OurHub.css";
 import Meta from "antd/es/card/Meta";
 import bird from "../../assets/images/bird.jpg";
 import { Modal } from "antd";
+import {ShoppingCartOutlined} from "@ant-design/icons";
 
 
 const { Search } = Input;
@@ -418,7 +419,8 @@ const OurHub = () => {
           src="https://api.dicebear.com/7.x/miniavs/svg?seed=8"
           style={{ cursor: "pointer", width:"10%", height:"10%" }}
         />
-        <p style={{paddingLeft:"10px", marginTop:"20px", fontSize:"120%"}}>Jean Paul</p>
+        <p style={{paddingLeft:"10px", marginTop:"10px", fontSize:"120%"}}>Jean Paul</p>
+          <Button style={{position: 'absolute', right: 10, alignItems: 'center', }}>Add to cart <ShoppingCartOutlined style={{alignItems: 'center'}}/> </Button>
         </Row>
     </Col>
     

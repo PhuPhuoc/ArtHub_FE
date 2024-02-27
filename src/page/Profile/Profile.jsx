@@ -33,7 +33,7 @@ const Profile = () => {
 
     const handleDeleteArtwork = (artworkId) => {
         axios.delete(`http://localhost:5000/api/artworks/${artworkId}`)
-            .then(response => {
+            .then(() => {
                 fetchUserPosts(sessionCookie);
             })
             .catch(error => {
