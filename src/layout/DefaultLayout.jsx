@@ -1,8 +1,11 @@
 import {
-    DatabaseOutlined,
-    TeamOutlined,
-    HomeOutlined,
-    UserOutlined, AreaChartOutlined
+  DatabaseOutlined,
+  TeamOutlined,
+  HomeOutlined,
+  UserOutlined,
+  AreaChartOutlined,
+  SettingFilled,
+  SettingOutlined,
 } from "@ant-design/icons";
 import { Avatar, Button, Dropdown, Layout, Menu } from "antd";
 import { Content, Footer, Header } from "antd/es/layout/layout";
@@ -10,7 +13,7 @@ import Title from "antd/es/typography/Title";
 import PropTypes from "prop-types";
 import MenuArthub from "../components/Menu/MenuArthub";
 import { useNavigate } from "react-router-dom";
-import {useEffect, useState} from "react";
+import { useEffect, useState } from "react";
 import Search from "antd/es/input/Search";
 import Cookies from "js-cookie";
 
@@ -31,46 +34,54 @@ const items_welcomepage = [
 ];
 
 const DefaultLayout = ({ children }) => {
-    const [menuVisible, setMenuVisible] = useState(false);
-    const [sessionCookie, setSessionCookie] = useState('');
+  const [menuVisible, setMenuVisible] = useState(false);
+  const [sessionCookie, setSessionCookie] = useState("");
 
-    useEffect(() => {
-        const cookieValue = Cookies.get('sessionCookie');
-        console.log("COOKIE", cookieValue);
-        if (cookieValue) {
-            setSessionCookie(cookieValue);
-        }
-    }, []);
+  useEffect(() => {
+    const cookieValue = Cookies.get("sessionCookie");
+    console.log("COOKIE", cookieValue);
+    if (cookieValue) {
+      setSessionCookie(cookieValue);
+    }
+  }, []);
 
   const navigate = useNavigate();
   const menu = (
     <Menu>
-        {sessionCookie ? (
-            <>
-                <Menu.Item
-                    key="vercel"
-                    icon={<UserOutlined />}
-                    onClick={() => {
-                        navigate("/profile");
-                    }}
-                >
-                    Profile
-                </Menu.Item>
-            </>
-        ) : (
-            <>
-                <Menu.Item
-                    key="vercel"
-                    icon={<UserOutlined />}
-                    onClick={() => {
-                        navigate("/loginpage");
-                    }}
-                >
-                    Login
-                </Menu.Item>
-            </>
-        )}
-
+      {sessionCookie ? (
+        <>
+          <Menu.Item
+            key="vercel"
+            icon={<UserOutlined />}
+            onClick={() => {
+              navigate("/profile");
+            }}
+          >
+            Profile
+          </Menu.Item>
+        </>
+      ) : (
+        <>
+          <Menu.Item
+            key="vercel"
+            icon={<UserOutlined />}
+            onClick={() => {
+              navigate("/loginpage");
+            }}
+          >
+            Login
+          </Menu.Item>
+          <Menu.Item
+            key="vercel"
+            icon={<SettingOutlined />}
+            onClick={() => {
+              navigate("/profile");
+            }}
+          >
+            Setting
+          </Menu.Item>
+        </>
+      )}
     </Menu>
   );
   return (
@@ -107,7 +118,7 @@ const DefaultLayout = ({ children }) => {
                 style={{
                   color: "black",
                   display: "flex",
-                  transform: "translateY(-10px)",
+                  transform: "translateY(-20px)",
                 }}
               >
                 ARTHUB
@@ -139,7 +150,7 @@ const DefaultLayout = ({ children }) => {
               }}
               size="large"
             >
-              <UserOutlined/>
+              <UserOutlined />
             </Avatar>
           </Dropdown>
         </Header>
