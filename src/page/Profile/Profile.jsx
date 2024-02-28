@@ -51,7 +51,7 @@ const Profile = () => {
             <div className="artworks">
                 <h2>Here are your artworks</h2>
                 <div className="artworksContainer">
-                    {userArtworks.map((artwork, index) => (
+                    {userArtworks.map((artwork, index) => ( 
                         <div className="artworkCard" key={index}>
                             {artwork.image && <img src={artwork.image} alt='' className="artworkImage" />}
                             <p style={{fontWeight: 800, padding: 5, marginTop: 5}}>{artwork.title}</p>
