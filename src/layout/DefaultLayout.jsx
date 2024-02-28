@@ -36,6 +36,7 @@ const items_welcomepage = [
 const DefaultLayout = ({ children }) => {
   const [menuVisible, setMenuVisible] = useState(false);
   const [sessionCookie, setSessionCookie] = useState("");
+  const [hoveredItem, setHoveredItem] = useState(null);
 
   useEffect(() => {
     const cookieValue = Cookies.get("sessionCookie");
@@ -46,6 +47,10 @@ const DefaultLayout = ({ children }) => {
   }, []);
 
   const navigate = useNavigate();
+  const handleLogout = () => {
+    Cookies.remove("sessionCookie");
+    window.location.href = "/loginpage";
+  };
   const menu = (
     <Menu>
       {sessionCookie ? (
@@ -59,24 +64,34 @@ const DefaultLayout = ({ children }) => {
           >
             Profile
           </Menu.Item>
+          <Menu.Item
+            key="setting"
+            icon={<SettingOutlined />}
+            onClick={() => navigate("/profile")}
+          >
+            Setting
+          </Menu.Item>
+          <Menu.Item
+            key="logout"
+            icon={<LogoutOutlined />}
+            onClick={handleLogout}
+          >
+            Log out
+          </Menu.Item>
         </>
       ) : (
         <>
           <Menu.Item
-            key="vercel"
+            key="login"
             icon={<UserOutlined />}
-            onClick={() => {
-              navigate("/loginpage");
-            }}
+            onClick={() => navigate("/loginpage")}
           >
             Login
           </Menu.Item>
           <Menu.Item
-            key="vercel"
+            key="setting"
             icon={<SettingOutlined />}
-            onClick={() => {
-              navigate("/profile");
-            }}
+            onClick={() => navigate("/profile")}
           >
             Setting
           </Menu.Item>
