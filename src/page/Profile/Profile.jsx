@@ -114,7 +114,7 @@
 //     </div>
 //   );
 // =======
-import { useEffect, useState } from "react";
+
 import Cookies from "js-cookie";
 import axios from "axios";
 import "./Profile.css";
@@ -122,7 +122,6 @@ import { DeleteOutlined, LogoutOutlined, EditOutlined } from "@ant-design/icons"
 import React, { useEffect, useState } from "react";
 import "../../page/Profile/Profile.css";
 import prf from "../../assets/images/profile.jpg";
-import ReactDOM from "react-dom";
 import Modal from "react-modal";
 import Avatar from "react-avatar-edit";
 import { Button, Carousel, Typography } from "antd";
@@ -187,7 +186,7 @@ const Profile = () => {
   }
 
   function afterOpenModal() {
-    // references are now sync'd and can be accessed.
+
     subtitle.style.color = "#f00";
   }
 
