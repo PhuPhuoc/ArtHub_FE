@@ -5,27 +5,83 @@ import "./HomePage.css";
 import ReactPlayer from "react-player";
 import { FaVolumeMute, FaVolumeUp } from "react-icons/fa";
 import { useEffect, useState } from "react";
+import axios from "axios";
+import Cookies from 'js-cookie';
+import { useNavigate } from "react-router-dom";
 
 const HomePage = () => {
-  const [isMuted, setIsMuted] = useState(false);
-  const [buttonColor, setButtonColor] = useState("palevioletred");
-  useEffect(() => {
-    const intervalId = setInterval(() => {
-      const newColor = getRandomColor();
-      setButtonColor(newColor);
-    }, 1500);
-    return () => clearInterval(intervalId);
-  }, []);
-  const getRandomColor = () => {
-    return `#${Math.floor(Math.random() * 16777215).toString(16)}`;
-  };
+    const navigate = useNavigate();
+
+    const handleLearnAboutHiring = () => {
+        navigate("/findtalent");
+    };
+
+    const handleBrowseMoreInspiration = () => {
+        navigate("/ourhub");
+    };
+
+    const [isMuted, setIsMuted] = useState(false);
+    const [buttonColor, setButtonColor] = useState("palevioletred");
+    const [sessionCookie, setSessionCookie] = useState('');
+    const [username, setUsername] = useState('');
+
+    useEffect(() => {
+        const intervalId = setInterval(() => {
+        const newColor = getRandomColor();
+        setButtonColor(newColor);
+        }, 1500);
+        return () => clearInterval(intervalId);
+    }, []);
+
+    useEffect(() => {
+        const cookieValue = Cookies.get('sessionCookie');
+        if (cookieValue) {
+            setSessionCookie(cookieValue);
+            fetchUsername(cookieValue);
+        }
+    }, []);
+
+    const fetchUsername = (userId) => {
+        axios.get(`http://localhost:5000/api/users/${userId}/info`)
+            .then(response => {
+                setUsername(response.data.name);
+            })
+            .catch(error => {
+                console.error('Error fetching user infos:', error);
+            });
+
+    };
+
+    const getRandomColor = () => {
+        return `#${Math.floor(Math.random() * 16777215).toString(16)}`;
+    };
 
   return (
-    <div className="home">
+    <div className="home" style={{ position: "relative" }}>
+
+        { sessionCookie ? (
+            <p>Welcome, {username.toString()}</p>
+        ) : (
+            <p></p>
+        )}
+      <div className="animated-background">
+        {/* Bubbles container */}
+        <div className="bubble-container">
+          {/* Bubbles */}
+          <div className="bubble bubble1" />
+          <div className="bubble bubble2" />
+          <div className="bubble bubble3" />
+          <div className="bubble bubble3" />
+          <div className="bubble bubble3" />
+          <div className="bubble bubble3" />
+
+          {/* Add more bubbles as needed */}
+        </div>
+      </div>
       <div
         className="first-button"
         style={{
-          height: "200px",
+          height: "450px",
           width: "100%",
           display: "flex",
           justifyContent: "center",
@@ -64,6 +120,8 @@ const HomePage = () => {
             display: "flex",
             textAlign: "center",
             transform: "translateY(-30px)",
+            color: "black",
+            fontWeight: 900,
           }}
           className="custom-title"
         >
@@ -75,6 +133,8 @@ const HomePage = () => {
             display: "flex",
             textAlign: "center",
             transform: "translateY(-20px)",
+            fontWeight: "600",
+            color: "black",
           }}
         >
           Get inspired by the work of millions of top-rated designers & agencies
@@ -98,14 +158,14 @@ const HomePage = () => {
         <Carousel autoplay autoplaySpeed={3000}>
           <div>
             <img
-              src={bird}
+              src="https://images.unsplash.com/photo-1707343848873-d6a834b5f9b9?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDF8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
               alt="Image 1"
               style={{ width: "100%", height: "90vh", objectFit: "cover" }}
             />
           </div>
           <div>
             <img
-              src={bird}
+              src="https://images.unsplash.com/photo-1707344088547-3cf7cea5ca49?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDF8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
               alt="Image 2"
               style={{
                 width: "100%",
@@ -116,14 +176,14 @@ const HomePage = () => {
           </div>
           <div>
             <img
-              src={bird}
+              src="https://images.unsplash.com/photo-1682685796014-2f342188a635?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDF8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
               alt="Image 3"
               style={{ width: "100%", height: "90vh", objectFit: "cover" }}
             />
           </div>
           <div>
             <img
-              src={bird}
+              src="https://plus.unsplash.com/premium_photo-1707563216156-e33bf94d36c8?q=80&w=2072&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
               alt="Image 4"
               style={{ width: "100%", height: "90vh", objectFit: "cover" }}
             />
@@ -176,7 +236,14 @@ const HomePage = () => {
 
         <Row gutter={16}>
           <Col className="gutter-row" span={6}>
-            <Card cover={<img src={bird} alt="image" />}>
+            <Card
+              cover={
+                <img
+                  src="https://images.unsplash.com/photo-1701332774516-48309a0e3599?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+                  alt="image"
+                />
+              }
+            >
               <Meta
                 style={{ display: "flex", justifyContent: "center" }}
                 avatar={
@@ -202,7 +269,14 @@ const HomePage = () => {
             </Card>
           </Col>
           <Col className="gutter-row" span={6}>
-            <Card cover={<img src={bird} alt="image" />}>
+            <Card
+              cover={
+                <img
+                  src="https://images.unsplash.com/photo-1708394534994-4e66c2b09e1f?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+                  alt="image"
+                />
+              }
+            >
               <Meta
                 style={{ display: "flex", justifyContent: "center" }}
                 avatar={
@@ -228,7 +302,14 @@ const HomePage = () => {
             </Card>
           </Col>
           <Col className="gutter-row" span={6}>
-            <Card cover={<img src={bird} alt="image" />}>
+            <Card
+              cover={
+                <img
+                  src="https://images.unsplash.com/photo-1694206078595-460a3ec27772?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+                  alt="image"
+                />
+              }
+            >
               <Meta
                 style={{ display: "flex", justifyContent: "center" }}
                 avatar={
@@ -254,7 +335,152 @@ const HomePage = () => {
             </Card>
           </Col>
           <Col className="gutter-row" span={6}>
-            <Card cover={<img src={bird} alt="image" />}>
+            <Card
+              cover={
+                <img
+                  src="https://images.unsplash.com/photo-1701981652870-48e6f5c5498c?q=80&w=2115&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+                  alt="image"
+                />
+              }
+            >
+              <Meta
+                style={{
+                  display: "flex",
+                  justifyContent: "center",
+                  height: "114px",
+                }}
+                avatar={
+                  <Avatar
+                    className="avatar"
+                    src="https://api.dicebear.com/7.x/miniavs/svg?seed=8"
+                    style={{ cursor: "pointer" }}
+                  />
+                }
+                title={
+                  <span style={{ color: "black", fontSize: "15px" }}>
+                    Custom Title
+                  </span>
+                }
+                description={
+                  <span style={{ color: "black", fontSize: "12px" }}>
+                    Lorem, ipsum dolor sit amet consectetur adipisicing elit.
+                    Minus eos voluptates, enim officiis tempore esse voluptatem!
+                    Excepturi rem commodi tempora.
+                  </span>
+                }
+              />
+            </Card>
+          </Col>
+        </Row>
+        <Row gutter={16}>
+          <Col className="gutter-row" span={6}>
+            <Card
+              cover={
+                <img
+                  src="https://images.unsplash.com/photo-1637243175600-39d3f62dad04?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+                  alt="image"
+                />
+              }
+            >
+              <Meta
+                style={{ display: "flex", justifyContent: "center" }}
+                avatar={
+                  <Avatar
+                    className="avatar"
+                    src="https://api.dicebear.com/7.x/miniavs/svg?seed=8"
+                    style={{ cursor: "pointer" }}
+                  />
+                }
+                title={
+                  <span style={{ color: "black", fontSize: "15px" }}>
+                    Custom Title
+                  </span>
+                }
+                description={
+                  <span style={{ color: "black", fontSize: "12px" }}>
+                    Lorem, ipsum dolor sit amet consectetur adipisicing elit.
+                    Minus eos voluptates, enim officiis tempore esse voluptatem!
+                    Excepturi rem commodi tempora.
+                  </span>
+                }
+              />
+            </Card>
+          </Col>
+          <Col className="gutter-row" span={6}>
+            <Card
+              cover={
+                <img
+                  src="https://images.unsplash.com/photo-1547333041-8c938965d679?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+                  alt="image"
+                />
+              }
+            >
+              <Meta
+                style={{ display: "flex", justifyContent: "center" }}
+                avatar={
+                  <Avatar
+                    className="avatar"
+                    src="https://api.dicebear.com/7.x/miniavs/svg?seed=8"
+                    style={{ cursor: "pointer" }}
+                  />
+                }
+                title={
+                  <span style={{ color: "black", fontSize: "15px" }}>
+                    Custom Title
+                  </span>
+                }
+                description={
+                  <span style={{ color: "black", fontSize: "12px" }}>
+                    Lorem, ipsum dolor sit amet consectetur adipisicing elit.
+                    Minus eos voluptates, enim officiis tempore esse voluptatem!
+                    Excepturi rem commodi tempora.
+                  </span>
+                }
+              />
+            </Card>
+          </Col>
+          <Col className="gutter-row" span={6}>
+            <Card
+              cover={
+                <img
+                  src="https://images.unsplash.com/photo-1524561935602-6ec7560f5526?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+                  alt="image"
+                />
+              }
+            >
+              <Meta
+                style={{ display: "flex", justifyContent: "center" }}
+                avatar={
+                  <Avatar
+                    className="avatar"
+                    src="https://api.dicebear.com/7.x/miniavs/svg?seed=8"
+                    style={{ cursor: "pointer" }}
+                  />
+                }
+                title={
+                  <span style={{ color: "black", fontSize: "15px" }}>
+                    Custom Title
+                  </span>
+                }
+                description={
+                  <span style={{ color: "black", fontSize: "12px" }}>
+                    Lorem, ipsum dolor sit amet consectetur adipisicing elit.
+                    Minus eos voluptates, enim officiis tempore esse voluptatem!
+                    Excepturi rem commodi tempora.
+                  </span>
+                }
+              />
+            </Card>
+          </Col>
+          <Col className="gutter-row" span={6}>
+            <Card
+              cover={
+                <img
+                  src="https://images.unsplash.com/photo-1515955656352-a1fa3ffcd111?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+                  alt="image"
+                />
+              }
+            >
               <Meta
                 style={{ display: "flex", justifyContent: "center" }}
                 avatar={
@@ -282,7 +508,14 @@ const HomePage = () => {
         </Row>
         <Row gutter={16}>
           <Col className="gutter-row" span={6}>
-            <Card cover={<img src={bird} alt="image" />}>
+            <Card
+              cover={
+                <img
+                  src="https://images.unsplash.com/photo-1575201647632-45fae95c9ce4?q=80&w=2050&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+                  alt="image"
+                />
+              }
+            >
               <Meta
                 style={{ display: "flex", justifyContent: "center" }}
                 avatar={
@@ -308,7 +541,14 @@ const HomePage = () => {
             </Card>
           </Col>
           <Col className="gutter-row" span={6}>
-            <Card cover={<img src={bird} alt="image" />}>
+            <Card
+              cover={
+                <img
+                  src="https://images.unsplash.com/photo-1646552341269-90c328bda15f?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+                  alt="image"
+                />
+              }
+            >
               <Meta
                 style={{ display: "flex", justifyContent: "center" }}
                 avatar={
@@ -334,7 +574,14 @@ const HomePage = () => {
             </Card>
           </Col>
           <Col className="gutter-row" span={6}>
-            <Card cover={<img src={bird} alt="image" />}>
+            <Card
+              cover={
+                <img
+                  src="https://images.unsplash.com/photo-1615338847310-5257bfb8b589?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+                  alt="image"
+                />
+              }
+            >
               <Meta
                 style={{ display: "flex", justifyContent: "center" }}
                 avatar={
@@ -360,113 +607,14 @@ const HomePage = () => {
             </Card>
           </Col>
           <Col className="gutter-row" span={6}>
-            <Card cover={<img src={bird} alt="image" />}>
-              <Meta
-                style={{ display: "flex", justifyContent: "center" }}
-                avatar={
-                  <Avatar
-                    className="avatar"
-                    src="https://api.dicebear.com/7.x/miniavs/svg?seed=8"
-                    style={{ cursor: "pointer" }}
-                  />
-                }
-                title={
-                  <span style={{ color: "black", fontSize: "15px" }}>
-                    Custom Title
-                  </span>
-                }
-                description={
-                  <span style={{ color: "black", fontSize: "12px" }}>
-                    Lorem, ipsum dolor sit amet consectetur adipisicing elit.
-                    Minus eos voluptates, enim officiis tempore esse voluptatem!
-                    Excepturi rem commodi tempora.
-                  </span>
-                }
-              />
-            </Card>
-          </Col>
-        </Row>
-        <Row gutter={16}>
-          <Col className="gutter-row" span={6}>
-            <Card cover={<img src={bird} alt="image" />}>
-              <Meta
-                style={{ display: "flex", justifyContent: "center" }}
-                avatar={
-                  <Avatar
-                    className="avatar"
-                    src="https://api.dicebear.com/7.x/miniavs/svg?seed=8"
-                    style={{ cursor: "pointer" }}
-                  />
-                }
-                title={
-                  <span style={{ color: "black", fontSize: "15px" }}>
-                    Custom Title
-                  </span>
-                }
-                description={
-                  <span style={{ color: "black", fontSize: "12px" }}>
-                    Lorem, ipsum dolor sit amet consectetur adipisicing elit.
-                    Minus eos voluptates, enim officiis tempore esse voluptatem!
-                    Excepturi rem commodi tempora.
-                  </span>
-                }
-              />
-            </Card>
-          </Col>
-          <Col className="gutter-row" span={6}>
-            <Card cover={<img src={bird} alt="image" />}>
-              <Meta
-                style={{ display: "flex", justifyContent: "center" }}
-                avatar={
-                  <Avatar
-                    className="avatar"
-                    src="https://api.dicebear.com/7.x/miniavs/svg?seed=8"
-                    style={{ cursor: "pointer" }}
-                  />
-                }
-                title={
-                  <span style={{ color: "black", fontSize: "15px" }}>
-                    Custom Title
-                  </span>
-                }
-                description={
-                  <span style={{ color: "black", fontSize: "12px" }}>
-                    Lorem, ipsum dolor sit amet consectetur adipisicing elit.
-                    Minus eos voluptates, enim officiis tempore esse voluptatem!
-                    Excepturi rem commodi tempora.
-                  </span>
-                }
-              />
-            </Card>
-          </Col>
-          <Col className="gutter-row" span={6}>
-            <Card cover={<img src={bird} alt="image" />}>
-              <Meta
-                style={{ display: "flex", justifyContent: "center" }}
-                avatar={
-                  <Avatar
-                    className="avatar"
-                    src="https://api.dicebear.com/7.x/miniavs/svg?seed=8"
-                    style={{ cursor: "pointer" }}
-                  />
-                }
-                title={
-                  <span style={{ color: "black", fontSize: "15px" }}>
-                    Custom Title
-                  </span>
-                }
-                description={
-                  <span style={{ color: "black", fontSize: "12px" }}>
-                    Lorem, ipsum dolor sit amet consectetur adipisicing elit.
-                    Minus eos voluptates, enim officiis tempore esse voluptatem!
-                    Excepturi rem commodi tempora.
-                  </span>
-                }
-              />
-            </Card>
-          </Col>
-          <Col className="gutter-row" span={6}>
-            <Card cover={<img src={bird} alt="image" />}>
+            <Card
+              cover={
+                <img
+                  src="https://images.unsplash.com/photo-1512944159308-fbe53a63b779?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+                  alt="image"
+                />
+              }
+            >
               <Meta
                 style={{ display: "flex", justifyContent: "center" }}
                 avatar={
@@ -494,7 +642,14 @@ const HomePage = () => {
         </Row>
         <Row gutter={16}>
           <Col className="gutter-row" span={6}>
-            <Card cover={<img src={bird} alt="image" />}>
+            <Card
+              cover={
+                <img
+                  src="https://plus.unsplash.com/premium_photo-1663013336780-bbfd0b1473b4?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+                  alt="image"
+                />
+              }
+            >
               <Meta
                 style={{ display: "flex", justifyContent: "center" }}
                 avatar={
@@ -520,7 +675,14 @@ const HomePage = () => {
             </Card>
           </Col>
           <Col className="gutter-row" span={6}>
-            <Card cover={<img src={bird} alt="image" />}>
+            <Card
+              cover={
+                <img
+                  src="https://plus.unsplash.com/premium_photo-1705583864718-71cdbb830c79?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+                  alt="image"
+                />
+              }
+            >
               <Meta
                 style={{ display: "flex", justifyContent: "center" }}
                 avatar={
@@ -546,7 +708,14 @@ const HomePage = () => {
             </Card>
           </Col>
           <Col className="gutter-row" span={6}>
-            <Card cover={<img src={bird} alt="image" />}>
+            <Card
+              cover={
+                <img
+                  src="https://plus.unsplash.com/premium_photo-1674831509063-e68252300846?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D "
+                  alt="image"
+                />
+              }
+            >
               <Meta
                 style={{ display: "flex", justifyContent: "center" }}
                 avatar={
@@ -572,113 +741,14 @@ const HomePage = () => {
             </Card>
           </Col>
           <Col className="gutter-row" span={6}>
-            <Card cover={<img src={bird} alt="image" />}>
-              <Meta
-                style={{ display: "flex", justifyContent: "center" }}
-                avatar={
-                  <Avatar
-                    className="avatar"
-                    src="https://api.dicebear.com/7.x/miniavs/svg?seed=8"
-                    style={{ cursor: "pointer" }}
-                  />
-                }
-                title={
-                  <span style={{ color: "black", fontSize: "15px" }}>
-                    Custom Title
-                  </span>
-                }
-                description={
-                  <span style={{ color: "black", fontSize: "12px" }}>
-                    Lorem, ipsum dolor sit amet consectetur adipisicing elit.
-                    Minus eos voluptates, enim officiis tempore esse voluptatem!
-                    Excepturi rem commodi tempora.
-                  </span>
-                }
-              />
-            </Card>
-          </Col>
-        </Row>
-        <Row gutter={16}>
-          <Col className="gutter-row" span={6}>
-            <Card cover={<img src={bird} alt="image" />}>
-              <Meta
-                style={{ display: "flex", justifyContent: "center" }}
-                avatar={
-                  <Avatar
-                    className="avatar"
-                    src="https://api.dicebear.com/7.x/miniavs/svg?seed=8"
-                    style={{ cursor: "pointer" }}
-                  />
-                }
-                title={
-                  <span style={{ color: "black", fontSize: "15px" }}>
-                    Custom Title
-                  </span>
-                }
-                description={
-                  <span style={{ color: "black", fontSize: "12px" }}>
-                    Lorem, ipsum dolor sit amet consectetur adipisicing elit.
-                    Minus eos voluptates, enim officiis tempore esse voluptatem!
-                    Excepturi rem commodi tempora.
-                  </span>
-                }
-              />
-            </Card>
-          </Col>
-          <Col className="gutter-row" span={6}>
-            <Card cover={<img src={bird} alt="image" />}>
-              <Meta
-                style={{ display: "flex", justifyContent: "center" }}
-                avatar={
-                  <Avatar
-                    className="avatar"
-                    src="https://api.dicebear.com/7.x/miniavs/svg?seed=8"
-                    style={{ cursor: "pointer" }}
-                  />
-                }
-                title={
-                  <span style={{ color: "black", fontSize: "15px" }}>
-                    Custom Title
-                  </span>
-                }
-                description={
-                  <span style={{ color: "black", fontSize: "12px" }}>
-                    Lorem, ipsum dolor sit amet consectetur adipisicing elit.
-                    Minus eos voluptates, enim officiis tempore esse voluptatem!
-                    Excepturi rem commodi tempora.
-                  </span>
-                }
-              />
-            </Card>
-          </Col>
-          <Col className="gutter-row" span={6}>
-            <Card cover={<img src={bird} alt="image" />}>
-              <Meta
-                style={{ display: "flex", justifyContent: "center" }}
-                avatar={
-                  <Avatar
-                    className="avatar"
-                    src="https://api.dicebear.com/7.x/miniavs/svg?seed=8"
-                    style={{ cursor: "pointer" }}
-                  />
-                }
-                title={
-                  <span style={{ color: "black", fontSize: "15px" }}>
-                    Custom Title
-                  </span>
-                }
-                description={
-                  <span style={{ color: "black", fontSize: "12px" }}>
-                    Lorem, ipsum dolor sit amet consectetur adipisicing elit.
-                    Minus eos voluptates, enim officiis tempore esse voluptatem!
-                    Excepturi rem commodi tempora.
-                  </span>
-                }
-              />
-            </Card>
-          </Col>
-          <Col className="gutter-row" span={6}>
-            <Card cover={<img src={bird} alt="image" />}>
+            <Card
+              cover={
+                <img
+                  src="https://plus.unsplash.com/premium_photo-1708005566035-e8652b784a09?q=80&w=2069&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+                  alt="image"
+                />
+              }
+            >
               <Meta
                 style={{ display: "flex", justifyContent: "center" }}
                 avatar={
@@ -706,7 +776,14 @@ const HomePage = () => {
         </Row>
         <Row gutter={16}>
           <Col className="gutter-row" span={6}>
-            <Card cover={<img src={bird} alt="image" />}>
+            <Card
+              cover={
+                <img
+                  src="https://plus.unsplash.com/premium_photo-1700575181289-b5248a43e7f0?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+                  alt="image"
+                />
+              }
+            >
               <Meta
                 style={{ display: "flex", justifyContent: "center" }}
                 avatar={
@@ -732,7 +809,126 @@ const HomePage = () => {
             </Card>
           </Col>
           <Col className="gutter-row" span={6}>
-            <Card cover={<img src={bird} alt="image" />}>
+            <Card
+              cover={
+                <img
+                  src="https://plus.unsplash.com/premium_photo-1663089989600-dd0e0ae03646?q=80&w=2117&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+                  alt="image"
+                />
+              }
+            >
+              <Meta
+                style={{
+                  display: "flex",
+                  justifyContent: "center",
+                  height: "116px",
+                }}
+                avatar={
+                  <Avatar
+                    className="avatar"
+                    src="https://api.dicebear.com/7.x/miniavs/svg?seed=8"
+                    style={{ cursor: "pointer" }}
+                  />
+                }
+                title={
+                  <span style={{ color: "black", fontSize: "15px" }}>
+                    Custom Title
+                  </span>
+                }
+                description={
+                  <span style={{ color: "black", fontSize: "12px" }}>
+                    Lorem, ipsum dolor sit amet consectetur adipisicing elit.
+                    Minus eos voluptates, enim officiis tempore esse voluptatem!
+                    Excepturi rem commodi tempora.
+                  </span>
+                }
+              />
+            </Card>
+          </Col>
+          <Col className="gutter-row" span={6}>
+            <Card
+              cover={
+                <img
+                  src="https://images.unsplash.com/photo-1703349770396-fd4cdd7c6914?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+                  alt="image"
+                />
+              }
+            >
+              <Meta
+                style={{
+                  display: "flex",
+                  justifyContent: "center",
+                }}
+                avatar={
+                  <Avatar
+                    className="avatar"
+                    src="https://api.dicebear.com/7.x/miniavs/svg?seed=8"
+                    style={{ cursor: "pointer" }}
+                  />
+                }
+                title={
+                  <span style={{ color: "black", fontSize: "15px" }}>
+                    "???"
+                  </span>
+                }
+                description={
+                  <span style={{ color: "black", fontSize: "12px" }}>
+                    Lorem, ipsum dolor sit amet consectetur adipisicing elit.
+                    Minus eos voluptates, enim officiis tempore esse voluptatem!
+                    Excepturi rem commodi tempora.
+                  </span>
+                }
+              />
+            </Card>
+          </Col>
+          <Col className="gutter-row" span={6}>
+            <Card
+              cover={
+                <img
+                  src="https://images.unsplash.com/photo-1698815924393-c98ccaef778a?q=80&w=2089&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+                  alt="image"
+                />
+              }
+            >
+              <Meta
+                style={{
+                  display: "flex",
+                  justifyContent: "center",
+                  height: "109px",
+                }}
+                avatar={
+                  <Avatar
+                    className="avatar"
+                    src="https://api.dicebear.com/7.x/miniavs/svg?seed=8"
+                    style={{ cursor: "pointer" }}
+                  />
+                }
+                title={
+                  <span style={{ color: "black", fontSize: "15px" }}>
+                    Custom Title
+                  </span>
+                }
+                description={
+                  <span style={{ color: "black", fontSize: "12px" }}>
+                    Lorem, ipsum dolor sit amet consectetur adipisicing elit.
+                    Minus eos voluptates, enim officiis tempore esse voluptatem!
+                    Excepturi rem commodi tempora.
+                  </span>
+                }
+              />
+            </Card>
+          </Col>
+        </Row>
+        <Row gutter={16}>
+          <Col className="gutter-row" span={6}>
+            <Card
+              cover={
+                <img
+                  src="https://plus.unsplash.com/premium_photo-1700315132341-bd6a65c10b19?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+                  alt="image"
+                />
+              }
+            >
               <Meta
                 style={{ display: "flex", justifyContent: "center" }}
                 avatar={
@@ -758,7 +954,14 @@ const HomePage = () => {
             </Card>
           </Col>
           <Col className="gutter-row" span={6}>
-            <Card cover={<img src={bird} alt="image" />}>
+            <Card
+              cover={
+                <img
+                  src="https://images.unsplash.com/photo-1708375308203-33f92afe7cd5?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+                  alt="image"
+                />
+              }
+            >
               <Meta
                 style={{ display: "flex", justifyContent: "center" }}
                 avatar={
@@ -784,7 +987,47 @@ const HomePage = () => {
             </Card>
           </Col>
           <Col className="gutter-row" span={6}>
-            <Card cover={<img src={bird} alt="image" />}>
+            <Card
+              cover={
+                <img
+                  src="https://images.unsplash.com/photo-1545968340-848cddd981ea?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+                  alt="image"
+                />
+              }
+            >
+              <Meta
+                style={{ display: "flex", justifyContent: "center" }}
+                avatar={
+                  <Avatar
+                    className="avatar"
+                    src="https://api.dicebear.com/7.x/miniavs/svg?seed=8"
+                    style={{ cursor: "pointer" }}
+                  />
+                }
+                title={
+                  <span style={{ color: "black", fontSize: "15px" }}>
+                    Custom Title
+                  </span>
+                }
+                description={
+                  <span style={{ color: "black", fontSize: "12px" }}>
+                    Lorem, ipsum dolor sit amet consectetur adipisicing elit.
+                    Minus eos voluptates, enim officiis tempore esse voluptatem!
+                    Excepturi rem commodi tempora.
+                  </span>
+                }
+              />
+            </Card>
+          </Col>
+          <Col className="gutter-row" span={6}>
+            <Card
+              cover={
+                <img
+                  src="https://images.unsplash.com/photo-1569388037243-dfa034ecdbca?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+                  alt="image"
+                />
+              }
+            >
               <Meta
                 style={{ display: "flex", justifyContent: "center" }}
                 avatar={
@@ -824,7 +1067,10 @@ const HomePage = () => {
           <Button
             style={{ height: "60px", borderRadius: "30px", width: "400px" }}
           >
-            <Typography.Text style={{ fontSize: "30px" }}>
+            <Typography.Text
+              style={{ fontSize: "30px" }}
+              onClick={handleBrowseMoreInspiration}
+            >
               Browse more inspiration
             </Typography.Text>
           </Button>
@@ -873,6 +1119,7 @@ const HomePage = () => {
             >
               Get Started Now
             </Button>
+
             <Button
               style={{
                 height: "45px",
@@ -880,6 +1127,7 @@ const HomePage = () => {
                 width: "200px",
                 fontSize: "18px",
               }}
+              onClick={handleLearnAboutHiring}
             >
               Learn About Hiring
             </Button>
@@ -937,6 +1185,6 @@ const HomePage = () => {
       </div>
     </div>
   );
-};
+}
 
 export default HomePage;

@@ -1,13 +1,91 @@
-import React, { useEffect } from "react";
-import "./LoginPage.css"; // Make sure to import your CSS file
+import React, { useEffect, useState } from "react";
+import "./LoginPage.css";
+import Cookies from 'js-cookie';
 
 function LoginForm() {
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [users, setUsers] = useState([]);
+
+  const [loginMail, setLoginMail] = useState('');
+  const [loginPassword, setLoginPassword] = useState('');
+
+  const [redirect, setRedirect] = useState(false);
+  const [loginError, setLoginError] = useState("");
+  const [registerError, setRegisterError] = useState("");
+
+  const [redirectSignIn, setRedirectSignIn] = useState(false);
+  const [redirectAdmin, setRedirectAdmin] = useState(false);
+
+  const handleRegisterClick = (e) => {
+    e.preventDefault();
+    const user = { name, email, password };
+    fetch("http://localhost:5000/api/register", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(user),
+    })
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error('Mail already registered');
+        }
+        return response.json();
+      })
+        .then(() => {
+          setRedirectSignIn(true);
+        })
+      .catch((error) => {
+        console.error("Mail already registerd:", error.message);
+        setRegisterError(error.message);
+        throw new Error('Mail already registered');
+      });
+  };
+
+  const handleLoginClick = (e) => {
+    e.preventDefault();
+    const user = { email: loginMail, password: loginPassword };
+    fetch("http://localhost:5000/api/login", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(user),
+    })
+        .then(response => {
+          if (!response.ok) {
+            throw new Error('Invalid email or password');
+          }
+          return response.json();
+        })
+        .then(data => {
+          Cookies.set('sessionCookie', data.user._id, { expires: 1 });
+          console.log("Login successful:", data);
+          if (data.admin === true)
+            setRedirectAdmin(true)
+          else
+            setRedirect(true);
+        })
+        .catch(error => {
+          console.error("Error logging in:", error.message);
+          setLoginError(error.message);
+        });
+  };
+
+
+  useEffect(()=>{
+    fetch("http://localhost:5173/api/login")
+        .then((res) => res.json())
+        .then((result) => {
+          setUsers(result);
+        });
+  }, []);
+
   useEffect(() => {
     const container = document.getElementById("container");
     const registerBtn = document.getElementById("register");
     const loginBtn = document.getElementById("login");
 
-    const handleRegisterClick = () => {
+    const handleRegisterClick = (event) => {
+      event.preventDefault(); // Prevent default form submission behavior
       container.classList.add("active");
     };
 
@@ -23,6 +101,24 @@ function LoginForm() {
       loginBtn.removeEventListener("click", handleLoginClick);
     };
   }, []);
+
+  useEffect(() => {
+    if (redirect) {
+      window.location.href = "http://localhost:5173";
+    }
+  }, [redirect]);
+
+  useEffect(() => {
+    if (redirectSignIn) {
+      window.location.href = "http://localhost:5173/loginpage";
+    }
+  }, [redirectSignIn]);
+
+  useEffect(() => {
+    if (redirectAdmin) {
+      window.location.href = "http://localhost:5173/admin";
+    }
+  }, [redirectAdmin]);
 
   return (
     <div className="container" id="container">
@@ -44,10 +140,29 @@ function LoginForm() {
             </a>
           </div>
           <span>or use your email for registration</span>
-          <input type="text" placeholder="Name" />
-          <input type="email" placeholder="Email" />
-          <input type="password" placeholder="Password" />
-          <button>Sign Up</button>
+          <div className="error-message">{registerError}</div>
+          <input
+            id="name"
+            type="text"
+            placeholder="Name"
+            value={name}
+            onChange={(e) => setName(e.target.value)}
+          />
+          <input
+            id="email"
+            type="email"
+            placeholder="Email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+          />
+          <input
+            id="password"
+            type="password"
+            placeholder="Password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+          />
+          <button onClick={handleRegisterClick}>Sign Up</button>
         </form>
       </div>
       <div className="form-container sign-in">
@@ -68,10 +183,21 @@ function LoginForm() {
             </a>
           </div>
           <span>or use your email password</span>
-          <input type="email" placeholder="Email" />
-          <input type="password" placeholder="Password" />
+          <div className="error-message">{loginError}</div>
+          <input
+            type="email"
+            placeholder="Email"
+            value={loginMail}
+            onChange={(e) => setLoginMail(e.target.value)}
+          />
+          <input
+            type="password"
+            placeholder="Password"
+            value={loginPassword}
+            onChange={(e) => setLoginPassword(e.target.value)}
+          />
           <a href="#">Forget Your Password?</a>
-          <button>Sign In</button>
+          <button onClick={handleLoginClick}>Sign In</button>
         </form>
       </div>
       <div className="toggle-container">

@@ -1,12 +1,64 @@
-.fileupload{
+h1 {
+    font-size: 40px;
+    padding: 10px;
+}
+
+.artworks h2 {
+    font-size: 30px;
+    padding: 10px;
+}
+
+.artworksContainer {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.artworkCard {
+    display: flex;
+    width: 250px;
+    flex-direction: column;
+    background-color: whitesmoke;
+    border-radius: 20px;
+    padding: 10px;
+    margin: 10px
+}
+
+.artworkImage {
+    height: 200px;
+    width: auto;
+    border-radius: 15px;
+    object-fit: cover;
+}
+
+.modifyArtwork {
     display: flex;
     justify-content: center;
-    align-items: center;
-    cursor: pointer;
 }
-.fileupload img{
-    width: 200px;
-    height: 200px;
-    border-radius: 50%;
-    z-index: 0;
-}    
+
+button.delete {
+    margin: 5px;
+    color: darkred;
+    border: 1px solid;
+    padding: 5px;
+    border-radius: 10px;
+    transition: 0.3s ease-in-out;
+}
+
+button.delete:hover {
+    background-color: darkred;
+    color: white;
+}
+
+button.edit {
+    margin: 5px;
+    color: dodgerblue;
+    border: 1px solid;
+    padding: 5px;
+    border-radius: 10px;
+    transition: 0.3s ease-in-out;
+}
+
+button.edit:hover {
+    background-color: dodgerblue;
+    color: white;
+}

@@ -7,12 +7,14 @@ import HomePage from "../page/Home/HomePage";
 import Profile from "../page/Profile/Profile";
 
 import LoginPage from "../page/Login/LoginPage";
+import Admin from "../page/Admin/Admin";
 const welcomeRouterData = [
   { path: "findtalent", component: <FindTalent /> },
   { path: "ourhub", component: <OurHub /> },
   { path: "postart", component: <PostArt /> },
   { path: "profile", component: <Profile /> },
   { path: "loginpage", component: <LoginPage /> },
+  { path: "admin", component: <Admin /> },
 ];
 
 const DefaultComponent = () => {

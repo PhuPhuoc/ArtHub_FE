@@ -2,7 +2,16 @@
   transition-timing-function: all 0.3s ease-in-out;
 }
 
-.first-button {
+.bubbles {
+  background: #0c192c;
+  position: relative;
+  display: flex;
+}
+.bubble span {
+  position: relative;
+  width: 30px;
+  height: 30px;
+  background: #4fc3dc;
 }
 .btnVolume {
   position: absolute;
