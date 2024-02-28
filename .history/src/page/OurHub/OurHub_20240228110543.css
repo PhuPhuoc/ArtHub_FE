@@ -32,3 +32,8 @@
     z-index: 100;
   }
 }
+
+.Button.active {
+  background-color: #fff;
+  color: #000;
+}

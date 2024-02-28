@@ -427,7 +427,7 @@ const OurHub = () => {
         <Button  style={{position: 'absolute',right: "150px", alignItems: 'center', border: 'none', outline: 'none', transition: 'none', boxShadow:'none'}} onClick={handleHeartClick}>
           {heartFilled ? <HeartFilled style={{color: 'red'}} /> : <HeartOutlined style={{color: 'red'}} />}
         </Button>          
-        <Button id='hearthButton' style={{position: 'absolute', right: 10, alignItems: 'center', }}>Add to cart <ShoppingCartOutlined style={{alignItems: 'center'}}/> </Button>
+        <Button id='hearthbutton' style={{position: 'absolute', right: 10, alignItems: 'center', }}>Add to cart <ShoppingCartOutlined style={{alignItems: 'center'}}/> </Button>
         </Row>
     </Col>
   </Row>

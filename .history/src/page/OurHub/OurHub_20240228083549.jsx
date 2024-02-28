@@ -10,13 +10,13 @@ import {
   Card,
   Avatar,
 } from "antd";
-import React, { useState } from "react";
+import React from "react";
 import { CiSearch } from "react-icons/ci";
 import "./OurHub.css";
 import Meta from "antd/es/card/Meta";
 import bird from "../../assets/images/bird.jpg";
 import { Modal } from "antd";
-import {ShoppingCartOutlined, HeartOutlined, HeartFilled} from "@ant-design/icons";
+import {ShoppingCartOutlined} from "@ant-design/icons";
 
 
 const { Search } = Input;
@@ -33,11 +33,7 @@ const OurHub = () => {
 
   const [modalVisible, setModalVisible] = React.useState(false);
   const [modalContent, setModalContent] = React.useState({});
-  const [heartFilled, setHeartFilled] = useState(false);
 
-  const handleHeartClick = () => {
-    setHeartFilled(!heartFilled);
-  };
   const [justify, setJustify] = React.useState(justifyOptions[0]);
   const renderImages = () => {
         
@@ -397,42 +393,40 @@ const OurHub = () => {
                 </Card>
               </Col>
             </Row>
-            <Modal
-  title={null}
-  visible={modalVisible}
-  onCancel={() => setModalVisible(false)}
-  footer={null}
-  style={{ top: 20, minWidth: "80%", maxWidth: "80%" }} // Adjust width here
+           <Modal
+    title={null}
+    visible={modalVisible}
+    onCancel={() => setModalVisible(false)}
+    footer={null}
+    style={{ top: 20, minWidth: "80%", maxWidth: "80%" }} // Adjust width here
 >
-  <Row>
-    <Col span={12}>
-      <img
-        src={modalContent.image}
-        alt={modalContent.title}
-        style={{ width: "100%", height: "100%", paddingRight: "20px" }}
-      />
-    </Col>
-    <Col span={12} style={{ paddingLeft: "20px" }}>
-      <h2 style={{ fontSize: "200%", fontFamily: "serif", fontWeight: "bold", paddingBottom: "10px" }}>{modalContent.title}</h2>
-      <p style={{ fontSize: "130%", paddingBottom: "10px"}}>{modalContent.description}</p>
-      <p style={{ fontSize: "130%",paddingBottom: "10px" }}>100 x 100 cm</p>
-      <p style={{ fontSize: "130%",paddingBottom: "250px", fontStyle:"italic" }}>10.99$</p>
-      <Row style={{paddingLeft:"10px"}}>
-      <Avatar
-          className="avatar"
-          src="https://api.dicebear.com/7.x/miniavs/svg?seed=8"
-          style={{ cursor: "pointer", width:"10%", height:"10%" }}
-        />
-        <p style={{paddingLeft:"10px", marginTop:"10px", fontSize:"120%"}}>Jean Paul</p>
-        <Button  style={{position: 'absolute',right: "150px", alignItems: 'center', border: 'none', outline: 'none', transition: 'none', boxShadow:'none'}} onClick={handleHeartClick}>
-          {heartFilled ? <HeartFilled style={{color: 'red'}} /> : <HeartOutlined style={{color: 'red'}} />}
-        </Button>          
-        <Button id='hearthButton' style={{position: 'absolute', right: 10, alignItems: 'center', }}>Add to cart <ShoppingCartOutlined style={{alignItems: 'center'}}/> </Button>
-        </Row>
-    </Col>
-  </Row>
+    <Row>
+        <Col span={12}>
+            <div style={{ width: "100%", height: "100%" }}>
+                <img
+                    src={modalContent.image}
+                    alt={modalContent.title}
+                    style={{ width: "100%", height: "100%", objectFit: "cover" }}
+                />
+            </div>
+        </Col>
+        <Col span={12} style={{ paddingLeft: "20px" }}>
+            <h2 style={{ fontSize: "200%", fontFamily: "serif", fontWeight: "bold", paddingBottom: "10px" }}>{modalContent.title}</h2>
+            <p style={{ fontSize: "130%", paddingBottom: "10px" }}>{modalContent.description}</p>
+            <p style={{ fontSize: "130%", paddingBottom: "10px" }}>100 x 100 cm</p>
+            <p style={{ fontSize: "130%", paddingBottom: "250px", fontStyle: "italic" }}>10.99$</p>
+            <Row style={{ paddingLeft: "10px" }}>
+                <Avatar
+                    className="avatar"
+                    src="https://api.dicebear.com/7.x/miniavs/svg?seed=8"
+                    style={{ cursor: "pointer", width: "10%", height: "10%" }}
+                />
+                <p style={{ paddingLeft: "10px", marginTop: "10px", fontSize: "120%" }}>Jean Paul</p>
+                <Button style={{ position: 'absolute', right: 10, alignItems: 'center', }}>Add to cart <ShoppingCartOutlined style={{ alignItems: 'center' }} /> </Button>
+            </Row>
+        </Col>
+    </Row>
 </Modal>
-
           </div>
         );
 
