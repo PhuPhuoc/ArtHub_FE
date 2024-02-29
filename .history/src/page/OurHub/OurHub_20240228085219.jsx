@@ -4,32 +4,24 @@ import {
   Input,
   Button,
   Segmented,
+  Flex,
   Row,
   Col,
   Card,
   Avatar,
 } from "antd";
-import React, { useState } from "react";
+import React from "react";
 import { CiSearch } from "react-icons/ci";
 import "./OurHub.css";
 import Meta from "antd/es/card/Meta";
+import bird from "../../assets/images/bird.jpg";
 import { Modal } from "antd";
-<<<<<<< HEAD
-import { ShoppingCartOutlined } from "@ant-design/icons";
-import { useSpring, animated } from "react-spring";
-=======
-import {ShoppingCartOutlined, HeartOutlined, HeartFilled} from "@ant-design/icons";
+import {ShoppingCartOutlined} from "@ant-design/icons";
 
 
 const { Search } = Input;
 const onSearch = (value, _e, info) => console.log(info?.source, value);
->>>>>>> 9f3629e00c5204923fb4ce0d8ef5efc5b96aad3b
 const OurHub = () => {
-  const props = useSpring({
-    opacity: 1,
-    marginTop: 0,
-    from: { opacity: 0, marginTop: 100 },
-  });
   const justifyOptions = [
     "Discover",
     "Animation",
@@ -38,23 +30,13 @@ const OurHub = () => {
     "Food",
   ];
 
+
   const [modalVisible, setModalVisible] = React.useState(false);
   const [modalContent, setModalContent] = React.useState({});
-  const [heartFilled, setHeartFilled] = useState(false);
 
-  const Comment = ({ user, text }) => (
-    <div style={{ marginBottom: "10px" }}>
-      <span style={{ fontWeight: "bold" }}>{user}:</span> {text}
-    </div>
-  );
-  
-
-  const handleHeartClick = () => {
-    setHeartFilled(!heartFilled);
-  };
   const [justify, setJustify] = React.useState(justifyOptions[0]);
-
   const renderImages = () => {
+        
     const handleArtworkClick = (title, description, image) => {
       setModalContent({ title, description, image });
       setModalVisible(true);
@@ -71,7 +53,7 @@ const OurHub = () => {
                     handleArtworkClick(
                       "Landmark 81 Ho Chi Minh City",
                       "This is the second highest building in southeast Asia",
-                      "https://images.unsplash.com/photo-1549654917-9ddb6fed998f?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+                      "https://images.unsplash.com/photo-1549654917-9ddb6fed998f?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
                     )
                   }
                   cover={
@@ -412,86 +394,11 @@ const OurHub = () => {
               </Col>
             </Row>
             <Modal
-<<<<<<< HEAD
-              title={null}
-              visible={modalVisible}
-              onCancel={() => setModalVisible(false)}
-              footer={null}
-              style={{ top: 20, minWidth: "80%", maxWidth: "80%" }} // Adjust width here
-            >
-              <Row>
-                <Col span={12}>
-                  <img
-                    src={modalContent.image}
-                    alt={modalContent.title}
-                    style={{
-                      width: "100%",
-                      height: "100%",
-                      paddingRight: "20px",
-                    }}
-                  />
-                </Col>
-                <Col span={12} style={{ paddingLeft: "20px" }}>
-                  <h2
-                    style={{
-                      fontSize: "200%",
-                      fontFamily: "serif",
-                      fontWeight: "bold",
-                      paddingBottom: "10px",
-                    }}
-                  >
-                    {modalContent.title}
-                  </h2>
-                  <p style={{ fontSize: "130%", paddingBottom: "10px" }}>
-                    {modalContent.description}
-                  </p>
-                  <p style={{ fontSize: "130%", paddingBottom: "10px" }}>
-                    100 x 100 cm
-                  </p>
-                  <p
-                    style={{
-                      fontSize: "130%",
-                      paddingBottom: "250px",
-                      fontStyle: "italic",
-                    }}
-                  >
-                    10.99$
-                  </p>
-                  <Row style={{ paddingLeft: "10px" }}>
-                    <Avatar
-                      className="avatar"
-                      src="https://api.dicebear.com/7.x/miniavs/svg?seed=8"
-                      style={{ cursor: "pointer", width: "10%", height: "10%" }}
-                    />
-                    <p
-                      style={{
-                        paddingLeft: "10px",
-                        marginTop: "10px",
-                        fontSize: "120%",
-                      }}
-                    >
-                      Jean Paul
-                    </p>
-                    <Button
-                      style={{
-                        position: "absolute",
-                        right: 10,
-                        alignItems: "center",
-                      }}
-                    >
-                      Add to cart{" "}
-                      <ShoppingCartOutlined style={{ alignItems: "center" }} />{" "}
-                    </Button>
-                  </Row>
-                </Col>
-              </Row>
-            </Modal>
-=======
   title={null}
   visible={modalVisible}
   onCancel={() => setModalVisible(false)}
   footer={null}
-  style={{ top: 20, minWidth: "80%", maxWidth: "80%", bottom:20 }} // Adjust width here
+  style={{ top: 20, minWidth: "80%", maxWidth: "80%" }} // Adjust width here
 >
   <Row>
     <Col span={12}>
@@ -507,47 +414,22 @@ const OurHub = () => {
       <p style={{ fontSize: "130%",paddingBottom: "10px" }}>100 x 100 cm</p>
       <p style={{ fontSize: "130%",paddingBottom: "250px", fontStyle:"italic" }}>10.99$</p>
       <Row style={{paddingLeft:"10px"}}>
-        <Avatar
+      <Avatar
           className="avatar"
           src="https://api.dicebear.com/7.x/miniavs/svg?seed=8"
           style={{ cursor: "pointer", width:"10%", height:"10%" }}
         />
         <p style={{paddingLeft:"10px", marginTop:"10px", fontSize:"120%"}}>Jean Paul</p>
-        <button style={{position: 'absolute', right: "180px",bottom:"45px", alignItems: 'center', border: 'none', outline: 'none', transition: 'none', boxShadow:'none'}} onClick={handleHeartClick}>
-          {heartFilled ? <HeartFilled style={{color: 'red',fontSize: '24px'}} /> : <HeartOutlined style={{color: 'red', fontSize: '24px'}} />}
-        </button>
-        <Button id='hearthButton' style={{position: 'absolute', right: 10, alignItems: 'center', }}>Add to cart <ShoppingCartOutlined style={{alignItems: 'center'}}/> </Button>
-      </Row>
+          <Button style={{position: 'absolute', right: 10, alignItems: 'center', }}>Add to cart <ShoppingCartOutlined style={{alignItems: 'center'}}/> </Button>
+        </Row>
     </Col>
-  </Row>
-
-  {/* Comment Section */}
-  <Row style={{ paddingTop: "20px" }}>
-    <Col span={24}>
-      <h3 style={{ fontSize: "150%", fontWeight: "bold", paddingBottom: "10px" }}>Comments</h3>
-      {/* Comment section JSX */}
-      <div style={{ border: "1px solid #ccc", borderRadius: "5px", padding: "10px", height: "250px", overflowY: "auto" }}>
-        {/* Individual comments */}
-        <Comment user="User1" text="Lorem ipsum dolor sit amet, consectetur adipiscing elit." />
-        <Comment user="User2" text="Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua." />
-        <Comment user="User3" text="Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat." />
-        <Comment user="User4" text="Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur." />
-        <Comment user="User5" text="Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum." />
-        <Comment user="User6" text="Lorem ipsum dolor sit amet, consectetur adipiscing elit." />
-        <Comment user="User7" text="Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua." />
-        <Comment user="User8" text="Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat." />
-        <Comment user="User9" text="Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur." />
-        <Comment user="User10" text="Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum." />
-      </div>
-      <div style={{ marginTop: "20px" }}>
-        <Input placeholder="Add a comment" />
-      </div>
+    <Col>
+                    <
     </Col>
+    
   </Row>
 </Modal>
 
-
->>>>>>> 9f3629e00c5204923fb4ce0d8ef5efc5b96aad3b
           </div>
         );
 
@@ -1893,133 +1775,73 @@ const OurHub = () => {
     }
   };
   return (
-    <animated.div style={props}>
-      <div className="OurHubPage" style={{ minHeight: "100vh", width: "100%" }}>
-        <div className="firstSectionOurHub">
-          <section>
-            <span></span>
-            <span></span>
-            <span></span>
-            <span></span>
-            <span></span>
-            <span></span>
-            <span></span>
-            <span></span>
-            <span></span>
-            <span></span>
-            <span></span>
-            <span></span>
-            <span></span>
-            <span></span>
-            <span></span>
-            <span></span>
-            <span></span>
-            <span></span>
-            <span></span>
-            <span></span>
-            <span></span>
-            <span></span>
-            <span></span>
-            <span></span>
-            <span></span>
-            <span></span>
-            <span></span>
-            <span></span>
-            <span></span>
-            <span></span>
-          </section>
+    <div className="OurHubPage">
+      <div className="firstSection" style={{ height: "60vh", width: "100%" }}>
+        <div className="mainTitle">
           <Typography.Title
             style={{
-              color: "white",
+              display: "flex",
+              textAlign: "center",
+              justifyContent: "center",
               fontSize: "70px",
-              width: "100%",
-              display: "flex",
-              justifyContent: "center",
-              marginTop: "250px",
-              textAlign: "center",
+              fontWeight: "900",
             }}
           >
-            Discover the world’s top <br /> designers & creatives
+            Discover the world’s top
+            <br />
+            designers & creatives
           </Typography.Title>
-          <p
+          <Typography.Text
             style={{
-              width: "100%",
               display: "flex",
               justifyContent: "center",
-              color: "#dedde2",
-              fontSize: "28px",
               textAlign: "center",
-              marginTop: "100px",
+              fontSize: "20px",
+              color: "gray",
+              marginTop: "40px",
             }}
           >
-            Dribbble is the leading destination to find & showcase creative work
-            and <br /> home to the world's best design professionals.
-          </p>
-          <div
-            className="searchContainer"
-            style={{
-              display: "flex",
-              justifyContent: "center",
-              marginTop: "50px",
-              height: "50px",
-              width: "100%",
-            }}
-          >
-            <CiSearch className="searchIcon" />
-
-            <input
-              className="inputSearch"
-              type="text"
-              placeholder="Search anything you want !"
-              style={{
-                padding: "10px",
-                fontSize: "16px",
-                width: "500px",
-                borderRadius: "10px",
-                border: "1px solid white",
-                color: "#dbd8e7",
-              }}
-            />
-            <button
-              className="searchBtn"
-              style={{
-                marginLeft: "10px",
-                padding: "10px",
-                fontSize: "16px",
-                width: "100px",
-                color: "White",
-                border: "1px solid white",
-                borderRadius: "10px",
-              }}
-            >
-              Search
-            </button>
-          </div>
+            Dribbble is the leading destination to find & showcase creative work{" "}
+            <br />
+            and home to the world's best design professionals.
+          </Typography.Text>
         </div>
         <div
-          className="secondSection"
-          style={{ marginTop: "150px", borderTop: "5px dashed black" }}
+          className="searchBox"
+          style={{
+            width: "100%",
+            display: "flex",
+            justifyContent: "center",
+            marginTop: "60px",
+            height: "100px",
+          }}
         >
-          <div
-            className="buttonsContainer"
-            style={{
-              display: "flex",
-              justifyContent: "center",
-              height: "60px",
-              alignItems: "center",
-              transform: "translateY(200px)",
-            }}
-          >
-            <Segmented
+          <Space direction="vertical">
+            <Search
+              className="searchBar"
+              icon={CiSearch}
+              placeholder="Search anything you want !"
               size="large"
-              options={justifyOptions}
-              onChange={setJustify}
+              onSearch={onSearch}
+              style={{
+                width: "800px",
+                fontSize: "30px",
+                padding: "10px",
+              }}
             />
-          </div>
-          {renderImages()}
+          </Space>
         </div>
       </div>
-    </animated.div>
+      <div className="secondSection">
+        <div
+          className="buttonsContainer"
+          style={{ display: "flex", justifyContent: "center" }}
+        >
+          <Segmented options={justifyOptions} onChange={setJustify} />
+        </div>
+        {renderImages()}
+      </div>
+    </div>
   );
 };
 
