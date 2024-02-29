@@ -458,8 +458,15 @@ const OurHub = () => {
         <Comment user="User10" text="Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum." />
       </div>
       <div style={{ marginTop: "20px" }}>
-        <Input placeholder="Add a comment" />
-      </div>
+          <input
+            type="text"
+            value={newComment}
+            onChange={handleCommentChange}
+            placeholder="Type your comment here..."
+            style={{ width: "100%", padding: "10px", boxSizing: "border-box", border: "1px solid #ccc", borderRadius: "5px" }}
+          />
+          <button onClick={handleCommentSubmit} style={{ marginTop: "10px", padding: "10px", cursor: "pointer" }}>Submit</button>
+        </div>
     </Col>
   </Row>
 </Modal>

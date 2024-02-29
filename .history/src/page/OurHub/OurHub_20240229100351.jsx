@@ -444,21 +444,14 @@ const OurHub = () => {
     <Col span={24}>
       <h3 style={{ fontSize: "150%", fontWeight: "bold", paddingBottom: "10px" }}>Comments</h3>
       {/* Comment section JSX */}
-      <div style={{ border: "1px solid #ccc", borderRadius: "5px", padding: "10px", height: "250px", overflowY: "auto" }}>
+      <div style={{ border: "1px solid #ccc", borderRadius: "5px", padding: "10px" }}>
         {/* Individual comments */}
         <Comment user="User1" text="Lorem ipsum dolor sit amet, consectetur adipiscing elit." />
         <Comment user="User2" text="Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua." />
         <Comment user="User3" text="Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat." />
         <Comment user="User4" text="Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur." />
         <Comment user="User5" text="Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum." />
-        <Comment user="User6" text="Lorem ipsum dolor sit amet, consectetur adipiscing elit." />
-        <Comment user="User7" text="Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua." />
-        <Comment user="User8" text="Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat." />
-        <Comment user="User9" text="Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur." />
-        <Comment user="User10" text="Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum." />
-      </div>
-      <div style={{ marginTop: "20px" }}>
-        <Input placeholder="Add a comment" />
+        <
       </div>
     </Col>
   </Row>

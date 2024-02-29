@@ -459,6 +459,7 @@ const OurHub = () => {
       </div>
       <div style={{ marginTop: "20px" }}>
         <Input placeholder="Add a comment" />
+        
       </div>
     </Col>
   </Row>

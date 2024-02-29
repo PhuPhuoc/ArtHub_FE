@@ -35,13 +35,6 @@ const OurHub = () => {
   const [modalContent, setModalContent] = React.useState({});
   const [heartFilled, setHeartFilled] = useState(false);
 
-  const Comment = ({ user, text }) => (
-    <div style={{ marginBottom: "10px" }}>
-      <span style={{ fontWeight: "bold" }}>{user}:</span> {text}
-    </div>
-  );
-  
-
   const handleHeartClick = () => {
     setHeartFilled(!heartFilled);
   };
@@ -409,7 +402,7 @@ const OurHub = () => {
   visible={modalVisible}
   onCancel={() => setModalVisible(false)}
   footer={null}
-  style={{ top: 20, minWidth: "80%", maxWidth: "80%", bottom:20 }} // Adjust width here
+  style={{ top: 20, minWidth: "80%", maxWidth: "80%" }} // Adjust width here
 >
   <Row>
     <Col span={12}>
@@ -425,45 +418,20 @@ const OurHub = () => {
       <p style={{ fontSize: "130%",paddingBottom: "10px" }}>100 x 100 cm</p>
       <p style={{ fontSize: "130%",paddingBottom: "250px", fontStyle:"italic" }}>10.99$</p>
       <Row style={{paddingLeft:"10px"}}>
-        <Avatar
+      <Avatar
           className="avatar"
           src="https://api.dicebear.com/7.x/miniavs/svg?seed=8"
           style={{ cursor: "pointer", width:"10%", height:"10%" }}
         />
         <p style={{paddingLeft:"10px", marginTop:"10px", fontSize:"120%"}}>Jean Paul</p>
-        <button style={{position: 'absolute', right: "180px",bottom:"45px", alignItems: 'center', border: 'none', outline: 'none', transition: 'none', boxShadow:'none'}} onClick={handleHeartClick}>
-          {heartFilled ? <HeartFilled style={{color: 'red',fontSize: '24px'}} /> : <HeartOutlined style={{color: 'red', fontSize: '24px'}} />}
+        <button style={{position: 'absolute', right: "180px",top, alignItems: 'center', border: 'none', outline: 'none', transition: 'none', boxShadow:'none'}} onClick={handleHeartClick}>
+          {heartFilled ? <HeartFilled style={{color: 'red'}} /> : <HeartOutlined style={{color: 'red'}} />}
         </button>
         <Button id='hearthButton' style={{position: 'absolute', right: 10, alignItems: 'center', }}>Add to cart <ShoppingCartOutlined style={{alignItems: 'center'}}/> </Button>
-      </Row>
-    </Col>
-  </Row>
-
-  {/* Comment Section */}
-  <Row style={{ paddingTop: "20px" }}>
-    <Col span={24}>
-      <h3 style={{ fontSize: "150%", fontWeight: "bold", paddingBottom: "10px" }}>Comments</h3>
-      {/* Comment section JSX */}
-      <div style={{ border: "1px solid #ccc", borderRadius: "5px", padding: "10px", height: "250px", overflowY: "auto" }}>
-        {/* Individual comments */}
-        <Comment user="User1" text="Lorem ipsum dolor sit amet, consectetur adipiscing elit." />
-        <Comment user="User2" text="Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua." />
-        <Comment user="User3" text="Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat." />
-        <Comment user="User4" text="Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur." />
-        <Comment user="User5" text="Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum." />
-        <Comment user="User6" text="Lorem ipsum dolor sit amet, consectetur adipiscing elit." />
-        <Comment user="User7" text="Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua." />
-        <Comment user="User8" text="Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat." />
-        <Comment user="User9" text="Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur." />
-        <Comment user="User10" text="Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum." />
-      </div>
-      <div style={{ marginTop: "20px" }}>
-        <Input placeholder="Add a comment" />
-      </div>
+        </Row>
     </Col>
   </Row>
 </Modal>
-
 
           </div>
         );

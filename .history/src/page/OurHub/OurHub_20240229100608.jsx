@@ -457,9 +457,6 @@ const OurHub = () => {
         <Comment user="User9" text="Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur." />
         <Comment user="User10" text="Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum." />
       </div>
-      <div style={{ marginTop: "20px" }}>
-        <Input placeholder="Add a comment" />
-      </div>
     </Col>
   </Row>
 </Modal>
