@@ -256,7 +256,59 @@ const Admin = () => {
   };
 
   return (
-    <div style={{ width: "100%", height: "100vh" }}>
+    <div
+      style={{ width: "100%", height: "auto", background: "#0c192c" }}
+      className="bubbblesContainer"
+    >
+      <div className="bubbles">
+        <span style={{ "--i": 17 }}></span>
+        <span style={{ "--i": 19 }}></span>
+        <span style={{ "--i": 22 }}></span>
+        <span style={{ "--i": 20 }}></span>
+        <span style={{ "--i": 18 }}></span>
+        <span style={{ "--i": 15 }}></span>
+        <span style={{ "--i": 20 }}></span>
+        <span style={{ "--i": 22 }}></span>
+        <span style={{ "--i": 17 }}></span>
+        <span style={{ "--i": 18 }}></span>
+        <span style={{ "--i": 20 }}></span>
+        <span style={{ "--i": 22 }}></span>
+        <span style={{ "--i": 25 }}></span>
+        <span style={{ "--i": 28 }}></span>
+        <span style={{ "--i": 30 }}></span>
+        <span style={{ "--i": 12 }}></span>
+        <span style={{ "--i": 18 }}></span>
+        <span style={{ "--i": 16 }}></span>
+        <span style={{ "--i": 17 }}></span>
+        <span style={{ "--i": 20 }}></span>
+        <span style={{ "--i": 22 }}></span>
+        <span style={{ "--i": 24 }}></span>
+        <span style={{ "--i": 12 }}></span>
+        <span style={{ "--i": 16 }}></span>
+        <span style={{ "--i": 20 }}></span>
+        <span style={{ "--i": 22 }}></span>
+        <span style={{ "--i": 15 }}></span>
+        <span style={{ "--i": 20 }}></span>
+        <span style={{ "--i": 17 }}></span>
+        <span style={{ "--i": 22 }}></span>
+        <span style={{ "--i": 25 }}></span>
+        <span style={{ "--i": 28 }}></span>
+        <span style={{ "--i": 30 }}></span>
+        <span style={{ "--i": 12 }}></span>
+        <span style={{ "--i": 18 }}></span>
+        <span style={{ "--i": 16 }}></span>
+        <span style={{ "--i": 17 }}></span>
+        <span style={{ "--i": 20 }}></span>
+        <span style={{ "--i": 22 }}></span>
+        <span style={{ "--i": 24 }}></span>
+        <span style={{ "--i": 12 }}></span>
+        <span style={{ "--i": 16 }}></span>
+        <span style={{ "--i": 20 }}></span>
+        <span style={{ "--i": 22 }}></span>
+        <span style={{ "--i": 15 }}></span>
+        <span style={{ "--i": 20 }}></span>
+        <span style={{ "--i": 17 }}></span>
+      </div>
       <div
         className="adminPageTitle"
         style={{
@@ -296,7 +348,10 @@ const Admin = () => {
 
       <div
         className="btnTableContainer"
-        style={{ height: "100px", transform: "translateX(20px)" }}
+        style={{
+          height: "100px",
+          transform: "translateX(20px)",
+        }}
       >
         <Button
           style={{

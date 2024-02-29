@@ -27,41 +27,40 @@ const normFile = (e) => {
 };
 
 const PostArt = () => {
+  const [title, setTitle] = useState("");
+  const [description, setDescription] = useState("");
+  const [typeDesign, setTypeDesign] = useState("");
+  const [image, setImage] = useState("");
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [birthday, setBirthday] = useState("");
+  const [gender, setGender] = useState("");
+  const [price, setPrice] = useState("");
+  const [dimensions, setDimensions] = useState("");
+  const [isPageVisible, setIsPageVisible] = useState(false);
+  const [message, setMessage] = useState("");
 
-    const [title, setTitle] = useState('');
-    const [description, setDescription] = useState('');
-    const [typeDesign, setTypeDesign] = useState('');
-    const [image, setImage] = useState('');
-    const [name, setName] = useState('');
-    const [email, setEmail] = useState('');
-    const [birthday, setBirthday] = useState('');
-    const [gender, setGender] = useState('');
-    const [price, setPrice] = useState('');
-    const [dimensions, setDimensions] = useState('');
-    const [isPageVisible, setIsPageVisible] = useState(false);
-    const[message, setMessage] = useState('');
+  const titleRef = useRef(null);
+  const moonRef = useRef(null);
+  const btnRef = useRef(null);
+  const firstSectionRef = useRef(null);
+  const mountains_frontRef = useRef(null);
+  const mountains_behindRef = useRef(null);
 
-    const titleRef = useRef(null);
-    const moonRef = useRef(null);
-    const btnRef = useRef(null);
-    const firstSectionRef = useRef(null);
-    const mountains_frontRef = useRef(null);
-    const mountains_behindRef = useRef(null);
-
-    const [sessionCookie, setSessionCookie] = useState('');
-    const userId = sessionCookie.toString();
+  const [sessionCookie, setSessionCookie] = useState("");
+  const userId = sessionCookie.toString();
   const handleExploreClick = () => {
     const firstSectionElement = firstSectionRef.current;
 
     firstSectionElement.scrollIntoView({ behavior: "smooth" });
   };
 
-    useEffect(() => {
-        const cookieValue = Cookies.get('sessionCookie');
-        if (cookieValue) {
-            setSessionCookie(cookieValue);
-        }
-    }, []);
+  useEffect(() => {
+    const cookieValue = Cookies.get("sessionCookie");
+    if (cookieValue) {
+      setSessionCookie(cookieValue);
+    }
+  }, []);
 
   const [lastScrollY, setLastScrollY] = useState(0);
 
@@ -141,16 +140,16 @@ const PostArt = () => {
   const handleFormSubmit = (e) => {
     e.preventDefault();
     const artwork = {
-        userid: userId,
-        title: title,
-        description: description,
-        typeDesign: typeDesign,
-        price: price,
-        image: image,
-        name: name,
-        email: email,
-        birthday: birthday,
-        gender: gender,
+      userid: userId,
+      title: title,
+      description: description,
+      typeDesign: typeDesign,
+      price: price,
+      image: image,
+      name: name,
+      email: email,
+      birthday: birthday,
+      gender: gender,
     };
     fetch("http://localhost:5000/api/addartwork", {
       method: "POST",
@@ -159,16 +158,16 @@ const PostArt = () => {
     })
       .then((response) => {
         if (!response.ok) {
-            throw new Error("Invalid artwork form");
+          throw new Error("Invalid artwork form");
         }
         return response.json();
       })
       .then((data) => {
-          setMessage("New artwork added");
+        setMessage("New artwork added");
         console.log("New artwork added", data);
       })
       .catch((error) => {
-          setMessage(error);
+        setMessage(error);
         console.error("Error while sending artwork:", error.message);
       });
   };
