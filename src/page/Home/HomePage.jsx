@@ -4,157 +4,116 @@ import bird from "../../assets/images/bird.jpg";
 import "./HomePage.css";
 import ReactPlayer from "react-player";
 import { FaVolumeMute, FaVolumeUp } from "react-icons/fa";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import axios from "axios";
-import Cookies from 'js-cookie';
+import Cookies from "js-cookie";
 import { useNavigate } from "react-router-dom";
-
+import Spline from "@splinetool/react-spline";
 const HomePage = () => {
-    const navigate = useNavigate();
+  const navigate = useNavigate();
 
-    const handleLearnAboutHiring = () => {
-        navigate("/findtalent");
-    };
+  const handleLearnAboutHiring = () => {
+    navigate("/findtalent");
+  };
 
-    const handleBrowseMoreInspiration = () => {
-        navigate("/ourhub");
-    };
+  const handleBrowseMoreInspiration = () => {
+    navigate("/ourhub");
+  };
 
-    const [isMuted, setIsMuted] = useState(false);
-    const [buttonColor, setButtonColor] = useState("palevioletred");
-    const [sessionCookie, setSessionCookie] = useState('');
-    const [username, setUsername] = useState('');
+  const [isMuted, setIsMuted] = useState(false);
+  const [buttonColor, setButtonColor] = useState("palevioletred");
+  const [sessionCookie, setSessionCookie] = useState("");
+  const [username, setUsername] = useState("");
 
-    useEffect(() => {
-        const intervalId = setInterval(() => {
-        const newColor = getRandomColor();
-        setButtonColor(newColor);
-        }, 1500);
-        return () => clearInterval(intervalId);
-    }, []);
+  useEffect(() => {
+    const intervalId = setInterval(() => {
+      const newColor = getRandomColor();
+      setButtonColor(newColor);
+    }, 1500);
+    return () => clearInterval(intervalId);
+  }, []);
 
-    useEffect(() => {
-        const cookieValue = Cookies.get('sessionCookie');
-        if (cookieValue) {
-            setSessionCookie(cookieValue);
-            fetchUsername(cookieValue);
-        }
-    }, []);
+  useEffect(() => {
+    const cookieValue = Cookies.get("sessionCookie");
+    if (cookieValue) {
+      setSessionCookie(cookieValue);
+      fetchUsername(cookieValue);
+    }
+  }, []);
 
-    const fetchUsername = (userId) => {
-        axios.get(`http://localhost:5000/api/users/${userId}/info`)
-            .then(response => {
-                setUsername(response.data.name);
-            })
-            .catch(error => {
-                console.error('Error fetching user infos:', error);
-            });
+  const fetchUsername = (userId) => {
+    axios
+      .get(`http://localhost:5000/api/users/${userId}/info`)
+      .then((response) => {
+        setUsername(response.data.name);
+      })
+      .catch((error) => {
+        console.error("Error fetching user infos:", error);
+      });
+  };
 
-    };
+  const getRandomColor = () => {
+    return `#${Math.floor(Math.random() * 16777215).toString(16)}`;
+  };
+  const [buttonClicked, setButtonClicked] = useState(false);
+  const nextSection = useRef(null);
 
-    const getRandomColor = () => {
-        return `#${Math.floor(Math.random() * 16777215).toString(16)}`;
-    };
+  const handleButtonClick = () => {
+    setButtonClicked(true);
+    setTimeout(() => {
+      scrollToNextSection();
+    }, 800);
+  };
+
+  const scrollToNextSection = () => {
+    const firstSection = nextSection.current;
+    if (firstSection) {
+      window.scrollTo({
+        top: firstSection.offsetTop,
+        behavior: "smooth",
+        duration: 2000,
+      });
+    }
+  };
 
   return (
-    <div className="home" style={{ position: "relative" }}>
-
-        { sessionCookie ? (
-            <p>Welcome, {username.toString()}</p>
-        ) : (
-            <p></p>
-        )}
-      <div className="animated-background">
-        {/* Bubbles container */}
-        <div className="bubble-container">
-          {/* Bubbles */}
-          <div className="bubble bubble1" />
-          <div className="bubble bubble2" />
-          <div className="bubble bubble3" />
-          <div className="bubble bubble3" />
-          <div className="bubble bubble3" />
-          <div className="bubble bubble3" />
-
-          {/* Add more bubbles as needed */}
-        </div>
-      </div>
+    <div className="home" style={{ minHeight: "100vh" }}>
+      {sessionCookie ? <p>Welcome, {username.toString()}</p> : <p></p>}
       <div
-        className="first-button"
-        style={{
-          height: "450px",
-          width: "100%",
-          display: "flex",
-          justifyContent: "center",
-          alignItems: "center",
-          transform: "translateY(30px)",
-        }}
+        className="mainHomepageBackground"
+        style={{ position: "relative", height: "100vh", width: "100%" }}
       >
         <Button
+          className="getStartedBtn"
+          onClick={handleButtonClick}
           style={{
-            height: "60px",
-            borderRadius: "40px",
-            width: "420px",
             backgroundColor: buttonColor,
             transition: "background-color 0.5s ease",
+            borderRadius: "30px",
+            marginBottom: "20px",
+            position: "absolute",
+            top: "50%",
+            left: "50%",
+            transform: "translate(-50%, -50%)",
+            zIndex: 2,
+            textAlign: "center",
+            padding: "15px",
+            fontSize: "30px",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
           }}
         >
-          <Typography.Text style={{ fontSize: "20px" }}>
-            Over 3 million ready-to-work creatives !
-          </Typography.Text>
+          Get Started
         </Button>
+        <Spline scene="https://prod.spline.design/CjJ2JYyWfgJZaWJ3/scene.splinecode" />
       </div>
+
       <div
-        className="headingTitle"
-        style={{
-          height: "500px",
-          width: "100%",
-          display: "flex",
-          justifyContent: "center",
-          alignItems: "center",
-          flexDirection: "column",
-        }}
+        className="firstSection"
+        ref={nextSection}
+        style={{ overflow: "hidden" }}
       >
-        <Typography.Title
-          style={{
-            fontSize: "70px",
-            display: "flex",
-            textAlign: "center",
-            transform: "translateY(-30px)",
-            color: "black",
-            fontWeight: 900,
-          }}
-          className="custom-title"
-        >
-          The world’s destination <br /> for design
-        </Typography.Title>
-        <Typography.Text
-          style={{
-            fontSize: "20px",
-            display: "flex",
-            textAlign: "center",
-            transform: "translateY(-20px)",
-            fontWeight: "600",
-            color: "black",
-          }}
-        >
-          Get inspired by the work of millions of top-rated designers & agencies
-          around the world.
-        </Typography.Text>
-        <div className="btn-getStarted">
-          <Button
-            style={{
-              height: "50px",
-              width: "200px",
-              borderRadius: "30px",
-              backgroundColor: "black",
-              color: "white",
-            }}
-          >
-            Get Started
-          </Button>
-        </div>
-      </div>
-      <div className="firstSection" style={{ overflow: "hidden" }}>
         <Carousel autoplay autoplaySpeed={3000}>
           <div>
             <img
@@ -1185,6 +1144,6 @@ const HomePage = () => {
       </div>
     </div>
   );
-}
+};
 
 export default HomePage;
