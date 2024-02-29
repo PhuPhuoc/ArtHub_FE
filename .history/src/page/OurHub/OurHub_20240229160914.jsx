@@ -16,7 +16,7 @@ import Meta from "antd/es/card/Meta";
 import { Modal } from "antd";
 import { ShoppingCartOutlined } from "@ant-design/icons";
 import { useSpring, animated } from "react-spring";
-import { HeartFilled, HeartOutlined, SendOutlined } from "@ant-design/icons";
+import { HeartFilled, HeartOutlinedn } from "@ant-design/icons";
 
 
 const OurHub = () => {
@@ -37,6 +37,11 @@ const OurHub = () => {
   const [modalContent, setModalContent] = React.useState({});
   const [heartFilled, setHeartFilled] = useState(false);
 
+  const Comment = ({ user, text }) => (
+    <div style={{ marginBottom: "10px" }}>
+      <span style={{ fontWeight: "bold" }}>{user}:</span> {text}
+    </div>
+  );
 
   const handleHeartClick = () => {
     setHeartFilled(!heartFilled);

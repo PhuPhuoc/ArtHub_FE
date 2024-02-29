@@ -37,6 +37,11 @@ const OurHub = () => {
   const [modalContent, setModalContent] = React.useState({});
   const [heartFilled, setHeartFilled] = useState(false);
 
+  const Comment = ({ user, text }) => (
+    <div style={{ marginBottom: "10px" }}>
+      <span style={{ fontWeight: "bold" }}>{user}:</span> {text}
+    </div>
+  );
 
   const handleHeartClick = () => {
     setHeartFilled(!heartFilled);
