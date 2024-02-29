@@ -17,7 +17,7 @@ import Meta from "antd/es/card/Meta";
 import bird from "../../assets/images/bird.jpg";
 import { Modal } from "antd";
 import {ShoppingCartOutlined, HeartOutlined, HeartFilled, SendOutlined} from "@ant-design/icons";
-import Comment from  "../../components/Comment.jsx"
+import ""
 
 const { Search } = Input;
 const onSearch = (value, _e, info) => console.log(info?.source, value);

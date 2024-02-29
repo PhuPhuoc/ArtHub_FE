@@ -17,7 +17,8 @@ import Meta from "antd/es/card/Meta";
 import bird from "../../assets/images/bird.jpg";
 import { Modal } from "antd";
 import {ShoppingCartOutlined, HeartOutlined, HeartFilled, SendOutlined} from "@ant-design/icons";
-import Comment from  "../../components/Comment.jsx"
+import Comment from "../../components/Comment.jsx"
+import ArtworkCard from "../../components/ArtworkCard.jsx"
 
 const { Search } = Input;
 const onSearch = (value, _e, info) => console.log(info?.source, value);
@@ -54,52 +55,14 @@ const OurHub = () => {
             <div className="title">Images for Discovers</div>
             <Row gutter={16}>
               <Col className="gutter-row" span={6}>
-                <Card
-                  onClick={() =>
-                    handleArtworkClick(
-                      "Landmark 81 Ho Chi Minh City",
-                      "This is the second highest building in southeast Asia",
-                      "https://images.unsplash.com/photo-1549654917-9ddb6fed998f?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-                    )
-                  }
-                  cover={
-                    <img
-                      src="https://images.unsplash.com/photo-1549654917-9ddb6fed998f?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
-                      alt="image"
-                    />
-                  }
-                >
-                  <Meta
-                    style={{
-                      display: "flex",
-                      justifyContent: "center",
-                      height: "100px",
-                    }}
-                    avatar={
-                      <Avatar
-                        className="avatar"
-                        src="https://api.dicebear.com/7.x/miniavs/svg?seed=8"
-                        style={{ cursor: "pointer" }}
-                      />
-                    }
-                    title={
-                      <span
-                        style={{
-                          color: "black",
-                          fontSize: "15px",
-                          borderBottom: "1px solid black",
-                        }}
-                      >
-                        Landmark 81 Ho Chi Minh City
-                      </span>
-                    }
-                    description={
-                      <span style={{ color: "black", fontSize: "12px" }}>
-                        This is the second highest building in southeast Asia
-                      </span>
-                    }
-                  />
-                </Card>
+              <ArtworkCard
+  title="Landmark 81 Ho Chi Minh City"
+  description="This is the second highest building in southeast Asia"
+  image="https://images.unsplash.com/photo-1549654917-9ddb6fed998f?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+  onHeartClick={() => handleHeartClick()}
+  heartFilled={heartFilled}
+/>
+
               </Col>
               <Col className="gutter-row" span={6}>
                 <Card

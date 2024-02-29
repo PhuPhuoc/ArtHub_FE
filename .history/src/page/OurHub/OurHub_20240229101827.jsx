@@ -16,8 +16,8 @@ import "./OurHub.css";
 import Meta from "antd/es/card/Meta";
 import bird from "../../assets/images/bird.jpg";
 import { Modal } from "antd";
-import {ShoppingCartOutlined, HeartOutlined, HeartFilled, SendOutlined} from "@ant-design/icons";
-import Comment from  "../../components/Comment.jsx"
+import {ShoppingCartOutlined, HeartOutlined, HeartFilled} from "@ant-design/icons";
+
 
 const { Search } = Input;
 const onSearch = (value, _e, info) => console.log(info?.source, value);
@@ -35,7 +35,12 @@ const OurHub = () => {
   const [modalContent, setModalContent] = React.useState({});
   const [heartFilled, setHeartFilled] = useState(false);
 
-
+  const Comment = ({ user, text }) => (
+    <div style={{ marginBottom: "10px" }}>
+      <span style={{ fontWeight: "bold" }}>{user}:</span> {text}
+    </div>
+  );
+  
 
   const handleHeartClick = () => {
     setHeartFilled(!heartFilled);
@@ -454,9 +459,6 @@ const OurHub = () => {
       </div>
       <div style={{ marginTop: "20px" }}>
         <Input placeholder="Add a comment" />
-        <button style={{position:"absolute", right:20, paddingTop:'6px'}}>
-        <SendOutlined />
-        </button>
         
       </div>
     </Col>
