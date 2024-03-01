@@ -83,6 +83,7 @@ const HomePage = () => {
         className="mainHomepageBackground"
         style={{ position: "relative", height: "100vh", width: "100%" }}
       >
+        <Spline scene="https://prod.spline.design/CjJ2JYyWfgJZaWJ3/scene.splinecode" />
         <Button
           className="getStartedBtn"
           onClick={handleButtonClick}
@@ -92,9 +93,6 @@ const HomePage = () => {
             borderRadius: "30px",
             marginBottom: "20px",
             position: "absolute",
-            top: "50%",
-            left: "50%",
-            transform: "translate(-50%, -50%)",
             zIndex: 2,
             textAlign: "center",
             padding: "15px",
@@ -102,17 +100,24 @@ const HomePage = () => {
             display: "flex",
             alignItems: "center",
             justifyContent: "center",
+            bottom: "20px",
+            left: "50%",
+            transform: "translateX(-50%)",
           }}
         >
           Get Started
         </Button>
-        <Spline scene="https://prod.spline.design/CjJ2JYyWfgJZaWJ3/scene.splinecode" />
       </div>
 
       <div
         className="firstSection"
         ref={nextSection}
-        style={{ overflow: "hidden" }}
+        style={{
+          overflow: "hidden",
+          marginTop: "100px",
+          borderTop: "5px dashed black",
+          paddingTop: "100px",
+        }}
       >
         <Carousel autoplay autoplaySpeed={3000}>
           <div>
