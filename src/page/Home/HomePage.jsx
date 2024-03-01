@@ -1,6 +1,5 @@
 import { Button, Carousel, Typography, Col, Row, Card, Avatar } from "antd";
 import Meta from "antd/es/card/Meta";
-import bird from "../../assets/images/bird.jpg";
 import "./HomePage.css";
 import ReactPlayer from "react-player";
 import { FaVolumeMute, FaVolumeUp } from "react-icons/fa";
@@ -55,11 +54,11 @@ const HomePage = () => {
   const getRandomColor = () => {
     return `#${Math.floor(Math.random() * 16777215).toString(16)}`;
   };
-  const [buttonClicked, setButtonClicked] = useState(false);
+  // const [buttonClicked, setButtonClicked] = useState(false);
   const nextSection = useRef(null);
 
   const handleButtonClick = () => {
-    setButtonClicked(true);
+    // setButtonClicked(true);
     setTimeout(() => {
       scrollToNextSection();
     }, 800);
@@ -832,7 +831,7 @@ const HomePage = () => {
                 }
                 title={
                   <span style={{ color: "black", fontSize: "15px" }}>
-                    "???"
+                    ???
                   </span>
                 }
                 description={

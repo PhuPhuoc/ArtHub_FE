@@ -17,7 +17,8 @@ import { Modal } from "antd";
 import { ShoppingCartOutlined } from "@ant-design/icons";
 import { useSpring, animated } from "react-spring";
 import { HeartFilled, HeartOutlined, SendOutlined } from "@ant-design/icons";
-import Comment from "../../components/Comment";
+import C
+
 
 const OurHub = () => {
   const props = useSpring({
@@ -405,63 +406,63 @@ const OurHub = () => {
   visible={modalVisible}
   onCancel={() => setModalVisible(false)}
   footer={null}
-  style={{ top: 20, minWidth: "80%", maxWidth: "80%", bottom:20 }} // Adjust width here
+  style={{ top: 20, minWidth: "60%", maxWidth: "80%", bottom: 20 }} // Adjust width here
 >
-  <Row>
+  <Row gutter={[16, 16]}>
     <Col span={12}>
       <img
         src={modalContent.image}
         alt={modalContent.title}
-        style={{ width: "100%", height: "100%", paddingRight: "20px" }}
+        style={{ width: "100%", height: "100%" }}
       />
     </Col>
-    <Col span={12} style={{ paddingLeft: "20px" }}>
-      <h2 style={{ fontSize: "200%", fontFamily: "serif", fontWeight: "bold", paddingBottom: "10px" }}>{modalContent.title}</h2>
-      <p style={{ fontSize: "130%", paddingBottom: "10px"}}>{modalContent.description}</p>
-      <p style={{ fontSize: "130%",paddingBottom: "10px" }}>100 x 100 cm</p>
-      <p style={{ fontSize: "130%",paddingBottom: "250px", fontStyle:"italic" }}>10.99$</p>
-      <Row style={{paddingLeft:"10px"}}>
-        <Avatar
-          className="avatar"
-          src="https://api.dicebear.com/7.x/miniavs/svg?seed=8"
-          style={{ cursor: "pointer", width:"10%", height:"10%" }}
-        />
-        <p style={{paddingLeft:"10px", marginTop:"10px", fontSize:"120%"}}>Jean Paul</p>
-        <button style={{position: 'absolute', right: "180px",bottom:"45px", alignItems: 'center', border: 'none', outline: 'none', transition: 'none', boxShadow:'none'}} onClick={handleHeartClick}>
-          {heartFilled ? <HeartFilled style={{color: 'red',fontSize: '24px'}} /> : <HeartOutlined style={{color: 'red', fontSize: '24px'}} />}
-        </button>
-        <Button id='hearthButton' style={{position: 'absolute', right: 10, alignItems: 'center', }}>Add to cart <ShoppingCartOutlined style={{alignItems: 'center'}}/> </Button>
-      </Row>
+    <Col span={12}>
+      <div style={{ paddingLeft: "20px" }}>
+        <h2 style={{ fontSize: "24px", fontFamily: "serif", fontWeight: "bold", paddingBottom: "10px" }}>{modalContent.title}</h2>
+        <p style={{ fontSize: "18px", paddingBottom: "10px" }}>{modalContent.description}</p>
+        <p style={{ fontSize: "18px", paddingBottom: "10px" }}>100 x 100 cm</p>
+        <p style={{ fontSize: "18px", paddingBottom: "10px", fontStyle: "italic" }}>10.99$</p>
+        <Row align="middle" gutter={[8, 8]}>
+          <Col>
+            <Avatar
+              className="avatar"
+              src="https://api.dicebear.com/7.x/miniavs/svg?seed=8"
+              style={{ cursor: "pointer" }}
+            />
+          </Col>
+          <Col>
+            <p style={{ fontSize: "18px", marginBottom: 0 }}>Jean Paul</p>
+          </Col>
+          <Col flex="auto">
+            <button style={{ border: "none", background: "transparent", cursor: "pointer" }} onClick={handleHeartClick}>
+              {heartFilled ? <HeartFilled style={{ color: 'red', fontSize: '24px' }} /> : <HeartOutlined style={{ color: 'red', fontSize: '24px' }} />}
+            </button>
+          </Col>
+          <Col>
+            <Button type="primary" style={{ border: "none" }}>Add to cart <ShoppingCartOutlined /></Button>
+          </Col>
+        </Row>
+      </div>
     </Col>
   </Row>
 
   {/* Comment Section */}
-  <Row style={{ paddingTop: "20px" }}>
-    <Col span={24}>
-      <h3 style={{ fontSize: "150%", fontWeight: "bold", paddingBottom: "10px" }}>Comments</h3>
-      {/* Comment section JSX */}
-      <div style={{ border: "1px solid #ccc", borderRadius: "5px", padding: "10px", height: "250px", overflowY: "auto" }}>
-        {/* Individual comments */}
-        <Comment user="User1" text="Lorem ipsum dolor sit amet, consectetur adipiscing elit." />
-        <Comment user="User2" text="Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua." />
-        <Comment user="User3" text="Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat." />
-        <Comment user="User4" text="Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur." />
-        <Comment user="User5" text="Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum." />
-        <Comment user="User6" text="Lorem ipsum dolor sit amet, consectetur adipiscing elit." />
-        <Comment user="User7" text="Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua." />
-        <Comment user="User8" text="Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat." />
-        <Comment user="User9" text="Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur." />
-        <Comment user="User10" text="Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum." />
-      </div>
-      <div style={{ marginTop: "20px" }}>
-        <Input placeholder="Add a comment" />
-        <button style={{position:"absolute", right:20, paddingTop:'6px'}}>
+  <div style={{ marginTop: "20px" }}>
+    <h3 style={{ fontSize: "20px", fontWeight: "bold", paddingBottom: "10px" }}>Comments</h3>
+    {/* Comment section JSX */}
+    <div style={{ border: "1px solid #ccc", borderRadius: "5px", padding: "10px", maxHeight: "300px", overflowY: "auto" }}>
+      {/* Individual comments */}
+      {Array.from({ length: 10 }, (_, i) => (
+        <Comment key={i} user={`User${i + 1}`} text="Lorem ipsum dolor sit amet, consectetur adipiscing elit." />
+      ))}
+    </div>
+    <div style={{ marginTop: "20px" }}>
+      <Input placeholder="Add a comment" style={{ width: "calc(100% - 40px)" }} />
+      <button style={{ marginLeft: "10px", padding: "6px", cursor: "pointer" }}>
         <SendOutlined />
-        </button>
-        
-      </div>
-    </Col>
-  </Row>
+      </button>
+    </div>
+  </div>
 </Modal>
           </div>
         );

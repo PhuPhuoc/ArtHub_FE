@@ -4,6 +4,7 @@ import {
   Input,
   Button,
   Segmented,
+  Flex,
   Row,
   Col,
   Card,
@@ -13,18 +14,14 @@ import React, { useState } from "react";
 import { CiSearch } from "react-icons/ci";
 import "./OurHub.css";
 import Meta from "antd/es/card/Meta";
+import bird from "../../assets/images/bird.jpg";
 import { Modal } from "antd";
-import { ShoppingCartOutlined } from "@ant-design/icons";
-import { useSpring, animated } from "react-spring";
-import { HeartFilled, HeartOutlined, SendOutlined } from "@ant-design/icons";
-import Comment from "../../components/Comment";
+import {ShoppingCartOutlined, HeartOutlined, HeartFilled, SendOutlined} from "@ant-design/icons";
+import Comment from  "../../components/Comment.jsx"
 
+const { Search } = Input;
+const onSearch = (value, _e, info) => console.log(info?.source, value);
 const OurHub = () => {
-  const props = useSpring({
-    opacity: 1,
-    marginTop: 0,
-    from: { opacity: 0, marginTop: 100 },
-  });
   const justifyOptions = [
     "Discover",
     "Animation",
@@ -33,17 +30,19 @@ const OurHub = () => {
     "Food",
   ];
 
+
   const [modalVisible, setModalVisible] = React.useState(false);
   const [modalContent, setModalContent] = React.useState({});
   const [heartFilled, setHeartFilled] = useState(false);
+
 
 
   const handleHeartClick = () => {
     setHeartFilled(!heartFilled);
   };
   const [justify, setJustify] = React.useState(justifyOptions[0]);
-
   const renderImages = () => {
+        
     const handleArtworkClick = (title, description, image) => {
       setModalContent({ title, description, image });
       setModalVisible(true);
@@ -51,355 +50,20 @@ const OurHub = () => {
     switch (justify) {
       case "Discover":
         return (
-          <div className="imagesContain">
-            <div className="title">Images for Discovers</div>
-            <Row gutter={16}>
-              <Col className="gutter-row" span={6}>
-                <Card
-                  onClick={() =>
-                    handleArtworkClick(
-                      "Landmark 81 Ho Chi Minh City",
-                      "This is the second highest building in southeast Asia",
-                      "https://images.unsplash.com/photo-1549654917-9ddb6fed998f?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
-                    )
-                  }
-                  cover={
-                    <img
-                      src="https://images.unsplash.com/photo-1549654917-9ddb6fed998f?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
-                      alt="image"
-                    />
-                  }
-                >
-                  <Meta
-                    style={{
-                      display: "flex",
-                      justifyContent: "center",
-                      height: "100px",
-                    }}
-                    avatar={
-                      <Avatar
-                        className="avatar"
-                        src="https://api.dicebear.com/7.x/miniavs/svg?seed=8"
-                        style={{ cursor: "pointer" }}
-                      />
-                    }
-                    title={
-                      <span
-                        style={{
-                          color: "black",
-                          fontSize: "15px",
-                          borderBottom: "1px solid black",
-                        }}
-                      >
-                        Landmark 81 Ho Chi Minh City
-                      </span>
-                    }
-                    description={
-                      <span style={{ color: "black", fontSize: "12px" }}>
-                        This is the second highest building in southeast Asia
-                      </span>
-                    }
-                  />
-                </Card>
-              </Col>
-              <Col className="gutter-row" span={6}>
-                <Card
-                  cover={
-                    <img
-                      src="https://images.unsplash.com/photo-1508804052814-cd3ba865a116?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
-                      alt="image"
-                    />
-                  }
-                >
-                  <Meta
-                    style={{
-                      display: "flex",
-                      justifyContent: "center",
-                      height: "100px",
-                    }}
-                    avatar={
-                      <Avatar
-                        className="avatar"
-                        src="https://api.dicebear.com/7.x/miniavs/svg?seed=8"
-                        style={{ cursor: "pointer" }}
-                      />
-                    }
-                    title={
-                      <span
-                        style={{
-                          color: "black",
-                          fontSize: "15px",
-                          borderBottom: "1px solid black",
-                        }}
-                      >
-                        Great Wall China
-                      </span>
-                    }
-                    description={
-                      <span style={{ color: "black", fontSize: "12px" }}>
-                        This is one of the world heritage site of China
-                      </span>
-                    }
-                  />
-                </Card>
-              </Col>
-              <Col className="gutter-row" span={6}>
-                <Card
-                  cover={
-                    <img
-                      src="https://images.unsplash.com/photo-1484923720570-4bc210954735?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
-                      alt="image"
-                    />
-                  }
-                >
-                  <Meta
-                    style={{
-                      display: "flex",
-                      justifyContent: "center",
-                      height: "100px",
-                    }}
-                    avatar={
-                      <Avatar
-                        className="avatar"
-                        src="https://api.dicebear.com/7.x/miniavs/svg?seed=8"
-                        style={{ cursor: "pointer" }}
-                      />
-                    }
-                    title={
-                      <span
-                        style={{
-                          color: "black",
-                          fontSize: "15px",
-                          borderBottom: "1px solid black",
-                        }}
-                      >
-                        Disneyland
-                      </span>
-                    }
-                    description={
-                      <span style={{ color: "black", fontSize: "12px" }}>
-                        Disneyland Resort theme park located in Paris
-                      </span>
-                    }
-                  />
-                </Card>
-              </Col>
-              <Col className="gutter-row" span={6}>
-                <Card
-                  cover={
-                    <img
-                      src="https://images.unsplash.com/photo-1502602898657-3e91760cbb34?q=80&w=2073&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
-                      alt="image"
-                    />
-                  }
-                >
-                  <Meta
-                    style={{
-                      display: "flex",
-                      justifyContent: "center",
-                      height: "100px",
-                    }}
-                    avatar={
-                      <Avatar
-                        className="avatar"
-                        src="https://api.dicebear.com/7.x/miniavs/svg?seed=8"
-                        style={{ cursor: "pointer" }}
-                      />
-                    }
-                    title={
-                      <span
-                        style={{
-                          color: "black",
-                          fontSize: "15px",
-                          borderBottom: "1px solid black",
-                        }}
-                      >
-                        Eifel Tower
-                      </span>
-                    }
-                    description={
-                      <span style={{ color: "black", fontSize: "12px" }}>
-                        This is a wrought-iron lattice tower on the Champ de
-                        Mars in Paris, France.
-                      </span>
-                    }
-                  />
-                </Card>
-              </Col>
-            </Row>
-            <Row gutter={16}>
-              <Col className="gutter-row" span={6}>
-                <Card
-                  cover={
-                    <img
-                      src="https://images.unsplash.com/photo-1565475783696-96001eff1b45?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
-                      alt="image"
-                    />
-                  }
-                >
-                  <Meta
-                    style={{
-                      display: "flex",
-                      justifyContent: "center",
-                      height: "100px",
-                    }}
-                    avatar={
-                      <Avatar
-                        className="avatar"
-                        src="https://api.dicebear.com/7.x/miniavs/svg?seed=8"
-                        style={{ cursor: "pointer" }}
-                      />
-                    }
-                    title={
-                      <span
-                        style={{
-                          color: "black",
-                          fontSize: "15px",
-                          borderBottom: "1px solid black",
-                        }}
-                      >
-                        The statue of liberty
-                      </span>
-                    }
-                    description={
-                      <span style={{ color: "black", fontSize: "12px" }}>
-                        The Statue of Liberty is a colossal neoclassical
-                        sculpture on Liberty Island in New York Harbor in New
-                        York City, United States.
-                      </span>
-                    }
-                  />
-                </Card>
-              </Col>
-              <Col className="gutter-row" span={6}>
-                <Card
-                  cover={
-                    <img
-                      src="https://images.unsplash.com/photo-1621453728762-5a95731038d5?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
-                      alt="image"
-                    />
-                  }
-                >
-                  <Meta
-                    style={{
-                      display: "flex",
-                      justifyContent: "center",
-                      height: "100px",
-                    }}
-                    avatar={
-                      <Avatar
-                        className="avatar"
-                        src="https://api.dicebear.com/7.x/miniavs/svg?seed=8"
-                        style={{ cursor: "pointer" }}
-                      />
-                    }
-                    title={
-                      <span
-                        style={{
-                          color: "black",
-                          fontSize: "15px",
-                          borderBottom: "1px solid black",
-                        }}
-                      >
-                        Marina Bay Sands
-                      </span>
-                    }
-                    description={
-                      <span style={{ color: "black", fontSize: "12px" }}>
-                        Marina Bay Sands is an integrated resort fronting Marina
-                        Bay in Singapore and a landmark of the city
-                      </span>
-                    }
-                  />
-                </Card>
-              </Col>
-              <Col className="gutter-row" span={6}>
-                <Card
-                  cover={
-                    <img
-                      src="https://images.unsplash.com/photo-1508952817440-fefa6a425539?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
-                      alt="image"
-                    />
-                  }
-                >
-                  <Meta
-                    style={{
-                      display: "flex",
-                      justifyContent: "center",
-                      height: "100px",
-                    }}
-                    avatar={
-                      <Avatar
-                        className="avatar"
-                        src="https://api.dicebear.com/7.x/miniavs/svg?seed=8"
-                        style={{ cursor: "pointer" }}
-                      />
-                    }
-                    title={
-                      <span
-                        style={{
-                          color: "black",
-                          fontSize: "15px",
-                          borderBottom: "1px solid black",
-                        }}
-                      >
-                        The Pizza Tower
-                      </span>
-                    }
-                    description={
-                      <span style={{ color: "black", fontSize: "12px" }}>
-                        The Leaning Tower of Pisa, or simply the Tower of Pisa,
-                        is the campanile, or freestanding bell tower, of Pisa
-                        Cathedral
-                      </span>
-                    }
-                  />
-                </Card>
-              </Col>
-              <Col className="gutter-row" span={6}>
-                <Card
-                  cover={
-                    <img
-                      src="https://images.unsplash.com/photo-1609237756221-88c4a93846b2?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
-                      alt="image"
-                    />
-                  }
-                >
-                  <Meta
-                    style={{
-                      display: "flex",
-                      justifyContent: "center",
-                      height: "100px",
-                    }}
-                    avatar={
-                      <Avatar
-                        className="avatar"
-                        src="https://api.dicebear.com/7.x/miniavs/svg?seed=8"
-                        style={{ cursor: "pointer" }}
-                      />
-                    }
-                    title={
-                      <span
-                        style={{
-                          color: "black",
-                          fontSize: "15px",
-                          borderBottom: "1px solid black",
-                        }}
-                      >
-                        Neuschwanstein Castle
-                      </span>
-                    }
-                    description={
-                      <span style={{ color: "black", fontSize: "12px" }}>
-                        Neuschwanstein Castle is a 19th-century historicist
-                        palace on a rugged hill of the foothills of the Alps in
-                        the very south of Germany, close to border with Austria.
-                      </span>
-                    }
-                  />
-                </Card>
-              </Col>
-            </Row>
+          <div>
+          {/* Your other JSX content */}
+          {/* Example usage of ArtworkCard */}
+          <ArtworkCard
+            title="Landmark 81 Ho Chi Minh City"
+            description="This is the second highest building in southeast Asia"
+            image="https://images.unsplash.com/photo-1549654917-9ddb6fed998f?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+            onHeartClick={handleHeartClick}
+            heartFilled={heartFilled}
+          />
+          {/* Your other JSX content */}
+        </div>
+      );
+    };
             <Modal
   title={null}
   visible={modalVisible}
@@ -463,6 +127,8 @@ const OurHub = () => {
     </Col>
   </Row>
 </Modal>
+
+
           </div>
         );
 
@@ -1808,133 +1474,73 @@ const OurHub = () => {
     }
   };
   return (
-    <animated.div style={props}>
-      <div className="OurHubPage" style={{ minHeight: "100vh", width: "100%" }}>
-        <div className="firstSectionOurHub">
-          <section>
-            <span></span>
-            <span></span>
-            <span></span>
-            <span></span>
-            <span></span>
-            <span></span>
-            <span></span>
-            <span></span>
-            <span></span>
-            <span></span>
-            <span></span>
-            <span></span>
-            <span></span>
-            <span></span>
-            <span></span>
-            <span></span>
-            <span></span>
-            <span></span>
-            <span></span>
-            <span></span>
-            <span></span>
-            <span></span>
-            <span></span>
-            <span></span>
-            <span></span>
-            <span></span>
-            <span></span>
-            <span></span>
-            <span></span>
-            <span></span>
-          </section>
+    <div className="OurHubPage">
+      <div className="firstSection" style={{ height: "60vh", width: "100%" }}>
+        <div className="mainTitle">
           <Typography.Title
             style={{
-              color: "white",
+              display: "flex",
+              textAlign: "center",
+              justifyContent: "center",
               fontSize: "70px",
-              width: "100%",
-              display: "flex",
-              justifyContent: "center",
-              marginTop: "250px",
-              textAlign: "center",
+              fontWeight: "900",
             }}
           >
-            Discover the world’s top <br /> designers & creatives
+            Discover the world’s top
+            <br />
+            designers & creatives
           </Typography.Title>
-          <p
+          <Typography.Text
             style={{
-              width: "100%",
               display: "flex",
               justifyContent: "center",
-              color: "#dedde2",
-              fontSize: "28px",
               textAlign: "center",
-              marginTop: "100px",
+              fontSize: "20px",
+              color: "gray",
+              marginTop: "40px",
             }}
           >
-            Dribbble is the leading destination to find & showcase creative work
-            and <br /> home to the world's best design professionals.
-          </p>
-          <div
-            className="searchContainer"
-            style={{
-              display: "flex",
-              justifyContent: "center",
-              marginTop: "50px",
-              height: "50px",
-              width: "100%",
-            }}
-          >
-            <CiSearch className="searchIcon" />
-
-            <input
-              className="inputSearch"
-              type="text"
-              placeholder="Search anything you want !"
-              style={{
-                padding: "10px",
-                fontSize: "16px",
-                width: "500px",
-                borderRadius: "10px",
-                border: "1px solid white",
-                color: "#dbd8e7",
-              }}
-            />
-            <button
-              className="searchBtn"
-              style={{
-                marginLeft: "10px",
-                padding: "10px",
-                fontSize: "16px",
-                width: "100px",
-                color: "White",
-                border: "1px solid white",
-                borderRadius: "10px",
-              }}
-            >
-              Search
-            </button>
-          </div>
+            Dribbble is the leading destination to find & showcase creative work{" "}
+            <br />
+            and home to the world's best design professionals.
+          </Typography.Text>
         </div>
         <div
-          className="secondSection"
-          style={{ marginTop: "150px", borderTop: "5px dashed black" }}
+          className="searchBox"
+          style={{
+            width: "100%",
+            display: "flex",
+            justifyContent: "center",
+            marginTop: "60px",
+            height: "100px",
+          }}
         >
-          <div
-            className="buttonsContainer"
-            style={{
-              display: "flex",
-              justifyContent: "center",
-              height: "60px",
-              alignItems: "center",
-              transform: "translateY(200px)",
-            }}
-          >
-            <Segmented
+          <Space direction="vertical">
+            <Search
+              className="searchBar"
+              icon={CiSearch}
+              placeholder="Search anything you want !"
               size="large"
-              options={justifyOptions}
-              onChange={setJustify}
+              onSearch={onSearch}
+              style={{
+                width: "800px",
+                fontSize: "30px",
+                padding: "10px",
+              }}
             />
-          </div>
-          {renderImages()}
+          </Space>
         </div>
       </div>
-    </animated.div>
+      <div className="secondSection">
+        <div
+          className="buttonsContainer"
+          style={{ display: "flex", justifyContent: "center" }}
+        >
+          <Segmented options={justifyOptions} onChange={setJustify} />
+        </div>
+        {renderImages()}
+      </div>
+    </div>
   );
 };
 

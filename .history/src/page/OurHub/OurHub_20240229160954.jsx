@@ -17,7 +17,7 @@ import { Modal } from "antd";
 import { ShoppingCartOutlined } from "@ant-design/icons";
 import { useSpring, animated } from "react-spring";
 import { HeartFilled, HeartOutlined, SendOutlined } from "@ant-design/icons";
-import Comment from "../../components/Comment";
+
 
 const OurHub = () => {
   const props = useSpring({

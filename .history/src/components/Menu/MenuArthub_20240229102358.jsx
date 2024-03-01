@@ -3,6 +3,11 @@ import { Menu } from "antd";
 import PropTypes from "prop-types";
 import { Link, useNavigate } from "react-router-dom";
 
+const Comment = ({ user, text }) => (
+  <div style={{ marginBottom: "10px" }}>
+    <span style={{ fontWeight: "bold" }}>{user}:</span> {text}
+  </div>
+);
 
 
 const MenuArthub = ({ items }) => {
