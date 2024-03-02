@@ -137,39 +137,80 @@ const PostArt = () => {
     }
   };
 
-  const handleFormSubmit = (e) => {
-    e.preventDefault();
-    const artwork = {
-      userid: userId,
-      title: title,
-      description: description,
-      typeDesign: typeDesign,
-      price: price,
-      image: image,
-      name: name,
-      email: email,
-      birthday: birthday,
-      gender: gender,
-    };
-    fetch("http://localhost:5000/api/addartwork", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(artwork),
-    })
-      .then((response) => {
-        if (!response.ok) {
-          throw new Error("Invalid artwork form");
-        }
-        return response.json();
-      })
-      .then((data) => {
-        setMessage("New artwork added");
-        console.log("New artwork added", data);
+  const handleFormSubmit = async (e) => {
+    form
+      .validateFields()
+      .then((values) => {
+        // The form data is valid, you can proceed with submitting
+        console.log("Form data:", values);
+        // Add your logic to send the data to the server
+        message.success("Form submitted successfully");
       })
       .catch((error) => {
-        setMessage(error);
-        console.error("Error while sending artwork:", error.message);
+        // Some fields failed validation, display an error message
+        console.error("Form validation failed:", error);
+        message.error(
+          "Please fill in all required fields and correct any validation errors."
+        );
       });
+    e.preventDefault();
+    try {
+      const imageInput = document.getElementById("imageInput");
+      const imageFiles = imageInput.files;
+
+      if (imageFiles.length === 0) {
+        throw new Error("Please select at least one image.");
+      }
+
+      const imageUrls = await Promise.all(
+        Array.from(imageFiles).map(async (file) => {
+          return await addImage1(file, userId);
+        })
+      );
+      if (
+        !title ||
+        !description ||
+        !typeDesign ||
+        !price ||
+        !imageFiles.length
+      ) {
+        throw new Error(
+          "Please fill in all required fields and select at least one image."
+        );
+      }
+
+      // Prepare artwork object with array of image URLs
+      const artwork = {
+        userid: userId,
+        title: title,
+        description: description,
+        typeDesign: typeDesign,
+        price: price,
+        images: imageUrls, // Use an array to store multiple image URLs
+        name: name,
+        email: email,
+        birthday: birthday,
+        gender: gender,
+      };
+
+      // Send artwork data to your backend
+      const response = await fetch("http://localhost:5000/api/addartwork", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(artwork),
+      });
+
+      if (!response.ok) {
+        throw new Error("Invalid artwork form");
+      }
+
+      const data = await response.json();
+      setMessage("New artwork added");
+      console.log("New artwork added", data);
+    } catch (error) {
+      setMessage(error.message);
+      console.error("Error while sending artwork:", error.message);
+    }
   };
 
   const formItemLayout = {
@@ -336,7 +377,7 @@ const PostArt = () => {
             rules={[
               {
                 required: true,
-                message: "Please input!",
+                message: "Please input your title !",
               },
             ]}
           >
@@ -396,6 +437,13 @@ const PostArt = () => {
               action="/upload.do"
               listType="picture-card"
               fileList={form.getFieldValue("fileList")}
+              name="imageType"
+              rules={[
+                {
+                  required: true,
+                  message: "Put at lease one image!",
+                },
+              ]}
               beforeUpload={(file) => {
                 form.setFieldsValue({ fileList: [file] });
 
@@ -469,7 +517,16 @@ const PostArt = () => {
           >
             <DatePicker style={{ width: "300px" }} />
           </Form.Item>
-          <Form.Item label="Gender">
+          <Form.Item
+            label="Gender"
+            name="genderType"
+            rules={[
+              {
+                required: true,
+                message: "Please select a gender type!",
+              },
+            ]}
+          >
             <Select onChange={handleGenderChange}>
               <Select.Option value="male">Male</Select.Option>
               <Select.Option value="male">Female</Select.Option>
