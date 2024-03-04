@@ -154,63 +154,40 @@ const PostArt = () => {
         );
       });
     e.preventDefault();
-    try {
-      const imageInput = document.getElementById("imageInput");
-      const imageFiles = imageInput.files;
+    // Prepare artwork object with array of image URLs
+    const artwork = {
+      userid: userId,
+      title: title,
+      description: description,
+      typeDesign: typeDesign,
+      price: price,
+      images: imageUrls, // Use an array to store multiple image URLs
+      name: name,
+      email: email,
+      birthday: birthday,
+      gender: gender,
+    };
 
-      if (imageFiles.length === 0) {
-        throw new Error("Please select at least one image.");
-      }
-
-      const imageUrls = await Promise.all(
-        Array.from(imageFiles).map(async (file) => {
-          return await addImage1(file, userId);
-        })
-      );
-      if (
-        !title ||
-        !description ||
-        !typeDesign ||
-        !price ||
-        !imageFiles.length
-      ) {
-        throw new Error(
-          "Please fill in all required fields and select at least one image."
-        );
-      }
-
-      // Prepare artwork object with array of image URLs
-      const artwork = {
-        userid: userId,
-        title: title,
-        description: description,
-        typeDesign: typeDesign,
-        price: price,
-        images: imageUrls, // Use an array to store multiple image URLs
-        name: name,
-        email: email,
-        birthday: birthday,
-        gender: gender,
-      };
-
-      // Send artwork data to your backend
-      const response = await fetch("http://localhost:5000/api/addartwork", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(artwork),
+    // Send artwork data to your backend
+    fetch("http://localhost:5000/api/addartwork", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(artwork),
+    })
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error("Invalid artwork form");
+        }
+        return response.json();
+      })
+      .then((data) => {
+        setMessage("New artwork added");
+        console.log("New artwork added", data);
+      })
+      .catch((error) => {
+        setMessage(error);
+        console.error("Error while sending artwork:", error.message);
       });
-
-      if (!response.ok) {
-        throw new Error("Invalid artwork form");
-      }
-
-      const data = await response.json();
-      setMessage("New artwork added");
-      console.log("New artwork added", data);
-    } catch (error) {
-      setMessage(error.message);
-      console.error("Error while sending artwork:", error.message);
-    }
   };
 
   const formItemLayout = {
