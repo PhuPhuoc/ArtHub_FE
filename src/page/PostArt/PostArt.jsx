@@ -446,54 +446,6 @@ const PostArt = () => {
               </button>
             </Upload>
           </Form.Item>
-
-          <Form.Item
-            label="Your Name"
-            name="name"
-            rules={[
-              {
-                required: true,
-                message: "Please input!",
-              },
-            ]}
-            value={name}
-            onChange={(e) => setName(e.target.value)}
-          >
-            <Input placeholder="Your full name" />
-          </Form.Item>
-          <Form.Item
-            label="Your Email"
-            name="Email"
-            rules={[
-              {
-                required: true,
-                message: "Please input your email!",
-              },
-              {
-                type: "email",
-                message: "Please enter a valid email address!",
-              },
-            ]}
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-          >
-            <Input placeholder="Your email" />
-          </Form.Item>
-          <Form.Item
-            label="Birthday"
-            name="Birthday"
-            style={{ marginTop: "20px" }}
-            rules={[
-              {
-                required: true,
-                message: "Please input!",
-              },
-            ]}
-            value={birthday}
-            onChange={(e) => setBirthday(e.target.value)}
-          >
-            <DatePicker style={{ width: "300px" }} />
-          </Form.Item>
           <Form.Item
             label="Gender"
             name="genderType"
@@ -523,20 +475,6 @@ const PostArt = () => {
             onChange={(e) => setPrice(e.target.value)}
           >
             <Input type="number" placeholder="Enter the price" prefix="$" />
-          </Form.Item>
-          <Form.Item
-            label="Dimensions"
-            name="imageDimensions"
-            rules={[
-              {
-                required: true,
-                message: "Please input the dimensions of the image!",
-              },
-            ]}
-            value={dimensions}
-            onChange={(e) => setDimensions(e.target.value)}
-          >
-            <Input placeholder="Enter the dimensions (e.g., 800x600)" />
           </Form.Item>
           <Form.Item>
             <Space>
