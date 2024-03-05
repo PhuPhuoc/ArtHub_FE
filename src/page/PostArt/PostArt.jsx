@@ -19,6 +19,7 @@ import "./PostArt.css";
 import { useEffect, useRef, useState } from "react";
 import { PlusOutlined } from "@ant-design/icons";
 import Cookies from "js-cookie";
+import { addImage1, getImage } from "../../helper/uploadImg";
 const normFile = (e) => {
   if (Array.isArray(e)) {
     return e;
@@ -39,7 +40,9 @@ const PostArt = () => {
   const [dimensions, setDimensions] = useState("");
   const [isPageVisible, setIsPageVisible] = useState(false);
   const [message, setMessage] = useState("");
-
+  const [file, setFile] = useState(null);
+  const [id, setId] = useState("");
+  const [imageUrl, setImageUrl] = useState("");
   const titleRef = useRef(null);
   const moonRef = useRef(null);
   const btnRef = useRef(null);
@@ -155,17 +158,14 @@ const PostArt = () => {
       });
     e.preventDefault();
     // Prepare artwork object with array of image URLs
+    console.log("imageUrl", imageUrl);
     const artwork = {
       userid: userId,
       title: title,
       description: description,
       typeDesign: typeDesign,
       price: price,
-      images: imageUrls, // Use an array to store multiple image URLs
-      name: name,
-      email: email,
-      birthday: birthday,
-      gender: gender,
+      images: imageUrl,
     };
 
     // Send artwork data to your backend
@@ -215,6 +215,39 @@ const PostArt = () => {
     form.resetFields();
     form.setFieldsValue({ fileList: [] });
     form.setFieldsValue({ designType: "" });
+  };
+
+  const handleFileChange = (e) => {
+    const selectedFile = e.target.files[0];
+    setFile(selectedFile);
+  };
+
+  const handleIdChange = (e) => {
+    setId(e.target.value);
+  };
+  const handleUpload = async () => {
+    if (file && id) {
+      try {
+        await addImage1(file, id);
+        console.log("Image uploaded successfully!");
+      } catch (error) {
+        console.error("Error uploading image:", error);
+      }
+    } else {
+      console.error("Please select a file and provide an ID.");
+    }
+  };
+  const handleGetImage = async () => {
+    if (id) {
+      try {
+        const url = await getImage(id);
+        setImageUrl(url);
+      } catch (error) {
+        console.error("Error getting image:", error);
+      }
+    } else {
+      console.error("Please provide an ID to get the image.");
+    }
   };
 
   return (
@@ -341,6 +374,7 @@ const PostArt = () => {
         <Form
           form={form}
           {...formItemLayout}
+          // onFinish={onFinish}
           variant="filled"
           style={{
             width: "100%",
@@ -408,59 +442,58 @@ const PostArt = () => {
             name="fileList"
             valuePropName="fileList"
             getValueFromEvent={normFile}
-            style={{ marginTop: "-40px" }}
-          >
-            <Upload
-              action="/upload.do"
-              listType="picture-card"
-              fileList={form.getFieldValue("fileList")}
-              name="imageType"
-              rules={[
-                {
-                  required: true,
-                  message: "Put at lease one image!",
-                },
-              ]}
-              beforeUpload={(file) => {
-                form.setFieldsValue({ fileList: [file] });
-
-                return false;
-              }}
-              onChange={handleImageUpload}
-            >
-              <button
-                style={{
-                  border: 0,
-                  background: "none",
-                }}
-                type="button"
-              >
-                <PlusOutlined />
-                <div
-                  style={{
-                    marginTop: 8,
-                  }}
-                >
-                  Upload
-                </div>
-              </button>
-            </Upload>
-          </Form.Item>
-          <Form.Item
-            label="Gender"
-            name="genderType"
             rules={[
               {
                 required: true,
-                message: "Please select a gender type!",
+                message: "Please pick at lease one image!",
               },
             ]}
+            style={{ marginTop: "-40px" }}
           >
-            <Select onChange={handleGenderChange}>
-              <Select.Option value="male">Male</Select.Option>
-              <Select.Option value="male">Female</Select.Option>
-              <Select.Option value="male">Don't want answer</Select.Option>
-            </Select>
+            Select Image:
+            <input
+              style={{ marginTop: "10px" }}
+              type="file"
+              onChange={handleFileChange}
+            />
+            Enter Name:
+            <input
+              style={{ marginTop: "10px", marginLeft: "10px" }}
+              type="text"
+              value={id}
+              onChange={handleIdChange}
+            />
+            <br />
+            <button
+              style={{
+                border: "1px solid black",
+                borderRadius: "5px",
+                marginTop: "10px",
+              }}
+              onClick={handleUpload}
+            >
+              Upload Image
+            </button>
+            <button
+              style={{
+                marginLeft: "50px",
+                border: "2px solid black",
+                borderRadius: "5px",
+              }}
+              onClick={handleGetImage}
+            >
+              Get Image
+            </button>
+            {imageUrl && (
+              <div>
+                <h3 style={{ marginTop: "10px" }}>Downloaded Image:</h3>
+                <img
+                  src={imageUrl}
+                  alt="Downloaded"
+                  style={{ maxWidth: "100%" }}
+                />
+              </div>
+            )}
           </Form.Item>
           <Form.Item
             label="Price of the Image"

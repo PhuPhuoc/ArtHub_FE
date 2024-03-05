@@ -77,7 +77,23 @@ const HomePage = () => {
 
   return (
     <div className="home" style={{ minHeight: "100vh" }}>
-      {sessionCookie ? <p>Welcome, {username.toString()}</p> : <p></p>}
+      {sessionCookie ? (
+        <div
+          style={{
+            height: "200px",
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            fontSize: "50px",
+            color: buttonColor,
+            transition: "all 0.3s ease ",
+          }}
+        >
+          Welcome, {username.toString()}
+        </div>
+      ) : (
+        <p></p>
+      )}
       <div
         className="mainHomepageBackground"
         style={{ position: "relative", height: "100vh", width: "100%" }}
@@ -830,9 +846,7 @@ const HomePage = () => {
                   />
                 }
                 title={
-                  <span style={{ color: "black", fontSize: "15px" }}>
-                    ???
-                  </span>
+                  <span style={{ color: "black", fontSize: "15px" }}>???</span>
                 }
                 description={
                   <span style={{ color: "black", fontSize: "12px" }}>
