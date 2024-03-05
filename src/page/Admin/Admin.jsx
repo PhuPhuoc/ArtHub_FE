@@ -224,10 +224,10 @@ const Admin = () => {
     const newUser = {
       name: values.name,
       email: values.email,
-      password: values.password, 
-      role: values.role, 
+      password: values.password,
+      role: values.role,
     };
-  
+
     fetch("http://localhost:5000/api/admin/users", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
