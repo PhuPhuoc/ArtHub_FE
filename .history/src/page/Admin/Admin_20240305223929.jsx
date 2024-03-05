@@ -199,11 +199,11 @@ const Admin = () => {
       });
       return;
     }
-
+  
     formEdit.setFieldsValue(selectedUser);
     setEditModalVisible(true);
   };
-
+  
   const handleSaveEdit = () => {
     formEdit
       .validateFields()
@@ -211,7 +211,7 @@ const Admin = () => {
         const updatedData = data.map((user) =>
           user.key === selectedUser.key ? { ...user, ...values } : user
         );
-
+  
         setData(updatedData);
         setEditModalVisible(false);
         setSelectedUser(null);
@@ -220,49 +220,46 @@ const Admin = () => {
         console.log("Failed:", errorInfo);
       });
   };
-  const handleAddUser = (values) => {
-    const newUser = {
-      name: values.name,
-      email: values.email,
-      password: values.password, 
-      role: values.role, 
-    };
   
-    fetch("http://localhost:5000/api/admin/users", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(newUser),
-    })
-      .then((response) => response.json())
-      .then((data) => {
-        // Update local state with the added user data
-        setData([...data, data]);
-        setIsModalVisible(false);
-      })
-      .catch((error) => {
-        console.error("Error adding user:", error);
-      });
-  };
-  const handleDeleteUser = () => {
-    if (selectedUser) {
-      Modal.confirm({
-        title: "Are you sure?",
-        content: "This action cannot be undone.",
-        okText: "Yes",
-        cancelText: "Cancel",
-        onOk: () => {
-          const updatedData = data.filter(
-            (user) => user.key !== selectedUser.key
-          );
-          const updatedDataWithStt = updateSttColumn(updatedData);
-          setData(updatedDataWithStt);
-          setSelectedUser(null);
+  const handleAddUser = async (values) => {
+    try {
+      const response = await fetch('/api/admin/users', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
         },
-        onCancel: () => {},
+        body: JSON.stringify(values),
       });
+      if (response.ok) {
+        const newUser = await response.json();
+        setData([...data, newUser]);
+        setIsModalVisible(false);
+      } else {
+        throw new Error('Failed to add user');
+      }
+    } catch (error) {
+      console.error('Error adding user:', error);
     }
   };
-
+  
+  const handleDeleteUser = async () => {
+    try {
+      if (selectedUser) {
+        const response = await fetch(`/api/admin/users/${selectedUser.key}`, {
+          method: 'DELETE',
+        });
+        if (response.ok) {
+          const updatedData = data.filter((user) => user.key !== selectedUser.key);
+          setData(updatedData);
+          setSelectedUser(null);
+        } else {
+          throw new Error('Failed to delete user');
+        }
+      }
+    } catch (error) {
+      console.error('Error deleting user:', error);
+    }
+  };
   return (
     <div
       style={{ width: "100%", height: "auto", background: "#0c192c" }}

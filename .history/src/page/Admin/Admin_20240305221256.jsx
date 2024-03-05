@@ -204,38 +204,64 @@ const Admin = () => {
     setEditModalVisible(true);
   };
 
+ 
   const handleSaveEdit = () => {
     formEdit
-      .validateFields()
-      .then((values) => {
-        const updatedData = data.map((user) =>
-          user.key === selectedUser.key ? { ...user, ...values } : user
-        );
+    .validateFields()
+    .then((values) => {
+      // Check if values.tags is defined and is a string
+      const tagsArray = values.tags && typeof values.tags === 'string' ? values.tags.split(',') : [];
 
-        setData(updatedData);
-        setEditModalVisible(false);
-        setSelectedUser(null);
-      })
-      .catch((errorInfo) => {
-        console.log("Failed:", errorInfo);
-      });
+      const updatedUser = {
+        ...selectedUser,
+        ...values,
+        tags: tagsArray,
+      };
+
+        // Envoi des données mises à jour au serveur
+        fetch(`http://localhost:5000/api/editUser/${selectedUser.key}`, {
+          method: "PUT",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(updatedUser),
+        })
+          .then((response) => response.json())
+          .then((data) => {
+            const updatedData = data.map((user) =>
+              user.key === selectedUser.key ? data : user
+            );
+
+            setData(updatedData);
+            setEditModalVisible(false);
+            setSelectedUser(null);
+          })
+          .catch((error) => {
+            console.error("Error updating user:", error);
+          });
+        })
+        .catch((errorInfo) => {
+          console.log("Failed:", errorInfo);
+        });
   };
   const handleAddUser = (values) => {
     const newUser = {
       name: values.name,
+      birthday: values.birthday,
       email: values.email,
-      password: values.password, 
-      role: values.role, 
+      gender: values.gender,
+      tags: values.tags ? values.tags.split(",") : [],
+      avatarUrl: values.avatarUrl,
+      posts: [],
     };
-  
-    fetch("http://localhost:5000/api/admin/users", {
+
+    // Envoi des données au serveur
+    fetch("http://localhost:5000/api/addUser", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(newUser),
     })
       .then((response) => response.json())
       .then((data) => {
-        // Update local state with the added user data
+        // Mise à jour de l'état local avec les données de l'utilisateur ajouté
         setData([...data, data]);
         setIsModalVisible(false);
       })
@@ -243,6 +269,7 @@ const Admin = () => {
         console.error("Error adding user:", error);
       });
   };
+  
   const handleDeleteUser = () => {
     if (selectedUser) {
       Modal.confirm({

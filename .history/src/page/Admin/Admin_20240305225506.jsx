@@ -224,10 +224,11 @@ const Admin = () => {
     const newUser = {
       name: values.name,
       email: values.email,
-      password: values.password, 
-      role: values.role, 
+      password: values.password, // Add password field if required by the backend
+      role: values.role, // Add role field if required by the backend
     };
   
+    // Sending data to the server
     fetch("http://localhost:5000/api/admin/users", {
       method: "POST",
       headers: { "Content-Type": "application/json" },

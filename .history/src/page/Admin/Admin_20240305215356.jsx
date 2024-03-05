@@ -135,16 +135,12 @@ const Admin = () => {
         return "green";
     }
   };
-  const [form] = Form.useForm();
-  const [data, setData] = useState(dataAdmin);
-  const [isModalVisible, setIsModalVisible] = useState(false);
+  const [data, setData] = useState([]);
   const [selectedUser, setSelectedUser] = useState(null);
-  const [formEdit] = Form.useForm();
+  const [isModalVisible, setIsModalVisible] = useState(false);
   const [editModalVisible, setEditModalVisible] = useState(false);
-
   const [titleBackgroundColor, setTitleBackgroundColor] = useState("#ffffff");
   const [titleTextColor, setTitleTextColor] = useState("#000000");
-
   const titleRef = useRef(null);
 
   const textColors = ["#000000", "#ffffff", "#ff0000", "#00ff00", "#0000ff"];
@@ -223,26 +219,34 @@ const Admin = () => {
   const handleAddUser = (values) => {
     const newUser = {
       name: values.name,
+      birthday: values.birthday,
       email: values.email,
-      password: values.password, 
-      role: values.role, 
+      gender: values.gender,
+      tags: values.tags ? values.tags.split(",") : [],
+      avatarUrl: values.avatarUrl,
+      posts: [],
     };
-  
-    fetch("http://localhost:5000/api/admin/users", {
+
+    // Appel Fetch pour créer un nouvel utilisateur
+    fetch("/api/admin/users", {
       method: "POST",
-      headers: { "Content-Type": "application/json" },
+      headers: {
+        "Content-Type": "application/json",
+      },
       body: JSON.stringify(newUser),
     })
       .then((response) => response.json())
       .then((data) => {
-        // Update local state with the added user data
+        console.log("New user created:", data);
+        // Mettre à jour l'état avec le nouvel utilisateur créé
         setData([...data, data]);
         setIsModalVisible(false);
       })
       .catch((error) => {
-        console.error("Error adding user:", error);
+        console.error("Error creating user:", error);
       });
   };
+
   const handleDeleteUser = () => {
     if (selectedUser) {
       Modal.confirm({
@@ -251,18 +255,30 @@ const Admin = () => {
         okText: "Yes",
         cancelText: "Cancel",
         onOk: () => {
-          const updatedData = data.filter(
-            (user) => user.key !== selectedUser.key
-          );
-          const updatedDataWithStt = updateSttColumn(updatedData);
-          setData(updatedDataWithStt);
-          setSelectedUser(null);
+          // Appel Fetch pour supprimer un utilisateur
+          fetch(`/api/admin/users/${selectedUser.key}`, {
+            method: "DELETE",
+          })
+            .then((response) => {
+              if (response.ok) {
+                console.log("User deleted successfully.");
+                const updatedData = data.filter(
+                  (user) => user.key !== selectedUser.key
+                );
+                setData(updatedData);
+                setSelectedUser(null);
+              } else {
+                throw new Error("Failed to delete user.");
+              }
+            })
+            .catch((error) => {
+              console.error("Error deleting user:", error);
+            });
         },
         onCancel: () => {},
       });
     }
   };
-
   return (
     <div
       style={{ width: "100%", height: "auto", background: "#0c192c" }}

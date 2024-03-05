@@ -235,7 +235,6 @@ const Admin = () => {
     })
       .then((response) => response.json())
       .then((data) => {
-        // Update local state with the added user data
         setData([...data, data]);
         setIsModalVisible(false);
       })

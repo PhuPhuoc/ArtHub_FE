@@ -235,9 +235,8 @@ const Admin = () => {
     })
       .then((response) => response.json())
       .then((data) => {
-        // Update local state with the added user data
-        setData([...data, data]);
         setIsModalVisible(false);
+        setData([...data]); // Assuming data is iterable, if not, adjust here accordingly
       })
       .catch((error) => {
         console.error("Error adding user:", error);

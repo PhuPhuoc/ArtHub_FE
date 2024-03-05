@@ -150,17 +150,18 @@ const Admin = () => {
   const textColors = ["#000000", "#ffffff", "#ff0000", "#00ff00", "#0000ff"];
 
   useEffect(() => {
-    const intervalId = setInterval(() => {
-      const newBackgroundColor = getRandomColor();
-      setTitleBackgroundColor(newBackgroundColor);
-
-      const newTextColor =
-        textColors[Math.floor(Math.random() * textColors.length)];
-      setTitleTextColor(newTextColor);
-    }, 2000);
-
-    return () => clearInterval(intervalId);
+    fetchData();
   }, []);
+
+  const fetchData = async () => {
+    try {
+      const response = await fetch("/api/admin/users");
+      const userData = await response.json();
+      setData(userData);
+    } catch (error) {
+      console.error("Erreur lors de la récupération des données:", error);
+    }
+  };
 
   const getRandomColor = () => {
     const letters = "0123456789ABCDEF";
@@ -191,77 +192,61 @@ const Admin = () => {
       }
     },
   };
-  const handleEditClick = () => {
-    if (!selectedUser) {
-      Modal.warning({
-        title: "Warning",
-        content: "Please select a user to edit.",
+  const handleAddUser = async (values) => {
+    try {
+      const response = await fetch("/api/admin/users", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(values),
       });
+      const newUser = await response.json();
+      setData([...data, newUser]);
+      setIsModalVisible(false);
+    } catch (error) {
+      console.error("Erreur lors de l'ajout de l'utilisateur:", error);
+    }
+  };
+
+  const handleDeleteUser = async () => {
+    if (selectedUser) {
+      try {
+        await fetch(`/api/admin/users/${selectedUser.key}`, {
+          method: "DELETE",
+        });
+        const updatedData = data.filter(
+          (user) => user.key !== selectedUser.key
+        );
+        setData(updatedData);
+        setSelectedUser(null);
+      } catch (error) {
+        console.error("Erreur lors de la suppression de l'utilisateur:", error);
+      }
+    }
+  };
+
+  const handleSaveEdit = async () => {
+    if (!selectedUser) {
       return;
     }
-
-    formEdit.setFieldsValue(selectedUser);
-    setEditModalVisible(true);
-  };
-
-  const handleSaveEdit = () => {
-    formEdit
-      .validateFields()
-      .then((values) => {
-        const updatedData = data.map((user) =>
-          user.key === selectedUser.key ? { ...user, ...values } : user
-        );
-
-        setData(updatedData);
-        setEditModalVisible(false);
-        setSelectedUser(null);
-      })
-      .catch((errorInfo) => {
-        console.log("Failed:", errorInfo);
-      });
-  };
-  const handleAddUser = (values) => {
-    const newUser = {
-      name: values.name,
-      email: values.email,
-      password: values.password, 
-      role: values.role, 
-    };
-  
-    fetch("http://localhost:5000/api/admin/users", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(newUser),
-    })
-      .then((response) => response.json())
-      .then((data) => {
-        // Update local state with the added user data
-        setData([...data, data]);
-        setIsModalVisible(false);
-      })
-      .catch((error) => {
-        console.error("Error adding user:", error);
-      });
-  };
-  const handleDeleteUser = () => {
-    if (selectedUser) {
-      Modal.confirm({
-        title: "Are you sure?",
-        content: "This action cannot be undone.",
-        okText: "Yes",
-        cancelText: "Cancel",
-        onOk: () => {
-          const updatedData = data.filter(
-            (user) => user.key !== selectedUser.key
-          );
-          const updatedDataWithStt = updateSttColumn(updatedData);
-          setData(updatedDataWithStt);
-          setSelectedUser(null);
+    try {
+      const response = await fetch(`/api/admin/users/${selectedUser.key}`, {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
         },
-        onCancel: () => {},
+        body: JSON.stringify(selectedUser),
       });
+      const updatedData = await response.json();
+      setData(updatedData);
+      setEditModalVisible(false);
+      setSelectedUser(null);
+    } catch (error) {
+      console.error("Erreur lors de la mise à jour de l'utilisateur:", error);
     }
   };
+
 
   return (
     <div

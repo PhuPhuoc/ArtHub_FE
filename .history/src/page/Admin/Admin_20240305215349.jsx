@@ -135,33 +135,29 @@ const Admin = () => {
         return "green";
     }
   };
-  const [form] = Form.useForm();
-  const [data, setData] = useState(dataAdmin);
-  const [isModalVisible, setIsModalVisible] = useState(false);
+  const [data, setData] = useState([]);
   const [selectedUser, setSelectedUser] = useState(null);
-  const [formEdit] = Form.useForm();
+  const [isModalVisible, setIsModalVisible] = useState(false);
   const [editModalVisible, setEditModalVisible] = useState(false);
-
   const [titleBackgroundColor, setTitleBackgroundColor] = useState("#ffffff");
   const [titleTextColor, setTitleTextColor] = useState("#000000");
-
   const titleRef = useRef(null);
 
   const textColors = ["#000000", "#ffffff", "#ff0000", "#00ff00", "#0000ff"];
 
   useEffect(() => {
-    const intervalId = setInterval(() => {
-      const newBackgroundColor = getRandomColor();
-      setTitleBackgroundColor(newBackgroundColor);
-
-      const newTextColor =
-        textColors[Math.floor(Math.random() * textColors.length)];
-      setTitleTextColor(newTextColor);
-    }, 2000);
-
-    return () => clearInterval(intervalId);
+    fetchData();
   }, []);
 
+  const fetchData = async () => {
+    try {
+      const response = await fetch("/api/admin/users");
+      const userData = await response.json();
+      setData(userData);
+    } catch (error) {
+      console.error("Erreur lors de la récupération des données:", error);
+    }
+  };
   const getRandomColor = () => {
     const letters = "0123456789ABCDEF";
     let color = "#";
@@ -204,65 +200,7 @@ const Admin = () => {
     setEditModalVisible(true);
   };
 
-  const handleSaveEdit = () => {
-    formEdit
-      .validateFields()
-      .then((values) => {
-        const updatedData = data.map((user) =>
-          user.key === selectedUser.key ? { ...user, ...values } : user
-        );
-
-        setData(updatedData);
-        setEditModalVisible(false);
-        setSelectedUser(null);
-      })
-      .catch((errorInfo) => {
-        console.log("Failed:", errorInfo);
-      });
-  };
-  const handleAddUser = (values) => {
-    const newUser = {
-      name: values.name,
-      email: values.email,
-      password: values.password, 
-      role: values.role, 
-    };
   
-    fetch("http://localhost:5000/api/admin/users", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(newUser),
-    })
-      .then((response) => response.json())
-      .then((data) => {
-        // Update local state with the added user data
-        setData([...data, data]);
-        setIsModalVisible(false);
-      })
-      .catch((error) => {
-        console.error("Error adding user:", error);
-      });
-  };
-  const handleDeleteUser = () => {
-    if (selectedUser) {
-      Modal.confirm({
-        title: "Are you sure?",
-        content: "This action cannot be undone.",
-        okText: "Yes",
-        cancelText: "Cancel",
-        onOk: () => {
-          const updatedData = data.filter(
-            (user) => user.key !== selectedUser.key
-          );
-          const updatedDataWithStt = updateSttColumn(updatedData);
-          setData(updatedDataWithStt);
-          setSelectedUser(null);
-        },
-        onCancel: () => {},
-      });
-    }
-  };
-
   return (
     <div
       style={{ width: "100%", height: "auto", background: "#0c192c" }}
