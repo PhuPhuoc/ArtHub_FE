@@ -2,7 +2,12 @@ import { Button, Carousel, Typography, Col, Row, Card, Avatar } from "antd";
 import Meta from "antd/es/card/Meta";
 import "./HomePage.css";
 import ReactPlayer from "react-player";
-import { FaVolumeMute, FaVolumeUp } from "react-icons/fa";
+import {
+  FaFantasyFlightGames,
+  FaRegSmile,
+  FaVolumeMute,
+  FaVolumeUp,
+} from "react-icons/fa";
 import { useEffect, useRef, useState } from "react";
 import axios from "axios";
 import Cookies from "js-cookie";
@@ -89,7 +94,19 @@ const HomePage = () => {
             transition: "all 0.3s ease ",
           }}
         >
-          Welcome, {username.toString()}
+          {/* Welcome, {username.toString()} */}
+          {username ? (
+            <div>
+              <p style={{ display: "flex", gap: "20px" }}>
+                Welcome, {username.toString()}
+                <span className="fas fa-user-circle">
+                  <FaRegSmile />
+                </span>
+              </p>
+            </div>
+          ) : (
+            ""
+          )}
         </div>
       ) : (
         <p></p>
