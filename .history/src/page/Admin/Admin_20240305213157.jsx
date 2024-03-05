@@ -12,6 +12,7 @@ import {
   Table,
   Tag,
   Typography,
+  LogOut
 } from "antd";
 import { dataAdmin } from "./dataAdmin";
 const getTagColor = (tag) => {
@@ -222,27 +223,19 @@ const Admin = () => {
   };
   const handleAddUser = (values) => {
     const newUser = {
+      key: data.length + 1,
       name: values.name,
+      birthday: values.birthday,
       email: values.email,
-      password: values.password, 
-      role: values.role, 
+      gender: values.gender,
+      tags: values.tags ? values.tags.split(",") : [],
+      avatarUrl: values.avatarUrl,
+      posts: [],
     };
-  
-    fetch("http://localhost:5000/api/admin/users", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(newUser),
-    })
-      .then((response) => response.json())
-      .then((data) => {
-        // Update local state with the added user data
-        setData([...data, data]);
-        setIsModalVisible(false);
-      })
-      .catch((error) => {
-        console.error("Error adding user:", error);
-      });
+    setData([...data, newUser]);
+    setIsModalVisible(false);
   };
+
   const handleDeleteUser = () => {
     if (selectedUser) {
       Modal.confirm({

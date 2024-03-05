@@ -221,26 +221,31 @@ const Admin = () => {
       });
   };
   const handleAddUser = (values) => {
-    const newUser = {
-      name: values.name,
-      email: values.email,
-      password: values.password, 
-      role: values.role, 
-    };
-  
-    fetch("http://localhost:5000/api/admin/users", {
+    fetch("/api/admin/users", {
       method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(newUser),
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(values),
     })
-      .then((response) => response.json())
+      .then((response) => {
+        if (response.ok) {
+          return response.json();
+        }
+        throw new Error("Network response was not ok.");
+      })
       .then((data) => {
-        // Update local state with the added user data
-        setData([...data, data]);
+        // Handle success
+        console.log(data);
         setIsModalVisible(false);
       })
       .catch((error) => {
-        console.error("Error adding user:", error);
+        // Handle error
+        console.error("Error:", error);
+        Modal.error({
+          title: "Error",
+          content: "Failed to add user.",
+        });
       });
   };
   const handleDeleteUser = () => {

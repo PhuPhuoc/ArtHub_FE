@@ -148,19 +148,19 @@ const Admin = () => {
   const titleRef = useRef(null);
 
   const textColors = ["#000000", "#ffffff", "#ff0000", "#00ff00", "#0000ff"];
-
   useEffect(() => {
-    const intervalId = setInterval(() => {
-      const newBackgroundColor = getRandomColor();
-      setTitleBackgroundColor(newBackgroundColor);
-
-      const newTextColor =
-        textColors[Math.floor(Math.random() * textColors.length)];
-      setTitleTextColor(newTextColor);
-    }, 2000);
-
-    return () => clearInterval(intervalId);
+    fetchData();
   }, []);
+
+  const fetchData = async () => {
+    try {
+      const response = await fetch("/api/admin/users");
+      const userData = await response.json();
+      setData(userData);
+    } catch (error) {
+      console.error("Erreur lors de la récupération des données:", error);
+    }
+  };
 
   const getRandomColor = () => {
     const letters = "0123456789ABCDEF";
@@ -222,27 +222,19 @@ const Admin = () => {
   };
   const handleAddUser = (values) => {
     const newUser = {
+      key: data.length + 1,
       name: values.name,
+      birthday: values.birthday,
       email: values.email,
-      password: values.password, 
-      role: values.role, 
+      gender: values.gender,
+      tags: values.tags ? values.tags.split(",") : [],
+      avatarUrl: values.avatarUrl,
+      posts: [],
     };
-  
-    fetch("http://localhost:5000/api/admin/users", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(newUser),
-    })
-      .then((response) => response.json())
-      .then((data) => {
-        // Update local state with the added user data
-        setData([...data, data]);
-        setIsModalVisible(false);
-      })
-      .catch((error) => {
-        console.error("Error adding user:", error);
-      });
+    setData([...data, newUser]);
+    setIsModalVisible(false);
   };
+
   const handleDeleteUser = () => {
     if (selectedUser) {
       Modal.confirm({

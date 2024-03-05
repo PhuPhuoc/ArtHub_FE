@@ -220,29 +220,29 @@ const Admin = () => {
         console.log("Failed:", errorInfo);
       });
   };
-  const handleAddUser = (values) => {
-    const newUser = {
-      name: values.name,
-      email: values.email,
-      password: values.password, 
-      role: values.role, 
-    };
-  
-    fetch("http://localhost:5000/api/admin/users", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(newUser),
-    })
-      .then((response) => response.json())
-      .then((data) => {
-        // Update local state with the added user data
-        setData([...data, data]);
-        setIsModalVisible(false);
-      })
-      .catch((error) => {
-        console.error("Error adding user:", error);
-      });
+const handleAddUser = (values) => {
+  const newUser = {
+    name: values.name,
+    email: values.email,
+    password: values.password, 
+    role: values.role, 
   };
+
+  fetch("http://localhost:5000/api/admin/users", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(newUser),
+  })
+    .then((response) => response.json())
+    .then((data) => {
+      console.log("Data received:", data);
+      setData([...data]); // Assuming data is iterable, if not, adjust here accordingly
+      setIsModalVisible(false);
+    })
+    .catch((error) => {
+      console.error("Error adding user:", error);
+    });
+};
   const handleDeleteUser = () => {
     if (selectedUser) {
       Modal.confirm({

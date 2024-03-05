@@ -223,26 +223,34 @@ const Admin = () => {
   const handleAddUser = (values) => {
     const newUser = {
       name: values.name,
+      birthday: values.birthday,
       email: values.email,
-      password: values.password, 
-      role: values.role, 
+      gender: values.gender,
+      tags: values.tags ? values.tags.split(",") : [],
+      avatarUrl: values.avatarUrl,
+      posts: [],
     };
-  
-    fetch("http://localhost:5000/api/admin/users", {
+
+    // Envoi des données au serveur
+    fetch("http://localhost:5000/api/addUser", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(newUser),
     })
       .then((response) => response.json())
       .then((data) => {
-        // Update local state with the added user data
-        setData([...data, data]);
-        setIsModalVisible(false);
+        // Vérifie si l'ajout d'utilisateur a réussi
+        if (data && data.message === 'User inserted successfully') {
+          // Ferme la fenêtre après avoir ajouté l'utilisateur avec succès
+          window.close();
+        } else {
+          console.error("Error adding user:", data);
+        }
       })
       .catch((error) => {
         console.error("Error adding user:", error);
       });
-  };
+};
   const handleDeleteUser = () => {
     if (selectedUser) {
       Modal.confirm({
