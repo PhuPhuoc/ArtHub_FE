@@ -139,6 +139,12 @@ const PostArt = () => {
       setImage(info.file.response.url);
     }
   };
+  const validateId = (_, value) => {
+    if (!/^id\d+$/.test(value)) {
+      return Promise.reject("ID must start with 'id' followed by numbers");
+    }
+    return Promise.resolve();
+  };
 
   const handleFormSubmit = async (e) => {
     form
@@ -456,13 +462,22 @@ const PostArt = () => {
               type="file"
               onChange={handleFileChange}
             />
-            Enter Name:
-            <input
-              style={{ marginTop: "10px", marginLeft: "10px" }}
-              type="text"
-              value={id}
-              onChange={handleIdChange}
-            />
+            <Form.Item
+              style={{ marginTop: "10px" }}
+              label="Enter Id"
+              name="id"
+              rules={[
+                {
+                  required: true,
+                  message: "Please enter an ID",
+                },
+                {
+                  validator: validateId,
+                },
+              ]}
+            >
+              <input />
+            </Form.Item>
             <br />
             <button
               style={{
