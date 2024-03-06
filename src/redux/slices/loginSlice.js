@@ -11,8 +11,12 @@ export const loginSlice = createSlice({
   reducers: {},
 
   extraReducers: (builder) => {
-    builder;
-  },
+    builder
+    .addCase(fetch.fulfilled, (state, action) => {
+      state.data = action?.payload
+    })
+  }
 });
+
 
 export default loginSlice;

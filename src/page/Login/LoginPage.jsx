@@ -58,6 +58,7 @@ function LoginForm() {
         })
         .then(data => {
           Cookies.set('sessionCookie', data.user._id, { expires: 1 });
+          sessionStorage.setItem('userId', data)
           console.log("Login successful:", data);
           if (data.admin === true)
             setRedirectAdmin(true)

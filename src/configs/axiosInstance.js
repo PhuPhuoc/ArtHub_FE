@@ -3,7 +3,7 @@ import axios from "axios";
 let authToken = sessionStorage.getItem("token");
 
 export const axiosClientVer2 = axios.create({
-  baseURL: "baseurl here",
+  baseURL: "http://localhost:5000/api/",
   headers: {
     "Content-Type": "application/json",
     Accept: "application/json",
