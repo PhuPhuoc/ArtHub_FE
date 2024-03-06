@@ -133,12 +133,14 @@ import { Button, Carousel, Typography } from "antd";
 const Profile = () => {
   const [sessionCookie, setSessionCookie] = useState("");
   const [userArtworks, setUserArtworks] = useState([]);
+  const [user, setUser] = useState([]);
 
   useEffect(() => {
     const cookieValue = Cookies.get("sessionCookie");
     if (cookieValue) {
       setSessionCookie(cookieValue);
       fetchUserPosts(cookieValue);
+      fetchUser(cookieValue);
     }
   }, []);
 
@@ -147,6 +149,17 @@ const Profile = () => {
       .get(`http://localhost:5000/api/users/${userId}/artworks`)
       .then((response) => {
         setUserArtworks(response.data);
+      })
+      .catch((error) => {
+        console.error("Error fetching user posts:", error);
+      });
+  };
+
+  const fetchUser = (userId) => {
+    axios
+      .get(`http://localhost:5000/api/users/${userId}/info`)
+      .then((response) => {
+        setUser(response.data);
       })
       .catch((error) => {
         console.error("Error fetching user posts:", error);
@@ -204,6 +217,7 @@ const Profile = () => {
     closeModal();
     setpim(null);
   };
+
   return (
     <div>
       <div className="profile-img" style={{ width: "100%", height: "800px" }}>
@@ -219,7 +233,7 @@ const Profile = () => {
             fontSize: "20px",
           }}
         >
-          Kim Bình Mai
+          {user.name}
         </Typography.Title>
         <Typography.Text
           style={{

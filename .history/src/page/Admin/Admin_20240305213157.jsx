@@ -12,9 +12,9 @@ import {
   Table,
   Tag,
   Typography,
+  LogOut
 } from "antd";
 import { dataAdmin } from "./dataAdmin";
-import axios from'axios';
 const getTagColor = (tag) => {
   switch (tag.toLowerCase()) {
     case "developer":
@@ -143,13 +143,6 @@ const Admin = () => {
   const [formEdit] = Form.useForm();
   const [editModalVisible, setEditModalVisible] = useState(false);
 
-  const [name, setName] = useState('');
-  const [birthday, setBirthday] = useState('');
-  const [email, setEmail] = useState('');
-  const [avatar, setAvatar] = useState('');
-
-  const [users, setUsers] = useState([]);
-
   const [titleBackgroundColor, setTitleBackgroundColor] = useState("#ffffff");
   const [titleTextColor, setTitleTextColor] = useState("#000000");
 
@@ -228,41 +221,19 @@ const Admin = () => {
         console.log("Failed:", errorInfo);
       });
   };
-
-  useEffect(() => {
-    const users = axios
-        .get('http://localhost:5000/api/admin/users')
-        .then((res) => {
-          console.log(res);
-        })
-        .catch((error) => {
-          console.error(`Error: ${error}`);
-        });
-
-    setUsers(users);
-  }, [])
   const handleAddUser = (values) => {
     const newUser = {
+      key: data.length + 1,
       name: values.name,
+      birthday: values.birthday,
       email: values.email,
-      password: values.password,
-      role: values.role,
+      gender: values.gender,
+      tags: values.tags ? values.tags.split(",") : [],
+      avatarUrl: values.avatarUrl,
+      posts: [],
     };
     setData([...data, newUser]);
     setIsModalVisible(false);
-    axios
-        .post('http://localhost:5000/api/admin/users', {
-          name: name,
-          email: email,
-          birhtday: birthday,
-          avatar: avatar
-        })
-        .then((res) => {
-          console.log(res);
-        })
-        .catch((error) => {
-          console.error(`error ${error}`);
-        });
   };
 
   const handleDeleteUser = () => {
@@ -506,16 +477,16 @@ const Admin = () => {
             label="Name"
             name="name"
             rules={[{ required: true, message: "Please input the name!" }]}
-            value={name} onChange={(e) => setName(e)}
           >
-            <Input   />
+            <Input />
           </Form.Item>
+
           <Form.Item
             label="Birthday"
             name="birthday"
             rules={[{ required: true, message: "Please input the birthday!" }]}
           >
-            <Input type="date" value={birthday} onChange={(e) => setBirthday(e)}/>
+            <Input type="date" />
           </Form.Item>
 
           <Form.Item
@@ -526,7 +497,7 @@ const Admin = () => {
               { type: "email", message: "Invalid email address" },
             ]}
           >
-            <Input value={email} onChange={(e) => setEmail(e)}/>
+            <Input />
           </Form.Item>
 
           <Form.Item

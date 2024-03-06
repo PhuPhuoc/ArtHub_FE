@@ -14,7 +14,6 @@ import {
   Typography,
 } from "antd";
 import { dataAdmin } from "./dataAdmin";
-import axios from'axios';
 const getTagColor = (tag) => {
   switch (tag.toLowerCase()) {
     case "developer":
@@ -136,23 +135,12 @@ const Admin = () => {
         return "green";
     }
   };
-  const [form] = Form.useForm();
-  const [data, setData] = useState(dataAdmin);
-  const [isModalVisible, setIsModalVisible] = useState(false);
+  const [data, setData] = useState([]);
   const [selectedUser, setSelectedUser] = useState(null);
-  const [formEdit] = Form.useForm();
+  const [isModalVisible, setIsModalVisible] = useState(false);
   const [editModalVisible, setEditModalVisible] = useState(false);
-
-  const [name, setName] = useState('');
-  const [birthday, setBirthday] = useState('');
-  const [email, setEmail] = useState('');
-  const [avatar, setAvatar] = useState('');
-
-  const [users, setUsers] = useState([]);
-
   const [titleBackgroundColor, setTitleBackgroundColor] = useState("#ffffff");
   const [titleTextColor, setTitleTextColor] = useState("#000000");
-
   const titleRef = useRef(null);
 
   const textColors = ["#000000", "#ffffff", "#ff0000", "#00ff00", "#0000ff"];
@@ -228,41 +216,35 @@ const Admin = () => {
         console.log("Failed:", errorInfo);
       });
   };
-
-  useEffect(() => {
-    const users = axios
-        .get('http://localhost:5000/api/admin/users')
-        .then((res) => {
-          console.log(res);
-        })
-        .catch((error) => {
-          console.error(`Error: ${error}`);
-        });
-
-    setUsers(users);
-  }, [])
   const handleAddUser = (values) => {
     const newUser = {
       name: values.name,
+      birthday: values.birthday,
       email: values.email,
-      password: values.password,
-      role: values.role,
+      gender: values.gender,
+      tags: values.tags ? values.tags.split(",") : [],
+      avatarUrl: values.avatarUrl,
+      posts: [],
     };
-    setData([...data, newUser]);
-    setIsModalVisible(false);
-    axios
-        .post('http://localhost:5000/api/admin/users', {
-          name: name,
-          email: email,
-          birhtday: birthday,
-          avatar: avatar
-        })
-        .then((res) => {
-          console.log(res);
-        })
-        .catch((error) => {
-          console.error(`error ${error}`);
-        });
+
+    // Appel Fetch pour créer un nouvel utilisateur
+    fetch("/api/admin/users", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(newUser),
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        console.log("New user created:", data);
+        // Mettre à jour l'état avec le nouvel utilisateur créé
+        setData([...data, data]);
+        setIsModalVisible(false);
+      })
+      .catch((error) => {
+        console.error("Error creating user:", error);
+      });
   };
 
   const handleDeleteUser = () => {
@@ -273,18 +255,30 @@ const Admin = () => {
         okText: "Yes",
         cancelText: "Cancel",
         onOk: () => {
-          const updatedData = data.filter(
-            (user) => user.key !== selectedUser.key
-          );
-          const updatedDataWithStt = updateSttColumn(updatedData);
-          setData(updatedDataWithStt);
-          setSelectedUser(null);
+          // Appel Fetch pour supprimer un utilisateur
+          fetch(`/api/admin/users/${selectedUser.key}`, {
+            method: "DELETE",
+          })
+            .then((response) => {
+              if (response.ok) {
+                console.log("User deleted successfully.");
+                const updatedData = data.filter(
+                  (user) => user.key !== selectedUser.key
+                );
+                setData(updatedData);
+                setSelectedUser(null);
+              } else {
+                throw new Error("Failed to delete user.");
+              }
+            })
+            .catch((error) => {
+              console.error("Error deleting user:", error);
+            });
         },
         onCancel: () => {},
       });
     }
   };
-
   return (
     <div
       style={{ width: "100%", height: "auto", background: "#0c192c" }}
@@ -506,16 +500,16 @@ const Admin = () => {
             label="Name"
             name="name"
             rules={[{ required: true, message: "Please input the name!" }]}
-            value={name} onChange={(e) => setName(e)}
           >
-            <Input   />
+            <Input />
           </Form.Item>
+
           <Form.Item
             label="Birthday"
             name="birthday"
             rules={[{ required: true, message: "Please input the birthday!" }]}
           >
-            <Input type="date" value={birthday} onChange={(e) => setBirthday(e)}/>
+            <Input type="date" />
           </Form.Item>
 
           <Form.Item
@@ -526,7 +520,7 @@ const Admin = () => {
               { type: "email", message: "Invalid email address" },
             ]}
           >
-            <Input value={email} onChange={(e) => setEmail(e)}/>
+            <Input />
           </Form.Item>
 
           <Form.Item

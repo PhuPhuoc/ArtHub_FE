@@ -14,7 +14,6 @@ import {
   Typography,
 } from "antd";
 import { dataAdmin } from "./dataAdmin";
-import axios from'axios';
 const getTagColor = (tag) => {
   switch (tag.toLowerCase()) {
     case "developer":
@@ -143,13 +142,6 @@ const Admin = () => {
   const [formEdit] = Form.useForm();
   const [editModalVisible, setEditModalVisible] = useState(false);
 
-  const [name, setName] = useState('');
-  const [birthday, setBirthday] = useState('');
-  const [email, setEmail] = useState('');
-  const [avatar, setAvatar] = useState('');
-
-  const [users, setUsers] = useState([]);
-
   const [titleBackgroundColor, setTitleBackgroundColor] = useState("#ffffff");
   const [titleTextColor, setTitleTextColor] = useState("#000000");
 
@@ -207,11 +199,11 @@ const Admin = () => {
       });
       return;
     }
-
+  
     formEdit.setFieldsValue(selectedUser);
     setEditModalVisible(true);
   };
-
+  
   const handleSaveEdit = () => {
     formEdit
       .validateFields()
@@ -219,7 +211,7 @@ const Admin = () => {
         const updatedData = data.map((user) =>
           user.key === selectedUser.key ? { ...user, ...values } : user
         );
-
+  
         setData(updatedData);
         setEditModalVisible(false);
         setSelectedUser(null);
@@ -228,63 +220,46 @@ const Admin = () => {
         console.log("Failed:", errorInfo);
       });
   };
-
-  useEffect(() => {
-    const users = axios
-        .get('http://localhost:5000/api/admin/users')
-        .then((res) => {
-          console.log(res);
-        })
-        .catch((error) => {
-          console.error(`Error: ${error}`);
-        });
-
-    setUsers(users);
-  }, [])
-  const handleAddUser = (values) => {
-    const newUser = {
-      name: values.name,
-      email: values.email,
-      password: values.password,
-      role: values.role,
-    };
-    setData([...data, newUser]);
-    setIsModalVisible(false);
-    axios
-        .post('http://localhost:5000/api/admin/users', {
-          name: name,
-          email: email,
-          birhtday: birthday,
-          avatar: avatar
-        })
-        .then((res) => {
-          console.log(res);
-        })
-        .catch((error) => {
-          console.error(`error ${error}`);
-        });
-  };
-
-  const handleDeleteUser = () => {
-    if (selectedUser) {
-      Modal.confirm({
-        title: "Are you sure?",
-        content: "This action cannot be undone.",
-        okText: "Yes",
-        cancelText: "Cancel",
-        onOk: () => {
-          const updatedData = data.filter(
-            (user) => user.key !== selectedUser.key
-          );
-          const updatedDataWithStt = updateSttColumn(updatedData);
-          setData(updatedDataWithStt);
-          setSelectedUser(null);
+  
+  const handleAddUser = async (values) => {
+    try {
+      const response = await fetch('/api/admin/users', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
         },
-        onCancel: () => {},
+        body: JSON.stringify(values),
       });
+      if (response.ok) {
+        const newUser = await response.json();
+        setData([...data, newUser]);
+        setIsModalVisible(false);
+      } else {
+        throw new Error('Failed to add user');
+      }
+    } catch (error) {
+      console.error('Error adding user:', error);
     }
   };
-
+  
+  const handleDeleteUser = async () => {
+    try {
+      if (selectedUser) {
+        const response = await fetch(`/api/admin/users/${selectedUser.key}`, {
+          method: 'DELETE',
+        });
+        if (response.ok) {
+          const updatedData = data.filter((user) => user.key !== selectedUser.key);
+          setData(updatedData);
+          setSelectedUser(null);
+        } else {
+          throw new Error('Failed to delete user');
+        }
+      }
+    } catch (error) {
+      console.error('Error deleting user:', error);
+    }
+  };
   return (
     <div
       style={{ width: "100%", height: "auto", background: "#0c192c" }}
@@ -506,16 +481,16 @@ const Admin = () => {
             label="Name"
             name="name"
             rules={[{ required: true, message: "Please input the name!" }]}
-            value={name} onChange={(e) => setName(e)}
           >
-            <Input   />
+            <Input />
           </Form.Item>
+
           <Form.Item
             label="Birthday"
             name="birthday"
             rules={[{ required: true, message: "Please input the birthday!" }]}
           >
-            <Input type="date" value={birthday} onChange={(e) => setBirthday(e)}/>
+            <Input type="date" />
           </Form.Item>
 
           <Form.Item
@@ -526,7 +501,7 @@ const Admin = () => {
               { type: "email", message: "Invalid email address" },
             ]}
           >
-            <Input value={email} onChange={(e) => setEmail(e)}/>
+            <Input />
           </Form.Item>
 
           <Form.Item

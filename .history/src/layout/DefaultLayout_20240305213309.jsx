@@ -3,7 +3,6 @@ import {
   TeamOutlined,
   HomeOutlined,
   UserOutlined,
-    LogoutOutlined,
   AreaChartOutlined,
   SettingFilled,
   SettingOutlined,
