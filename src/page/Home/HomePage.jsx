@@ -110,33 +110,83 @@ const HomePage = () => {
       ) : (
         <p></p>
       )}
-      <div
-        className="mainHomepageBackground"
-        style={{ position: "relative", height: "100vh", width: "100%" }}
-      >
-        <Button
-          className="getStartedBtn"
-          onClick={handleButtonClick}
+      <div>
+        <div
+          className="first-button"
           style={{
-            backgroundColor: buttonColor,
-            transition: "background-color 0.5s ease",
-            borderRadius: "30px",
-            marginBottom: "20px",
-            position: "absolute",
-            zIndex: 2,
-            textAlign: "center",
-            padding: "15px",
-            fontSize: "30px",
+            height: "200px",
+            width: "100%",
             display: "flex",
-            alignItems: "center",
             justifyContent: "center",
-            bottom: "20px",
-            left: "50%",
-            transform: "translateX(-50%)",
+            alignItems: "center",
           }}
         >
-          Get Started
-        </Button>
+          <Button
+            style={{
+              height: "60px",
+              borderRadius: "40px",
+              width: "420px",
+              backgroundColor: buttonColor,
+              transition: "background-color 0.5s ease",
+            }}
+          >
+            <Typography.Text style={{ fontSize: "20px" }}>
+              Over 3 million ready-to-work creatives !
+            </Typography.Text>
+          </Button>
+        </div>
+        <div
+          className="headingTitle"
+          style={{
+            height: "500px",
+            width: "100%",
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            flexDirection: "column",
+          }}
+        >
+          <Typography.Title
+            style={{
+              fontSize: "70px",
+              display: "flex",
+              textAlign: "center",
+              transform: "translateY(-30px)",
+              color: "black",
+              fontWeight: 900,
+            }}
+            className="custom-title"
+          >
+            The world’s destination <br /> for design
+          </Typography.Title>
+          <Typography.Text
+            style={{
+              fontSize: "20px",
+              display: "flex",
+              textAlign: "center",
+              transform: "translateY(-20px)",
+              fontWeight: "600",
+              color: "black",
+            }}
+          >
+            Get inspired by the work of millions of top-rated designers &
+            agencies around the world.
+          </Typography.Text>
+          <div className="btn-getStarted">
+            <Button
+              style={{
+                height: "50px",
+                width: "200px",
+                borderRadius: "30px",
+                backgroundColor: "black",
+                color: "white",
+              }}
+              onClick={handleButtonClick}
+            >
+              Get Started
+            </Button>
+          </div>
+        </div>
       </div>
 
       <div

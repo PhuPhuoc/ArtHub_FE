@@ -3,8 +3,6 @@ import {
   TeamOutlined,
   HomeOutlined,
   UserOutlined,
-  AreaChartOutlined,
-  SettingFilled,
   SettingOutlined,
   LogoutOutlined,
 } from "@ant-design/icons";
@@ -17,6 +15,7 @@ import { useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import Search from "antd/es/input/Search";
 import Cookies from "js-cookie";
+import logo from "../assets/images/reallogo.png";
 
 function getItem(label, key, icon, children, type) {
   return {
@@ -123,23 +122,20 @@ const DefaultLayout = ({ children }) => {
               alignItems: "center",
             }}
           >
-            <Button
-              size="large"
-              type="text"
+            <img
+              className="logoImage"
+              style={{
+                width: "250px",
+                height: "230px",
+                display: "block",
+                cursor: "pointer",
+              }}
               onClick={() => {
                 navigate("/");
               }}
-            >
-              <Title
-                style={{
-                  color: "black",
-                  display: "flex",
-                  transform: "translateY(-20px)",
-                }}
-              >
-                ARTHUB
-              </Title>
-            </Button>
+              src={logo}
+            />
+
             <div style={{ display: "flex" }}>
               <Search
                 placeholder="Search"
