@@ -14,6 +14,7 @@ import {
   Typography,
 } from "antd";
 import { dataAdmin } from "./dataAdmin";
+import axios from'axios';
 const getTagColor = (tag) => {
   switch (tag.toLowerCase()) {
     case "developer":
@@ -142,6 +143,11 @@ const Admin = () => {
   const [formEdit] = Form.useForm();
   const [editModalVisible, setEditModalVisible] = useState(false);
 
+  const [name, setName] = useState('');
+  const [birthday, setBirthday] = useState('');
+  const [email, setEmail] = useState('');
+  const [avatar, setAvatar] = useState('');
+
   const [titleBackgroundColor, setTitleBackgroundColor] = useState("#ffffff");
   const [titleTextColor, setTitleTextColor] = useState("#000000");
 
@@ -233,6 +239,16 @@ const Admin = () => {
     };
     setData([...data, newUser]);
     setIsModalVisible(false);
+    axios
+        .post('http://localhost:5000/api/admin/users', {
+          name: name
+        })
+        .then((res) => {
+          console.log(res);
+        })
+        .catch((error) => {
+          console.error(`error ${error}`);
+        });
   };
 
   const handleDeleteUser = () => {
