@@ -12,7 +12,6 @@ import { useEffect, useRef, useState } from "react";
 import axios from "axios";
 import Cookies from "js-cookie";
 import { useNavigate } from "react-router-dom";
-import Spline from "@splinetool/react-spline";
 const HomePage = () => {
   const navigate = useNavigate();
 
@@ -115,7 +114,6 @@ const HomePage = () => {
         className="mainHomepageBackground"
         style={{ position: "relative", height: "100vh", width: "100%" }}
       >
-        <Spline scene="https://prod.spline.design/CjJ2JYyWfgJZaWJ3/scene.splinecode" />
         <Button
           className="getStartedBtn"
           onClick={handleButtonClick}
