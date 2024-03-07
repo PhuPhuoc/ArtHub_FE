@@ -51,8 +51,9 @@ const DefaultLayout = ({ children }) => {
     Cookies.remove("sessionCookie");
     window.location.href = "/loginpage";
   };
+
   const menu = (
-    <Menu>
+    <Menu style={{width:"300px"}}>
       {sessionCookie ? (
         <>
           <Menu.Item
@@ -61,6 +62,7 @@ const DefaultLayout = ({ children }) => {
             onClick={() => {
               navigate("/profile");
             }}
+            style={{fontWeight:"600px",fontSize:"20px",fontFamily:"inherit"}}
           >
             Profile
           </Menu.Item>
@@ -68,13 +70,16 @@ const DefaultLayout = ({ children }) => {
             key="setting"
             icon={<SettingOutlined />}
             onClick={() => navigate("/profile")}
+            style={{fontWeight:"600px",fontSize:"20px",fontFamily:"inherit"}}
           >
             Setting
+            
           </Menu.Item>
           <Menu.Item
             key="logout"
             icon={<LogoutOutlined />}
             onClick={handleLogout}
+            style={{fontWeight:"600px",fontSize:"20px",fontFamily:"inherit"}}
           >
             Log out
           </Menu.Item>
@@ -85,6 +90,7 @@ const DefaultLayout = ({ children }) => {
             key="login"
             icon={<UserOutlined />}
             onClick={() => navigate("/loginpage")}
+            style={{fontWeight:"600px",fontSize:"20px",fontFamily:"inherit"}}
           >
             Login
           </Menu.Item>
@@ -92,11 +98,21 @@ const DefaultLayout = ({ children }) => {
             key="setting"
             icon={<SettingOutlined />}
             onClick={() => navigate("/profile")}
+            style={{fontWeight:"600px",fontSize:"20px",fontFamily:"inherit"}}
           >
             Setting
           </Menu.Item>
         </>
       )}
+      <div className="menuItem" style={{display:"flex",flexDirection:"row",fontSize:"10px",color:"#c1bbba"}}>
+      <li ><a href="">License</a></li>
+      <li>  ..  </li>
+      <li><a href="">Privacy polity</a></li>
+      <li>  ..  </li>
+      <li><a href="">Term</a></li>
+      <li>  ..   </li>
+      <li><a href="">Security</a></li>
+      </div>
     </Menu>
   );
   return (
