@@ -462,22 +462,13 @@ const PostArt = () => {
               type="file"
               onChange={handleFileChange}
             />
-            <Form.Item
-              style={{ marginTop: "10px" }}
-              label="Enter Id"
-              name="id"
-              rules={[
-                {
-                  required: true,
-                  message: "Please enter an ID",
-                },
-                {
-                  validator: validateId,
-                },
-              ]}
-            >
-              <input />
-            </Form.Item>
+            Enter Id:
+            <input
+              style={{ marginTop: "10px", marginLeft: "10px" }}
+              type="text"
+              value={id}
+              onChange={handleIdChange}
+            />
             <br />
             <button
               style={{

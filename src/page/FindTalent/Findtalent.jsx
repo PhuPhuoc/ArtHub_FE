@@ -93,7 +93,7 @@ const FindTalent = () => {
         <div
           className="leftFirstSection"
           style={{
-            height: "400px",
+            height: "500px",
             width: "48%",
             border: "1px solid black",
             borderRadius: "24px",
@@ -346,7 +346,7 @@ const FindTalent = () => {
         <div
           className="leftThirdSection"
           style={{
-            height: "500px",
+            height: "590px",
             width: "50%",
             border: "30px solid pink",
             borderRadius: "8px",
@@ -441,7 +441,7 @@ const FindTalent = () => {
         <div
           className="rightFourtSection"
           style={{
-            height: "500px",
+            height: "590px",
             width: "50%",
             border: "30px solid pink",
             borderRadius: "8px",
@@ -565,7 +565,8 @@ const FindTalent = () => {
               display: "flex",
               alignItems: "center",
               flexDirection: "column",
-              marginTop: "20px",
+              marginTop: "30px",
+              transform:"translateX(-80px)"
             }}
           >
             From graphic design to UX/UI, our community is home to the world’s
@@ -589,6 +590,7 @@ const FindTalent = () => {
                 padding: "4px",
                 borderRadius: "8px",
                 marginTop: "20px",
+
               }}
             >
               $0 PLACEMENT FEES
@@ -599,6 +601,8 @@ const FindTalent = () => {
               display: "flex",
               alignItems: "center",
               flexDirection: "column",
+              marginTop: "30px",
+              transform:"translateX(-60px)"
             }}
           >
             We make the hiring process as seamless and cost-effective as
@@ -632,6 +636,8 @@ const FindTalent = () => {
               display: "flex",
               alignItems: "center",
               flexDirection: "column",
+              marginTop: "30px",
+              transform:"translateX(-200)"
             }}
           >
             We With a network of designers spanning over 170 countries, we make
@@ -643,7 +649,7 @@ const FindTalent = () => {
           style={{
             height: "290px",
             width: "35%",
-            transform: "translateX(850px) translateY(-290px)",
+            transform: "translateX(1000px) translateY(-300px)",
           }}
         >
           <img
@@ -696,7 +702,7 @@ const FindTalent = () => {
           <div
             className="leftSectionSeven"
             style={{
-              height: "270px",
+              height: "300px",
               width: "48%",
               border: "1px solid black",
               borderRadius: "24px",

@@ -3,10 +3,8 @@ import {
   TeamOutlined,
   HomeOutlined,
   UserOutlined,
-    LogoutOutlined,
   AreaChartOutlined,
   SettingFilled,
-  SettingOutlined,
   LogoutOutlined,
 } from "@ant-design/icons";
 import { Avatar, Button, Dropdown, Layout, Menu } from "antd";
@@ -18,6 +16,7 @@ import { useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import Search from "antd/es/input/Search";
 import Cookies from "js-cookie";
+import logo from "../assets/images/reallogo.png";
 
 function getItem(label, key, icon, children, type) {
   return {
@@ -53,8 +52,9 @@ const DefaultLayout = ({ children }) => {
     Cookies.remove("sessionCookie");
     window.location.href = "/loginpage";
   };
+
   const menu = (
-    <Menu>
+    <Menu style={{width:"300px"}}>
       {sessionCookie ? (
         <>
           <Menu.Item
@@ -63,6 +63,7 @@ const DefaultLayout = ({ children }) => {
             onClick={() => {
               navigate("/profile");
             }}
+            style={{fontWeight:"600px",fontSize:"20px",fontFamily:"inherit"}}
           >
             Profile
           </Menu.Item>
@@ -70,13 +71,16 @@ const DefaultLayout = ({ children }) => {
             key="setting"
             icon={<SettingOutlined />}
             onClick={() => navigate("/profile")}
+            style={{fontWeight:"600px",fontSize:"20px",fontFamily:"inherit"}}
           >
             Setting
+            
           </Menu.Item>
           <Menu.Item
             key="logout"
             icon={<LogoutOutlined />}
             onClick={handleLogout}
+            style={{fontWeight:"600px",fontSize:"20px",fontFamily:"inherit"}}
           >
             Log out
           </Menu.Item>
@@ -87,6 +91,7 @@ const DefaultLayout = ({ children }) => {
             key="login"
             icon={<UserOutlined />}
             onClick={() => navigate("/loginpage")}
+            style={{fontWeight:"600px",fontSize:"20px",fontFamily:"inherit"}}
           >
             Login
           </Menu.Item>
@@ -94,11 +99,21 @@ const DefaultLayout = ({ children }) => {
             key="setting"
             icon={<SettingOutlined />}
             onClick={() => navigate("/profile")}
+            style={{fontWeight:"600px",fontSize:"20px",fontFamily:"inherit"}}
           >
             Setting
           </Menu.Item>
         </>
       )}
+      <div className="menuItem" style={{display:"flex",flexDirection:"row",fontSize:"10px",color:"#c1bbba"}}>
+      <li ><a href="">License</a></li>
+      <li>  ..  </li>
+      <li><a href="">Privacy polity</a></li>
+      <li>  ..  </li>
+      <li><a href="">Term</a></li>
+      <li>  ..   </li>
+      <li><a href="">Security</a></li>
+      </div>
     </Menu>
   );
   return (
@@ -124,23 +139,20 @@ const DefaultLayout = ({ children }) => {
               alignItems: "center",
             }}
           >
-            <Button
-              size="large"
-              type="text"
+            <img
+              className="logoImage"
+              style={{
+                width: "250px",
+                height: "230px",
+                display: "block",
+                cursor: "pointer",
+              }}
               onClick={() => {
                 navigate("/");
               }}
-            >
-              <Title
-                style={{
-                  color: "black",
-                  display: "flex",
-                  transform: "translateY(-20px)",
-                }}
-              >
-                ARTHUB
-              </Title>
-            </Button>
+              src={logo}
+            />
+
             <div style={{ display: "flex" }}>
               <Search
                 placeholder="Search"
