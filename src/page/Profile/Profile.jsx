@@ -755,7 +755,7 @@ const Profile = () => {
               justifyContent: "center",
               width: "10%",
               alignItems: "center",
-              transform: "translateX(950px) translateY(-610px)",
+              transform: "translateX(950px) translateY(-640px)",
               backgroundColor: "#D3D1CC",
               fontWeight: "bold",
               fontSize: "17px",

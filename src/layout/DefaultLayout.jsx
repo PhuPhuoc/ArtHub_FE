@@ -51,9 +51,9 @@ const DefaultLayout = ({ children }) => {
     Cookies.remove("sessionCookie");
     window.location.href = "/loginpage";
   };
-
+  const { SubMenu } = Menu;
   const menu = (
-    <Menu style={{width:"300px"}}>
+    <Menu style={{ width: "300px" }}>
       {sessionCookie ? (
         <>
           <Menu.Item
@@ -62,24 +62,30 @@ const DefaultLayout = ({ children }) => {
             onClick={() => {
               navigate("/profile");
             }}
-            style={{fontWeight:"600px",fontSize:"20px",fontFamily:"inherit"}}
+            style={{ fontWeight: "600px", fontSize: "20px", fontFamily: "inherit" }}
           >
             Profile
           </Menu.Item>
-          <Menu.Item
+          <SubMenu
             key="setting"
             icon={<SettingOutlined />}
-            onClick={() => navigate("/profile")}
-            style={{fontWeight:"600px",fontSize:"20px",fontFamily:"inherit"}}
+            title="Setting"
+            style={{ fontWeight: "600px", fontSize: "10px", fontFamily: "inherit" }}
           >
-            Setting
-            
-          </Menu.Item>
+            <Menu.Item
+              key="changePassword"
+              onClick={() => navigate("/changepassword")}
+              style={{ fontWeight: "600px", fontSize: "30px", fontFamily: "inherit" }}
+            >
+              Change Password
+            </Menu.Item>
+            {/* Add more Menu.Item components for other setting options if needed */}
+          </SubMenu>
           <Menu.Item
             key="logout"
             icon={<LogoutOutlined />}
             onClick={handleLogout}
-            style={{fontWeight:"600px",fontSize:"20px",fontFamily:"inherit"}}
+            style={{ fontWeight: "600px", fontSize: "20px", fontFamily: "inherit" }}
           >
             Log out
           </Menu.Item>
@@ -90,28 +96,63 @@ const DefaultLayout = ({ children }) => {
             key="login"
             icon={<UserOutlined />}
             onClick={() => navigate("/loginpage")}
-            style={{fontWeight:"600px",fontSize:"20px",fontFamily:"inherit"}}
+            style={{ fontWeight: "600px", fontSize: "15px", fontFamily: "inherit" }}
           >
             Login
           </Menu.Item>
-          <Menu.Item
+          <SubMenu
             key="setting"
             icon={<SettingOutlined />}
-            onClick={() => navigate("/profile")}
-            style={{fontWeight:"600px",fontSize:"20px",fontFamily:"inherit"}}
+            title="Setting"
+            style={{ fontWeight: "600px", fontSize: "20px", fontFamily: "inherit" }}
           >
-            Setting
-          </Menu.Item>
+            <Menu.Item
+              key="Security"
+              onClick={() => navigate("/Security")}
+              style={{ fontWeight: "600px", fontSize: "20px", fontFamily: "inherit" }}
+            >
+              Security
+            </Menu.Item>
+            <Menu.Item
+              key="Notification"
+              onClick={() => navigate("/Notification")}
+              style={{ fontWeight: "600px", fontSize: "20px", fontFamily: "inherit" }}
+            >
+              Notification
+            </Menu.Item>
+            <Menu.Item
+              key="Account management"
+              onClick={() => navigate("/Accountmanagement")}
+              style={{ fontWeight: "600px", fontSize: "20px", fontFamily: "inherit" }}
+            >
+              Account management
+            </Menu.Item>
+            <Menu.Item
+              key="Privacy and data"
+              onClick={() => navigate("/Privacyanddata")}
+              style={{ fontWeight: "600px", fontSize: "20px", fontFamily: "inherit" }}
+            >
+              Privacy and data
+            </Menu.Item>
+            <Menu.Item
+              key="Edit profile"
+              onClick={() => navigate("/Editprofile")}
+              style={{ fontWeight: "600px", fontSize: "20px", fontFamily: "inherit" }}
+            >
+              Edit profile
+            </Menu.Item>
+            {/* Add more Menu.Item components for other setting options if needed */}
+          </SubMenu>
         </>
       )}
-      <div className="menuItem" style={{display:"flex",flexDirection:"row",fontSize:"10px",color:"#c1bbba"}}>
-      <li ><a href="">License</a></li>
-      <li>  ..  </li>
-      <li><a href="">Privacy polity</a></li>
-      <li>  ..  </li>
-      <li><a href="">Term</a></li>
-      <li>  ..   </li>
-      <li><a href="">Security</a></li>
+      <div className="menuItem" style={{ display: "flex", flexDirection: "row", fontSize: "10px", color: "#c1bbba" }}>
+        <li><a href="">License</a></li>
+        <li> .. </li>
+        <li><a href="">Privacy policy</a></li>
+        <li> .. </li>
+        <li><a href="">Term</a></li>
+        <li> .. </li>
+        <li><a href="">Security</a></li>
       </div>
     </Menu>
   );
