@@ -737,7 +737,7 @@ const Profile = () => {
               justifyContent: "center",
               width: "30%",
               alignItems: "center",
-              transform: "translateX(785px) translateY(41px)",
+              transform: "translateX(650px) translateY(41px)",
               borderRadius: "24px",
               backgroundColor: "#D3D1CC",
               fontWeight: "bold",
@@ -748,7 +748,7 @@ const Profile = () => {
           </Button>
         </div>
         <div className="rightButton" style={{ height: "70vh", width: "48%" }}>
-          {/*
+          
           <Button
             style={{
               height: "60px",
@@ -765,7 +765,6 @@ const Profile = () => {
           >
             ......
           </Button>
-          */}
         </div>
       </div>
 
