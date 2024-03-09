@@ -142,6 +142,9 @@ const DefaultLayout = ({ children }) => {
               Edit profile
             </Menu.Item>
             {/* Add more Menu.Item components for other setting options if needed */}
+            <div className="menuItem" style={{ display: "flex", flexDirection: "row", fontSize: "10px", color: "#c1bbba" }}>
+              <li><a href="">License</a></li>
+              <li> .. </li>
               <li><a href="">Privacy policy</a></li>
               <li> .. </li>
               <li><a href="">Term</a></li>
