@@ -13,7 +13,6 @@ import {
   Tag,
   Typography,
 } from "antd";
-import { dataAdmin } from "./dataAdmin";
 import axios from'axios';
 const getTagColor = (tag) => {
   switch (tag.toLowerCase()) {
@@ -136,8 +135,9 @@ const Admin = () => {
         return "green";
     }
   };
+  const [users, setUsers] = useState([]);
   const [form] = Form.useForm();
-  const [data, setData] = useState(dataAdmin);
+  const [data, setData] = useState(users);
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [selectedUser, setSelectedUser] = useState(null);
   const [formEdit] = Form.useForm();
@@ -148,7 +148,7 @@ const Admin = () => {
   const [email, setEmail] = useState('');
   const [avatar, setAvatar] = useState('');
 
-  const [users, setUsers] = useState([]);
+
 
   const [titleBackgroundColor, setTitleBackgroundColor] = useState("#ffffff");
   const [titleTextColor, setTitleTextColor] = useState("#000000");
@@ -156,6 +156,33 @@ const Admin = () => {
   const titleRef = useRef(null);
 
   const textColors = ["#000000", "#ffffff", "#ff0000", "#00ff00", "#0000ff"];
+
+  const handleGetUsers = () => {
+    axios
+        .get('http://localhost:5000/api/admin/users')
+        .then((res) => {
+          setUsers(res.data.users);
+          setData(res.data.users); // Mettre à jour data avec les nouveaux utilisateurs
+        })
+        .catch((e) => {
+          console.error(`Error fetchin users: ${e}`);
+        });
+  }
+
+  const handleDeleteUser = () => {
+    axios
+        .delete(`http://localhost:5000/api/admin/users/${selectedUser}`)
+        .then((res) => {
+          console.log(res.data.message);
+        })
+        .catch((e) => {
+          console.error(e);
+        });
+  }
+
+  useEffect(() => {
+    handleGetUsers()
+  }, []);
 
   useEffect(() => {
     const intervalId = setInterval(() => {
@@ -185,6 +212,7 @@ const Admin = () => {
   };
 
   const handleRowClick = (user) => {
+    console.log("User clicked:", user);
     setSelectedUser(user);
   };
 
@@ -265,7 +293,7 @@ const Admin = () => {
         });
   };
 
-  const handleDeleteUser = () => {
+  /*const handleDeleteUser = () => {
     if (selectedUser) {
       Modal.confirm({
         title: "Are you sure?",
@@ -283,7 +311,7 @@ const Admin = () => {
         onCancel: () => {},
       });
     }
-  };
+  };*/
 
   return (
     <div
