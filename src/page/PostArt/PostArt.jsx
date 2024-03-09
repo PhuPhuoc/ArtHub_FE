@@ -8,6 +8,7 @@ import {
   Space,
   Typography,
   Upload,
+  notification,
 } from "antd";
 import gsap from "gsap";
 import star from "../../assets/images/stars.png";
@@ -20,6 +21,7 @@ import { useEffect, useRef, useState } from "react";
 import { PlusOutlined } from "@ant-design/icons";
 import Cookies from "js-cookie";
 import { addImage1, getImage } from "../../helper/uploadImg";
+import { getDownloadURL, ref, uploadBytesResumable } from "firebase/storage";
 const normFile = (e) => {
   if (Array.isArray(e)) {
     return e;
@@ -31,13 +33,7 @@ const PostArt = () => {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [typeDesign, setTypeDesign] = useState("");
-  const [image, setImage] = useState("");
-  const [name, setName] = useState("");
-  const [email, setEmail] = useState("");
-  const [birthday, setBirthday] = useState("");
-  const [gender, setGender] = useState("");
   const [price, setPrice] = useState("");
-  const [dimensions, setDimensions] = useState("");
   const [isPageVisible, setIsPageVisible] = useState(false);
   const [message, setMessage] = useState("");
   const [file, setFile] = useState(null);
@@ -49,8 +45,8 @@ const PostArt = () => {
   const firstSectionRef = useRef(null);
   const mountains_frontRef = useRef(null);
   const mountains_behindRef = useRef(null);
-
   const [sessionCookie, setSessionCookie] = useState("");
+
   const userId = sessionCookie.toString();
   const handleExploreClick = () => {
     const firstSectionElement = firstSectionRef.current;
@@ -126,24 +122,9 @@ const PostArt = () => {
       clearTimeout(timeout);
     };
   }, [lastScrollY]);
-  const handleGenderChange = (value) => {
-    setGender(value);
-  };
 
   const handleTypeDesignChange = (value) => {
     setTypeDesign(value);
-  };
-
-  const handleImageUpload = (info) => {
-    if (info.file.status === "done") {
-      setImage(info.file.response.url);
-    }
-  };
-  const validateId = (_, value) => {
-    if (!/^id\d+$/.test(value)) {
-      return Promise.reject("ID must start with 'id' followed by numbers");
-    }
-    return Promise.resolve();
   };
 
   const handleFormSubmit = async (e) => {
@@ -153,33 +134,19 @@ const PostArt = () => {
         // The form data is valid, you can proceed with submitting
         console.log("Form data:", values);
         // Add your logic to send the data to the server
-        message.success("Form submitted successfully");
+        return fetch("http://localhost:5000/api/addartwork", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            userid: userId,
+            title: title,
+            description: description,
+            typeDesign: typeDesign,
+            price: price,
+            image: imageUrl,
+          }),
+        });
       })
-      .catch((error) => {
-        // Some fields failed validation, display an error message
-        console.error("Form validation failed:", error);
-        message.error(
-          "Please fill in all required fields and correct any validation errors."
-        );
-      });
-    e.preventDefault();
-    // Prepare artwork object with array of image URLs
-    console.log("imageUrl", imageUrl);
-    const artwork = {
-      userid: userId,
-      title: title,
-      description: description,
-      typeDesign: typeDesign,
-      price: price,
-      images: imageUrl,
-    };
-
-    // Send artwork data to your backend
-    fetch("http://localhost:5000/api/addartwork", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(artwork),
-    })
       .then((response) => {
         if (!response.ok) {
           throw new Error("Invalid artwork form");
@@ -187,13 +154,23 @@ const PostArt = () => {
         return response.json();
       })
       .then((data) => {
-        setMessage("New artwork added");
+        // Update the success modal visibility
+        notification.success({
+          message: "Success",
+          description: "New artwork added",
+        });
+
         console.log("New artwork added", data);
       })
       .catch((error) => {
-        setMessage(error);
+        notification.warning({
+          message: "Warning",
+          description: "Failed to submit! Try again.",
+        });
         console.error("Error while sending artwork:", error.message);
       });
+
+    e.preventDefault();
   };
 
   const formItemLayout = {
@@ -216,6 +193,10 @@ const PostArt = () => {
   };
   const [isOpen, setIsOpen] = useState(false);
   const [form] = Form.useForm();
+  const handleModalOk = () => {
+    setSuccessModalVisible(false);
+    form.resetFields();
+  };
 
   const handleReset = () => {
     form.resetFields();
@@ -231,27 +212,54 @@ const PostArt = () => {
   const handleIdChange = (e) => {
     setId(e.target.value);
   };
+
   const handleUpload = async () => {
     if (file && id) {
       try {
         await addImage1(file, id);
         console.log("Image uploaded successfully!");
+        notification.success({
+          message: "Success",
+          description: "Image uploaded successfully!",
+        });
       } catch (error) {
+        notification.error({
+          message: "Error",
+          description: "Failed to upload image. Please try again.",
+        });
         console.error("Error uploading image:", error);
       }
     } else {
+      notification.warning({
+        message: "Warning",
+        description: "Please select a file and provide an ID.",
+      });
       console.error("Please select a file and provide an ID.");
     }
   };
+
   const handleGetImage = async () => {
     if (id) {
       try {
         const url = await getImage(id);
         setImageUrl(url);
+
+        notification.success({
+          message: "Success",
+          description: "Image retrieved successfully!",
+        });
       } catch (error) {
+        notification.error({
+          message: "Error",
+          description: "Failed to get image. Please try again.",
+        });
         console.error("Error getting image:", error);
       }
     } else {
+      notification.warning({
+        message: "Warning",
+        description: "Please provide an ID to get the image.",
+      });
       console.error("Please provide an ID to get the image.");
     }
   };
@@ -448,12 +456,6 @@ const PostArt = () => {
             name="fileList"
             valuePropName="fileList"
             getValueFromEvent={normFile}
-            rules={[
-              {
-                required: true,
-                message: "Please pick at lease one image!",
-              },
-            ]}
             style={{ marginTop: "-40px" }}
           >
             Select Image:
@@ -524,6 +526,7 @@ const PostArt = () => {
               >
                 Submit
               </Button>
+
               <Button htmlType="button" onClick={handleReset}>
                 Reset
               </Button>
