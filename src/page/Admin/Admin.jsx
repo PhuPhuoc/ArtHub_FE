@@ -14,6 +14,7 @@ import {
   Typography,
 } from "antd";
 import axios from'axios';
+import Cookies from "js-cookie";
 const getTagColor = (tag) => {
   switch (tag.toLowerCase()) {
     case "developer":
@@ -148,8 +149,6 @@ const Admin = () => {
   const [email, setEmail] = useState('');
   const [avatar, setAvatar] = useState('');
 
-
-
   const [titleBackgroundColor, setTitleBackgroundColor] = useState("#ffffff");
   const [titleTextColor, setTitleTextColor] = useState("#000000");
 
@@ -157,6 +156,21 @@ const Admin = () => {
 
   const textColors = ["#000000", "#ffffff", "#ff0000", "#00ff00", "#0000ff"];
 
+  const [sessionCookie, setSessionCookie] = useState("");
+
+  useEffect(() => {
+    const cookieValue = Cookies.get("sessionCookie");
+    console.log("COOKIE", cookieValue);
+    if (cookieValue) {
+      setSessionCookie(cookieValue);
+    }
+  }, []);
+
+  useEffect(() => {
+    if (!sessionCookie) {
+      window.location.href = "/loginpage";
+    }
+  }, [sessionCookie]);
   const handleGetUsers = () => {
     axios
         .get('http://localhost:5000/api/admin/users')
@@ -168,6 +182,8 @@ const Admin = () => {
           console.error(`Error fetchin users: ${e}`);
         });
   }
+
+
 
   const handleDeleteUser = () => {
     axios
