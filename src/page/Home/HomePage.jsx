@@ -2,12 +2,7 @@ import { Button, Carousel, Typography, Col, Row, Card, Avatar } from "antd";
 import Meta from "antd/es/card/Meta";
 import "./HomePage.css";
 import ReactPlayer from "react-player";
-import {
-  FaFantasyFlightGames,
-  FaRegSmile,
-  FaVolumeMute,
-  FaVolumeUp,
-} from "react-icons/fa";
+import { FaRegSmile, FaVolumeMute, FaVolumeUp } from "react-icons/fa";
 import { useEffect, useRef, useState } from "react";
 import axios from "axios";
 import Cookies from "js-cookie";
@@ -126,8 +121,8 @@ const HomePage = () => {
               height: "60px",
               borderRadius: "40px",
               width: "420px",
+              transition: "background-color 0.3s ease",
               backgroundColor: buttonColor,
-              transition: "background-color 0.5s ease",
             }}
           >
             <Typography.Text style={{ fontSize: "20px" }}>
