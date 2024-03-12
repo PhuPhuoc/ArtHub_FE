@@ -42,7 +42,7 @@ const Security = () => {
             </a>
           </div>
           <div className="nofication">
-            <a href="/nofication">
+            <a href="/notification">
               <div className="settingMenuItem">
                 <Typography.Title style={{ fontSize: "25px" }}>
                   Nofication
@@ -51,7 +51,7 @@ const Security = () => {
             </a>
           </div>
           <div className="privacyAndData">
-            <a href="/nofication">
+            <a href="/privacyanddata">
               <div className="settingMenuItem">
                 <Typography.Title style={{ fontSize: "25px" }}>
                   Privacy and Data
@@ -60,7 +60,7 @@ const Security = () => {
             </a>
           </div>
           <div className="editProfile">
-            <a href="/nofication">
+            <a href="/profile">
               <div className="settingMenuItem">
                 <Typography.Title style={{ fontSize: "25px" }}>
                   Edit Profile
@@ -94,6 +94,7 @@ const Security = () => {
          <Typography.Text style={{ fontSize: "20px" }}>This makes your account more secure. Along with your password, you'll need to enter the secret code we text to your phone each time you log in.</Typography.Text>
          <Checkbox style={{ display:"flex",flexDirection:"row",alignItems:"center",height:"100px",fontSize:"20px"}}>Send code when login </Checkbox>
         </div>
+        <Button style={{width:"50%",height:"50px",fontSize:"20px",fontWeight:"700px"}}>Save</Button>
       </div>
     </div>
   );

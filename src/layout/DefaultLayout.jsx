@@ -6,6 +6,7 @@ import {
   AreaChartOutlined,
   SettingFilled,
   LogoutOutlined,
+  SettingOutlined 
 } from "@ant-design/icons";
 import { Avatar, Button, Dropdown, Layout, Menu } from "antd";
 import { Content, Footer, Header } from "antd/es/layout/layout";
@@ -82,14 +83,14 @@ const DefaultLayout = ({ children }) => {
             </Menu.Item>
             <Menu.Item
               key="Notification"
-              onClick={() => navigate("/Notification")}
+              onClick={() => navigate("/notification")}
               style={{ fontWeight: "600px", fontSize: "20px", fontFamily: "inherit" }}
             >
               Notification
             </Menu.Item>
             <Menu.Item
               key="Privacy and data"
-              onClick={() => navigate("/Privacyanddata")}
+              onClick={() => navigate("/privacyanddata")}
               style={{ fontWeight: "600px", fontSize: "20px", fontFamily: "inherit" }}
             >
               Privacy and data
