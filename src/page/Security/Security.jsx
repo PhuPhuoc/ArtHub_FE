@@ -15,11 +15,11 @@ const Security = () => {
   return (
     <div
       className="Security"
-      style={{ display: "flex", justifyContent: "space-between" }}
+      style={{ display: "flex" }}
     >
       <div
         className="accountSettingContainer"
-        style={{ width: "25%", height: "500px" }}
+        style={{ width: "20%", height: "500px" }}
       >
         <div className="settingMenu">
           <div className="security">

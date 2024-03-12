@@ -149,7 +149,7 @@ const Privacyanddata = () => {
         </div>
         <div
           className="third"
-          style={{ display: "flex", justifyContent: "space-between",height:"500px" }}
+          style={{ display: "flex", justifyContent: "space-between",height:"200px" }}
         >
           <div className="thirdLeft" style={{width:"40%"}}>
             <Typography.Title
@@ -165,6 +165,16 @@ const Privacyanddata = () => {
             <Button style={{width:"150%",height:"60px",borderRadius:"30%",backgroundColor:"#d6ced7"}}>Start Request</Button>
           </div>
         </div>
+        <Button
+          style={{
+            width: "50%",
+            height: "50px",
+            fontSize: "20px",
+            fontWeight: "700px",
+          }}
+        >
+          Save
+        </Button>
       </div>
     </div>
   );
