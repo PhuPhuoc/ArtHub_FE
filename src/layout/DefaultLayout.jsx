@@ -3,7 +3,8 @@ import {
   TeamOutlined,
   HomeOutlined,
   UserOutlined,
-  SettingOutlined,
+  AreaChartOutlined,
+  SettingFilled,
   LogoutOutlined,
 } from "@ant-design/icons";
 import { Avatar, Button, Dropdown, Layout, Menu } from "antd";
