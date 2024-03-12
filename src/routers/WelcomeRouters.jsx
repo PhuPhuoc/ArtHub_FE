@@ -17,7 +17,7 @@ const welcomeRouterData = [
   { path: "loginpage", component: <LoginPage /> },
   { path: "admin", component: <Admin /> },
   { path: "security", component: <Security /> },
-  { path: "nofication", component: <Nofication /> },
+  { path: "nofication", component: <Notification /> },
   { path: "privacyanddata", component: <Privacyanddata /> },
   { path: "editprofile", component: <Editprofile /> },
 
