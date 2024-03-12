@@ -8,6 +8,7 @@ import Profile from "../page/Profile/Profile";
 
 import LoginPage from "../page/Login/LoginPage";
 import Admin from "../page/Admin/Admin";
+import Security from "../page/Security/Security";
 const welcomeRouterData = [
   { path: "findtalent", component: <FindTalent /> },
   { path: "ourhub", component: <OurHub /> },
@@ -15,6 +16,11 @@ const welcomeRouterData = [
   { path: "profile", component: <Profile /> },
   { path: "loginpage", component: <LoginPage /> },
   { path: "admin", component: <Admin /> },
+  { path: "security", component: <Security /> },
+  { path: "nofication", component: <Nofication /> },
+  { path: "privacyanddata", component: <Privacyanddata /> },
+  { path: "editprofile", component: <Editprofile /> },
+
 ];
 
 const DefaultComponent = () => {

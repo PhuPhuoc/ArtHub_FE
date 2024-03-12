@@ -69,15 +69,15 @@ const DefaultLayout = ({ children }) => {
           <SubMenu
             key="setting"
             icon={<SettingOutlined />}
-            title="Setting"
+            title="setting"
             style={{ fontWeight: "600px", fontSize: "20px", fontFamily: "inherit" }}
           >
             <Menu.Item
-              key="Security"
-              onClick={() => navigate("/Security")}
+              key="security"
+              onClick={() => navigate("/security")}
               style={{ fontWeight: "600px", fontSize: "20px", fontFamily: "inherit" }}
             >
-              Security
+              security
             </Menu.Item>
             <Menu.Item
               key="Notification"
@@ -85,13 +85,6 @@ const DefaultLayout = ({ children }) => {
               style={{ fontWeight: "600px", fontSize: "20px", fontFamily: "inherit" }}
             >
               Notification
-            </Menu.Item>
-            <Menu.Item
-              key="Account management"
-              onClick={() => navigate("/Accountmanagement")}
-              style={{ fontWeight: "600px", fontSize: "20px", fontFamily: "inherit" }}
-            >
-              Account management
             </Menu.Item>
             <Menu.Item
               key="Privacy and data"
@@ -102,7 +95,7 @@ const DefaultLayout = ({ children }) => {
             </Menu.Item>
             <Menu.Item
               key="Edit profile"
-              onClick={() => navigate("/Editprofile")}
+              onClick={() => navigate("/profile")}
               style={{ fontWeight: "600px", fontSize: "20px", fontFamily: "inherit" }}
             >
               Edit profile
@@ -145,35 +138,29 @@ const DefaultLayout = ({ children }) => {
           >
             <Menu.Item
               key="Security"
-              onClick={() => navigate("/Security")}
+              onClick={() => navigate("/security")}
               style={{ fontWeight: "600px", fontSize: "20px", fontFamily: "inherit" }}
             >
               Security
             </Menu.Item>
             <Menu.Item
               key="Notification"
-              onClick={() => navigate("/Notification")}
+              onClick={() => navigate("/notification")}
               style={{ fontWeight: "600px", fontSize: "20px", fontFamily: "inherit" }}
             >
               Notification
             </Menu.Item>
+          
             <Menu.Item
-              key="Account management"
-              onClick={() => navigate("/Accountmanagement")}
-              style={{ fontWeight: "600px", fontSize: "20px", fontFamily: "inherit" }}
-            >
-              Account management
-            </Menu.Item>
-            <Menu.Item
-              key="Privacy and data"
-              onClick={() => navigate("/Privacyanddata")}
+              key="Privacyanddata"
+              onClick={() => navigate("/privacyanddata")}
               style={{ fontWeight: "600px", fontSize: "20px", fontFamily: "inherit" }}
             >
               Privacy and data
             </Menu.Item>
             <Menu.Item
-              key="Edit profile"
-              onClick={() => navigate("/Editprofile")}
+              key="Editprofile"
+              onClick={() => navigate("/profile")}
               style={{ fontWeight: "600px", fontSize: "20px", fontFamily: "inherit" }}
             >
               Edit profile
