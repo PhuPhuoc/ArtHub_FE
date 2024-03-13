@@ -13,13 +13,20 @@ import {
   Tag,
   Typography,
 } from "antd";
+<<<<<<< HEAD
+import { dataAdmin } from "./dataAdmin";
+import { getAllUser } from "../../redux/slices/userSlice";
+import { useDispatch, useSelector } from "react-redux";
+import { getUserSelector } from "../../redux/selector";
+=======
 import axios from'axios';
 import Cookies from "js-cookie";
+>>>>>>> 98c3ac9d19bf7c73b8d1b952a1c03562772d0136
 const getTagColor = (tag) => {
-  switch (tag.toLowerCase()) {
-    case "developer":
+  switch (tag) {
+    case "admin":
       return "geekblue";
-    case "user":
+    case "audience":
       return "volcano";
     case "creator":
       return "yellow";
@@ -57,18 +64,14 @@ const columns = [
 
   {
     title: "Tags",
-    key: "tags",
-    dataIndex: "tags",
-    render: (_, { tags }) => (
+    key: "role",
+    dataIndex: "role",
+    render: (record) => (
       <>
-        {Array.isArray(tags) ? (
-          tags.map((tag) => (
-            <Tag color={getTagColor(tag)} key={tag}>
-              {tag.toUpperCase()}
-            </Tag>
-          ))
-        ) : (
-          <Tag color="default">Invalid Tags</Tag>
+        {record && (
+          <Tag color={getTagColor(record)} key={record}>
+            {record.toUpperCase()}
+          </Tag>
         )}
       </>
     ),
@@ -79,7 +82,7 @@ const columns = [
     dataIndex: "avatarUrl",
     render: (avatarUrl) => (
       <img
-        src={avatarUrl}
+        src="https://api.dicebear.com/7.x/miniavs/svg?seed=8"
         alt="Avatar"
         style={{ maxWidth: "50px", maxHeight: "50px" }}
       />
@@ -124,6 +127,8 @@ const columns = [
 ];
 
 const Admin = () => {
+  const dispatch = useDispatch();
+  const userData = useSelector(getUserSelector);
   const getTagColor = (tag) => {
     switch (tag.toLowerCase()) {
       case "developer":
@@ -327,62 +332,20 @@ const Admin = () => {
         onCancel: () => {},
       });
     }
+<<<<<<< HEAD
+  };
+  useEffect(() => {
+    dispatch(getAllUser());
+  }, []);
+=======
   };*/
+>>>>>>> 98c3ac9d19bf7c73b8d1b952a1c03562772d0136
 
   return (
     <div
       style={{ width: "100%", height: "auto", background: "#0c192c" }}
       className="bubbblesContainer"
     >
-      <div className="bubbles">
-        <span style={{ "--i": 17 }}></span>
-        <span style={{ "--i": 19 }}></span>
-        <span style={{ "--i": 22 }}></span>
-        <span style={{ "--i": 20 }}></span>
-        <span style={{ "--i": 18 }}></span>
-        <span style={{ "--i": 15 }}></span>
-        <span style={{ "--i": 20 }}></span>
-        <span style={{ "--i": 22 }}></span>
-        <span style={{ "--i": 17 }}></span>
-        <span style={{ "--i": 18 }}></span>
-        <span style={{ "--i": 20 }}></span>
-        <span style={{ "--i": 22 }}></span>
-        <span style={{ "--i": 25 }}></span>
-        <span style={{ "--i": 28 }}></span>
-        <span style={{ "--i": 30 }}></span>
-        <span style={{ "--i": 12 }}></span>
-        <span style={{ "--i": 18 }}></span>
-        <span style={{ "--i": 16 }}></span>
-        <span style={{ "--i": 17 }}></span>
-        <span style={{ "--i": 20 }}></span>
-        <span style={{ "--i": 22 }}></span>
-        <span style={{ "--i": 24 }}></span>
-        <span style={{ "--i": 12 }}></span>
-        <span style={{ "--i": 16 }}></span>
-        <span style={{ "--i": 20 }}></span>
-        <span style={{ "--i": 22 }}></span>
-        <span style={{ "--i": 15 }}></span>
-        <span style={{ "--i": 20 }}></span>
-        <span style={{ "--i": 17 }}></span>
-        <span style={{ "--i": 22 }}></span>
-        <span style={{ "--i": 25 }}></span>
-        <span style={{ "--i": 28 }}></span>
-        <span style={{ "--i": 30 }}></span>
-        <span style={{ "--i": 12 }}></span>
-        <span style={{ "--i": 18 }}></span>
-        <span style={{ "--i": 16 }}></span>
-        <span style={{ "--i": 17 }}></span>
-        <span style={{ "--i": 20 }}></span>
-        <span style={{ "--i": 22 }}></span>
-        <span style={{ "--i": 24 }}></span>
-        <span style={{ "--i": 12 }}></span>
-        <span style={{ "--i": 16 }}></span>
-        <span style={{ "--i": 20 }}></span>
-        <span style={{ "--i": 22 }}></span>
-        <span style={{ "--i": 15 }}></span>
-        <span style={{ "--i": 20 }}></span>
-        <span style={{ "--i": 17 }}></span>
-      </div>
       <div
         className="adminPageTitle"
         style={{
@@ -412,8 +375,8 @@ const Admin = () => {
 
       <Table
         columns={columns}
-        dataSource={data}
-        rowKey="key"
+        dataSource={userData}
+        rowKey="_id"
         rowSelection={rowSelection}
         onRow={(record) => ({
           onClick: () => handleRowClick(record),

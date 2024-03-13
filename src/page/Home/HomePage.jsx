@@ -9,7 +9,8 @@ import Cookies from "js-cookie";
 import { useNavigate } from "react-router-dom";
 const HomePage = () => {
   const navigate = useNavigate();
-
+  const cookieValue = Cookies.get("sessionCookie");
+  console.log(cookieValue);
   const handleLearnAboutHiring = () => {
     navigate("/findtalent");
   };
@@ -1193,10 +1194,21 @@ const HomePage = () => {
               gap: "50px",
             }}
           >
-            <Typography.Text style={{ fontSize: "20px" }}>
-              Are You Designer ?
-              <Button className="btnJoinDribbble">Join Dribbble</Button>
-            </Typography.Text>
+            {cookieValue ? (
+              ""
+            ) : (
+              <Typography.Text style={{ fontSize: "20px" }}>
+                Are You Designer ?
+                <Button
+                  onClick={() => {
+                    navigate("/loginpage");
+                  }}
+                  className="btnJoinDribbble"
+                >
+                  Join Dribbble
+                </Button>
+              </Typography.Text>
+            )}
           </div>
         </div>
       </div>

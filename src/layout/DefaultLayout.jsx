@@ -38,7 +38,6 @@ const items_welcomepage = [
 const DefaultLayout = ({ children }) => {
   const [menuVisible, setMenuVisible] = useState(false);
   const [sessionCookie, setSessionCookie] = useState("");
-  const [hoveredItem, setHoveredItem] = useState(null);
 
   useEffect(() => {
     const cookieValue = Cookies.get("sessionCookie");
@@ -64,7 +63,6 @@ const DefaultLayout = ({ children }) => {
             onClick={() => {
               navigate("/profile");
             }}
-            style={{ fontWeight: "600px", fontSize: "20px", fontFamily: "inherit" }}
           >
             Profile
           </Menu.Item>
@@ -80,18 +78,29 @@ const DefaultLayout = ({ children }) => {
               style={{ fontWeight: "600px", fontSize: "20px", fontFamily: "inherit" }}
             >
               security
+          <SubMenu key="setting" icon={<SettingOutlined />} title="Setting">
+            <Menu.Item key="Security" onClick={() => navigate("/Security")}>
+              Security
             </Menu.Item>
             <Menu.Item
               key="Notification"
+              onClick={() => navigate("/Notification")}
               onClick={() => navigate("/notification")}
               style={{ fontWeight: "600px", fontSize: "20px", fontFamily: "inherit" }}
             >
               Notification
             </Menu.Item>
             <Menu.Item
+              key="Account management"
+              onClick={() => navigate("/Accountmanagement")}
+            >
+              Account management
+            </Menu.Item>
+            <Menu.Item
               key="Privacy and data"
               onClick={() => navigate("/privacyanddata")}
               style={{ fontWeight: "600px", fontSize: "20px", fontFamily: "inherit" }}
+              onClick={() => navigate("/Privacyanddata")}
             >
               Privacy and data
             </Menu.Item>
@@ -99,25 +108,41 @@ const DefaultLayout = ({ children }) => {
               key="Edit profile"
               onClick={() => navigate("/profile")}
               style={{ fontWeight: "600px", fontSize: "20px", fontFamily: "inherit" }}
+              onClick={() => navigate("/Editprofile")}
             >
               Edit profile
             </Menu.Item>
             {/* Add more Menu.Item components for other setting options if needed */}
-            <div className="menuItem" style={{ display: "flex", flexDirection: "row", fontSize: "10px", color: "#c1bbba" }}>
-              <li><a href="">License</a></li>
+            <div
+              className="menuItem"
+              style={{
+                display: "flex",
+                flexDirection: "row",
+                fontSize: "10px",
+                color: "#c1bbba",
+              }}
+            >
+              <li>
+                <a href="">License</a>
+              </li>
               <li> .. </li>
-              <li><a href="">Privacy policy</a></li>
+              <li>
+                <a href="">Privacy policy</a>
+              </li>
               <li> .. </li>
-              <li><a href="">Term</a></li>
+              <li>
+                <a href="">Term</a>
+              </li>
               <li> .. </li>
-              <li><a href="">Security</a></li>
+              <li>
+                <a href="">Security</a>
+              </li>
             </div>
           </SubMenu>
           <Menu.Item
             key="logout"
             icon={<LogoutOutlined />}
             onClick={handleLogout}
-            style={{ fontWeight: "600px", fontSize: "20px", fontFamily: "inherit" }}
           >
             Log out
           </Menu.Item>
@@ -128,7 +153,11 @@ const DefaultLayout = ({ children }) => {
             key="login"
             icon={<UserOutlined />}
             onClick={() => navigate("/loginpage")}
-            style={{ fontWeight: "600px", fontSize: "15px", fontFamily: "inherit" }}
+            style={{
+              fontWeight: "600px",
+              fontSize: "15px",
+              fontFamily: "inherit",
+            }}
           >
             Login
           </Menu.Item>
@@ -136,12 +165,22 @@ const DefaultLayout = ({ children }) => {
             key="setting"
             icon={<SettingOutlined />}
             title="Setting"
-            style={{ fontWeight: "600px", fontSize: "20px", fontFamily: "inherit" }}
+            style={{
+              fontWeight: "600px",
+              fontSize: "20px",
+              fontFamily: "inherit",
+            }}
           >
             <Menu.Item
               key="Security"
               onClick={() => navigate("/security")}
               style={{ fontWeight: "600px", fontSize: "20px", fontFamily: "inherit" }}
+              onClick={() => navigate("/Security")}
+              style={{
+                fontWeight: "600px",
+                fontSize: "20px",
+                fontFamily: "inherit",
+              }}
             >
               Security
             </Menu.Item>
@@ -149,11 +188,35 @@ const DefaultLayout = ({ children }) => {
               key="Notification"
               onClick={() => navigate("/notification")}
               style={{ fontWeight: "600px", fontSize: "20px", fontFamily: "inherit" }}
+              onClick={() => navigate("/Notification")}
+              style={{
+                fontWeight: "600px",
+                fontSize: "20px",
+                fontFamily: "inherit",
+              }}
             >
               Notification
             </Menu.Item>
           
             <Menu.Item
+              key="Account management"
+              onClick={() => navigate("/Accountmanagement")}
+              style={{
+                fontWeight: "600px",
+                fontSize: "20px",
+                fontFamily: "inherit",
+              }}
+            >
+              Account management
+            </Menu.Item>
+            <Menu.Item
+              key="Privacy and data"
+              onClick={() => navigate("/Privacyanddata")}
+              style={{
+                fontWeight: "600px",
+                fontSize: "20px",
+                fontFamily: "inherit",
+              }}
               key="Privacyanddata"
               onClick={() => navigate("/privacyanddata")}
               style={{ fontWeight: "600px", fontSize: "20px", fontFamily: "inherit" }}
@@ -168,19 +231,35 @@ const DefaultLayout = ({ children }) => {
               Edit profile
             </Menu.Item>
             {/* Add more Menu.Item components for other setting options if needed */}
-            <div className="menuItem" style={{ display: "flex", flexDirection: "row", fontSize: "10px", color: "#c1bbba" }}>
-              <li><a href="">License</a></li>
+            <div
+              className="menuItem"
+              style={{
+                marginTop: "10px",
+                display: "flex",
+                flexDirection: "row",
+                fontSize: "10px",
+                color: "#c1bbba",
+              }}
+            >
+              <li>
+                <a href="">License</a>
+              </li>
               <li> .. </li>
-              <li><a href="">Privacy policy</a></li>
+              <li>
+                <a href="">Privacy policy</a>
+              </li>
               <li> .. </li>
-              <li><a href="">Term</a></li>
+              <li>
+                <a href="">Term</a>
+              </li>
               <li> .. </li>
-              <li><a href="">Security</a></li>
+              <li>
+                <a href="">Security</a>
+              </li>
             </div>
           </SubMenu>
         </>
       )}
-
     </Menu>
   );
   return (
