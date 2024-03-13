@@ -148,6 +148,27 @@ const Profile = () => {
   const [modalVisible, setModalVisible] = React.useState(false);
   const [modalContent, setModalContent] = React.useState({});
 
+    // Edit Profile
+    const [newPicture, setNewPicture] = useState('');
+    const [newName, setNewName] = useState('');
+    const [newMail, setNewMail] = useState('');
+    const [newPassword, setNewPassword] = useState('');
+
+    const fetchEditProfile = (userId) => {
+        const response = axios.
+            put(`http://localhost:5000/api/users/${userId}`,
+            {
+                name: newName,
+                mail: newMail,
+                password: newPassword,
+                picture: newPicture
+            });
+
+        if (!response) {
+            console.log('Error fetching edit on profile');
+        }
+    };
+
   useEffect(() => {
     const cookieValue = Cookies.get("sessionCookie");
     if (cookieValue) {
