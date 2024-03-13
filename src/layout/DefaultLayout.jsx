@@ -3,8 +3,10 @@ import {
   TeamOutlined,
   HomeOutlined,
   UserOutlined,
-  SettingOutlined,
+  AreaChartOutlined,
+  SettingFilled,
   LogoutOutlined,
+  SettingOutlined 
 } from "@ant-design/icons";
 import { Avatar, Button, Dropdown, Layout, Menu } from "antd";
 import { Content, Footer, Header } from "antd/es/layout/layout";
@@ -64,6 +66,18 @@ const DefaultLayout = ({ children }) => {
           >
             Profile
           </Menu.Item>
+          <SubMenu
+            key="setting"
+            icon={<SettingOutlined />}
+            title="setting"
+            style={{ fontWeight: "600px", fontSize: "20px", fontFamily: "inherit" }}
+          >
+            <Menu.Item
+              key="security"
+              onClick={() => navigate("/security")}
+              style={{ fontWeight: "600px", fontSize: "20px", fontFamily: "inherit" }}
+            >
+              security
           <SubMenu key="setting" icon={<SettingOutlined />} title="Setting">
             <Menu.Item key="Security" onClick={() => navigate("/Security")}>
               Security
@@ -71,6 +85,8 @@ const DefaultLayout = ({ children }) => {
             <Menu.Item
               key="Notification"
               onClick={() => navigate("/Notification")}
+              onClick={() => navigate("/notification")}
+              style={{ fontWeight: "600px", fontSize: "20px", fontFamily: "inherit" }}
             >
               Notification
             </Menu.Item>
@@ -82,12 +98,16 @@ const DefaultLayout = ({ children }) => {
             </Menu.Item>
             <Menu.Item
               key="Privacy and data"
+              onClick={() => navigate("/privacyanddata")}
+              style={{ fontWeight: "600px", fontSize: "20px", fontFamily: "inherit" }}
               onClick={() => navigate("/Privacyanddata")}
             >
               Privacy and data
             </Menu.Item>
             <Menu.Item
               key="Edit profile"
+              onClick={() => navigate("/profile")}
+              style={{ fontWeight: "600px", fontSize: "20px", fontFamily: "inherit" }}
               onClick={() => navigate("/Editprofile")}
             >
               Edit profile
@@ -153,6 +173,8 @@ const DefaultLayout = ({ children }) => {
           >
             <Menu.Item
               key="Security"
+              onClick={() => navigate("/security")}
+              style={{ fontWeight: "600px", fontSize: "20px", fontFamily: "inherit" }}
               onClick={() => navigate("/Security")}
               style={{
                 fontWeight: "600px",
@@ -164,6 +186,8 @@ const DefaultLayout = ({ children }) => {
             </Menu.Item>
             <Menu.Item
               key="Notification"
+              onClick={() => navigate("/notification")}
+              style={{ fontWeight: "600px", fontSize: "20px", fontFamily: "inherit" }}
               onClick={() => navigate("/Notification")}
               style={{
                 fontWeight: "600px",
@@ -173,6 +197,7 @@ const DefaultLayout = ({ children }) => {
             >
               Notification
             </Menu.Item>
+          
             <Menu.Item
               key="Account management"
               onClick={() => navigate("/Accountmanagement")}
@@ -192,17 +217,16 @@ const DefaultLayout = ({ children }) => {
                 fontSize: "20px",
                 fontFamily: "inherit",
               }}
+              key="Privacyanddata"
+              onClick={() => navigate("/privacyanddata")}
+              style={{ fontWeight: "600px", fontSize: "20px", fontFamily: "inherit" }}
             >
               Privacy and data
             </Menu.Item>
             <Menu.Item
-              key="Edit profile"
-              onClick={() => navigate("/Editprofile")}
-              style={{
-                fontWeight: "600px",
-                fontSize: "20px",
-                fontFamily: "inherit",
-              }}
+              key="Editprofile"
+              onClick={() => navigate("/profile")}
+              style={{ fontWeight: "600px", fontSize: "20px", fontFamily: "inherit" }}
             >
               Edit profile
             </Menu.Item>

@@ -230,7 +230,7 @@ const Profile = () => {
     closeModal();
     setpim(null);
   };
-  const justifyOptions = ["Collection", "My Order", "About"];
+  const justifyOptions = ["Collection", "Work", "About"];
   const [justify, setJustify] = React.useState(justifyOptions[0]);
   const renderImages = () => {
     const handleArtworkClick = (title, description, image) => {

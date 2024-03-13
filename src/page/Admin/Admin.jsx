@@ -13,10 +13,15 @@ import {
   Tag,
   Typography,
 } from "antd";
+<<<<<<< HEAD
 import { dataAdmin } from "./dataAdmin";
 import { getAllUser } from "../../redux/slices/userSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { getUserSelector } from "../../redux/selector";
+=======
+import axios from'axios';
+import Cookies from "js-cookie";
+>>>>>>> 98c3ac9d19bf7c73b8d1b952a1c03562772d0136
 const getTagColor = (tag) => {
   switch (tag) {
     case "admin":
@@ -136,12 +141,18 @@ const Admin = () => {
         return "green";
     }
   };
+  const [users, setUsers] = useState([]);
   const [form] = Form.useForm();
-  const [data, setData] = useState(dataAdmin);
+  const [data, setData] = useState(users);
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [selectedUser, setSelectedUser] = useState(null);
   const [formEdit] = Form.useForm();
   const [editModalVisible, setEditModalVisible] = useState(false);
+
+  const [name, setName] = useState('');
+  const [birthday, setBirthday] = useState('');
+  const [email, setEmail] = useState('');
+  const [avatar, setAvatar] = useState('');
 
   const [titleBackgroundColor, setTitleBackgroundColor] = useState("#ffffff");
   const [titleTextColor, setTitleTextColor] = useState("#000000");
@@ -149,6 +160,50 @@ const Admin = () => {
   const titleRef = useRef(null);
 
   const textColors = ["#000000", "#ffffff", "#ff0000", "#00ff00", "#0000ff"];
+
+  const [sessionCookie, setSessionCookie] = useState("");
+
+  useEffect(() => {
+    const cookieValue = Cookies.get("sessionCookie");
+    console.log("COOKIE", cookieValue);
+    if (cookieValue) {
+      setSessionCookie(cookieValue);
+    }
+  }, []);
+
+  useEffect(() => {
+    if (!sessionCookie) {
+      window.location.href = "/loginpage";
+    }
+  }, [sessionCookie]);
+  const handleGetUsers = () => {
+    axios
+        .get('http://localhost:5000/api/admin/users')
+        .then((res) => {
+          setUsers(res.data.users);
+          setData(res.data.users); // Mettre à jour data avec les nouveaux utilisateurs
+        })
+        .catch((e) => {
+          console.error(`Error fetchin users: ${e}`);
+        });
+  }
+
+
+
+  const handleDeleteUser = () => {
+    axios
+        .delete(`http://localhost:5000/api/admin/users/${selectedUser}`)
+        .then((res) => {
+          console.log(res.data.message);
+        })
+        .catch((e) => {
+          console.error(e);
+        });
+  }
+
+  useEffect(() => {
+    handleGetUsers()
+  }, []);
 
   useEffect(() => {
     const intervalId = setInterval(() => {
@@ -178,6 +233,7 @@ const Admin = () => {
   };
 
   const handleRowClick = (user) => {
+    console.log("User clicked:", user);
     setSelectedUser(user);
   };
 
@@ -221,6 +277,19 @@ const Admin = () => {
         console.log("Failed:", errorInfo);
       });
   };
+
+  useEffect(() => {
+    const users = axios
+        .get('http://localhost:5000/api/admin/users')
+        .then((res) => {
+          console.log(res);
+        })
+        .catch((error) => {
+          console.error(`Error: ${error}`);
+        });
+
+    setUsers(users);
+  }, [])
   const handleAddUser = (values) => {
     const newUser = {
       name: values.name,
@@ -228,23 +297,24 @@ const Admin = () => {
       password: values.password,
       role: values.role,
     };
-
-    fetch("http://localhost:5000/api/admin/users", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(newUser),
-    })
-      .then((response) => response.json())
-      .then((data) => {
-        // Update local state with the added user data
-        setData([...data, data]);
-        setIsModalVisible(false);
-      })
-      .catch((error) => {
-        console.error("Error adding user:", error);
-      });
+    setData([...data, newUser]);
+    setIsModalVisible(false);
+    axios
+        .post('http://localhost:5000/api/admin/users', {
+          name: name,
+          email: email,
+          birhtday: birthday,
+          avatar: avatar
+        })
+        .then((res) => {
+          console.log(res);
+        })
+        .catch((error) => {
+          console.error(`error ${error}`);
+        });
   };
-  const handleDeleteUser = () => {
+
+  /*const handleDeleteUser = () => {
     if (selectedUser) {
       Modal.confirm({
         title: "Are you sure?",
@@ -262,10 +332,14 @@ const Admin = () => {
         onCancel: () => {},
       });
     }
+<<<<<<< HEAD
   };
   useEffect(() => {
     dispatch(getAllUser());
   }, []);
+=======
+  };*/
+>>>>>>> 98c3ac9d19bf7c73b8d1b952a1c03562772d0136
 
   return (
     <div
@@ -439,16 +513,16 @@ const Admin = () => {
             label="Name"
             name="name"
             rules={[{ required: true, message: "Please input the name!" }]}
+            value={name} onChange={(e) => setName(e)}
           >
-            <Input />
+            <Input   />
           </Form.Item>
-
           <Form.Item
             label="Birthday"
             name="birthday"
             rules={[{ required: true, message: "Please input the birthday!" }]}
           >
-            <Input type="date" />
+            <Input type="date" value={birthday} onChange={(e) => setBirthday(e)}/>
           </Form.Item>
 
           <Form.Item
@@ -459,7 +533,7 @@ const Admin = () => {
               { type: "email", message: "Invalid email address" },
             ]}
           >
-            <Input />
+            <Input value={email} onChange={(e) => setEmail(e)}/>
           </Form.Item>
 
           <Form.Item
