@@ -22,6 +22,7 @@ const HomePage = () => {
   const [buttonColor, setButtonColor] = useState("palevioletred");
   const [sessionCookie, setSessionCookie] = useState("");
   const [username, setUsername] = useState("");
+  const [artworks, setArtworks] = useState('');
 
   useEffect(() => {
     const intervalId = setInterval(() => {
@@ -36,8 +37,20 @@ const HomePage = () => {
     if (cookieValue) {
       setSessionCookie(cookieValue);
       fetchUsername(cookieValue);
+      fetchArtworks();
     }
   }, []);
+
+    const fetchArtworks = () => {
+        axios
+            .get('http://localhost:5000/api/homepage/artworks')
+            .then((response) => {
+                setArtworks(response.data.artworks);
+            })
+            .catch((error) => {
+                console.error('Error fetching artworks:', error);
+            })
+    }
 
   const fetchUsername = (userId) => {
     axios
