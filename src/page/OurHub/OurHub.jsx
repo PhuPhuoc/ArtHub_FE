@@ -9,7 +9,7 @@ import {
   Card,
   Avatar,
 } from "antd";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { CiSearch } from "react-icons/ci";
 import "./OurHub.css";
 import Meta from "antd/es/card/Meta";
@@ -18,6 +18,9 @@ import { ShoppingCartOutlined } from "@ant-design/icons";
 import { useSpring, animated } from "react-spring";
 import { HeartFilled, HeartOutlined, SendOutlined } from "@ant-design/icons";
 import Comment from "../../components/Comment";
+import { useDispatch, useSelector } from "react-redux";
+import { getArtwork } from "../../redux/slices/artworkSlice";
+import { getArtworkSelector } from "../../redux/selector";
 
 const OurHub = () => {
   const props = useSpring({
@@ -31,17 +34,24 @@ const OurHub = () => {
     "Culture",
     "Technology",
     "Food",
+    "All",
   ];
 
   const [modalVisible, setModalVisible] = React.useState(false);
   const [modalContent, setModalContent] = React.useState({});
   const [heartFilled, setHeartFilled] = useState(false);
-
-
+  const artworkData = useSelector(getArtworkSelector);
+  const dispatch = useDispatch();
   const handleHeartClick = () => {
     setHeartFilled(!heartFilled);
   };
   const [justify, setJustify] = React.useState(justifyOptions[0]);
+
+  useEffect(() => {
+    dispatch(getArtwork());
+  }, []);
+
+  console.log(artworkData);
 
   const renderImages = () => {
     const handleArtworkClick = (title, description, image) => {
@@ -401,68 +411,182 @@ const OurHub = () => {
               </Col>
             </Row>
             <Modal
-  title={null}
-  visible={modalVisible}
-  onCancel={() => setModalVisible(false)}
-  footer={null}
-  style={{ top: 20, minWidth: "80%", maxWidth: "80%", bottom:20 }} // Adjust width here
->
-  <Row>
-    <Col span={12}>
-      <img
-        src={modalContent.image}
-        alt={modalContent.title}
-        style={{ width: "100%", height: "100%", paddingRight: "20px" }}
-      />
-    </Col>
-    <Col span={12} style={{ paddingLeft: "20px" }}>
-      <h2 style={{ fontSize: "200%", fontFamily: "serif", fontWeight: "bold", paddingBottom: "10px" }}>{modalContent.title}</h2>
-      <p style={{ fontSize: "130%", paddingBottom: "10px"}}>{modalContent.description}</p>
-      <p style={{ fontSize: "130%",paddingBottom: "10px" }}>100 x 100 cm</p>
-      <p style={{ fontSize: "130%",paddingBottom: "250px", fontStyle:"italic" }}>10.99$</p>
-      <Row style={{paddingLeft:"10px"}}>
-        <Avatar
-          className="avatar"
-          src="https://api.dicebear.com/7.x/miniavs/svg?seed=8"
-          style={{ cursor: "pointer", width:"10%", height:"10%" }}
-        />
-        <p style={{paddingLeft:"10px", marginTop:"10px", fontSize:"120%"}}>Jean Paul</p>
-        <button style={{position: 'absolute', right: "180px",bottom:"45px", alignItems: 'center', border: 'none', outline: 'none', transition: 'none', boxShadow:'none'}} onClick={handleHeartClick}>
-          {heartFilled ? <HeartFilled style={{color: 'red',fontSize: '24px'}} /> : <HeartOutlined style={{color: 'red', fontSize: '24px'}} />}
-        </button>
-        <Button id='hearthButton' style={{position: 'absolute', right: 10, alignItems: 'center', }}>Add to cart <ShoppingCartOutlined style={{alignItems: 'center'}}/> </Button>
-      </Row>
-    </Col>
-  </Row>
+              title={null}
+              visible={modalVisible}
+              onCancel={() => setModalVisible(false)}
+              footer={null}
+              style={{ top: 20, minWidth: "80%", maxWidth: "80%", bottom: 20 }} // Adjust width here
+            >
+              <Row>
+                <Col span={12}>
+                  <img
+                    src={modalContent.image}
+                    alt={modalContent.title}
+                    style={{
+                      width: "100%",
+                      height: "100%",
+                      paddingRight: "20px",
+                    }}
+                  />
+                </Col>
+                <Col span={12} style={{ paddingLeft: "20px" }}>
+                  <h2
+                    style={{
+                      fontSize: "200%",
+                      fontFamily: "serif",
+                      fontWeight: "bold",
+                      paddingBottom: "10px",
+                    }}
+                  >
+                    {modalContent.title}
+                  </h2>
+                  <p style={{ fontSize: "130%", paddingBottom: "10px" }}>
+                    {modalContent.description}
+                  </p>
+                  <p style={{ fontSize: "130%", paddingBottom: "10px" }}>
+                    100 x 100 cm
+                  </p>
+                  <p
+                    style={{
+                      fontSize: "130%",
+                      paddingBottom: "250px",
+                      fontStyle: "italic",
+                    }}
+                  >
+                    10.99$
+                  </p>
+                  <Row style={{ paddingLeft: "10px" }}>
+                    <Avatar
+                      className="avatar"
+                      src="https://api.dicebear.com/7.x/miniavs/svg?seed=8"
+                      style={{ cursor: "pointer", width: "10%", height: "10%" }}
+                    />
+                    <p
+                      style={{
+                        paddingLeft: "10px",
+                        marginTop: "10px",
+                        fontSize: "120%",
+                      }}
+                    >
+                      Jean Paul
+                    </p>
+                    <button
+                      style={{
+                        position: "absolute",
+                        right: "180px",
+                        bottom: "45px",
+                        alignItems: "center",
+                        border: "none",
+                        outline: "none",
+                        transition: "none",
+                        boxShadow: "none",
+                      }}
+                      onClick={handleHeartClick}
+                    >
+                      {heartFilled ? (
+                        <HeartFilled
+                          style={{ color: "red", fontSize: "24px" }}
+                        />
+                      ) : (
+                        <HeartOutlined
+                          style={{ color: "red", fontSize: "24px" }}
+                        />
+                      )}
+                    </button>
+                    <Button
+                      id="hearthButton"
+                      style={{
+                        position: "absolute",
+                        right: 10,
+                        alignItems: "center",
+                      }}
+                    >
+                      Add to cart{" "}
+                      <ShoppingCartOutlined style={{ alignItems: "center" }} />{" "}
+                    </Button>
+                  </Row>
+                </Col>
+              </Row>
 
-  {/* Comment Section */}
-  <Row style={{ paddingTop: "20px" }}>
-    <Col span={24}>
-      <h3 style={{ fontSize: "150%", fontWeight: "bold", paddingBottom: "10px" }}>Comments</h3>
-      {/* Comment section JSX */}
-      <div style={{ border: "1px solid #ccc", borderRadius: "5px", padding: "10px", height: "250px", overflowY: "auto" }}>
-        {/* Individual comments */}
-        <Comment user="User1" text="Lorem ipsum dolor sit amet, consectetur adipiscing elit." />
-        <Comment user="User2" text="Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua." />
-        <Comment user="User3" text="Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat." />
-        <Comment user="User4" text="Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur." />
-        <Comment user="User5" text="Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum." />
-        <Comment user="User6" text="Lorem ipsum dolor sit amet, consectetur adipiscing elit." />
-        <Comment user="User7" text="Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua." />
-        <Comment user="User8" text="Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat." />
-        <Comment user="User9" text="Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur." />
-        <Comment user="User10" text="Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum." />
-      </div>
-      <div style={{ marginTop: "20px" }}>
-        <Input placeholder="Add a comment" />
-        <button style={{position:"absolute", right:20, paddingTop:'6px'}}>
-        <SendOutlined />
-        </button>
-        
-      </div>
-    </Col>
-  </Row>
-</Modal>
+              {/* Comment Section */}
+              <Row style={{ paddingTop: "20px" }}>
+                <Col span={24}>
+                  <h3
+                    style={{
+                      fontSize: "150%",
+                      fontWeight: "bold",
+                      paddingBottom: "10px",
+                    }}
+                  >
+                    Comments
+                  </h3>
+                  {/* Comment section JSX */}
+                  <div
+                    style={{
+                      border: "1px solid #ccc",
+                      borderRadius: "5px",
+                      padding: "10px",
+                      height: "250px",
+                      overflowY: "auto",
+                    }}
+                  >
+                    {/* Individual comments */}
+                    <Comment
+                      user="User1"
+                      text="Lorem ipsum dolor sit amet, consectetur adipiscing elit."
+                    />
+                    <Comment
+                      user="User2"
+                      text="Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
+                    />
+                    <Comment
+                      user="User3"
+                      text="Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat."
+                    />
+                    <Comment
+                      user="User4"
+                      text="Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur."
+                    />
+                    <Comment
+                      user="User5"
+                      text="Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
+                    />
+                    <Comment
+                      user="User6"
+                      text="Lorem ipsum dolor sit amet, consectetur adipiscing elit."
+                    />
+                    <Comment
+                      user="User7"
+                      text="Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
+                    />
+                    <Comment
+                      user="User8"
+                      text="Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat."
+                    />
+                    <Comment
+                      user="User9"
+                      text="Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur."
+                    />
+                    <Comment
+                      user="User10"
+                      text="Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
+                    />
+                  </div>
+                  <div style={{ marginTop: "20px" }}>
+                    <Input placeholder="Add a comment" />
+                    <button
+                      style={{
+                        position: "absolute",
+                        right: 20,
+                        paddingTop: "6px",
+                      }}
+                    >
+                      <SendOutlined />
+                    </button>
+                  </div>
+                </Col>
+              </Row>
+            </Modal>
           </div>
         );
 
@@ -1803,6 +1927,71 @@ const OurHub = () => {
           </div>
         );
 
+      case "All":
+        return (
+          <div className="imagesContain">
+            <div className="title">All Images</div>
+            <div style={{ marginTop: "100px" }}>
+              <Row gutter={[16, 16]}>
+                {artworkData?.map((item, index) => (
+                  <Col span={6} key={index}>
+                    <Card
+                      onClick={() =>
+                        handleArtworkClick(
+                          item.title,
+                          item.description,
+                          item.image
+                        )
+                      }
+                      cover={
+                        <img
+                          src={item.image}
+                          alt="image"
+                          style={{
+                            width: "400px",
+                            height: "400px",
+                            objectFit: "cover",
+                          }}
+                        />
+                      }
+                    >
+                      <Meta
+                        style={{
+                          display: "flex",
+                          justifyContent: "center",
+                          height: "100px",
+                        }}
+                        avatar={
+                          <Avatar
+                            className="avatar"
+                            src="https://api.dicebear.com/7.x/miniavs/svg?seed=8"
+                            style={{ cursor: "pointer" }}
+                          />
+                        }
+                        title={
+                          <span
+                            style={{
+                              color: "black",
+                              fontSize: "15px",
+                              borderBottom: "1px solid black",
+                            }}
+                          >
+                            {item.title}
+                          </span>
+                        }
+                        description={
+                          <span style={{ color: "black", fontSize: "12px" }}>
+                            {item.description}
+                          </span>
+                        }
+                      />
+                    </Card>
+                  </Col>
+                ))}
+              </Row>
+            </div>
+          </div>
+        );
       default:
         return <div>No images found</div>;
     }
