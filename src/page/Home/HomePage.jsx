@@ -10,7 +10,6 @@ import { useNavigate } from "react-router-dom";
 const HomePage = () => {
   const navigate = useNavigate();
   const cookieValue = Cookies.get("sessionCookie");
-  console.log(cookieValue);
   const handleLearnAboutHiring = () => {
     navigate("/findtalent");
   };

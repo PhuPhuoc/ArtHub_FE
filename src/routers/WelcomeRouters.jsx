@@ -5,6 +5,7 @@ import OurHub from "../page/OurHub/OurHub";
 import PostArt from "../page/PostArt/PostArt";
 import HomePage from "../page/Home/HomePage";
 import Profile from "../page/Profile/Profile";
+import Search from "../page/Search/Search.jsx";
 
 import LoginPage from "../page/Login/LoginPage";
 import Admin from "../page/Admin/Admin";
@@ -16,6 +17,7 @@ const welcomeRouterData = [
   { path: "ourhub", component: <OurHub /> },
   { path: "postart", component: <PostArt /> },
   { path: "profile", component: <Profile /> },
+  { path: "search/:item", component: <Search /> },
   { path: "loginpage", component: <LoginPage /> },
   { path: "admin", component: <Admin /> },
   { path: "security", component: <Security /> },

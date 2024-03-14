@@ -18,6 +18,7 @@ import { useEffect, useState } from "react";
 import Search from "antd/es/input/Search";
 import Cookies from "js-cookie";
 import logo from "../assets/images/reallogo.png";
+import axios from "axios";
 
 function getItem(label, key, icon, children, type) {
   return {
@@ -38,6 +39,10 @@ const items_welcomepage = [
 const DefaultLayout = ({ children }) => {
   const [menuVisible, setMenuVisible] = useState(false);
   const [sessionCookie, setSessionCookie] = useState("");
+
+  const handleSearchClick = (item) => {
+      navigate(`/search/${item}`);
+  };
 
   useEffect(() => {
     const cookieValue = Cookies.get("sessionCookie");
@@ -258,6 +263,7 @@ const DefaultLayout = ({ children }) => {
                 placeholder="Search"
                 allowClear
                 style={{ color: "white" }}
+                onSearch={(text) => handleSearchClick(text)}
               />
             </div>
           </div>
