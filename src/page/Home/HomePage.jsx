@@ -1147,7 +1147,7 @@ const HomePage = () => {
           Find your next <br /> designer today
         </Typography.Title>
         <Typography.Text style={{ fontSize: "20px", textAlign: "center" }}>
-          The world’s leading brands use Dribbble to hire creative talent.
+          The world’s leading brands use ArtHub to hire creative talent.
           <br />
           Browse millions of top-rated portfolios to find your perfect <br />
           creative match.
@@ -1204,7 +1204,7 @@ const HomePage = () => {
                   }}
                   className="btnJoinDribbble"
                 >
-                  Join Dribbble
+                  Join ArtHub
                 </Button>
               </Typography.Text>
             )}
