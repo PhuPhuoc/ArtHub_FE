@@ -19,6 +19,9 @@ import { useSpring, animated } from "react-spring";
 import { HeartFilled, HeartOutlined, SendOutlined } from "@ant-design/icons";
 import Comment from "../../components/Comment";
 import { useDispatch, useSelector } from "react-redux";
+import { getArtwork } from "../../redux/slices/artworkSlice";
+import { getArtworkSelector } from "../../redux/selector";
+import axios from "axios";
 import {
   addLikeArtwork,
   getArtwork,
