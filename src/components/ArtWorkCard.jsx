@@ -25,7 +25,7 @@ const ArtworkCard = (artwork) => {
     <Card
       cover={<img src={artwork.image} alt={artwork.title}/>}
       onClick={() => handleArtworkClick(artwork.title, artwork.description, artwork.image)}
-      style={{ width: 300 }}
+      style={{ width: 350 }}
     >
       <Meta
         avatar={

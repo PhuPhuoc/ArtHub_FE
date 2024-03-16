@@ -26,8 +26,8 @@ const Search = () => {
         <div>
             <div>
                 <p style={{ padding: 15 }}>Here are the results for {item}</p>
-                <div style={{ display: 'flex', flexDirection: 'row', flex: 'wrap' }}>
-                    {artworks.map(artwork => (
+                <div style={{ display: 'flex', flexDirection: 'row', flexWrap: 'wrap' }}>
+                {artworks.map(artwork => (
                         <ArtworkCard
                             key={artwork._id}
                             title={artwork.title}
