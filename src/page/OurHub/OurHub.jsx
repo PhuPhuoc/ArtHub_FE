@@ -24,13 +24,9 @@ import { getArtworkSelector } from "../../redux/selector";
 import axios from "axios";
 import {
   addLikeArtwork,
-  getArtwork,
   getLikeArtwork,
 } from "../../redux/slices/artworkSlice";
-import {
-  getArtworkLikeSelector,
-  getArtworkSelector,
-} from "../../redux/selector";
+import { getArtworkLikeSelector } from "../../redux/selector";
 import ourHubBG from "../../assets/images/bg2.jpg";
 
 const OurHub = () => {
