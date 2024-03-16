@@ -1,8 +1,9 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { getRequest } from "../../services/httpMethod";
+import { getRequest, postRequest } from "../../services/httpMethod";
 
 const initialState = {
   artworkData: [],
+  likes: {},
 };
 
 export const artworkSlice = createSlice({
@@ -11,9 +12,13 @@ export const artworkSlice = createSlice({
   reducers: {},
 
   extraReducers: (builder) => {
-    builder.addCase(getArtwork.fulfilled, (state, action) => {
-      state.artworkData = action.payload;
-    });
+    builder
+      .addCase(getArtwork.fulfilled, (state, action) => {
+        state.artworkData = action.payload;
+      })
+      .addCase(getLikeArtwork.fulfilled, (state, action) => {
+        state.likes = action.payload;
+      });
   },
 });
 
@@ -35,12 +40,35 @@ const addArtwork = createAsyncThunk("artwork/addArtwork", async (values) => {
     console.log({ error });
   }
 });
+export const addLikeArtwork = createAsyncThunk(
+  "artwork/addLikeArtwork",
+  async (artworkId) => {
+    try {
+      const res = await postRequest(`artworks/${artworkId}/likes`);
+      return res.data;
+    } catch (error) {
+      console.log({ error });
+    }
+  }
+);
+
+export const getLikeArtwork = createAsyncThunk(
+  "artwork/getLikeArtwork",
+  async (artworkId) => {
+    try {
+      const res = await getRequest(`artworks/${artworkId}/likes`);
+      return res.data;
+    } catch (error) {
+      console.log({ error });
+    }
+  }
+);
 
 export const getArtwork = createAsyncThunk("artwork/getArtwork", async () => {
   try {
-    const res = await getRequest("getartwork");
+    const res = await getRequest("homepage/artworks");
 
-    return res.data;
+    return res.data.artworks;
   } catch (error) {
     console.log({ error });
   }
