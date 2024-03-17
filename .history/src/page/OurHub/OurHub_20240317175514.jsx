@@ -28,8 +28,11 @@ import {
 } from "../../redux/slices/artworkSlice";
 import { getArtworkLikeSelector } from "../../redux/selector";
 import ourHubBG from "../../assets/images/bg2.jpg";
-
+import ArtWorkCard from "../../components/ArtWorkCard";
 const OurHub = () => {
+
+  <ArtWorkCard  
+
   const props = useSpring({
     opacity: 1,
     marginTop: 0,
@@ -67,6 +70,11 @@ const OurHub = () => {
   console.log(artworkData);
 
   const renderImages = () => {
+
+    //Create a ArtworkCard component
+    
+
+
     const handleArtworkClick = (
       title,
       description,

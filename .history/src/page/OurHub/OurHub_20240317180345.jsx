@@ -29,6 +29,8 @@ import {
 import { getArtworkLikeSelector } from "../../redux/selector";
 import ourHubBG from "../../assets/images/bg2.jpg";
 
+import ArtWorkCard from "../../components/Menu/Art";
+
 const OurHub = () => {
   const props = useSpring({
     opacity: 1,

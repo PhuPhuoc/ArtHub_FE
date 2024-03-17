@@ -28,8 +28,11 @@ import {
 } from "../../redux/slices/artworkSlice";
 import { getArtworkLikeSelector } from "../../redux/selector";
 import ourHubBG from "../../assets/images/bg2.jpg";
-
+import ArtWorkCard from "../../components/ArtWorkCard";
 const OurHub = () => {
+
+  
+
   const props = useSpring({
     opacity: 1,
     marginTop: 0,
@@ -67,6 +70,7 @@ const OurHub = () => {
   console.log(artworkData);
 
   const renderImages = () => {
+
     const handleArtworkClick = (
       title,
       description,
@@ -77,6 +81,7 @@ const OurHub = () => {
       setModalContent({ title, description, image, price, artworkId });
       setModalVisible(true);
     };
+
     switch (justify) {
       case "Discover":
         return (

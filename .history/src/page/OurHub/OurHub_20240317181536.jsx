@@ -29,6 +29,8 @@ import {
 import { getArtworkLikeSelector } from "../../redux/selector";
 import ourHubBG from "../../assets/images/bg2.jpg";
 
+import ArtWorkCard from "../../components/Menu/ArtCard";
+
 const OurHub = () => {
   const props = useSpring({
     opacity: 1,
@@ -459,70 +461,19 @@ const OurHub = () => {
 
       case "All":
         return (
-          <div className="imagesContain">
-            <div className="title">All Images</div>
-            <div style={{ marginTop: "100px" }}>
-              <Row gutter={[16, 16]}>
-                {artworkData?.map((item, index) => (
-                  <Col span={6} key={index}>
-                    <Card
-                      onClick={() =>
-                        handleArtworkClick(
-                          item.title,
-                          item.description,
-                          item.image,
-                          item.price,
-                          item._id
-                        )
-                      }
-                      cover={
-                        <img
-                          src={item.image}
-                          alt="image"
-                          style={{
-                            width: "400px",
-                            height: "400px",
-                            objectFit: "cover",
-                          }}
-                        />
-                      }
-                    >
-                      <Meta
-                        style={{
-                          display: "flex",
-                          justifyContent: "center",
-                          height: "100px",
-                        }}
-                        avatar={
-                          <Avatar
-                            className="avatar"
-                            src="https://api.dicebear.com/7.x/miniavs/svg?seed=8"
-                            style={{ cursor: "pointer" }}
-                          />
-                        }
-                        title={
-                          <span
-                            style={{
-                              color: "black",
-                              fontSize: "15px",
-                              borderBottom: "1px solid black",
-                            }}
-                          >
-                            {item.title}
-                          </span>
-                        }
-                        description={
-                          <span style={{ color: "black", fontSize: "12px" }}>
-                            {item.description}
-                          </span>
-                        }
-                      />
-                    </Card>
-                  </Col>
-                ))}
-              </Row>
-            </div>
-          </div>
+          <Row gutter={[16, 16]}>
+          {artworkData?.map((item, index) => (
+            <Col span={6} key={index}>
+              <ArtWorkCard
+                item={item}
+                onClick={() => handleArtworkClick(item.title, item.description, item.image, item.price, item._id)}
+                heartFilled={heartFilled}
+                likes={likes.likes}
+                onHeartClick={() => handleHeartClick(item._id)}
+              />
+            </Col>
+          ))}
+        </Row>
         );
       default:
         return <div>No images found</div>;
