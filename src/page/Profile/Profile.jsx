@@ -140,6 +140,7 @@ import {
   Card,
 } from "antd";
 import { FaFacebook, FaInstagram } from "react-icons/fa";
+import {useSelector} from "react-redux";
 
 const Profile = () => {
   const [sessionCookie, setSessionCookie] = useState("");
@@ -217,6 +218,7 @@ const Profile = () => {
   };
 
   const handleEditArtwork = () => {};
+  
   const [im, setim] = useState(null);
   const [pim, setpim] = useState(null);
   const customStyles = {
@@ -227,9 +229,12 @@ const Profile = () => {
       bottom: "auto",
       marginRight: "-50%",
       transform: "translate(-50%, -50%)",
+      border:"0",
+      scroll:"none"
+
     },
   };
-
+  let subtitle;
   const [modalIsOpen, setIsOpen] = React.useState(false);
 
   function openModal() {
@@ -251,13 +256,14 @@ const Profile = () => {
     closeModal();
     setpim(null);
   };
-  const justifyOptions = ["Collection", "My Order", "About"];
+    const justifyOptions = ["Collection", "Cart", "About"];
   const [justify, setJustify] = React.useState(justifyOptions[0]);
   const renderImages = () => {
     const handleArtworkClick = (title, description, image) => {
       setModalContent({ title, description, image });
       setModalVisible(true);
     };
+    const cart = useSelector ((state) => state.cart);
     switch (justify) {
       case "Collection ":
         return (
@@ -611,6 +617,53 @@ const Profile = () => {
             </Row>
           </div>
         );
+
+      case "Cart":
+        return(
+          <div className="cart-container">
+           {cart.cartItem.length === 0 ? (
+            <div className="cart-empty">
+              <p>your cart is empty</p>
+              <div className="start-shopping">
+                <a href="/ourhub">
+                  <Typography.title>Let Buy Something</Typography.title>
+                </a>
+              </div>
+            </div>
+           ) : (
+            <div>
+              <div className="title">
+                <h3 className="product-title">Product</h3>
+                <h3 className="price">Price</h3>
+                <h3 className="Quantity">Quantity</h3>
+                <h3 className="total">Total</h3>
+              </div>
+              <div className="cart-item">
+                {cart.cartItems ?.map(cartItem => (
+                  <div className="cart-item" key={cartItem.id}>
+                    <img src={cartItem.image} alt={cartItem.name} />
+                    <div>
+                      <h3>{cartItem.name}</h3>
+                      <p>{cartItem.title}</p>
+                      <Button>remove</Button>
+                    </div>
+                    <div className="cart-product-price">${cartItem.price}</div>
+                    <div className="cart-product-quantity">
+                      <button>+</button>
+                      <div className="count">{cartItem.cartQuantity}</div>
+                      <button>-</button>
+                    </div>
+                    <div className="cart-product-total-price">
+                      ${cartItem.price * cartItem.cartQuantity}
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+           )}
+          </div>
+        );
+
       case "About":
         return (
           <div className="aboutContain">
@@ -718,7 +771,7 @@ const Profile = () => {
     <div>
       <div className="profile-img" style={{ width: "100%", height: "400px" }}>
         <div className="fileupload">
-          <img onClick={openModal} src={im ? im : prf} />
+          <img onClick={openModal} onChange={fetchEditProfile}  src={im ? im : prf} />
         </div>
         <Typography.Title
           style={{
@@ -739,7 +792,7 @@ const Profile = () => {
             fontSize: "15px",
           }}
         >
-          0 following
+          12k following
         </Typography.Text>
         <Modal
           isOpen={modalIsOpen}
@@ -747,6 +800,7 @@ const Profile = () => {
           onRequestClose={closeModal}
           style={customStyles}
           contentLabel="Example Modal"
+          ariaHideApp={false}
         >
           <Avatar width={390} height={295} onCrop={onCrop} onClose={onClose} />
         </Modal>
