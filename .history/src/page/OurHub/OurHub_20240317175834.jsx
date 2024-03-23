@@ -8,7 +8,6 @@ import {
   Col,
   Card,
   Avatar,
-  Form,
 } from "antd";
 import React, { useEffect, useState } from "react";
 import { CiSearch } from "react-icons/ci";
@@ -20,15 +19,8 @@ import { useSpring, animated } from "react-spring";
 import { HeartFilled, HeartOutlined, SendOutlined } from "@ant-design/icons";
 import Comment from "../../components/Comment";
 import { useDispatch, useSelector } from "react-redux";
-import {
-  addCommentArtwork,
-  getArtwork,
-  getCommentArtwork,
-} from "../../redux/slices/artworkSlice";
-import {
-  getArtworkCommentSelector,
-  getArtworkSelector,
-} from "../../redux/selector";
+import { getArtwork } from "../../redux/slices/artworkSlice";
+import { getArtworkSelector } from "../../redux/selector";
 import axios from "axios";
 import {
   addLikeArtwork,
@@ -36,9 +28,11 @@ import {
 } from "../../redux/slices/artworkSlice";
 import { getArtworkLikeSelector } from "../../redux/selector";
 import ourHubBG from "../../assets/images/bg2.jpg";
-import Cookies from "js-cookie";
-
+import ArtWorkCard from "../../components/ArtWorkCard";
 const OurHub = () => {
+
+  
+
   const props = useSpring({
     opacity: 1,
     marginTop: 0,
@@ -58,25 +52,11 @@ const OurHub = () => {
   const [heartFilled, setHeartFilled] = useState(false);
   const artworkData = useSelector(getArtworkSelector);
   const likes = useSelector(getArtworkLikeSelector);
-  const comment = useSelector(getArtworkCommentSelector);
-  const [form] = Form.useForm();
   const dispatch = useDispatch();
   const handleHeartClick = () => {
     setHeartFilled(!heartFilled);
     dispatch(addLikeArtwork(modalContent.artworkId));
     dispatch(getLikeArtwork(modalContent.artworkId));
-  };
-  const handleComment = (values) => {
-    const artworkId = modalContent.artworkId;
-    const userId = Cookies.get("sessionCookie");
-    const text = values.text;
-    const data = { artworkId, userId, text };
-    dispatch(addCommentArtwork(data))
-      .unwrap()
-      .then(() => {
-        form.resetFields();
-        dispatch(getCommentArtwork(modalContent.artworkId));
-      });
   };
   const [justify, setJustify] = React.useState(justifyOptions[0]);
 
@@ -85,23 +65,23 @@ const OurHub = () => {
   }, []);
   useEffect(() => {
     dispatch(getLikeArtwork(modalContent.artworkId));
-    dispatch(getCommentArtwork(modalContent.artworkId));
   }, [modalContent]);
 
-  console.log("modal", modalContent);
+  console.log(artworkData);
 
   const renderImages = () => {
+
     const handleArtworkClick = (
       title,
       description,
       image,
       price,
-      artworkId,
-      user
+      artworkId
     ) => {
-      setModalContent({ title, description, image, price, artworkId, user });
+      setModalContent({ title, description, image, price, artworkId });
       setModalVisible(true);
     };
+
     switch (justify) {
       case "Discover":
         return (
@@ -120,8 +100,7 @@ const OurHub = () => {
                               item.description,
                               item.image,
                               item.price,
-                              item._id,
-                              item.user[0]
+                              item._id
                             )
                           }
                           cover={
@@ -197,8 +176,7 @@ const OurHub = () => {
                               item.description,
                               item.image,
                               item.price,
-                              item._id,
-                              item.user[0]
+                              item._id
                             )
                           }
                           cover={
@@ -274,8 +252,7 @@ const OurHub = () => {
                               item.description,
                               item.image,
                               item.price,
-                              item._id,
-                              item.user[0]
+                              item._id
                             )
                           }
                           cover={
@@ -350,8 +327,7 @@ const OurHub = () => {
                               item.description,
                               item.image,
                               item.price,
-                              item._id,
-                              item.user[0]
+                              item._id
                             )
                           }
                           cover={
@@ -427,8 +403,7 @@ const OurHub = () => {
                               item.description,
                               item.image,
                               item.price,
-                              item._id,
-                              item.user[0]
+                              item._id
                             )
                           }
                           cover={
@@ -502,8 +477,7 @@ const OurHub = () => {
                           item.description,
                           item.image,
                           item.price,
-                          item._id,
-                          item.user[0]
+                          item._id
                         )
                       }
                       cover={
@@ -737,7 +711,7 @@ const OurHub = () => {
                   fontSize: "120%",
                 }}
               >
-                {modalContent.user ? modalContent.user.name : "User"}
+                Jean Paul
               </p>
               <button
                 style={{
@@ -759,6 +733,7 @@ const OurHub = () => {
                 )}
                 {likes ? likes.likes : "0"}
               </button>
+
               <Button
                 id="hearthButton"
                 style={{
@@ -796,20 +771,54 @@ const OurHub = () => {
                 overflowY: "auto",
               }}
             >
-              {comment?.comments?.map((item, index) => (
-                <Comment
-                  key={index}
-                  user={item?.user ? `${item?.user?.name}` : "User"}
-                  text={item?.text}
-                />
-              ))}
+              <Comment
+                user="User1"
+                text="Lorem ipsum dolor sit amet, consectetur adipiscing elit."
+              />
+              <Comment
+                user="User2"
+                text="Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
+              />
+              <Comment
+                user="User3"
+                text="Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat."
+              />
+              <Comment
+                user="User4"
+                text="Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur."
+              />
+              <Comment
+                user="User5"
+                text="Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
+              />
+              <Comment
+                user="User6"
+                text="Lorem ipsum dolor sit amet, consectetur adipiscing elit."
+              />
+              <Comment
+                user="User7"
+                text="Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
+              />
+              <Comment
+                user="User8"
+                text="Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat."
+              />
+              <Comment
+                user="User9"
+                text="Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur."
+              />
+              <Comment
+                user="User10"
+                text="Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
+              />
             </div>
             <div style={{ marginTop: "20px" }}>
-              <Form form={form} onFinish={handleComment}>
-                <Form.Item name="text">
-                  <Input placeholder="Add a comment" />
-                </Form.Item>
-              </Form>
+              <Input placeholder="Add a comment" />
+              <button
+                style={{ position: "absolute", right: 20, paddingTop: "6px" }}
+              >
+                <SendOutlined />
+              </button>
             </div>
           </Col>
         </Row>

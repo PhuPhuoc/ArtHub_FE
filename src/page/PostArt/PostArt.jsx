@@ -22,6 +22,8 @@ import { PlusOutlined } from "@ant-design/icons";
 import Cookies from "js-cookie";
 import { addImage1, getImage } from "../../helper/uploadImg";
 import { getDownloadURL, ref, uploadBytesResumable } from "firebase/storage";
+import {useNavigate} from "react-router-dom";
+
 const normFile = (e) => {
   if (Array.isArray(e)) {
     return e;
@@ -46,6 +48,7 @@ const PostArt = () => {
   const mountains_frontRef = useRef(null);
   const mountains_behindRef = useRef(null);
   const [sessionCookie, setSessionCookie] = useState("");
+  const navigate = useNavigate();
 
   const userId = sessionCookie.toString();
   const handleExploreClick = () => {
@@ -58,6 +61,8 @@ const PostArt = () => {
     const cookieValue = Cookies.get("sessionCookie");
     if (cookieValue) {
       setSessionCookie(cookieValue);
+    } else {
+      navigate('/loginpage');
     }
   }, []);
 

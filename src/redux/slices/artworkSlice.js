@@ -1,16 +1,38 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { getRequest, postRequest } from "../../services/httpMethod";
-
+import { toast } from "react-toastify";
 const initialState = {
   artworkData: [],
   likes: {},
+  cartItems: [],
+  cartTotalQuantity: 0,
+  cartTotalAmount: 0,
   comments: {},
 };
 
 export const artworkSlice = createSlice({
   name: "artwork",
   initialState,
-  reducers: {},
+  reducers: {
+    addToCart(state, action) {
+      const itemIndex = state.cartItems.findIndex(
+        (item) => item.id === action.payload.id
+      );
+      if (itemIndex >= 0) {
+        state.cartItems[itemIndex].cartQuantity += 1;
+        toast.info("increased product quantity", {
+          position: "bottom-left",
+        });
+      } else {
+        const tempProduct = { ...action.payload, cartQuantity: 1 };
+        state.cartItems.push(tempProduct);
+        toast.success("added a new product to cart", {
+          position: "bottom-left",
+        });
+      }
+      localStorage.setItem("cartItems", JSON.stringify(state.cartItems));
+    },
+  },
 
   extraReducers: (builder) => {
     builder
@@ -25,6 +47,7 @@ export const artworkSlice = createSlice({
       });
   },
 });
+export const { addToCart } = artworkSlice.actions;
 
 const addArtwork = createAsyncThunk("artwork/addArtwork", async (values) => {
   try {
