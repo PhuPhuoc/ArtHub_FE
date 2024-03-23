@@ -452,11 +452,25 @@ const PostArt = () => {
             </Select>
           </Form.Item>
           <Form.Item
+            label="Price of the Image"
+            name="imagePrice"
+            rules={[
+              {
+                required: true,
+                message: "Please input the price of the image!",
+              },
+            ]}
+            value={price}
+            onChange={(e) => setPrice(e.target.value)}
+          >
+            <Input type="number" placeholder="Enter the price" prefix="$" />
+          </Form.Item>
+          <Form.Item
             label="Upload"
             name="fileList"
             valuePropName="fileList"
             getValueFromEvent={normFile}
-            style={{ marginTop: "-40px" }}
+            style={{ marginTop: "40px" }}
           >
             Select Image:
             <input
@@ -503,20 +517,7 @@ const PostArt = () => {
               </div>
             )}
           </Form.Item>
-          <Form.Item
-            label="Price of the Image"
-            name="imagePrice"
-            rules={[
-              {
-                required: true,
-                message: "Please input the price of the image!",
-              },
-            ]}
-            value={price}
-            onChange={(e) => setPrice(e.target.value)}
-          >
-            <Input type="number" placeholder="Enter the price" prefix="$" />
-          </Form.Item>
+
           <Form.Item>
             <Space>
               <Button

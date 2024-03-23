@@ -4,6 +4,7 @@ import { getRequest, postRequest } from "../../services/httpMethod";
 const initialState = {
   artworkData: [],
   likes: {},
+  comments: {},
 };
 
 export const artworkSlice = createSlice({
@@ -18,6 +19,9 @@ export const artworkSlice = createSlice({
       })
       .addCase(getLikeArtwork.fulfilled, (state, action) => {
         state.likes = action.payload;
+      })
+      .addCase(getCommentArtwork.fulfilled, (state, action) => {
+        state.comments = action.payload;
       });
   },
 });
@@ -52,11 +56,39 @@ export const addLikeArtwork = createAsyncThunk(
   }
 );
 
+export const addCommentArtwork = createAsyncThunk(
+  "artwork/addCommentArtwork",
+  async (values) => {
+    try {
+      console.log(values);
+      const res = await postRequest(`${values.artworkId}/comments`, {
+        text: values.text,
+        userId: values.userId,
+      });
+      return res.data;
+    } catch (error) {
+      console.log({ error });
+    }
+  }
+);
+
 export const getLikeArtwork = createAsyncThunk(
   "artwork/getLikeArtwork",
   async (artworkId) => {
     try {
       const res = await getRequest(`artworks/${artworkId}/likes`);
+      return res.data;
+    } catch (error) {
+      console.log({ error });
+    }
+  }
+);
+
+export const getCommentArtwork = createAsyncThunk(
+  "artwork/getCommentArtwork",
+  async (artworkId) => {
+    try {
+      const res = await getRequest(`${artworkId}/comments`);
       return res.data;
     } catch (error) {
       console.log({ error });
