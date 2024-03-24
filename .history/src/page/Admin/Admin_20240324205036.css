@@ -43,3 +43,7 @@
 .selectedRow {
   background-color: #1890ff20; /* Adjust the background color as per your preference */
 }
+
+.ant-table-row:hover {
+  background-color: #1890ff10; /* Adjust the background color as per your preference */
+}
