@@ -177,21 +177,20 @@ const Admin = () => {
     });
   };
   const [selectedRowIndex, setSelectedRowIndex] = useState(null);
-
-const handleRowClick = (user, index) => {
-  if (selectedUser && selectedUser.key === user.key && selectedRowIndex === index) {
-    // Si l'utilisateur clique à nouveau sur la même ligne déjà sélectionnée, désélectionner
-    setSelectedUser(null);
-    setSelectedRowIndex(null); // Réinitialiser également l'index de la ligne sélectionnée
-  } else {
-    // Sinon, sélectionner la ligne cliquée
-    setSelectedUser(user);
-    setSelectedRowIndex(index);
-  }
-
-  // Console log the selected user
-  console.log(user);
-};
+  const handleRowClick = (user, index) => {
+    if (selectedUser && selectedUser.key === user.key) {
+      // If the clicked row is already selected, deselect it
+      setSelectedUser(null);
+      setSelectedRowIndex(null); // Also reset the selected row index
+    } else {
+      // Otherwise, select the clicked row
+      setSelectedUser(user);
+      setSelectedRowIndex(index);
+    }
+  
+    //Console log the selected user
+    console.log(user);
+  };
 
   const rowSelection = {
     type: "radio",
