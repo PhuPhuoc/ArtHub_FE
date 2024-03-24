@@ -12,6 +12,7 @@ import Admin from "../page/Admin/Admin";
 import Security from "../page/Security/Security";
 import Notification from "../page/Notification/Notification";
 import Privacyanddata from "../page/Privacyanddata/Privacyanddata";
+
 const welcomeRouterData = [
   { path: "findtalent", component: <FindTalent /> },
   { path: "ourhub", component: <OurHub /> },
@@ -23,8 +24,6 @@ const welcomeRouterData = [
   { path: "security", component: <Security /> },
   { path: "notification", component: <Notification /> },
   { path: "privacyanddata", component: <Privacyanddata /> },
-
-
 ];
 
 const DefaultComponent = () => {
