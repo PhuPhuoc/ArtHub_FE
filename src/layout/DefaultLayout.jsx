@@ -18,6 +18,7 @@ import { useEffect, useState } from "react";
 import Search from "antd/es/input/Search";
 import Cookies from "js-cookie";
 import logo from "../assets/images/reallogo.png";
+import { BsCartCheck } from "react-icons/bs";
 import axios from "axios";
 
 function getItem(label, key, icon, children, type) {
@@ -41,7 +42,7 @@ const DefaultLayout = ({ children }) => {
   const [sessionCookie, setSessionCookie] = useState("");
 
   const handleSearchClick = (item) => {
-      navigate(`/search/${item}`);
+    navigate(`/search/${item}`);
   };
 
   useEffect(() => {
@@ -70,6 +71,15 @@ const DefaultLayout = ({ children }) => {
             }}
           >
             Profile
+          </Menu.Item>
+          <Menu.Item
+            key="order"
+            icon={<BsCartCheck />}
+            onClick={() => {
+              navigate("/orderpage");
+            }}
+          >
+            Your Orders
           </Menu.Item>
           <SubMenu
             key="setting"

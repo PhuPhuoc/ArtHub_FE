@@ -9,6 +9,7 @@ import {
   Card,
   Avatar,
   Form,
+  message,
 } from "antd";
 import React, { useEffect, useState } from "react";
 import { CiSearch } from "react-icons/ci";
@@ -22,6 +23,7 @@ import Comment from "../../components/Comment";
 import { useDispatch, useSelector } from "react-redux";
 import {
   addCommentArtwork,
+  addToCart,
   getArtwork,
   getCommentArtwork,
 } from "../../redux/slices/artworkSlice";
@@ -52,7 +54,7 @@ const OurHub = () => {
     "Food",
     "All",
   ];
- 
+
   const [modalVisible, setModalVisible] = React.useState(false);
   const [modalContent, setModalContent] = React.useState({});
   const [heartFilled, setHeartFilled] = useState(false);
@@ -64,7 +66,19 @@ const OurHub = () => {
   const handleHeartClick = () => {
     setHeartFilled(!heartFilled);
     dispatch(addLikeArtwork(modalContent.artworkId));
-    dispatch(getLikeArtwork(modalContent.artworkId));
+  };
+  const handleAddToCart = () => {
+    const userId = Cookies.get("sessionCookie");
+    const artworkId = modalContent.artworkId;
+    const values = { userId, artworkId };
+    dispatch(addToCart(values))
+      .unwrap()
+      .then(() => {
+        message.success("Added artwork to the cart");
+      })
+      .catch((error) => {
+        message.error(error);
+      });
   };
   const handleComment = (values) => {
     const artworkId = modalContent.artworkId;
@@ -760,6 +774,7 @@ const OurHub = () => {
                 {likes ? likes.likes : "0"}
               </button>
               <Button
+                onClick={handleAddToCart}
                 id="hearthButton"
                 style={{
                   position: "absolute",
@@ -767,7 +782,7 @@ const OurHub = () => {
                   alignItems: "center",
                 }}
               >
-                Add to cart{" "}
+                Add to cart
                 <ShoppingCartOutlined style={{ alignItems: "center" }} />{" "}
               </Button>
             </Row>

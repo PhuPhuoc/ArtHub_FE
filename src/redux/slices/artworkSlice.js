@@ -1,5 +1,9 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { getRequest, postRequest } from "../../services/httpMethod";
+import {
+  deleteRequest,
+  getRequest,
+  postRequest,
+} from "../../services/httpMethod";
 import { toast } from "react-toastify";
 const initialState = {
   artworkData: [],
@@ -8,30 +12,31 @@ const initialState = {
   cartTotalQuantity: 0,
   cartTotalAmount: 0,
   comments: {},
+  cart: [],
 };
 
 export const artworkSlice = createSlice({
   name: "artwork",
   initialState,
   reducers: {
-    addToCart(state, action) {
-      const itemIndex = state.cartItems.findIndex(
-        (item) => item.id === action.payload.id
-      );
-      if (itemIndex >= 0) {
-        state.cartItems[itemIndex].cartQuantity += 1;
-        toast.info("increased product quantity", {
-          position: "bottom-left",
-        });
-      } else {
-        const tempProduct = { ...action.payload, cartQuantity: 1 };
-        state.cartItems.push(tempProduct);
-        toast.success("added a new product to cart", {
-          position: "bottom-left",
-        });
-      }
-      localStorage.setItem("cartItems", JSON.stringify(state.cartItems));
-    },
+    // addToCart(state, action) {
+    //   const itemIndex = state.cartItems.findIndex(
+    //     (item) => item.id === action.payload.id
+    //   );
+    //   if (itemIndex >= 0) {
+    //     state.cartItems[itemIndex].cartQuantity += 1;
+    //     toast.info("increased product quantity", {
+    //       position: "bottom-left",
+    //     });
+    //   } else {
+    //     const tempProduct = { ...action.payload, cartQuantity: 1 };
+    //     state.cartItems.push(tempProduct);
+    //     toast.success("added a new product to cart", {
+    //       position: "bottom-left",
+    //     });
+    //   }
+    //   localStorage.setItem("cartItems", JSON.stringify(state.cartItems));
+    // },
   },
 
   extraReducers: (builder) => {
@@ -44,10 +49,12 @@ export const artworkSlice = createSlice({
       })
       .addCase(getCommentArtwork.fulfilled, (state, action) => {
         state.comments = action.payload;
+      })
+      .addCase(getUserCart.fulfilled, (state, action) => {
+        state.cart = action.payload;
       });
   },
 });
-export const { addToCart } = artworkSlice.actions;
 
 const addArtwork = createAsyncThunk("artwork/addArtwork", async (values) => {
   try {
@@ -129,4 +136,41 @@ export const getArtwork = createAsyncThunk("artwork/getArtwork", async () => {
   }
 });
 
+export const addToCart = createAsyncThunk(
+  "artwork/addToCart",
+  async (values) => {
+    try {
+      const res = await postRequest(
+        `users/${values.userId}/cart/${values.artworkId}`
+      );
+      return res.data;
+    } catch (error) {
+      console.log({ error });
+    }
+  }
+);
+export const getUserCart = createAsyncThunk(
+  "artwork/getUserCart",
+  async (userId) => {
+    try {
+      const res = await getRequest(`users/${userId}/cart`);
+      return res.data.cartArtworks;
+    } catch (error) {
+      console.log({ error });
+    }
+  }
+);
+export const deleteCart = createAsyncThunk(
+  "artwork/deleteCart",
+  async (values) => {
+    try {
+      const res = await deleteRequest(
+        `users/${values.userId}/cart/${values.artworkId}`
+      );
+      return res.data;
+    } catch (error) {
+      console.log({ error });
+    }
+  }
+);
 export default artworkSlice;

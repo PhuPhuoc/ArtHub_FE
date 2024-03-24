@@ -140,7 +140,7 @@ import {
   Card,
 } from "antd";
 import { FaFacebook, FaInstagram } from "react-icons/fa";
-import {useSelector} from "react-redux";
+import { useSelector } from "react-redux";
 
 const Profile = () => {
   const [sessionCookie, setSessionCookie] = useState("");
@@ -149,26 +149,24 @@ const Profile = () => {
   const [modalVisible, setModalVisible] = React.useState(false);
   const [modalContent, setModalContent] = React.useState({});
 
-    // Edit Profile
-    const [newPicture, setNewPicture] = useState('');
-    const [newName, setNewName] = useState('');
-    const [newMail, setNewMail] = useState('');
-    const [newPassword, setNewPassword] = useState('');
+  // Edit Profile
+  const [newPicture, setNewPicture] = useState("");
+  const [newName, setNewName] = useState("");
+  const [newMail, setNewMail] = useState("");
+  const [newPassword, setNewPassword] = useState("");
 
-    const fetchEditProfile = (userId) => {
-        const response = axios.
-            put(`http://localhost:5000/api/users/${userId}`,
-            {
-                name: newName,
-                mail: newMail,
-                password: newPassword,
-                picture: newPicture
-            });
+  const fetchEditProfile = (userId) => {
+    const response = axios.put(`http://localhost:5000/api/users/${userId}`, {
+      name: newName,
+      mail: newMail,
+      password: newPassword,
+      picture: newPicture,
+    });
 
-        if (!response) {
-            console.log('Error fetching edit on profile');
-        }
-    };
+    if (!response) {
+      console.log("Error fetching edit on profile");
+    }
+  };
 
   useEffect(() => {
     const cookieValue = Cookies.get("sessionCookie");
@@ -218,7 +216,7 @@ const Profile = () => {
   };
 
   const handleEditArtwork = () => {};
-  
+
   const [im, setim] = useState(null);
   const [pim, setpim] = useState(null);
   const customStyles = {
@@ -229,9 +227,8 @@ const Profile = () => {
       bottom: "auto",
       marginRight: "-50%",
       transform: "translate(-50%, -50%)",
-      border:"0",
-      scroll:"none"
-
+      border: "0",
+      scroll: "none",
     },
   };
   let subtitle;
@@ -256,414 +253,19 @@ const Profile = () => {
     closeModal();
     setpim(null);
   };
-    const justifyOptions = ["Collection", "Cart", "About"];
+  const justifyOptions = ["Collection", "Saved", "About"];
   const [justify, setJustify] = React.useState(justifyOptions[0]);
   const renderImages = () => {
     const handleArtworkClick = (title, description, image) => {
       setModalContent({ title, description, image });
       setModalVisible(true);
     };
-    const cart = useSelector ((state) => state.cart);
+    const cart = useSelector((state) => state.cart);
     switch (justify) {
       case "Collection ":
-        return (
-          <div className="imagesContain">
-            <div className="title">Images for Foods</div>
-            <Row gutter={16}>
-              <Col className="gutter-row" span={6}>
-                <Card
-                  cover={
-                    <img
-                      src="https://images.unsplash.com/photo-1647169953827-a7c85f324caf?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
-                      alt="image"
-                    />
-                  }
-                >
-                  <Meta
-                    style={{
-                      display: "flex",
-                      justifyContent: "center",
-                      height: "100px",
-                    }}
-                    avatar={
-                      <Avatar
-                        className="avatar"
-                        src="https://api.dicebear.com/7.x/miniavs/svg?seed=8"
-                        style={{ cursor: "pointer" }}
-                      />
-                    }
-                    title={
-                      <span
-                        style={{
-                          color: "black",
-                          fontSize: "15px",
-                          borderBottom: "1px solid black",
-                        }}
-                      >
-                        Banh Mi Ha Noi
-                      </span>
-                    }
-                    description={
-                      <span style={{ color: "black", fontSize: "12px" }}>
-                        This is one of the most delicious traditional food in
-                        VietNam
-                      </span>
-                    }
-                  />
-                </Card>
-              </Col>
-              <Col className="gutter-row" span={6}>
-                <Card
-                  cover={
-                    <img
-                      src="https://images.unsplash.com/photo-1513104890138-7c749659a591?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
-                      alt="image"
-                    />
-                  }
-                >
-                  <Meta
-                    style={{
-                      display: "flex",
-                      justifyContent: "center",
-                      height: "100px",
-                    }}
-                    avatar={
-                      <Avatar
-                        className="avatar"
-                        src="https://api.dicebear.com/7.x/miniavs/svg?seed=8"
-                        style={{ cursor: "pointer" }}
-                      />
-                    }
-                    title={
-                      <span
-                        style={{
-                          color: "black",
-                          fontSize: "15px",
-                          borderBottom: "1px solid black",
-                        }}
-                      >
-                        Pizza
-                      </span>
-                    }
-                    description={
-                      <span style={{ color: "black", fontSize: "12px" }}>
-                        pizza evolved from similar flatbread dishes in Naples,
-                        Italy, between the 16th and mid-18th century.
-                      </span>
-                    }
-                  />
-                </Card>
-              </Col>
-              <Col className="gutter-row" span={6}>
-                <Card
-                  cover={
-                    <img
-                      src="https://observatoirecetelem.com/wp-content/uploads/2018/03/istock_110933888.5110a165224.original.jpg "
-                      alt="image"
-                    />
-                  }
-                >
-                  <Meta
-                    style={{
-                      display: "flex",
-                      justifyContent: "center",
-                      height: "100px",
-                    }}
-                    avatar={
-                      <Avatar
-                        className="avatar"
-                        src="https://api.dicebear.com/7.x/miniavs/svg?seed=8"
-                        style={{ cursor: "pointer" }}
-                      />
-                    }
-                    title={
-                      <span
-                        style={{
-                          color: "black",
-                          fontSize: "15px",
-                          borderBottom: "1px solid black",
-                        }}
-                      >
-                        Foie Gras
-                      </span>
-                    }
-                    description={
-                      <span style={{ color: "black", fontSize: "12px" }}>
-                        Lorem, ipsum dolor sit amet consectetur adipisicing
-                        elit. Minus eos voluptates, enim officiis tempore esse
-                        voluptatem! Excepturi rem commodi tempora.
-                      </span>
-                    }
-                  />
-                </Card>
-              </Col>
-              <Col className="gutter-row" span={6}>
-                <Card
-                  cover={
-                    <img
-                      src="https://plus.unsplash.com/premium_photo-1676466884050-3b95749bd1eb?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
-                      alt="image"
-                    />
-                  }
-                >
-                  <Meta
-                    style={{
-                      display: "flex",
-                      justifyContent: "center",
-                      height: "100px",
-                    }}
-                    avatar={
-                      <Avatar
-                        className="avatar"
-                        src="https://api.dicebear.com/7.x/miniavs/svg?seed=8"
-                        style={{ cursor: "pointer" }}
-                      />
-                    }
-                    title={
-                      <span
-                        style={{
-                          color: "black",
-                          fontSize: "15px",
-                          borderBottom: "1px solid black",
-                        }}
-                      >
-                        Taco
-                      </span>
-                    }
-                    description={
-                      <span style={{ color: "black", fontSize: "12px" }}>
-                        Lorem, ipsum dolor sit amet consectetur adipisicing
-                        elit. Minus eos voluptates, enim officiis tempore esse
-                        voluptatem! Excepturi rem commodi tempora.
-                      </span>
-                    }
-                  />
-                </Card>
-              </Col>
-            </Row>
-            <Row gutter={16}>
-              <Col className="gutter-row" span={6}>
-                <Card
-                  cover={
-                    <img
-                      src="https://images.unsplash.com/photo-1509680859026-7d8cfc6894f4?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
-                      alt="image"
-                    />
-                  }
-                >
-                  <Meta
-                    style={{
-                      display: "flex",
-                      justifyContent: "center",
-                      height: "100px",
-                    }}
-                    avatar={
-                      <Avatar
-                        className="avatar"
-                        src="https://api.dicebear.com/7.x/miniavs/svg?seed=8"
-                        style={{ cursor: "pointer" }}
-                      />
-                    }
-                    title={
-                      <span
-                        style={{
-                          color: "black",
-                          fontSize: "15px",
-                          borderBottom: "1px solid black",
-                        }}
-                      >
-                        Egg Noodles
-                      </span>
-                    }
-                    description={
-                      <span style={{ color: "black", fontSize: "12px" }}>
-                        Lorem, ipsum dolor sit amet consectetur adipisicing
-                        elit. Minus eos voluptates, enim officiis tempore esse
-                        voluptatem! Excepturi rem commodi tempora.
-                      </span>
-                    }
-                  />
-                </Card>
-              </Col>
-              <Col className="gutter-row" span={6}>
-                <Card
-                  cover={
-                    <img
-                      src="https://plus.unsplash.com/premium_photo-1668143363479-b8cd08698c0d?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
-                      alt="image"
-                    />
-                  }
-                >
-                  <Meta
-                    style={{
-                      display: "flex",
-                      justifyContent: "center",
-                      height: "100px",
-                    }}
-                    avatar={
-                      <Avatar
-                        className="avatar"
-                        src="https://api.dicebear.com/7.x/miniavs/svg?seed=8"
-                        style={{ cursor: "pointer" }}
-                      />
-                    }
-                    title={
-                      <span
-                        style={{
-                          color: "black",
-                          fontSize: "15px",
-                          borderBottom: "1px solid black",
-                        }}
-                      >
-                        Curry
-                      </span>
-                    }
-                    description={
-                      <span style={{ color: "black", fontSize: "12px" }}>
-                        Lorem, ipsum dolor sit amet consectetur adipisicing
-                        elit. Minus eos voluptates, enim officiis tempore esse
-                        voluptatem! Excepturi rem commodi tempora.
-                      </span>
-                    }
-                  />
-                </Card>
-              </Col>
-              <Col className="gutter-row" span={6}>
-                <Card
-                  cover={
-                    <img
-                      src="https://images.unsplash.com/photo-1631709497146-a239ef373cf1?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
-                      alt="image"
-                    />
-                  }
-                >
-                  <Meta
-                    style={{
-                      display: "flex",
-                      justifyContent: "center",
-                      height: "100px",
-                    }}
-                    avatar={
-                      <Avatar
-                        className="avatar"
-                        src="https://api.dicebear.com/7.x/miniavs/svg?seed=8"
-                        style={{ cursor: "pointer" }}
-                      />
-                    }
-                    title={
-                      <span
-                        style={{
-                          color: "black",
-                          fontSize: "15px",
-                          borderBottom: "1px solid black",
-                        }}
-                      >
-                        Pho Ha Noi
-                      </span>
-                    }
-                    description={
-                      <span style={{ color: "black", fontSize: "12px" }}>
-                        Lorem, ipsum dolor sit amet consectetur adipisicing
-                        elit. Minus eos voluptates, enim officiis tempore esse
-                        voluptatem! Excepturi rem commodi tempora.
-                      </span>
-                    }
-                  />
-                </Card>
-              </Col>
-              <Col className="gutter-row" span={6}>
-                <Card
-                  cover={
-                    <img
-                      src="https://images.unsplash.com/photo-1547592166-23ac45744acd?q=80&w=2071&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
-                      alt="image"
-                    />
-                  }
-                >
-                  <Meta
-                    style={{
-                      display: "flex",
-                      justifyContent: "center",
-                      height: "100px",
-                    }}
-                    avatar={
-                      <Avatar
-                        className="avatar"
-                        src="https://api.dicebear.com/7.x/miniavs/svg?seed=8"
-                        style={{ cursor: "pointer" }}
-                      />
-                    }
-                    title={
-                      <span
-                        style={{
-                          color: "black",
-                          fontSize: "15px",
-                          borderBottom: "1px solid black",
-                        }}
-                      >
-                        A bottle of Soup
-                      </span>
-                    }
-                    description={
-                      <span style={{ color: "black", fontSize: "12px" }}>
-                        Lorem, ipsum dolor sit amet consectetur adipisicing
-                        elit. Minus eos voluptates, enim officiis tempore esse
-                        voluptatem! Excepturi rem commodi tempora.
-                      </span>
-                    }
-                  />
-                </Card>
-              </Col>
-            </Row>
-          </div>
-        );
-
-      case "Cart":
-        return(
-          <div className="cart-container">
-           {cart.cartItem.length === 0 ? (
-            <div className="cart-empty">
-              <p>your cart is empty</p>
-              <div className="start-shopping">
-                <a href="/ourhub">
-                  <Typography.title>Let Buy Something</Typography.title>
-                </a>
-              </div>
-            </div>
-           ) : (
-            <div>
-              <div className="title">
-                <h3 className="product-title">Product</h3>
-                <h3 className="price">Price</h3>
-                <h3 className="Quantity">Quantity</h3>
-                <h3 className="total">Total</h3>
-              </div>
-              <div className="cart-item">
-                {cart.cartItems ?.map(cartItem => (
-                  <div className="cart-item" key={cartItem.id}>
-                    <img src={cartItem.image} alt={cartItem.name} />
-                    <div>
-                      <h3>{cartItem.name}</h3>
-                      <p>{cartItem.title}</p>
-                      <Button>remove</Button>
-                    </div>
-                    <div className="cart-product-price">${cartItem.price}</div>
-                    <div className="cart-product-quantity">
-                      <button>+</button>
-                      <div className="count">{cartItem.cartQuantity}</div>
-                      <button>-</button>
-                    </div>
-                    <div className="cart-product-total-price">
-                      ${cartItem.price * cartItem.cartQuantity}
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </div>
-           )}
-          </div>
-        );
-
+        return;
+      case "Saved":
+        return;
       case "About":
         return (
           <div className="aboutContain">
@@ -744,7 +346,8 @@ const Profile = () => {
                   https://www.instagram.com/divinci_leonardo/
                 </Typography.Link>
                 <Typography.Text>
-                If you need to hire a private painting or portrait painting, please contact us via the link above
+                  If you need to hire a private painting or portrait painting,
+                  please contact us via the link above
                 </Typography.Text>
               </div>
               <div
@@ -763,7 +366,7 @@ const Profile = () => {
         );
 
       default:
-        return <div>No images found</div>;
+        return <div></div>;
     }
   };
 
@@ -771,7 +374,11 @@ const Profile = () => {
     <div>
       <div className="profile-img" style={{ width: "100%", height: "400px" }}>
         <div className="fileupload">
-          <img onClick={openModal} onChange={fetchEditProfile}  src={im ? im : prf} />
+          <img
+            onClick={openModal}
+            onChange={fetchEditProfile}
+            src={im ? im : prf}
+          />
         </div>
         <Typography.Title
           style={{

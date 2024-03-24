@@ -13,6 +13,7 @@ import Security from "../page/Security/Security";
 import Notification from "../page/Notification/Notification";
 import Privacyanddata from "../page/Privacyanddata/Privacyanddata";
 import PaymentPage from "../page/Payment/PaymentPage.jsx";
+import OrderPage from "../page/Order/OrderPage.jsx";
 const welcomeRouterData = [
   { path: "findtalent", component: <FindTalent /> },
   { path: "ourhub", component: <OurHub /> },
@@ -25,6 +26,7 @@ const welcomeRouterData = [
   { path: "notification", component: <Notification /> },
   { path: "privacyanddata", component: <Privacyanddata /> },
   { path: "paymentpage", component: <PaymentPage /> },
+  { path: "orderpage", component: <OrderPage /> },
 ];
 
 const DefaultComponent = () => {
