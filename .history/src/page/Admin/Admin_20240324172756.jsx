@@ -176,22 +176,12 @@ const Admin = () => {
       return { ...item, key: index + 1 };
     });
   };
-  const [selectedRowIndex, setSelectedRowIndex] = useState(null);
 
-const handleRowClick = (user, index) => {
-  if (selectedUser && selectedUser.key === user.key && selectedRowIndex === index) {
-    // Si l'utilisateur clique à nouveau sur la même ligne déjà sélectionnée, désélectionner
-    setSelectedUser(null);
-    setSelectedRowIndex(null); // Réinitialiser également l'index de la ligne sélectionnée
-  } else {
-    // Sinon, sélectionner la ligne cliquée
+  const handleRowClick = (user) => {
     setSelectedUser(user);
-    setSelectedRowIndex(index);
-  }
-
-  // Console log the selected user
-  console.log(user);
-};
+    //Console log the selected user
+    console.log(user);
+  };
 
   const rowSelection = {
     type: "radio",
@@ -221,59 +211,23 @@ const handleRowClick = (user, index) => {
     setSelectedUserId(userId);
   };
 
-  const handleModalVisible = () => {
-    setIsModalVisible(!isModalVisible);
-  };
 
   const handleSaveEdit = () => {
     formEdit
       .validateFields()
       .then((values) => {
-        const { name, email, password, avatarUrl } = values;
-  
-        const updatedUser = {
-          name,
-          mail: email,
-          password,
-          picture: avatarUrl,
-        };
-  
-        fetch(`http://localhost:5000/api/users/${selectedUser._id}`, {
-          method: "PUT",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(updatedUser),
-        })
-          .then((response) => {
-            if (response.ok) {
-              // If update successful, update UI
-              const updatedData = data.map((user) =>
-                user.key === selectedUser.key ? { ...user, ...values } : user
-              );
-              setData(updatedData);
-              setEditModalVisible(false);
-              setSelectedUser(null);
-              dispatch(getAllUser());
+        const updatedData = data.map((user) =>
+          user.key === selectedUser.key ? { ...user, ...values } : user
+        );
 
-            } else {
-              // Handle error response from server
-              throw new Error("Failed to update user");
-            }
-          })
-          .catch((error) => {
-            console.error("Error updating user:", error);
-            Modal.error({
-              title: "Error",
-              content: "Failed to update user. Please try again later.",
-            });
-          });
+        setData(updatedData);
+        setEditModalVisible(false);
+        setSelectedUser(null);
       })
       .catch((errorInfo) => {
         console.log("Failed:", errorInfo);
       });
   };
-  
   const handleAddUser = (values) => {
     const newUser = {
       name: values.name,
@@ -288,11 +242,11 @@ const handleRowClick = (user, index) => {
       body: JSON.stringify(newUser),
     })
       .then((response) => response.json())
-      .then((newUserData) => {
+      .then((data) => {
         // Update local state with the added user data
-        setData([...data, newUserData]); // Assuming `newUserData` holds the data of the newly added user
+        setData([...data, data]);
         setIsModalVisible(false);
-    })
+      })
       .catch((error) => {
         console.error("Error adding user:", error);
       });
@@ -305,36 +259,17 @@ const handleRowClick = (user, index) => {
         okText: "Yes",
         cancelText: "Cancel",
         onOk: () => {
-          // Send DELETE request to backend
-          fetch(`http://localhost:5000/api/admin/users/${selectedUser._id}`, {
-            method: "DELETE",
-          })
-            .then((response) => {
-              if (response.ok) {
-                // If deletion successful, update UI
-                const updatedData = data.filter(
-                  (user) => user.key !== selectedUser.key
-                );
-                const updatedDataWithStt = updateSttColumn(updatedData);
-                setData(updatedDataWithStt);
-                setSelectedUser(null);
-  
-                // Reload data from the server
-                dispatch(getAllUser());
-              } else {
-                // Handle error response from backend
-                console.error("Error deleting user:", response.statusText);
-              }
-            })
-            .catch((error) => {
-              console.error("Error deleting user:", error);
-            });
+          const updatedData = data.filter(
+            (user) => user.key !== selectedUser.key
+          );
+          const updatedDataWithStt = updateSttColumn(updatedData);
+          setData(updatedDataWithStt);
+          setSelectedUser(null);
         },
         onCancel: () => {},
       });
     }
   };
-
   useEffect(() => {
     dispatch(getAllUser());
   }, []);
@@ -345,85 +280,53 @@ const handleRowClick = (user, index) => {
       className="bubbblesContainer"
     >
       <div className="bubbles">
-        <span style={{ "--i": 17 }}></span>
-        <span style={{ "--i": 19 }}></span>
-        <span style={{ "--i": 22 }}></span>
-        <span style={{ "--i": 20 }}></span>
-        <span style={{ "--i": 18 }}></span>
-        <span style={{ "--i": 15 }}></span>
-        <span style={{ "--i": 20 }}></span>
-        <span style={{ "--i": 22 }}></span>
-        <span style={{ "--i": 17 }}></span>
-        <span style={{ "--i": 18 }}></span>
-        <span style={{ "--i": 20 }}></span>
-        <span style={{ "--i": 22 }}></span>
-        <span style={{ "--i": 25 }}></span>
-        <span style={{ "--i": 28 }}></span>
-        <span style={{ "--i": 30 }}></span>
-        <span style={{ "--i": 12 }}></span>
-        <span style={{ "--i": 18 }}></span>
-        <span style={{ "--i": 16 }}></span>
-        <span style={{ "--i": 17 }}></span>
-        <span style={{ "--i": 20 }}></span>
-        <span style={{ "--i": 22 }}></span>
-        <span style={{ "--i": 24 }}></span>
-        <span style={{ "--i": 12 }}></span>
-        <span style={{ "--i": 16 }}></span>
-        <span style={{ "--i": 20 }}></span>
-        <span style={{ "--i": 22 }}></span>
-        <span style={{ "--i": 15 }}></span>
-        <span style={{ "--i": 20 }}></span>
-        <span style={{ "--i": 17 }}></span>
-        <span style={{ "--i": 22 }}></span>
-        <span style={{ "--i": 25 }}></span>
-        <span style={{ "--i": 28 }}></span>
-        <span style={{ "--i": 30 }}></span>
-        <span style={{ "--i": 12 }}></span>
-        <span style={{ "--i": 18 }}></span>
-        <span style={{ "--i": 16 }}></span>
-        <span style={{ "--i": 17 }}></span>
-        <span style={{ "--i": 20 }}></span>
-        <span style={{ "--i": 22 }}></span>
-        <span style={{ "--i": 24 }}></span>
-        <span style={{ "--i": 12 }}></span>
-        <span style={{ "--i": 16 }}></span>
-        <span style={{ "--i": 20 }}></span>
-        <span style={{ "--i": 22 }}></span>
-        <span style={{ "--i": 15 }}></span>
-        <span style={{ "--i": 20 }}></span>
-        <span style={{ "--i": 17 }}></span>
+        {userData.map(user => (
+          <span
+            key={user._id}
+            className={selectedUserId === user._id ? "selected" : ""}
+            onClick={() => handleBubbleClick(user._id)}
+            style={{ "--i": user._id }}
+          ></span>
+        ))}
       </div>
-      <div className="adminPageTitle" ref={titleRef}>
-      <Typography.Title
+    </div>
+      <div
+        className="adminPageTitle"
         style={{
-          height: "100px",
-          width: "500px",
+          width: "100%",
           display: "flex",
           justifyContent: "center",
-          alignItems: "center",
-          borderRadius: "20px",
-          border: "2px dashed black",
-          transition: "background-color 1s ease",
-          backgroundColor: titleBackgroundColor,
-          color: titleTextColor,
         }}
+        ref={titleRef}
       >
-        ADMIN'S DASHBOARD
-      </Typography.Title>
-    </div>
+        <Typography.Title
+          style={{
+            height: "100px",
+            width: "500px",
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            borderRadius: "20px",
+            border: "2px dashed black",
+            transition: "background-color 1s ease",
+            backgroundColor: titleBackgroundColor,
+            color: titleTextColor,
+          }}
+        >
+          ADMIN'S DASHBOARD
+        </Typography.Title>
+      </div>
 
-    <Table
-      columns={columns}
-      dataSource={userData}
-      rowKey="_id"
-      rowSelection={rowSelection}
-      onRow={(record, index) => ({
-        onClick: () => handleRowClick(record, index),
-      })}
-      rowClassName={(record, index) =>
-        index === selectedRowIndex ? "selectedRow" : ""
-      }
-    />
+      <Table
+        columns={columns}
+        dataSource={userData}
+        rowKey="_id"
+        rowSelection={rowSelection}
+        onRow={(record) => ({
+          onClick: () => handleRowClick(record),
+        })}
+      />
+
       <div
         className="btnTableContainer"
         style={{
@@ -539,7 +442,6 @@ const handleRowClick = (user, index) => {
           </Space>
         </Form>
       </Modal>
-
 
       <Modal
         title="Add User"

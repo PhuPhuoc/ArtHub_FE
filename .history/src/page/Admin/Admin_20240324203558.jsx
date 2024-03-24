@@ -178,20 +178,13 @@ const Admin = () => {
   };
   const [selectedRowIndex, setSelectedRowIndex] = useState(null);
 
-const handleRowClick = (user, index) => {
-  if (selectedUser && selectedUser.key === user.key && selectedRowIndex === index) {
-    // Si l'utilisateur clique à nouveau sur la même ligne déjà sélectionnée, désélectionner
-    setSelectedUser(null);
-    setSelectedRowIndex(null); // Réinitialiser également l'index de la ligne sélectionnée
-  } else {
-    // Sinon, sélectionner la ligne cliquée
+  const handleRowClick = (user, index) => {
     setSelectedUser(user);
     setSelectedRowIndex(index);
-  }
 
-  // Console log the selected user
-  console.log(user);
-};
+    //Console log the selected user
+    console.log(user);
+  };
 
   const rowSelection = {
     type: "radio",
@@ -413,17 +406,17 @@ const handleRowClick = (user, index) => {
     </div>
 
     <Table
-      columns={columns}
-      dataSource={userData}
-      rowKey="_id"
-      rowSelection={rowSelection}
-      onRow={(record, index) => ({
-        onClick: () => handleRowClick(record, index),
-      })}
-      rowClassName={(record, index) =>
-        index === selectedRowIndex ? "selectedRow" : ""
-      }
-    />
+  columns={columns}
+  dataSource={userData}
+  rowKey="_id"
+  rowSelection={rowSelection}
+  onRow={(record, index) => ({
+    onClick: () => handleRowClick(record, index),
+  })}
+  rowClassName={(record, index) =>
+    index === selectedRowIndex ? "selectedRow" : ""
+  }
+/>
       <div
         className="btnTableContainer"
         style={{

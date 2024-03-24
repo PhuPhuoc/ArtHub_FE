@@ -178,20 +178,13 @@ const Admin = () => {
   };
   const [selectedRowIndex, setSelectedRowIndex] = useState(null);
 
-const handleRowClick = (user, index) => {
-  if (selectedUser && selectedUser.key === user.key && selectedRowIndex === index) {
-    // Si l'utilisateur clique à nouveau sur la même ligne déjà sélectionnée, désélectionner
-    setSelectedUser(null);
-    setSelectedRowIndex(null); // Réinitialiser également l'index de la ligne sélectionnée
-  } else {
-    // Sinon, sélectionner la ligne cliquée
+  const handleRowClick = (user, index) => {
     setSelectedUser(user);
     setSelectedRowIndex(index);
-  }
 
-  // Console log the selected user
-  console.log(user);
-};
+    //Console log the selected user
+    console.log(user);
+  };
 
   const rowSelection = {
     type: "radio",
@@ -288,11 +281,11 @@ const handleRowClick = (user, index) => {
       body: JSON.stringify(newUser),
     })
       .then((response) => response.json())
-      .then((newUserData) => {
+      .then((data) => {
         // Update local state with the added user data
-        setData([...data, newUserData]); // Assuming `newUserData` holds the data of the newly added user
+        setData([...data, data]);
         setIsModalVisible(false);
-    })
+      })
       .catch((error) => {
         console.error("Error adding user:", error);
       });
@@ -546,77 +539,83 @@ const handleRowClick = (user, index) => {
         visible={isModalVisible}
         onCancel={() => {
           setIsModalVisible(false);
-          form.resetFields();
-        }}
-        footer={null}
-      >
-        <Form form={form} name="addUserForm" onFinish={handleAddUser}>
-          <Form.Item
-            label="Name"
-            name="name"
-            rules={[{ required: true, message: "Please input the name!" }]}
-          >
-            <Input />
-          </Form.Item>
+          <Form form={form} name="addUserForm" onFinish={handleAddUser}>
+            <Form.Item
+              label="Name"
+              name="name"
+              rules={[{ required: true, message: "Please input the name!" }]}
+            >
+              <Input />
+            </Form.Item>
 
-          <Form.Item
-            label="Birthday"
-            name="birthday"
-            rules={[{ required: true, message: "Please input the birthday!" }]}
-          >
-            <Input type="date" />
-          </Form.Item>
+            <Form.Item
+              label="Birthday"
+              name="birthday"
+              rules={[{ required: true, message: "Please input the birthday!" }]}
+            >
+              <Input type="date" />
+            </Form.Item>
 
-          <Form.Item
-            label="Email"
-            name="email"
-            rules={[
-              { required: true, message: "Please input the email!" },
-              { type: "email", message: "Invalid email address" },
-            ]}
-          >
-            <Input />
-          </Form.Item>
+            <Form.Item
+              label="Email"
+              name="email"
+              rules={[
+                { required: true, message: "Please input the email!" },
+                { type: "email", message: "Invalid email address" },
+              ]}
+            >
+              <Input />
+            </Form.Item>
 
-          <Form.Item
-            label="Gender"
-            name="gender"
-            rules={[{ required: true, message: "Please select the gender!" }]}
-          >
-            <Select>
-              <Select.Option value="male">Male</Select.Option>
-              <Select.Option value="female">Female</Select.Option>
-              <Select.Option value="other">Other</Select.Option>
-            </Select>
-          </Form.Item>
+            <Form.Item
+              label="Gender"
+              name="gender"
+              rules={[{ required: true, message: "Please select the gender!" }]}
+            >
+              <Select>
+                <Select.Option value="male">Male</Select.Option>
+                <Select.Option value="female">Female</Select.Option>
+                <Select.Option value="other">Other</Select.Option>
+              </Select>
+            </Form.Item>
 
-          <Form.Item label="Tags" name="tags">
-            <Input />
-          </Form.Item>
+            <Form.Item label="Tags" name="tags">
+              <Input />
+            </Form.Item>
 
-          <Form.Item
-            label="Avatar URL"
-            name="avatarUrl"
-            rules={[
-              { required: true, message: "Please input the avatar URL!" },
-            ]}
-          >
-            <Input />
-          </Form.Item>
+            <Form.Item
+              label="Avatar URL"
+              name="avatarUrl"
+              rules={[
+                { required: true, message: "Please input the avatar URL!" },
+              ]}
+            >
+              <Input />
+            </Form.Item>
 
-          <Form.Item>
-            <Space>
-              <Button type="primary" htmlType="submit">
-                Add User
-              </Button>
-              <Button onClick={() => form.resetFields()} type="default">
-                Reset
-              </Button>
-            </Space>
-          </Form.Item>
-        </Form>
-      </Modal>
-    </div>
-  );
+            <Form.Item>
+              <Space>
+                <Button onClick={handleModalVisible} type="default">
+                  Cancel
+                </Button>
+                <Button
+                  type="primary"
+                  htmlType="submit"
+                  disabled={
+                    !form.getFieldValue("name") ||
+                    !form.getFieldValue("birthday") ||
+                    !form.getFieldValue("email") ||
+                    !form.getFieldValue("gender") ||
+                    !form.getFieldValue("avatarUrl")
+                  }
+                >
+                  Add User
+                </Button>
+                <Button onClick={() => form.resetFields()} type="default">
+                  Reset
+                </Button>
+              </Space>
+            </Form.Item>
+          </Form>
 };
 export default Admin;

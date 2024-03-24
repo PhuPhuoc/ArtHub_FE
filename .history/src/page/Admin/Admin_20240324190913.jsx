@@ -178,20 +178,13 @@ const Admin = () => {
   };
   const [selectedRowIndex, setSelectedRowIndex] = useState(null);
 
-const handleRowClick = (user, index) => {
-  if (selectedUser && selectedUser.key === user.key && selectedRowIndex === index) {
-    // Si l'utilisateur clique à nouveau sur la même ligne déjà sélectionnée, désélectionner
-    setSelectedUser(null);
-    setSelectedRowIndex(null); // Réinitialiser également l'index de la ligne sélectionnée
-  } else {
-    // Sinon, sélectionner la ligne cliquée
+  const handleRowClick = (user, index) => {
     setSelectedUser(user);
     setSelectedRowIndex(index);
-  }
 
-  // Console log the selected user
-  console.log(user);
-};
+    //Console log the selected user
+    console.log(user);
+  };
 
   const rowSelection = {
     type: "radio",
@@ -288,11 +281,11 @@ const handleRowClick = (user, index) => {
       body: JSON.stringify(newUser),
     })
       .then((response) => response.json())
-      .then((newUserData) => {
+      .then((data) => {
         // Update local state with the added user data
-        setData([...data, newUserData]); // Assuming `newUserData` holds the data of the newly added user
+        setData([...data, data]);
         setIsModalVisible(false);
-    })
+      })
       .catch((error) => {
         console.error("Error adding user:", error);
       });
@@ -606,9 +599,19 @@ const handleRowClick = (user, index) => {
 
           <Form.Item>
             <Space>
-              <Button type="primary" htmlType="submit">
-                Add User
-              </Button>
+            <Button
+                  type="default"
+                  htmlType="submit"
+                  disabled={
+                    !form.getFieldValue("name") ||
+                    !form.getFieldValue("birthday") ||
+                    !form.getFieldValue("email") ||
+                    !form.getFieldValue("gender") ||
+                    !form.getFieldValue("avatarUrl")
+                  }
+                >
+                  Add User
+                </Button>
               <Button onClick={() => form.resetFields()} type="default">
                 Reset
               </Button>

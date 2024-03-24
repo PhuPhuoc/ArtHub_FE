@@ -26,7 +26,6 @@
   flex-wrap: wrap;
   animation-duration: calc(130s / var(--i));
 }
-
 .bubbles span:nth-child(even) {
   background: #ff2d75;
   box-shadow: 0 0 0 10px #ff2d7544, 0 0 50px #ff2d75, 0 0 100px #ff2d75;
@@ -40,6 +39,14 @@
   }
 }
 
+/* Ajoutez ces styles CSS pour mettre en évidence la sélection */
+.selected {
+  border: 2px solid #ffffff; /* Bordure blanche */
+  background-color: #ff0000; /* Fond rouge */
+  transition: all 0.3s ease; /* Transition fluide */
+}
+
 .selectedRow {
-  background-color: #1890ff20; /* Adjust the background color as per your preference */
+  background-color: rgb(255, 255, 255) !important;
+  color: white;
 }
