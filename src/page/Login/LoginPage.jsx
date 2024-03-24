@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from "react";
 import "./LoginPage.css";
 import Cookies from 'js-cookie';
+import { Modal } from "antd";
+import axios from 'axios';
 
 function LoginForm() {
   const [name, setName] = useState("");
@@ -17,6 +19,9 @@ function LoginForm() {
 
   const [redirectSignIn, setRedirectSignIn] = useState(false);
   const [redirectAdmin, setRedirectAdmin] = useState(false);
+
+  const [showModal, setShowModal] = useState(false);
+  const [mailReset, setMailReset] = useState("");
 
   const handleRegisterClick = (e) => {
     e.preventDefault();
@@ -79,6 +84,25 @@ function LoginForm() {
           setUsers(result);
         });
   }, []);
+
+  const handleResetPasswordClick = () => {
+    setShowModal(true);
+  };
+
+  const handleSendClick = () => {
+    console.log('Email content:', mailReset);
+    axios
+        .post('http://localhost:5000/api/send', {
+          mail: mailReset
+        })
+        .then(response => {
+          console.log('Email sent successfully:', response.data);
+        })
+        .catch((err) => {
+          console.log('Error sending email:', err);
+        });
+  };
+
 
   useEffect(() => {
     const container = document.getElementById("container");
@@ -197,7 +221,7 @@ function LoginForm() {
             value={loginPassword}
             onChange={(e) => setLoginPassword(e.target.value)}
           />
-          <a href="#">Forget Your Password?</a>
+          <p onClick={handleResetPasswordClick} >Forget Your Password?</p>
           <button onClick={handleLoginClick}>Sign In</button>
         </form>
       </div>
@@ -219,6 +243,38 @@ function LoginForm() {
           </div>
         </div>
       </div>
+
+      <Modal
+        open={showModal}>
+        <div style={{
+          textAlign: 'center'
+        }}>
+          <p>We will send you a new password by e-mail.</p>
+          <p>Enter your email :</p>
+          <input
+              type="email"
+              onChange={(text) => setMailReset(text.target.value)}
+              placeholder={'Your email'}
+              value={mailReset}
+              style={{
+            padding: 5,
+            border: "none",
+            borderRadius: 5,
+            backgroundColor: 'whitesmoke',
+            margin: 10,
+            width: 250
+          }} />
+          <button
+              onClick={handleSendClick}
+              style={{
+            backgroundColor: '#512da8',
+            color: 'white',
+            padding: 5,
+            borderRadius: 5
+          }}>Send</button>
+        </div>
+      </Modal>
+
     </div>
   );
 }
