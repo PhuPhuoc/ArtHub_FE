@@ -215,8 +215,7 @@ const Admin = () => {
   };
 
   const handleModalVisible = () => {
-    setIsModalVisible(!isModalVisible);
-  };
+    
 
   const handleSaveEdit = () => {
     formEdit
@@ -281,11 +280,11 @@ const Admin = () => {
       body: JSON.stringify(newUser),
     })
       .then((response) => response.json())
-      .then((newUserData) => {
+      .then((data) => {
         // Update local state with the added user data
-        setData([...data, newUserData]); // Assuming `newUserData` holds the data of the newly added user
+        setData([...data, data]);
         setIsModalVisible(false);
-    })
+      })
       .catch((error) => {
         console.error("Error adding user:", error);
       });

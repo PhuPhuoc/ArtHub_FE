@@ -281,11 +281,11 @@ const Admin = () => {
       body: JSON.stringify(newUser),
     })
       .then((response) => response.json())
-      .then((newUserData) => {
+      .then((data) => {
         // Update local state with the added user data
-        setData([...data, newUserData]); // Assuming `newUserData` holds the data of the newly added user
+        setData([...data, data]);
         setIsModalVisible(false);
-    })
+      })
       .catch((error) => {
         console.error("Error adding user:", error);
       });
@@ -599,9 +599,20 @@ const Admin = () => {
 
           <Form.Item>
             <Space>
-              <Button type="primary" htmlType="submit">
-                Add User
-              </Button>
+            <Button
+                   OnClick={isModalVisible}
+                  type="default"
+                  htmlType="submit"
+                  disabled={
+                    !form.getFieldValue("name") ||
+                    !form.getFieldValue("birthday") ||
+                    !form.getFieldValue("email") ||
+                    !form.getFieldValue("gender") ||
+                    !form.getFieldValue("avatarUrl")
+                  }
+                >
+                  Add User
+                </Button>
               <Button onClick={() => form.resetFields()} type="default">
                 Reset
               </Button>
