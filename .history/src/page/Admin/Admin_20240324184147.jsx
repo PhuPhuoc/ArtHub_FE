@@ -214,55 +214,46 @@ const Admin = () => {
     setSelectedUserId(userId);
   };
 
+
   const handleSaveEdit = () => {
     formEdit
       .validateFields()
       .then((values) => {
-        const { name, email, password, avatarUrl } = values;
+        // Extract user ID from selected user data
+        const userId = selectedUser._id;
   
-        const updatedUser = {
-          name,
-          mail: email,
-          password,
-          picture: avatarUrl,
-        };
+        // Prepare updated user data
+        const updatedUserData = { ...selectedUser, ...values };
   
-        fetch(`http://localhost:5000/api/users/${selectedUser._id}`, {
+        // Send PUT request to update user data in the backend
+        fetch(`http://localhost:5000/api/admin/users/${userId}`, {
           method: "PUT",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(updatedUser),
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(updatedUserData),
         })
           .then((response) => {
             if (response.ok) {
-              // If update successful, update UI
+              // If update successful, update local state with the updated user data
               const updatedData = data.map((user) =>
-                user.key === selectedUser.key ? { ...user, ...values } : user
+                user.key === selectedUser.key ? updatedUserData : user
               );
+  
               setData(updatedData);
               setEditModalVisible(false);
               setSelectedUser(null);
-              dispatch(getAllUser());
-
             } else {
-              // Handle error response from server
-              throw new Error("Failed to update user");
+              // Handle error response from backend
+              console.error("Error updating user:", response.statusText);
             }
           })
           .catch((error) => {
             console.error("Error updating user:", error);
-            Modal.error({
-              title: "Error",
-              content: "Failed to update user. Please try again later.",
-            });
           });
       })
       .catch((errorInfo) => {
         console.log("Failed:", errorInfo);
       });
   };
-  
   const handleAddUser = (values) => {
     const newUser = {
       name: values.name,

@@ -243,8 +243,6 @@ const Admin = () => {
               setData(updatedData);
               setEditModalVisible(false);
               setSelectedUser(null);
-              dispatch(getAllUser());
-
             } else {
               // Handle error response from server
               throw new Error("Failed to update user");

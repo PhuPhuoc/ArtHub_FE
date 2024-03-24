@@ -218,16 +218,16 @@ const Admin = () => {
     formEdit
       .validateFields()
       .then((values) => {
-        const { name, email, password, avatarUrl } = values;
-  
         const updatedUser = {
-          name,
-          mail: email,
-          password,
-          picture: avatarUrl,
+          name: values.name,
+          birthday: values.birthday,
+          email: values.email,
+          gender: values.gender,
+          role: values.tags, // Assuming tags represent the role here
+          avatarUrl: values.avatarUrl,
         };
   
-        fetch(`http://localhost:5000/api/users/${selectedUser._id}`, {
+        fetch(`http://localhost:5000/api/admin/users/${selectedUser._id}`, {
           method: "PUT",
           headers: {
             "Content-Type": "application/json",
@@ -243,8 +243,6 @@ const Admin = () => {
               setData(updatedData);
               setEditModalVisible(false);
               setSelectedUser(null);
-              dispatch(getAllUser());
-
             } else {
               // Handle error response from server
               throw new Error("Failed to update user");
