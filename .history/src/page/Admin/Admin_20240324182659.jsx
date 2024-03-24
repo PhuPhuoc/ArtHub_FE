@@ -261,9 +261,10 @@ const Admin = () => {
         content: "This action cannot be undone.",
         okText: "Yes",
         cancelText: "Cancel",
+        
         onOk: () => {
           // Send DELETE request to backend
-          fetch(`http://localhost:5000/api/admin/users/${selectedUser._id}`, {
+          fetch(`http://localhost:5000/api/admin/users/65dd6a7ec716355575404958`, {
             method: "DELETE",
           })
             .then((response) => {
@@ -275,9 +276,6 @@ const Admin = () => {
                 const updatedDataWithStt = updateSttColumn(updatedData);
                 setData(updatedDataWithStt);
                 setSelectedUser(null);
-  
-                // Reload data from the server
-                dispatch(getAllUser());
               } else {
                 // Handle error response from backend
                 console.error("Error deleting user:", response.statusText);
@@ -291,7 +289,6 @@ const Admin = () => {
       });
     }
   };
-
   useEffect(() => {
     dispatch(getAllUser());
   }, []);

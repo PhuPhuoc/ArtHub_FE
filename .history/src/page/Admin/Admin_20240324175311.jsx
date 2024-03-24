@@ -145,6 +145,10 @@ const Admin = () => {
 
   const [titleBackgroundColor, setTitleBackgroundColor] = useState("#ffffff");
   const [titleTextColor, setTitleTextColor] = useState("#000000");
+  const [selectedRowIndex, setSelectedRowIndex] = useState(null);
+
+const handleRowClick = (record, index) => {
+  setSelectedRowIndex(index);
 
   const titleRef = useRef(null);
 
@@ -176,12 +180,9 @@ const Admin = () => {
       return { ...item, key: index + 1 };
     });
   };
-  const [selectedRowIndex, setSelectedRowIndex] = useState(null);
 
-  const handleRowClick = (user, index) => {
+  const handleRowClick = (user) => {
     setSelectedUser(user);
-    setSelectedRowIndex(index);
-
     //Console log the selected user
     console.log(user);
   };
@@ -262,36 +263,17 @@ const Admin = () => {
         okText: "Yes",
         cancelText: "Cancel",
         onOk: () => {
-          // Send DELETE request to backend
-          fetch(`http://localhost:5000/api/admin/users/${selectedUser._id}`, {
-            method: "DELETE",
-          })
-            .then((response) => {
-              if (response.ok) {
-                // If deletion successful, update UI
-                const updatedData = data.filter(
-                  (user) => user.key !== selectedUser.key
-                );
-                const updatedDataWithStt = updateSttColumn(updatedData);
-                setData(updatedDataWithStt);
-                setSelectedUser(null);
-  
-                // Reload data from the server
-                dispatch(getAllUser());
-              } else {
-                // Handle error response from backend
-                console.error("Error deleting user:", response.statusText);
-              }
-            })
-            .catch((error) => {
-              console.error("Error deleting user:", error);
-            });
+          const updatedData = data.filter(
+            (user) => user.key !== selectedUser.key
+          );
+          const updatedDataWithStt = updateSttColumn(updatedData);
+          setData(updatedDataWithStt);
+          setSelectedUser(null);
         },
         onCancel: () => {},
       });
     }
   };
-
   useEffect(() => {
     dispatch(getAllUser());
   }, []);
@@ -351,36 +333,37 @@ const Admin = () => {
         <span style={{ "--i": 17 }}></span>
       </div>
       <div className="adminPageTitle" ref={titleRef}>
-      <Typography.Title
-        style={{
-          height: "100px",
-          width: "500px",
-          display: "flex",
-          justifyContent: "center",
-          alignItems: "center",
-          borderRadius: "20px",
-          border: "2px dashed black",
-          transition: "background-color 1s ease",
-          backgroundColor: titleBackgroundColor,
-          color: titleTextColor,
-        }}
-      >
-        ADMIN'S DASHBOARD
-      </Typography.Title>
-    </div>
+        <Typography.Title
+          style={{
+            height: "100px",
+            width: "500px",
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            borderRadius: "20px",
+            border: "2px dashed black",
+            transition: "background-color 1s ease",
+            backgroundColor: titleBackgroundColor,
+            color: titleTextColor,
+          }}
+        >
+          ADMIN'S DASHBOARD
+        </Typography.Title>
+      </div>
 
-    <Table
-      columns={columns}
-      dataSource={userData}
-      rowKey="_id"
-      rowSelection={rowSelection}
-      onRow={(record, index) => ({
-        onClick: () => handleRowClick(record, index),
-      })}
-      rowClassName={(record, index) =>
-        index === selectedRowIndex ? "selectedRow" : ""
-      }
-    />
+      <Table
+        columns={columns}
+        dataSource={userData}
+        rowKey="_id"
+        rowSelection={rowSelection}
+        onRow={(record) => ({
+          onClick: () => handleRowClick(record),
+        })}
+        rowClassName={(record, index) =>
+          selectedUser && selectedUser.key === record.key ? "selectedRow" : ""
+        }
+      />
+
       <div
         className="btnTableContainer"
         style={{

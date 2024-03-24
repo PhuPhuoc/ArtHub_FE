@@ -256,11 +256,14 @@ const Admin = () => {
   };
   const handleDeleteUser = () => {
     if (selectedUser) {
+      console.log("selectedUser", selectedUser),
       Modal.confirm({
         title: "Are you sure?",
         content: "This action cannot be undone.",
         okText: "Yes",
         cancelText: "Cancel",
+        
+        
         onOk: () => {
           // Send DELETE request to backend
           fetch(`http://localhost:5000/api/admin/users/${selectedUser._id}`, {
@@ -275,9 +278,6 @@ const Admin = () => {
                 const updatedDataWithStt = updateSttColumn(updatedData);
                 setData(updatedDataWithStt);
                 setSelectedUser(null);
-  
-                // Reload data from the server
-                dispatch(getAllUser());
               } else {
                 // Handle error response from backend
                 console.error("Error deleting user:", response.statusText);
@@ -291,7 +291,6 @@ const Admin = () => {
       });
     }
   };
-
   useEffect(() => {
     dispatch(getAllUser());
   }, []);

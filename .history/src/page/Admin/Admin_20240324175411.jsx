@@ -176,9 +176,8 @@ const Admin = () => {
       return { ...item, key: index + 1 };
     });
   };
-  const [selectedRowIndex, setSelectedRowIndex] = useState(null);
 
-  const handleRowClick = (user, index) => {
+  const handleRowClick = (user) => {
     setSelectedUser(user);
     setSelectedRowIndex(index);
 
@@ -262,36 +261,17 @@ const Admin = () => {
         okText: "Yes",
         cancelText: "Cancel",
         onOk: () => {
-          // Send DELETE request to backend
-          fetch(`http://localhost:5000/api/admin/users/${selectedUser._id}`, {
-            method: "DELETE",
-          })
-            .then((response) => {
-              if (response.ok) {
-                // If deletion successful, update UI
-                const updatedData = data.filter(
-                  (user) => user.key !== selectedUser.key
-                );
-                const updatedDataWithStt = updateSttColumn(updatedData);
-                setData(updatedDataWithStt);
-                setSelectedUser(null);
-  
-                // Reload data from the server
-                dispatch(getAllUser());
-              } else {
-                // Handle error response from backend
-                console.error("Error deleting user:", response.statusText);
-              }
-            })
-            .catch((error) => {
-              console.error("Error deleting user:", error);
-            });
+          const updatedData = data.filter(
+            (user) => user.key !== selectedUser.key
+          );
+          const updatedDataWithStt = updateSttColumn(updatedData);
+          setData(updatedDataWithStt);
+          setSelectedUser(null);
         },
         onCancel: () => {},
       });
     }
   };
-
   useEffect(() => {
     dispatch(getAllUser());
   }, []);

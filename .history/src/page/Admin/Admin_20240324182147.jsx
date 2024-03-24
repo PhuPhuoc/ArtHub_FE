@@ -266,6 +266,7 @@ const Admin = () => {
           fetch(`http://localhost:5000/api/admin/users/${selectedUser._id}`, {
             method: "DELETE",
           })
+          console.log(selectedUser._id);
             .then((response) => {
               if (response.ok) {
                 // If deletion successful, update UI
@@ -275,9 +276,6 @@ const Admin = () => {
                 const updatedDataWithStt = updateSttColumn(updatedData);
                 setData(updatedDataWithStt);
                 setSelectedUser(null);
-  
-                // Reload data from the server
-                dispatch(getAllUser());
               } else {
                 // Handle error response from backend
                 console.error("Error deleting user:", response.statusText);
@@ -291,7 +289,6 @@ const Admin = () => {
       });
     }
   };
-
   useEffect(() => {
     dispatch(getAllUser());
   }, []);

@@ -176,12 +176,9 @@ const Admin = () => {
       return { ...item, key: index + 1 };
     });
   };
-  const [selectedRowIndex, setSelectedRowIndex] = useState(null);
 
-  const handleRowClick = (user, index) => {
+  const handleRowClick = (user) => {
     setSelectedUser(user);
-    setSelectedRowIndex(index);
-
     //Console log the selected user
     console.log(user);
   };
@@ -262,36 +259,17 @@ const Admin = () => {
         okText: "Yes",
         cancelText: "Cancel",
         onOk: () => {
-          // Send DELETE request to backend
-          fetch(`http://localhost:5000/api/admin/users/${selectedUser._id}`, {
-            method: "DELETE",
-          })
-            .then((response) => {
-              if (response.ok) {
-                // If deletion successful, update UI
-                const updatedData = data.filter(
-                  (user) => user.key !== selectedUser.key
-                );
-                const updatedDataWithStt = updateSttColumn(updatedData);
-                setData(updatedDataWithStt);
-                setSelectedUser(null);
-  
-                // Reload data from the server
-                dispatch(getAllUser());
-              } else {
-                // Handle error response from backend
-                console.error("Error deleting user:", response.statusText);
-              }
-            })
-            .catch((error) => {
-              console.error("Error deleting user:", error);
-            });
+          const updatedData = data.filter(
+            (user) => user.key !== selectedUser.key
+          );
+          const updatedDataWithStt = updateSttColumn(updatedData);
+          setData(updatedDataWithStt);
+          setSelectedUser(null);
         },
         onCancel: () => {},
       });
     }
   };
-
   useEffect(() => {
     dispatch(getAllUser());
   }, []);
@@ -302,85 +280,53 @@ const Admin = () => {
       className="bubbblesContainer"
     >
       <div className="bubbles">
-        <span style={{ "--i": 17 }}></span>
-        <span style={{ "--i": 19 }}></span>
-        <span style={{ "--i": 22 }}></span>
-        <span style={{ "--i": 20 }}></span>
-        <span style={{ "--i": 18 }}></span>
-        <span style={{ "--i": 15 }}></span>
-        <span style={{ "--i": 20 }}></span>
-        <span style={{ "--i": 22 }}></span>
-        <span style={{ "--i": 17 }}></span>
-        <span style={{ "--i": 18 }}></span>
-        <span style={{ "--i": 20 }}></span>
-        <span style={{ "--i": 22 }}></span>
-        <span style={{ "--i": 25 }}></span>
-        <span style={{ "--i": 28 }}></span>
-        <span style={{ "--i": 30 }}></span>
-        <span style={{ "--i": 12 }}></span>
-        <span style={{ "--i": 18 }}></span>
-        <span style={{ "--i": 16 }}></span>
-        <span style={{ "--i": 17 }}></span>
-        <span style={{ "--i": 20 }}></span>
-        <span style={{ "--i": 22 }}></span>
-        <span style={{ "--i": 24 }}></span>
-        <span style={{ "--i": 12 }}></span>
-        <span style={{ "--i": 16 }}></span>
-        <span style={{ "--i": 20 }}></span>
-        <span style={{ "--i": 22 }}></span>
-        <span style={{ "--i": 15 }}></span>
-        <span style={{ "--i": 20 }}></span>
-        <span style={{ "--i": 17 }}></span>
-        <span style={{ "--i": 22 }}></span>
-        <span style={{ "--i": 25 }}></span>
-        <span style={{ "--i": 28 }}></span>
-        <span style={{ "--i": 30 }}></span>
-        <span style={{ "--i": 12 }}></span>
-        <span style={{ "--i": 18 }}></span>
-        <span style={{ "--i": 16 }}></span>
-        <span style={{ "--i": 17 }}></span>
-        <span style={{ "--i": 20 }}></span>
-        <span style={{ "--i": 22 }}></span>
-        <span style={{ "--i": 24 }}></span>
-        <span style={{ "--i": 12 }}></span>
-        <span style={{ "--i": 16 }}></span>
-        <span style={{ "--i": 20 }}></span>
-        <span style={{ "--i": 22 }}></span>
-        <span style={{ "--i": 15 }}></span>
-        <span style={{ "--i": 20 }}></span>
-        <span style={{ "--i": 17 }}></span>
+        {userData.map(user => (
+          <span
+            key={user._id}
+            className={selectedUserId === user._id ? "selected" : ""}
+            onClick={() => handleBubbleClick(user._id)}
+            style={{ "--i": user._id }}
+          ></span>
+        ))}
       </div>
-      <div className="adminPageTitle" ref={titleRef}>
-      <Typography.Title
+    </div>
+      <div
+        className="adminPageTitle"
         style={{
-          height: "100px",
-          width: "500px",
+          width: "100%",
           display: "flex",
           justifyContent: "center",
-          alignItems: "center",
-          borderRadius: "20px",
-          border: "2px dashed black",
-          transition: "background-color 1s ease",
-          backgroundColor: titleBackgroundColor,
-          color: titleTextColor,
         }}
+        ref={titleRef}
       >
-        ADMIN'S DASHBOARD
-      </Typography.Title>
-    </div>
+        <Typography.Title
+          style={{
+            height: "100px",
+            width: "500px",
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            borderRadius: "20px",
+            border: "2px dashed black",
+            transition: "background-color 1s ease",
+            backgroundColor: titleBackgroundColor,
+            color: titleTextColor,
+          }}
+        >
+          ADMIN'S DASHBOARD
+        </Typography.Title>
+      </div>
 
-    <Table
-      columns={columns}
-      dataSource={userData}
-      rowKey="_id"
-      rowSelection={rowSelection}
-      onRow={(record, index) => ({
-        onClick: () => handleRowClick(record, index),
-      })}
-      rowClassName={(record, index) =>
-        index === selectedRowIndex ? "selectedRow" : ""
-      }
-    />
+      <Table
+        columns={columns}
+        dataSource={userData}
+        rowKey="_id"
+        rowSelection={rowSelection}
+        onRow={(record) => ({
+          onClick: () => handleRowClick(record),
+        })}
+      />
+
       <div
         className="btnTableContainer"
         style={{

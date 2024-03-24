@@ -45,8 +45,3 @@
   background-color: #ff0000; /* Fond rouge */
   transition: all 0.3s ease; /* Transition fluide */
 }
-
-.selectedRow {
-  background-color: rgb(255, 255, 255) !important;
-  color: white;
-}
