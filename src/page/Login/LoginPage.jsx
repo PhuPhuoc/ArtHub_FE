@@ -245,7 +245,10 @@ function LoginForm() {
       </div>
 
       <Modal
-        open={showModal}>
+        open={showModal}
+        onOk={() => setShowModal(false)}
+        onCancel={() => setShowModal(false)}
+      >
         <div style={{
           textAlign: 'center'
         }}>

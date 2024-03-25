@@ -64,6 +64,7 @@ const PostArt = () => {
     } else {
       navigate('/loginpage');
     }
+
   }, []);
 
   const [lastScrollY, setLastScrollY] = useState(0);
@@ -361,7 +362,7 @@ const PostArt = () => {
             color: "gray",
           }}
         >
-          Dribbble is the heart of the design community and the best resource to
+          ArtHub is the heart of the design community and the best resource to
           discover <br /> and connect with designers and jobs worldwide.
         </Typography.Text>
         <Button

@@ -20,6 +20,7 @@ import { ShoppingCartOutlined } from "@ant-design/icons";
 import { useSpring, animated } from "react-spring";
 import { HeartFilled, HeartOutlined, SendOutlined } from "@ant-design/icons";
 import Comment from "../../components/Comment";
+import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import {
   addCommentArtwork,
@@ -63,6 +64,16 @@ const OurHub = () => {
   const comment = useSelector(getArtworkCommentSelector);
   const [form] = Form.useForm();
   const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  const [sessionCookie, setSessionCookie] = useState("");
+
+  useEffect(() => {
+    const cookieValue = Cookies.get("sessionCookie");
+    if (cookieValue) {
+      setSessionCookie(cookieValue);
+    }
+  }, []);
   const handleHeartClick = () => {
     setHeartFilled(!heartFilled);
     const userId = Cookies.get("sessionCookie");
@@ -75,29 +86,37 @@ const OurHub = () => {
       });
   };
   const handleAddToCart = () => {
-    const userId = Cookies.get("sessionCookie");
-    const artworkId = modalContent.artworkId;
-    const values = { userId, artworkId };
-    dispatch(addToCart(values))
-      .unwrap()
-      .then(() => {
-        message.success("Added artwork to the cart");
-      })
-      .catch((error) => {
-        message.error(error);
-      });
+    if (sessionCookie) {
+      const userId = Cookies.get("sessionCookie");
+      const artworkId = modalContent.artworkId;
+      const values = { userId, artworkId };
+      dispatch(addToCart(values))
+        .unwrap()
+        .then(() => {
+          message.success("Added artwork to the cart");
+        })
+        .catch((error) => {
+          message.error(error);
+        });
+    } else {
+      navigate("/login");
+    }
   };
   const handleComment = (values) => {
-    const artworkId = modalContent.artworkId;
-    const userId = Cookies.get("sessionCookie");
-    const text = values.text;
-    const data = { artworkId, userId, text };
-    dispatch(addCommentArtwork(data))
-      .unwrap()
-      .then(() => {
-        form.resetFields();
-        dispatch(getCommentArtwork(modalContent.artworkId));
-      });
+    if (sessionCookie) {
+      const artworkId = modalContent.artworkId;
+      const userId = Cookies.get("sessionCookie");
+      const text = values.text;
+      const data = { artworkId, userId, text };
+      dispatch(addCommentArtwork(data))
+        .unwrap()
+        .then(() => {
+          form.resetFields();
+          dispatch(getCommentArtwork(modalContent.artworkId));
+        });
+    } else {
+      navigate("/login");
+    }
   };
   const [justify, setJustify] = React.useState(justifyOptions[0]);
 
