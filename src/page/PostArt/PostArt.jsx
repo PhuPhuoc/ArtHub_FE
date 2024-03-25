@@ -64,7 +64,7 @@ const PostArt = () => {
     } else {
       navigate('/loginpage');
     }
-    }
+
   }, []);
 
   const [lastScrollY, setLastScrollY] = useState(0);
