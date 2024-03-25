@@ -13,6 +13,8 @@ const initialState = {
   cartTotalAmount: 0,
   comments: {},
   cart: [],
+  saved: [],
+  sold: [],
 };
 
 export const artworkSlice = createSlice({
@@ -52,33 +54,41 @@ export const artworkSlice = createSlice({
       })
       .addCase(getUserCart.fulfilled, (state, action) => {
         state.cart = action.payload;
+      })
+      .addCase(getSavedArtwork.fulfilled, (state, action) => {
+        state.saved = action.payload;
+      })
+      .addCase(getArtworkSold.fulfilled, (state, action) => {
+        state.sold = action.payload;
       });
   },
 });
 
-const addArtwork = createAsyncThunk("artwork/addArtwork", async (values) => {
-  try {
-    const { userid, title, description, typeDesign, price, image } = values;
+// const addArtwork = createAsyncThunk("artwork/addArtwork", async (values) => {
+//   try {
+//     const { userid, title, description, typeDesign, price, image } = values;
 
-    const res = await postRequest("artwork", {
-      userid,
-      title,
-      description,
-      typeDesign,
-      price,
-      image,
-    });
+//     const res = await postRequest("artwork", {
+//       userid,
+//       title,
+//       description,
+//       typeDesign,
+//       price,
+//       image,
+//     });
 
-    return res.data;
-  } catch (error) {
-    console.log({ error });
-  }
-});
+//     return res.data;
+//   } catch (error) {
+//     console.log({ error });
+//   }
+// });
 export const addLikeArtwork = createAsyncThunk(
   "artwork/addLikeArtwork",
-  async (artworkId) => {
+  async (values) => {
     try {
-      const res = await postRequest(`artworks/${artworkId}/likes`);
+      const res = await postRequest(
+        `users/${values.userId}/artworks/${values.artworkId}/likes`
+      );
       return res.data;
     } catch (error) {
       console.log({ error });
@@ -120,6 +130,18 @@ export const getCommentArtwork = createAsyncThunk(
     try {
       const res = await getRequest(`${artworkId}/comments`);
       return res.data;
+    } catch (error) {
+      console.log({ error });
+    }
+  }
+);
+
+export const getSavedArtwork = createAsyncThunk(
+  "artwork/getSavedArtwork",
+  async (userId) => {
+    try {
+      const res = await getRequest(`users/${userId}/saved`);
+      return res.data.savedArtworks;
     } catch (error) {
       console.log({ error });
     }
@@ -168,6 +190,30 @@ export const deleteCart = createAsyncThunk(
         `users/${values.userId}/cart/${values.artworkId}`
       );
       return res.data;
+    } catch (error) {
+      console.log({ error });
+    }
+  }
+);
+
+export const placeOrder = createAsyncThunk(
+  "artwork/placeOrder",
+  async (userId) => {
+    try {
+      const res = await deleteRequest(`payment/${userId}`);
+      return res.data;
+    } catch (error) {
+      console.log({ error });
+    }
+  }
+);
+
+export const getArtworkSold = createAsyncThunk(
+  "artwork/getArtworkSold",
+  async (userId) => {
+    try {
+      const res = await getRequest(`users/${userId}/sold`);
+      return res.data.transactions;
     } catch (error) {
       console.log({ error });
     }

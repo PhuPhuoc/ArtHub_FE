@@ -20,6 +20,7 @@ import Cookies from "js-cookie";
 import logo from "../assets/images/reallogo.png";
 import { BsCartCheck } from "react-icons/bs";
 import axios from "axios";
+import { FaHistory } from "react-icons/fa";
 
 function getItem(label, key, icon, children, type) {
   return {
@@ -42,7 +43,11 @@ const DefaultLayout = ({ children }) => {
   const [sessionCookie, setSessionCookie] = useState("");
 
   const handleSearchClick = (item) => {
-    navigate(`/search/${item}`);
+    if (item === "" || item === undefined || item === null) {
+      navigate(`/ourhub`);
+    } else {
+      navigate(`/search/${item}`);
+    }
   };
 
   useEffect(() => {
@@ -80,6 +85,15 @@ const DefaultLayout = ({ children }) => {
             }}
           >
             Your Orders
+          </Menu.Item>
+          <Menu.Item
+            key="history"
+            icon={<FaHistory />}
+            onClick={() => {
+              navigate("/artworkpurchasehistorypage");
+            }}
+          >
+            Artwork Purchase History
           </Menu.Item>
           <SubMenu
             key="setting"

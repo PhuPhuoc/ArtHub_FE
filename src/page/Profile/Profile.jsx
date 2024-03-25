@@ -1,119 +1,4 @@
-// <<<<<<< HEAD
-// import React, { useEffect, useState } from "react";
-// import "../../page/Profile/Profile.css";
-// import prf from "../../assets/images/profile.jpg";
-// import ReactDOM from "react-dom";
-// import Modal from "react-modal";
-// import Avatar from "react-avatar-edit";
-// import { Button, Carousel, Typography } from "antd";
 
-// const Profile = () => {
-//   const [im, setim] = useState(null);
-//   const [pim, setpim] = useState(null);
-//   const customStyles = {
-//     content: {
-//       top: "50%",
-//       left: "50%",
-//       right: "auto",
-//       bottom: "auto",
-//       marginRight: "-50%",
-//       transform: "translate(-50%, -50%)",
-//     },
-//   };
-
-//   const [modalIsOpen, setIsOpen] = React.useState(false);
-
-//   function openModal() {
-//     setIsOpen(true);
-//   }
-
-//   function afterOpenModal() {
-//     // references are now sync'd and can be accessed.
-//     subtitle.style.color = "#f00";
-//   }
-
-//   function closeModal() {
-//     setIsOpen(false);
-//   }
-//   const onCrop = (i) => {
-//     setim(i);
-//     setpim(i);
-//   };
-//   const onClose = () => {
-//     closeModal();
-//     setpim(null);
-//   };
-
-//   return (
-//     <div className="profile-img" style={{ width: "100%", height: "800px" }}>
-//       <div className="fileupload">
-//         <img onClick={openModal} src={im ? im : prf} />
-//       </div>
-//       <Typography.Title
-//         style={{
-//           display: "flex",
-//           flexDirection: "column",
-//           alignItems: "center",
-//           fontWeight: "bold",
-//           fontSize: "20px",
-//         }}
-//       >
-//         Kim Bình Mai
-//       </Typography.Title>
-//       <Typography.Text
-//         style={{
-//           display: "flex",
-//           flexDirection: "column",
-//           alignItems: "center",
-//           fontSize: "15px",
-//         }}
-//       >
-//         0 following
-//       </Typography.Text>
-//       <Modal
-//         isOpen={modalIsOpen}
-//         onAfterOpen={afterOpenModal}
-//         onRequestClose={closeModal}
-//         style={customStyles}
-//         contentLabel="Example Modal"
-//       >
-//         <Avatar width={390} height={295} onCrop={onCrop} onClose={onClose} />
-//       </Modal>
-//       <div className="leftButton" style={{ height: "70vh", width: "48%" }}>
-//         <Button
-//           style={{
-//             height: "50px",
-//             display: "flex",
-//             justifyContent: "center",
-//             width: "40%",
-//             alignItems: "center",
-//             transform: "translateX(350px) translateY(41px)",
-//             borderRadius: "24px",
-//             backgroundColor:"#D3D1CC",
-//             fontWeight:"bold",
-//             fontSize:"17px"
-//           }}
-//         >Share</Button>
-//       </div>
-//       <div className="rightButton" style={{ height: "70vh", width: "48%" }}>
-//         <Button
-//           style={{
-//             height: "50px",
-//             display: "flex",
-//             justifyContent: "center",
-//             width: "40%",
-//             alignItems: "center",
-//             transform: "translateX(700px) translateY(-420px)",
-//             borderRadius: "24px",
-//             backgroundColor:"#D3D1CC",
-//             fontWeight:"bold",
-//             fontSize:"17px"
-//           }}
-//         >Edit Profile</Button>
-//       </div>
-//     </div>
-//   );
-// =======
 
 import Cookies from "js-cookie";
 import axios from "axios";
@@ -126,7 +11,7 @@ import "./Profile.css";
 import React, { useEffect, useState } from "react";
 import "../../page/Profile/Profile.css";
 import prf from "../../assets/images/profile.jpg";
-import {Form, Modal} from 'antd';
+import { Form, Modal } from "antd";
 import Avatar from "react-avatar-edit";
 import {
   Space,
@@ -140,9 +25,12 @@ import {
   Card,
 } from "antd";
 import { FaFacebook, FaInstagram } from "react-icons/fa";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { getSavedArtworkSelector } from "../../redux/selector";
+import { getSavedArtwork } from "../../redux/slices/artworkSlice";
 
 const Profile = () => {
+
     const [sessionCookie, setSessionCookie] = useState("");
     const [userArtworks, setUserArtworks] = useState([]);
     const [user, setUser] = useState([]);
@@ -166,7 +54,7 @@ const Profile = () => {
     const [selectedId, setSelectedId] = useState(null);
 
   const handleEditProfile = () => {
-      setEdit(true);
+    setEdit(true);
   };
 
     const handleEditArtwork = (artworkId) => {
@@ -207,6 +95,9 @@ const Profile = () => {
       fetchUser(cookieValue);
     }
   }, []);
+  useEffect(() => {
+    dispatch(getSavedArtwork(userId));
+  }, [userId]);
 
   const fetchUserPosts = (userId) => {
     axios
@@ -311,7 +202,13 @@ const Profile = () => {
       case "Collection ":
         return;
       case "Saved":
-        return;
+        return (
+          <div>
+            {savedArts?.map((item, index) => {
+              return <></>;
+            })}
+          </div>
+        );
       case "About":
         return (
           <div className="aboutContain">
@@ -445,7 +342,7 @@ const Profile = () => {
             fontSize: "15px",
           }}
         >
-            {followers} following
+          {followers} following
         </Typography.Text>
         <Modal
           isOpen={modalIsOpen}
@@ -459,7 +356,7 @@ const Profile = () => {
         </Modal>
         <div className="leftButton" style={{ height: "70vh", width: "48%" }}>
           <Button
-              onClick={() => handleEditProfile()}
+            onClick={() => handleEditProfile()}
             style={{
               height: "50px",
               display: "flex",
@@ -541,55 +438,55 @@ const Profile = () => {
       <button className="delete" onClick={handleLogout}>
         Logout {<LogoutOutlined />}
       </button>
-        <Modal
-            open={edit}
-            onOk={() => setEdit(false)}
-            onCancel={() => setEdit(false)}
-        >
-            <Form>
-                <div style={{
-                    display: 'flex',
-                    flexDirection: 'column',
-                    textAlign: 'center',
-                    alignItems: 'center'
-                }}>
-                    <p>Upload your new profile picture</p>
-                    <input type={"image"} value={newPicture} onChange={(e) => setNewPicture(e.target.value)}/>
-                    <p>Enter your new name</p>
-                    <input placeholder={'New name'} value={newName} onChange={(e) => setNewName(e.target.value)}/>
-                    <p>Enter your new email</p>
-                    <input placeholder={'New email'} value={newMail} onChange={(e) => setNewMail(e.target.value)}/>
-                    <p>Enter your new password</p>
-                    <input placeholder={'New password'} value={newPassword} onChange={(e) => setNewPassword(e.target.value)}/>
-                    <button className="submitedit" onClick={()=> fetchEditProfile(sessionCookie)}>Submit</button>
-                </div>
-            </Form>
-        </Modal>
 
-        <Modal
-            open={editArtwork}
-            onOk={() => setEditArtwork(false)}
-            onCancel={() => setEditArtwork(false)}
-        >
-            <Form>
-                <div style={{
-                    display: 'flex',
-                    flexDirection: 'column',
-                    textAlign: 'center',
-                    alignItems: 'center'
-                }}>
-                    <p>Enter the new title</p>
-                    <input placeholder={'New title'} value={newArtworkName} onChange={(e) => setNewArtworkName(e.target.value)}/>
-                    <p>Enter the new description</p>
-                    <input placeholder={'New description'} value={newArtworkDescription} onChange={(e) => setNewArtworkDescription(e.target.value)}/>
-                    <p>Enter the new price</p>
-                    <input placeholder={'New price'} value={newArtworkPrice} onChange={(e) => setNewArtworkPrice(e.target.value)}/>
-                    <button className="submitedit" onClick={()=> fetchEditArtwork(selectedId)}>Submit</button>
-                </div>
-            </Form>
-        </Modal>
+      <Modal
+        open={edit}
+        onOk={() => setEdit(false)}
+        onCancel={() => setEdit(false)}
+      >
+        <Form>
+          <div
+            style={{
+              display: "flex",
+              flexDirection: "column",
+              textAlign: "center",
+              alignItems: "center",
+            }}
+          >
+            <p>Upload your new profile picture</p>
+            <input
+              type={"image"}
+              value={newPicture}
+              onChange={(e) => setNewPicture(e.target.value)}
+            />
+            <p>Enter your new name</p>
+            <input
+              placeholder={"New name"}
+              value={newName}
+              onChange={(e) => setNewName(e.target.value)}
+            />
+            <p>Enter your new email</p>
+            <input
+              placeholder={"New email"}
+              value={newMail}
+              onChange={(e) => setNewMail(e.target.value)}
+            />
+            <p>Enter your new password</p>
+            <input
+              placeholder={"New name"}
+              value={newPassword}
+              onChange={(e) => setNewPassword(e.target.value)}
+            />
+            <button
+              className="submitedit"
+              onClick={() => fetchEditProfile(sessionCookie)}
+            >
+              Submit
+            </button>
+          </div>
+        </Form>
+      </Modal>
     </div>
-
   );
 };
 
