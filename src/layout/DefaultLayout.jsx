@@ -43,7 +43,11 @@ const DefaultLayout = ({ children }) => {
   const [sessionCookie, setSessionCookie] = useState("");
 
   const handleSearchClick = (item) => {
-    navigate(`/search/${item}`);
+    if (item === "" || item === undefined || item === null) {
+      navigate(`/ourhub`);
+    } else {
+      navigate(`/search/${item}`);
+    }
   };
 
   useEffect(() => {
