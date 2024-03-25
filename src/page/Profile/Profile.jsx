@@ -143,23 +143,36 @@ import { FaFacebook, FaInstagram } from "react-icons/fa";
 import { useSelector } from "react-redux";
 
 const Profile = () => {
-  const [sessionCookie, setSessionCookie] = useState("");
-  const [userArtworks, setUserArtworks] = useState([]);
-  const [user, setUser] = useState([]);
-  const [modalVisible, setModalVisible] = React.useState(false);
-  const [modalContent, setModalContent] = React.useState({});
-  const [edit, setEdit] = useState(false);
+    const [sessionCookie, setSessionCookie] = useState("");
+    const [userArtworks, setUserArtworks] = useState([]);
+    const [user, setUser] = useState([]);
+    const [modalVisible, setModalVisible] = React.useState(false);
+    const [modalContent, setModalContent] = React.useState({});
+    const [edit, setEdit] = useState(false);
+    const [editArtwork, setEditArtwork] = useState(false);
 
-  // Edit Profile
-  const [newPicture, setNewPicture] = useState("");
-  const [newName, setNewName] = useState("");
-  const [newMail, setNewMail] = useState("");
-  const [newPassword, setNewPassword] = useState("");
-  const [followers, setFollowers] = useState("");
+    // Edit Profile
+    const [newPicture, setNewPicture] = useState("");
+    const [newName, setNewName] = useState("");
+    const [newMail, setNewMail] = useState("");
+    const [newPassword, setNewPassword] = useState("");
+    const [followers, setFollowers] = useState("");
+
+    const [newArtworkName, setNewArtworkName] = useState("")
+    const [newArtworkDescription, setNewArtworkDescription] = useState("")
+    const [newArtworkPrice, setNewArtworkPrice] = useState("")
+    const [newArtworkTypDesign, setNewArtworkTypeDesign] = useState("")
+
+    const [selectedId, setSelectedId] = useState(null);
 
   const handleEditProfile = () => {
       setEdit(true);
   };
+
+    const handleEditArtwork = (artworkId) => {
+        setEditArtwork(true);
+        setSelectedId(artworkId)
+    };
 
     useEffect(() => {
         const fetchFollowers = () => {
@@ -172,7 +185,6 @@ const Profile = () => {
         fetchFollowers();
         console.log('response', followers)
     }, [followers]);
-
 
   const fetchEditProfile = (userId) => {
     const response = axios.put(`http://localhost:5000/api/users/${userId}`, {
@@ -234,7 +246,22 @@ const Profile = () => {
       });
   };
 
-  const handleEditArtwork = () => {};
+  const fetchEditArtwork = (artworkId) => {
+      axios
+          .put(`http://localhost:5000/api/users/${sessionCookie}/artworks/${artworkId}`,
+              {
+                  title: newArtworkName,
+                  description: newArtworkDescription,
+                  typeDesign: newArtworkTypDesign,
+                  price: newArtworkPrice
+              })
+          .then((e) => {
+              console.log(e);
+          })
+          .catch((e) => {
+              console.log(e);
+          })
+  };
 
   const [im, setim] = useState(null);
   const [pim, setpim] = useState(null);
@@ -494,7 +521,7 @@ const Profile = () => {
                   <button
                     style={{ width: 100 }}
                     className="edit"
-                    onClick={handleEditArtwork}
+                    onClick={() => handleEditArtwork(artwork._id)}
                   >
                     {<EditOutlined />}
                   </button>
@@ -533,8 +560,31 @@ const Profile = () => {
                     <p>Enter your new email</p>
                     <input placeholder={'New email'} value={newMail} onChange={(e) => setNewMail(e.target.value)}/>
                     <p>Enter your new password</p>
-                    <input placeholder={'New name'} value={newPassword} onChange={(e) => setNewPassword(e.target.value)}/>
+                    <input placeholder={'New password'} value={newPassword} onChange={(e) => setNewPassword(e.target.value)}/>
                     <button className="submitedit" onClick={()=> fetchEditProfile(sessionCookie)}>Submit</button>
+                </div>
+            </Form>
+        </Modal>
+
+        <Modal
+            open={editArtwork}
+            onOk={() => setEditArtwork(false)}
+            onCancel={() => setEditArtwork(false)}
+        >
+            <Form>
+                <div style={{
+                    display: 'flex',
+                    flexDirection: 'column',
+                    textAlign: 'center',
+                    alignItems: 'center'
+                }}>
+                    <p>Enter the new title</p>
+                    <input placeholder={'New title'} value={newArtworkName} onChange={(e) => setNewArtworkName(e.target.value)}/>
+                    <p>Enter the new description</p>
+                    <input placeholder={'New description'} value={newArtworkDescription} onChange={(e) => setNewArtworkDescription(e.target.value)}/>
+                    <p>Enter the new price</p>
+                    <input placeholder={'New price'} value={newArtworkPrice} onChange={(e) => setNewArtworkPrice(e.target.value)}/>
+                    <button className="submitedit" onClick={()=> fetchEditArtwork(selectedId)}>Submit</button>
                 </div>
             </Form>
         </Modal>
