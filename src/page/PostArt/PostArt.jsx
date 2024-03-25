@@ -22,7 +22,7 @@ import { PlusOutlined } from "@ant-design/icons";
 import Cookies from "js-cookie";
 import { addImage1, getImage } from "../../helper/uploadImg";
 import { getDownloadURL, ref, uploadBytesResumable } from "firebase/storage";
-import {useNavigate} from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 const normFile = (e) => {
   if (Array.isArray(e)) {
@@ -62,9 +62,8 @@ const PostArt = () => {
     if (cookieValue) {
       setSessionCookie(cookieValue);
     } else {
-      navigate('/loginpage');
+      navigate("/loginpage");
     }
-
   }, []);
 
   const [lastScrollY, setLastScrollY] = useState(0);
@@ -134,49 +133,53 @@ const PostArt = () => {
   };
 
   const handleFormSubmit = async (e) => {
-    form
-      .validateFields()
-      .then((values) => {
-        // The form data is valid, you can proceed with submitting
-        console.log("Form data:", values);
-        // Add your logic to send the data to the server
-        return fetch("http://localhost:5000/api/addartwork", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({
-            userid: userId,
-            title: title,
-            description: description,
-            typeDesign: typeDesign,
-            price: price,
-            image: imageUrl,
-          }),
-        });
-      })
-      .then((response) => {
-        if (!response.ok) {
-          throw new Error("Invalid artwork form");
-        }
-        return response.json();
-      })
-      .then((data) => {
-        // Update the success modal visibility
-        notification.success({
-          message: "Success",
-          description: "New artwork added",
+    if (sessionCookie) {
+      form
+        .validateFields()
+        .then((values) => {
+          // The form data is valid, you can proceed with submitting
+          console.log("Form data:", values);
+          // Add your logic to send the data to the server
+          return fetch("http://localhost:5000/api/addartwork", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+              userid: userId,
+              title: title,
+              description: description,
+              typeDesign: typeDesign,
+              price: price,
+              image: imageUrl,
+            }),
+          });
+        })
+        .then((response) => {
+          if (!response.ok) {
+            throw new Error("Invalid artwork form");
+          }
+          return response.json();
+        })
+        .then((data) => {
+          // Update the success modal visibility
+          notification.success({
+            message: "Success",
+            description: "New artwork added",
+          });
+
+          console.log("New artwork added", data);
+        })
+        .catch((error) => {
+          notification.warning({
+            message: "Warning",
+            description: "Failed to submit! Try again.",
+          });
+          console.error("Error while sending artwork:", error.message);
         });
 
-        console.log("New artwork added", data);
-      })
-      .catch((error) => {
-        notification.warning({
-          message: "Warning",
-          description: "Failed to submit! Try again.",
-        });
-        console.error("Error while sending artwork:", error.message);
-      });
-
-    e.preventDefault();
+      e.preventDefault();
+    } else {
+      navigate("/login");
+    }
   };
 
   const formItemLayout = {
