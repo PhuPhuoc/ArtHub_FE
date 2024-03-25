@@ -85,6 +85,14 @@ const OurHub = () => {
         dispatch(getLikeArtwork(modalContent.artworkId));
       });
   };
+
+  const handleOpenProfile = () => {
+    if (modalContent.user && modalContent.user._id) {
+      const userId = modalContent.user._id;
+      window.location.href = `/userprofile/${userId}`; // Navigate to user profile route
+    }
+  };
+
   const handleAddToCart = () => {
     if (sessionCookie) {
       const userId = Cookies.get("sessionCookie");
@@ -127,6 +135,8 @@ const OurHub = () => {
     dispatch(getLikeArtwork(modalContent.artworkId));
     dispatch(getCommentArtwork(modalContent.artworkId));
   }, [modalContent]);
+
+  //console.log("modal", modalContent);
 
   const renderImages = () => {
     const handleArtworkClick = (
@@ -773,6 +783,7 @@ const OurHub = () => {
                 className="avatar"
                 src="https://api.dicebear.com/7.x/miniavs/svg?seed=8"
                 style={{ cursor: "pointer", width: "10%", height: "10%" }}
+                onClick={handleOpenProfile}
               />
               <p
                 style={{

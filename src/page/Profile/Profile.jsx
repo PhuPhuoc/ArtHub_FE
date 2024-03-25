@@ -1,119 +1,4 @@
-// <<<<<<< HEAD
-// import React, { useEffect, useState } from "react";
-// import "../../page/Profile/Profile.css";
-// import prf from "../../assets/images/profile.jpg";
-// import ReactDOM from "react-dom";
-// import Modal from "react-modal";
-// import Avatar from "react-avatar-edit";
-// import { Button, Carousel, Typography } from "antd";
 
-// const Profile = () => {
-//   const [im, setim] = useState(null);
-//   const [pim, setpim] = useState(null);
-//   const customStyles = {
-//     content: {
-//       top: "50%",
-//       left: "50%",
-//       right: "auto",
-//       bottom: "auto",
-//       marginRight: "-50%",
-//       transform: "translate(-50%, -50%)",
-//     },
-//   };
-
-//   const [modalIsOpen, setIsOpen] = React.useState(false);
-
-//   function openModal() {
-//     setIsOpen(true);
-//   }
-
-//   function afterOpenModal() {
-//     // references are now sync'd and can be accessed.
-//     subtitle.style.color = "#f00";
-//   }
-
-//   function closeModal() {
-//     setIsOpen(false);
-//   }
-//   const onCrop = (i) => {
-//     setim(i);
-//     setpim(i);
-//   };
-//   const onClose = () => {
-//     closeModal();
-//     setpim(null);
-//   };
-
-//   return (
-//     <div className="profile-img" style={{ width: "100%", height: "800px" }}>
-//       <div className="fileupload">
-//         <img onClick={openModal} src={im ? im : prf} />
-//       </div>
-//       <Typography.Title
-//         style={{
-//           display: "flex",
-//           flexDirection: "column",
-//           alignItems: "center",
-//           fontWeight: "bold",
-//           fontSize: "20px",
-//         }}
-//       >
-//         Kim Bình Mai
-//       </Typography.Title>
-//       <Typography.Text
-//         style={{
-//           display: "flex",
-//           flexDirection: "column",
-//           alignItems: "center",
-//           fontSize: "15px",
-//         }}
-//       >
-//         0 following
-//       </Typography.Text>
-//       <Modal
-//         isOpen={modalIsOpen}
-//         onAfterOpen={afterOpenModal}
-//         onRequestClose={closeModal}
-//         style={customStyles}
-//         contentLabel="Example Modal"
-//       >
-//         <Avatar width={390} height={295} onCrop={onCrop} onClose={onClose} />
-//       </Modal>
-//       <div className="leftButton" style={{ height: "70vh", width: "48%" }}>
-//         <Button
-//           style={{
-//             height: "50px",
-//             display: "flex",
-//             justifyContent: "center",
-//             width: "40%",
-//             alignItems: "center",
-//             transform: "translateX(350px) translateY(41px)",
-//             borderRadius: "24px",
-//             backgroundColor:"#D3D1CC",
-//             fontWeight:"bold",
-//             fontSize:"17px"
-//           }}
-//         >Share</Button>
-//       </div>
-//       <div className="rightButton" style={{ height: "70vh", width: "48%" }}>
-//         <Button
-//           style={{
-//             height: "50px",
-//             display: "flex",
-//             justifyContent: "center",
-//             width: "40%",
-//             alignItems: "center",
-//             transform: "translateX(700px) translateY(-420px)",
-//             borderRadius: "24px",
-//             backgroundColor:"#D3D1CC",
-//             fontWeight:"bold",
-//             fontSize:"17px"
-//           }}
-//         >Edit Profile</Button>
-//       </div>
-//     </div>
-//   );
-// =======
 
 import Cookies from "js-cookie";
 import axios from "axios";
@@ -145,38 +30,49 @@ import { getSavedArtworkSelector } from "../../redux/selector";
 import { getSavedArtwork } from "../../redux/slices/artworkSlice";
 
 const Profile = () => {
-  const [sessionCookie, setSessionCookie] = useState("");
-  const [userArtworks, setUserArtworks] = useState([]);
-  const [user, setUser] = useState([]);
-  const [modalVisible, setModalVisible] = React.useState(false);
-  const [modalContent, setModalContent] = React.useState({});
-  const savedArts = useSelector(getSavedArtworkSelector);
-  const [edit, setEdit] = useState(false);
 
-  // Edit Profile
-  const [newPicture, setNewPicture] = useState("");
-  const [newName, setNewName] = useState("");
-  const [newMail, setNewMail] = useState("");
-  const [newPassword, setNewPassword] = useState("");
-  const userId = Cookies.get("sessionCookie");
-  const dispatch = useDispatch();
-  const [followers, setFollowers] = useState("");
+    const [sessionCookie, setSessionCookie] = useState("");
+    const [userArtworks, setUserArtworks] = useState([]);
+    const [user, setUser] = useState([]);
+    const [modalVisible, setModalVisible] = React.useState(false);
+    const [modalContent, setModalContent] = React.useState({});
+    const [edit, setEdit] = useState(false);
+    const [editArtwork, setEditArtwork] = useState(false);
+
+    // Edit Profile
+    const [newPicture, setNewPicture] = useState("");
+    const [newName, setNewName] = useState("");
+    const [newMail, setNewMail] = useState("");
+    const [newPassword, setNewPassword] = useState("");
+    const [followers, setFollowers] = useState("");
+
+    const [newArtworkName, setNewArtworkName] = useState("")
+    const [newArtworkDescription, setNewArtworkDescription] = useState("")
+    const [newArtworkPrice, setNewArtworkPrice] = useState("")
+    const [newArtworkTypDesign, setNewArtworkTypeDesign] = useState("")
+
+    const [selectedId, setSelectedId] = useState(null);
 
   const handleEditProfile = () => {
     setEdit(true);
   };
 
-  useEffect(() => {
-    const fetchFollowers = () => {
-      const response = axios
-        .get("http://localhost:5000/api/users/:userId/followers")
-        .then((res) => {
-          setFollowers(res.data.followers);
-        });
+    const handleEditArtwork = (artworkId) => {
+        setEditArtwork(true);
+        setSelectedId(artworkId)
     };
-    fetchFollowers();
-    console.log("response", followers);
-  }, [followers]);
+
+    useEffect(() => {
+        const fetchFollowers = () => {
+            const response = axios
+                .get('http://localhost:5000/api/users/:userId/followers')
+                .then((res) => {
+                    setFollowers(res.data.followers);
+                })
+        }
+        fetchFollowers();
+        console.log('response', followers)
+    }, [followers]);
 
   const fetchEditProfile = (userId) => {
     const response = axios.put(`http://localhost:5000/api/users/${userId}`, {
@@ -241,7 +137,22 @@ const Profile = () => {
       });
   };
 
-  const handleEditArtwork = () => {};
+  const fetchEditArtwork = (artworkId) => {
+      axios
+          .put(`http://localhost:5000/api/users/${sessionCookie}/artworks/${artworkId}`,
+              {
+                  title: newArtworkName,
+                  description: newArtworkDescription,
+                  typeDesign: newArtworkTypDesign,
+                  price: newArtworkPrice
+              })
+          .then((e) => {
+              console.log(e);
+          })
+          .catch((e) => {
+              console.log(e);
+          })
+  };
 
   const [im, setim] = useState(null);
   const [pim, setpim] = useState(null);
@@ -507,7 +418,7 @@ const Profile = () => {
                   <button
                     style={{ width: 100 }}
                     className="edit"
-                    onClick={handleEditArtwork}
+                    onClick={() => handleEditArtwork(artwork._id)}
                   >
                     {<EditOutlined />}
                   </button>
@@ -527,6 +438,7 @@ const Profile = () => {
       <button className="delete" onClick={handleLogout}>
         Logout {<LogoutOutlined />}
       </button>
+
       <Modal
         open={edit}
         onOk={() => setEdit(false)}
