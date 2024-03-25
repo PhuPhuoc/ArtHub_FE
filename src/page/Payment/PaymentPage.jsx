@@ -1,9 +1,23 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./PaymentPage.css";
-import { Checkbox, Form, Input, Radio, Select, Space, Typography } from "antd";
+import {
+  Checkbox,
+  Form,
+  Input,
+  Radio,
+  Select,
+  Space,
+  Typography,
+  message,
+} from "antd";
 import { BsCash } from "react-icons/bs";
 import QRCode from "qrcode.react";
 import QR from "../../assets/images/QR.png";
+import { getUserCartSelector } from "../../redux/selector";
+import { useDispatch, useSelector } from "react-redux";
+import { getUserCart, placeOrder } from "../../redux/slices/artworkSlice";
+import Cookies from "js-cookie";
+import { useNavigate } from "react-router-dom";
 
 const { Option } = Select;
 const countryOptions = [
@@ -24,7 +38,10 @@ const PaymentPage = () => {
   const [value, setValue] = useState(1);
   const [showQR, setShowQR] = useState(false);
   const [isChecked, setIsChecked] = useState(false);
-
+  const cartData = useSelector(getUserCartSelector);
+  const userId = Cookies.get("sessionCookie");
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
   const handleChange = (e) => {
     setValue(e.target.value);
     setShowQR(e.target.value === 1);
@@ -34,15 +51,34 @@ const PaymentPage = () => {
     setIsChecked(e.target.checked);
   };
 
+  const calculateTotal = () => {
+    let total = 0;
+    cartData.forEach((item) => {
+      total += parseFloat(item?.artworkDetails?.price) || 0;
+    });
+    return total.toFixed(2);
+  };
+
   const handlePlaceOrder = () => {
     if (isChecked) {
-      console.log("Order placed successfully!");
+      dispatch(placeOrder(userId))
+        .unwrap()
+        .then(() => {
+          message.success("Order Placed Successfully");
+          navigate("/orderpage");
+        })
+        .catch((error) => {
+          message.error("Failed to place order: " + error.message);
+        });
     } else {
-      console.log(
-        "Please agree to terms and conditions before placing the order."
-      );
+      message.warning("Please agree to the terms and conditions.");
     }
   };
+
+  useEffect(() => {
+    dispatch(getUserCart(userId));
+  }, [userId]);
+
   return (
     <div
       className="paymentPage"
@@ -64,129 +100,6 @@ const PaymentPage = () => {
           Payment Method
           <BsCash size={40} color="green" style={{ marginLeft: "20px" }} />
         </Typography.Title>
-        <Typography.Title level={1} style={{ fontWeight: "900" }}>
-          Billing Details
-        </Typography.Title>
-        <Form
-          variant="filled"
-          style={{
-            maxWidth: 800,
-            display: "flex",
-            flexDirection: "column",
-            gap: "20px",
-            fontSize: "20px",
-          }}
-        >
-          <div style={{ display: "flex", gap: "40px" }}>
-            <div style={{ flex: 1 }}>
-              <Form.Item
-                label="First Name"
-                name="First Name"
-                rules={[
-                  {
-                    required: true,
-                    message: "Put Your First Name!",
-                  },
-                ]}
-                labelStyle={{ fontSize: "20px" }}
-              >
-                <Input />
-              </Form.Item>
-            </div>
-            <div style={{ flex: 1 }}>
-              <Form.Item
-                label="Last Name"
-                name="Last Name"
-                rules={[
-                  {
-                    required: true,
-                    message: "Put Your Last Name!",
-                  },
-                ]}
-              >
-                <Input />
-              </Form.Item>
-            </div>
-          </div>
-          <Form.Item
-            label="Phone Number"
-            name="Phone Number"
-            rules={[
-              {
-                required: true,
-                message: "Put Your Phone Number!",
-              },
-            ]}
-          >
-            <Input />
-          </Form.Item>
-          <Form.Item
-            label="Identity Card ID"
-            name="Identity Card ID"
-            rules={[
-              {
-                required: true,
-                message: "Put Your Identity Card ID!",
-              },
-            ]}
-          >
-            <Input />
-          </Form.Item>
-          <Form.Item
-            label="Country/Region"
-            name="Select"
-            rules={[
-              {
-                required: true,
-                message: "Choose Your Country!",
-              },
-            ]}
-          >
-            <Select>
-              {countryOptions.map((option) => (
-                <Option key={option.value} value={option.value}>
-                  {option.label}
-                </Option>
-              ))}
-            </Select>
-          </Form.Item>
-          <Form.Item
-            label="Address"
-            name="Address"
-            rules={[
-              {
-                required: true,
-                message: "Input Address for transportation !",
-              },
-            ]}
-          >
-            <Input />
-          </Form.Item>
-          <Form.Item
-            label="Town or City"
-            name="town or city"
-            rules={[
-              {
-                required: true,
-                message: "Input Town or City !",
-              },
-            ]}
-          >
-            <Input />
-          </Form.Item>
-          <Form.Item
-            label="University"
-            name="University"
-            rules={[
-              {
-                required: true,
-                message: "Must Input Your University!",
-              },
-            ]}
-          >
-            <Input />
-          </Form.Item>
-        </Form>
       </div>
       <div
         className="yourOrders"
@@ -216,93 +129,48 @@ const PaymentPage = () => {
           }}
         >
           <Typography.Title>Product</Typography.Title>
-          <div
-            className="orders"
-            style={{
-              display: "flex",
-              alignItems: "center",
-              marginLeft: "20px",
-            }}
-          >
-            <img
-              style={{
-                height: "150px",
-                width: "200px",
-                borderRadius: "10px",
-              }}
-              src="https://getwallpapers.com/wallpaper/full/3/9/4/182376.jpg"
-            />
-            <Typography.Text
-              style={{ fontSize: "20px", marginLeft: "20px", display: "flex" }}
-            >
-              Bubbles Of Water
-            </Typography.Text>
-            <Typography.Text
-              style={{
-                fontSize: "20px",
-                marginLeft: "auto",
-                marginRight: "20px",
-                display: "flex",
-              }}
-            >
-              $400
-            </Typography.Text>
-          </div>
-          <div
-            className="orders"
-            style={{
-              display: "flex",
-              alignItems: "center",
-              marginLeft: "20px",
-              marginTop: "20px",
-            }}
-          >
-            <img
-              style={{
-                height: "150px",
-                width: "200px",
-                borderRadius: "10px",
-              }}
-              src="https://static.vecteezy.com/system/resources/thumbnails/007/128/109/original/abstract-technology-background-from-animated-lines-and-dots-abstract-digital-connection-moving-dots-and-lines-plexus-background-in-space-plexus-fantasy-abstract-technology-free-video.jpg"
-            />
-            <Typography.Text
-              style={{ fontSize: "20px", marginLeft: "20px", display: "flex" }}
-            >
-              Universe
-            </Typography.Text>
-            <Typography.Text
-              style={{
-                fontSize: "20px",
-                marginLeft: "auto",
-                marginRight: "20px",
-                display: "flex",
-              }}
-            >
-              $700
-            </Typography.Text>
-          </div>
-          <div
-            className=" TotalCount"
-            style={{
-              marginTop: "30px",
-              marginLeft: "20px",
-              borderBottom: "2px solid black",
-              display: "flex",
-              gap: "200px",
-            }}
-          >
-            <Typography.Text style={{ fontSize: "30px" }}>
-              Total
-            </Typography.Text>
-            <Typography.Text
-              style={{
-                fontSize: "40px",
-                marginLeft: "auto",
-                marginRight: "20px",
-              }}
-            >
-              $1100
-            </Typography.Text>
+          {cartData?.map((item, index) => {
+            return (
+              <div
+                className="orders"
+                style={{
+                  display: "flex",
+                  alignItems: "center",
+                  marginLeft: "20px",
+                }}
+              >
+                <img
+                  style={{
+                    height: "150px",
+                    width: "200px",
+                    borderRadius: "10px",
+                  }}
+                  src={item?.artworkDetails?.image}
+                />
+                <Typography.Text
+                  style={{
+                    fontSize: "20px",
+                    marginLeft: "20px",
+                    display: "flex",
+                  }}
+                >
+                  {item?.artworkDetails?.title}
+                </Typography.Text>
+                <Typography.Text
+                  style={{
+                    fontSize: "20px",
+                    marginLeft: "auto",
+                    marginRight: "20px",
+                    display: "flex",
+                  }}
+                >
+                  ${item?.artworkDetails?.price}
+                </Typography.Text>
+              </div>
+            );
+          })}
+          <div className="totalCount">
+            <Typography.Title>Total: ${calculateTotal()}</Typography.Title>
           </div>
 
           <div

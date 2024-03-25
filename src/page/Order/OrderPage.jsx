@@ -5,8 +5,10 @@ import { useDispatch, useSelector } from "react-redux";
 import { deleteCart, getUserCart } from "../../redux/slices/artworkSlice";
 import Cookies from "js-cookie";
 import { getUserCartSelector } from "../../redux/selector";
+import { useNavigate } from "react-router-dom";
 
 const OrderPage = () => {
+  const navigate = useNavigate();
   const idUser = Cookies.get("sessionCookie");
   const dispatch = useDispatch();
   const cartData = useSelector(getUserCartSelector);
@@ -22,7 +24,9 @@ const OrderPage = () => {
         message.success("Delete Successful");
       });
   };
-
+  const clickToPlaceOrder = () => {
+    navigate("/paymentpage");
+  };
   const columns = [
     {
       title: "Artwork name",
@@ -103,6 +107,24 @@ const OrderPage = () => {
                 };
               })}
             />
+          </div>
+          <div className="btnPayOrder">
+            <Button
+              style={{
+                width: "100%",
+                height: "50px",
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+                fontSize: "30px",
+                backgroundColor: "#E04A45",
+                color: "white",
+                fontWeight: "800",
+              }}
+              onClick={clickToPlaceOrder}
+            >
+              Click To Continue Pay Order
+            </Button>
           </div>
         </div>
       </div>

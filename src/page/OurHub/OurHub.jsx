@@ -65,7 +65,14 @@ const OurHub = () => {
   const dispatch = useDispatch();
   const handleHeartClick = () => {
     setHeartFilled(!heartFilled);
-    dispatch(addLikeArtwork(modalContent.artworkId));
+    const userId = Cookies.get("sessionCookie");
+    const artworkId = modalContent.artworkId;
+    const values = { userId, artworkId };
+    dispatch(addLikeArtwork(values))
+      .unwrap()
+      .then(() => {
+        dispatch(getLikeArtwork(modalContent.artworkId));
+      });
   };
   const handleAddToCart = () => {
     const userId = Cookies.get("sessionCookie");
@@ -101,8 +108,6 @@ const OurHub = () => {
     dispatch(getLikeArtwork(modalContent.artworkId));
     dispatch(getCommentArtwork(modalContent.artworkId));
   }, [modalContent]);
-
-  console.log("modal", modalContent);
 
   const renderImages = () => {
     const handleArtworkClick = (
@@ -146,6 +151,8 @@ const OurHub = () => {
                                 width: "400px",
                                 height: "400px",
                                 objectFit: "cover",
+                                maxWidth: "100%",
+                                maxHeight: "100%",
                               }}
                             />
                           }
@@ -712,7 +719,11 @@ const OurHub = () => {
             <img
               src={modalContent.image}
               alt={modalContent.title}
-              style={{ width: "100%", height: "100%", paddingRight: "20px" }}
+              style={{
+                width: "90%",
+                maxHeight: "500px",
+                paddingRight: "20px",
+              }}
             />
           </Col>
           <Col span={12} style={{ paddingLeft: "20px" }}>

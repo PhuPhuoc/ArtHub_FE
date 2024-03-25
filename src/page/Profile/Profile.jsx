@@ -140,7 +140,9 @@ import {
   Card,
 } from "antd";
 import { FaFacebook, FaInstagram } from "react-icons/fa";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { getSavedArtworkSelector } from "../../redux/selector";
+import { getSavedArtwork } from "../../redux/slices/artworkSlice";
 
 const Profile = () => {
   const [sessionCookie, setSessionCookie] = useState("");
@@ -148,12 +150,14 @@ const Profile = () => {
   const [user, setUser] = useState([]);
   const [modalVisible, setModalVisible] = React.useState(false);
   const [modalContent, setModalContent] = React.useState({});
-
+  const savedArts = useSelector(getSavedArtworkSelector);
   // Edit Profile
   const [newPicture, setNewPicture] = useState("");
   const [newName, setNewName] = useState("");
   const [newMail, setNewMail] = useState("");
   const [newPassword, setNewPassword] = useState("");
+  const userId = Cookies.get("sessionCookie");
+  const dispatch = useDispatch();
 
   const fetchEditProfile = (userId) => {
     const response = axios.put(`http://localhost:5000/api/users/${userId}`, {
@@ -176,6 +180,9 @@ const Profile = () => {
       fetchUser(cookieValue);
     }
   }, []);
+  useEffect(() => {
+    dispatch(getSavedArtwork(userId));
+  }, [userId]);
 
   const fetchUserPosts = (userId) => {
     axios
@@ -265,7 +272,13 @@ const Profile = () => {
       case "Collection ":
         return;
       case "Saved":
-        return;
+        return (
+          <div>
+            {savedArts?.map((item, index) => {
+              return <></>;
+            })}
+          </div>
+        );
       case "About":
         return (
           <div className="aboutContain">

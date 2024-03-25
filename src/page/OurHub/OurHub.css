@@ -176,3 +176,7 @@
   color: #cbc8d8;
   transform: translateX(480px);
 }
+.modalImage {
+  max-width: 400px;
+  max-height: 100%;
+}
