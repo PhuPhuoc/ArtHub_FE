@@ -126,7 +126,7 @@ import "./Profile.css";
 import React, { useEffect, useState } from "react";
 import "../../page/Profile/Profile.css";
 import prf from "../../assets/images/profile.jpg";
-import Modal from "react-modal";
+import {Form, Modal} from 'antd';
 import Avatar from "react-avatar-edit";
 import {
   Space,
@@ -148,12 +148,31 @@ const Profile = () => {
   const [user, setUser] = useState([]);
   const [modalVisible, setModalVisible] = React.useState(false);
   const [modalContent, setModalContent] = React.useState({});
+  const [edit, setEdit] = useState(false);
 
   // Edit Profile
   const [newPicture, setNewPicture] = useState("");
   const [newName, setNewName] = useState("");
   const [newMail, setNewMail] = useState("");
   const [newPassword, setNewPassword] = useState("");
+  const [followers, setFollowers] = useState("");
+
+  const handleEditProfile = () => {
+      setEdit(true);
+  };
+
+    useEffect(() => {
+        const fetchFollowers = () => {
+            const response = axios
+                .get('http://localhost:5000/api/users/:userId/followers')
+                .then((res) => {
+                    setFollowers(res.data.followers);
+                })
+        }
+        fetchFollowers();
+        console.log('response', followers)
+    }, [followers]);
+
 
   const fetchEditProfile = (userId) => {
     const response = axios.put(`http://localhost:5000/api/users/${userId}`, {
@@ -399,7 +418,7 @@ const Profile = () => {
             fontSize: "15px",
           }}
         >
-          12k following
+            {followers} following
         </Typography.Text>
         <Modal
           isOpen={modalIsOpen}
@@ -413,6 +432,7 @@ const Profile = () => {
         </Modal>
         <div className="leftButton" style={{ height: "70vh", width: "48%" }}>
           <Button
+              onClick={() => handleEditProfile()}
             style={{
               height: "50px",
               display: "flex",
@@ -494,7 +514,32 @@ const Profile = () => {
       <button className="delete" onClick={handleLogout}>
         Logout {<LogoutOutlined />}
       </button>
+        <Modal
+            open={edit}
+            onOk={() => setEdit(false)}
+            onCancel={() => setEdit(false)}
+        >
+            <Form>
+                <div style={{
+                    display: 'flex',
+                    flexDirection: 'column',
+                    textAlign: 'center',
+                    alignItems: 'center'
+                }}>
+                    <p>Upload your new profile picture</p>
+                    <input type={"image"} value={newPicture} onChange={(e) => setNewPicture(e.target.value)}/>
+                    <p>Enter your new name</p>
+                    <input placeholder={'New name'} value={newName} onChange={(e) => setNewName(e.target.value)}/>
+                    <p>Enter your new email</p>
+                    <input placeholder={'New email'} value={newMail} onChange={(e) => setNewMail(e.target.value)}/>
+                    <p>Enter your new password</p>
+                    <input placeholder={'New name'} value={newPassword} onChange={(e) => setNewPassword(e.target.value)}/>
+                    <button className="submitedit" onClick={()=> fetchEditProfile(sessionCookie)}>Submit</button>
+                </div>
+            </Form>
+        </Modal>
     </div>
+
   );
 };
 
