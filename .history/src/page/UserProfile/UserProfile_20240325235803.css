@@ -1,0 +1,179 @@
+.imagesContain {
+    display: flex;
+    align-items: center;
+    margin-top: 30px;
+    font-size: 40px;
+    flex-direction: column;
+  }
+  .title {
+    margin-top: 50px;
+    margin-bottom: 80px;
+  }
+  .avatars {
+    border-radius: 50%;
+    border: 1px solid black;
+    padding: 1px;
+    scale: 1;
+    transition: 0.5s ease-in-out;
+  
+    &&:hover {
+      scale: 1.2;
+    }
+  }
+  .imagesContain img {
+    scale: 1;
+    position: relative;
+    cursor: pointer;
+    transition: all 0.3s ease-in-out;
+    z-index: 1;
+  
+    &&:hover {
+      scale: 1.2;
+      z-index: 100;
+    }
+  }
+  
+  .firstSectionOurHub {
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    background-image: url("https://i.pinimg.com/736x/68/01/e8/6801e81cbfa835ca4dfba50c61c0375a.jpg");
+    background-size: cover;
+    background-repeat: no-repeat;
+    margin-bottom: 50px;
+    background-position-x: center;
+    animation: animateBg 50s linear infinite;
+    overflow: hidden;
+  }
+  @keyframes animateBg {
+    0%,
+    100% {
+      transform: scale(1);
+    }
+    50% {
+      transform: scale(1.09);
+    }
+  }
+  .firstSectionOurHub span {
+    width: 4px;
+    height: 4px;
+    position: absolute;
+    background: #fff;
+    top: 50%;
+    left: 50%;
+    border-radius: 50%;
+    box-shadow: 0 0 0 4px rgba(255, 255, 255, 0.1),
+      0 0 0 8px rgba(255, 255, 255, 0.1), 0 0 20px rgba(255, 255, 255, 1);
+    animation: animateDetail 3s linear infinite;
+  }
+  @keyframes animateDetail {
+    0% {
+      transform: rotate(315deg) translateX(0);
+      opacity: 1;
+    }
+    70% {
+      opacity: 1;
+    }
+    100% {
+      transform: rotate(315deg) translateX(-1000px);
+      opacity: 0;
+    }
+  }
+  .firstSectionOurHub span::before {
+    content: "";
+    position: absolute;
+    top: 50%;
+    width: 300px;
+    height: 1px;
+    background: linear-gradient(90deg, #fff, transparent);
+  }
+  .firstSectionOurHub span:nth-child(1) {
+    top: 0;
+    right: 0;
+    left: initial;
+    animation-delay: 0;
+    animation-duration: 1s;
+  }
+  .firstSectionOurHub span:nth-child(2) {
+    top: 0;
+    right: 80px;
+    left: initial;
+    animation-delay: 0.2s;
+    animation-duration: 3s;
+  }
+  .firstSectionOurHub span:nth-child(3) {
+    top: 80px;
+    right: 0px;
+    left: initial;
+    animation-delay: 0.4s;
+    animation-duration: 2s;
+  }
+  .firstSectionOurHub span:nth-child(4) {
+    top: 0;
+    right: 180px;
+    left: initial;
+    animation-delay: 0.6s;
+    animation-duration: 1.5s;
+  }
+  .firstSectionOurHub span:nth-child(5) {
+    top: 0;
+    right: 400px;
+    left: initial;
+    animation-delay: 0.8s;
+    animation-duration: 2.5s;
+  }
+  .firstSectionOurHub span:nth-child(6) {
+    top: 0;
+    right: 600px;
+    left: initial;
+    animation-delay: 1s;
+    animation-duration: 3s;
+  }
+  .firstSectionOurHub span:nth-child(7) {
+    top: 300px;
+    right: 0px;
+    left: initial;
+    animation-delay: 1.2s;
+    animation-duration: 1.75s;
+  }
+  .firstSectionOurHub span:nth-child(8) {
+    top: 0;
+    right: 700px;
+    left: initial;
+    animation-delay: 1.4s;
+    animation-duration: 1.25s;
+  }
+  .firstSectionOurHub span:nth-child(9) {
+    top: 0px;
+    right: 1000px;
+    left: initial;
+    animation-delay: 0.75s;
+    animation-duration: 2.25s;
+  }
+  .firstSectionOurHub span:nth-child(10) {
+    top: 0;
+    right: 450px;
+    left: initial;
+    animation-delay: 2.75s;
+    animation-duration: 2.25s;
+  }
+  .searchBtn:hover {
+    cursor: pointer;
+    background-color: #cbc8d8;
+    color: white;
+    transition: all 0.3s ease-in-out;
+  }
+  .inputSearch:hover {
+    cursor: pointer;
+    background-color: #cbc8d8;
+    color: black !important;
+    transition: all 0.3s ease-in-out;
+  }
+  .searchIcon {
+    height: 50px;
+    font-size: 30px;
+    color: #cbc8d8;
+    transform: translateX(480px);
+  }
+  
