@@ -16,6 +16,8 @@ import {
   Card,
 } from "antd";
 import { useSelector } from "react-redux";
+import "../../"
+
 const UserProfile = () => {
     
   const { id } = useParams(); // Extract id from URL
@@ -115,7 +117,7 @@ const UserProfile = () => {
             fontSize: "20px",
           }}
         >
-          {user[0].name}
+          {user.name}
         </Typography.Title>
         <Typography.Text
           style={{
@@ -125,10 +127,8 @@ const UserProfile = () => {
             fontSize: "15px",
           }}
         >
-          {followers} followers
+          {followers.length} followers
         </Typography.Text>
-        <Button style={{marginLeft:"47.5%", marginTop:"10px"}}>Follow</Button>
-
       </div>
 
       {/* Artworks section */}

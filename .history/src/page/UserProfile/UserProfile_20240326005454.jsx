@@ -127,8 +127,13 @@ const UserProfile = () => {
         >
           {followers} followers
         </Typography.Text>
-        <Button style={{marginLeft:"47.5%", marginTop:"10px"}}>Follow</Button>
-
+        <Button style={{
+             display: "flex",
+             flexDirection: "column",
+             alignItems: "center",
+             fontSize: "15px",
+        }}>
+            Follow</Button>
       </div>
 
       {/* Artworks section */}
