@@ -30,38 +30,49 @@ import { getSavedArtworkSelector } from "../../redux/selector";
 import { getSavedArtwork } from "../../redux/slices/artworkSlice";
 
 const Profile = () => {
-  const [sessionCookie, setSessionCookie] = useState("");
-  const [userArtworks, setUserArtworks] = useState([]);
-  const [user, setUser] = useState([]);
-  const [modalVisible, setModalVisible] = React.useState(false);
-  const [modalContent, setModalContent] = React.useState({});
-  const savedArts = useSelector(getSavedArtworkSelector);
-  const [edit, setEdit] = useState(false);
 
-  // Edit Profile
-  const [newPicture, setNewPicture] = useState("");
-  const [newName, setNewName] = useState("");
-  const [newMail, setNewMail] = useState("");
-  const [newPassword, setNewPassword] = useState("");
-  const userId = Cookies.get("sessionCookie");
-  const dispatch = useDispatch();
-  const [followers, setFollowers] = useState("");
+    const [sessionCookie, setSessionCookie] = useState("");
+    const [userArtworks, setUserArtworks] = useState([]);
+    const [user, setUser] = useState([]);
+    const [modalVisible, setModalVisible] = React.useState(false);
+    const [modalContent, setModalContent] = React.useState({});
+    const [edit, setEdit] = useState(false);
+    const [editArtwork, setEditArtwork] = useState(false);
+
+    // Edit Profile
+    const [newPicture, setNewPicture] = useState("");
+    const [newName, setNewName] = useState("");
+    const [newMail, setNewMail] = useState("");
+    const [newPassword, setNewPassword] = useState("");
+    const [followers, setFollowers] = useState("");
+
+    const [newArtworkName, setNewArtworkName] = useState("")
+    const [newArtworkDescription, setNewArtworkDescription] = useState("")
+    const [newArtworkPrice, setNewArtworkPrice] = useState("")
+    const [newArtworkTypDesign, setNewArtworkTypeDesign] = useState("")
+
+    const [selectedId, setSelectedId] = useState(null);
 
   const handleEditProfile = () => {
     setEdit(true);
   };
 
-  useEffect(() => {
-    const fetchFollowers = () => {
-      const response = axios
-        .get("http://localhost:5000/api/users/:userId/followers")
-        .then((res) => {
-          setFollowers(res.data.followers);
-        });
+    const handleEditArtwork = (artworkId) => {
+        setEditArtwork(true);
+        setSelectedId(artworkId)
     };
-    fetchFollowers();
-    console.log("response", followers);
-  }, [followers]);
+
+    useEffect(() => {
+        const fetchFollowers = () => {
+            const response = axios
+                .get('http://localhost:5000/api/users/:userId/followers')
+                .then((res) => {
+                    setFollowers(res.data.followers);
+                })
+        }
+        fetchFollowers();
+        console.log('response', followers)
+    }, [followers]);
 
   const fetchEditProfile = (userId) => {
     const response = axios.put(`http://localhost:5000/api/users/${userId}`, {
@@ -126,7 +137,22 @@ const Profile = () => {
       });
   };
 
-  const handleEditArtwork = () => {};
+  const fetchEditArtwork = (artworkId) => {
+      axios
+          .put(`http://localhost:5000/api/users/${sessionCookie}/artworks/${artworkId}`,
+              {
+                  title: newArtworkName,
+                  description: newArtworkDescription,
+                  typeDesign: newArtworkTypDesign,
+                  price: newArtworkPrice
+              })
+          .then((e) => {
+              console.log(e);
+          })
+          .catch((e) => {
+              console.log(e);
+          })
+  };
 
   const [im, setim] = useState(null);
   const [pim, setpim] = useState(null);
@@ -392,7 +418,7 @@ const Profile = () => {
                   <button
                     style={{ width: 100 }}
                     className="edit"
-                    onClick={handleEditArtwork}
+                    onClick={() => handleEditArtwork(artwork._id)}
                   >
                     {<EditOutlined />}
                   </button>
@@ -412,6 +438,7 @@ const Profile = () => {
       <button className="delete" onClick={handleLogout}>
         Logout {<LogoutOutlined />}
       </button>
+
       <Modal
         open={edit}
         onOk={() => setEdit(false)}
