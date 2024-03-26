@@ -1,5 +1,3 @@
-
-
 import Cookies from "js-cookie";
 import axios from "axios";
 import {
@@ -11,7 +9,7 @@ import "./Profile.css";
 import React, { useEffect, useState } from "react";
 import "../../page/Profile/Profile.css";
 import prf from "../../assets/images/profile.jpg";
-import { Form, Modal } from "antd";
+import { Form, Modal, message } from "antd";
 import Avatar from "react-avatar-edit";
 import {
   Space,
@@ -30,51 +28,65 @@ import { getSavedArtworkSelector } from "../../redux/selector";
 import { getSavedArtwork } from "../../redux/slices/artworkSlice";
 
 const Profile = () => {
+  const [sessionCookie, setSessionCookie] = useState("");
+  const [userArtworks, setUserArtworks] = useState([]);
+  const [user, setUser] = useState([]);
+  const [userId, setUserId] = useState();
+  const [modalVisible, setModalVisible] = React.useState(false);
+  const [modalContent, setModalContent] = React.useState({});
+  const [edit, setEdit] = useState(false);
+  const [editArtwork, setEditArtwork] = useState(false);
 
-    const [sessionCookie, setSessionCookie] = useState("");
-    const [userArtworks, setUserArtworks] = useState([]);
-    const [user, setUser] = useState([]);
-    const [modalVisible, setModalVisible] = React.useState(false);
-    const [modalContent, setModalContent] = React.useState({});
-    const [edit, setEdit] = useState(false);
-    const [editArtwork, setEditArtwork] = useState(false);
+  // Edit Profile
+  const [newPicture, setNewPicture] = useState("");
+  const [newName, setNewName] = useState("");
+  const [newMail, setNewMail] = useState("");
+  const [newPassword, setNewPassword] = useState("");
+  const [followers, setFollowers] = useState("");
+  const dispatch = useDispatch();
+  const [newArtworkName, setNewArtworkName] = useState("");
+  const [newArtworkDescription, setNewArtworkDescription] = useState("");
+  const [newArtworkPrice, setNewArtworkPrice] = useState("");
+  const [newArtworkTypDesign, setNewArtworkTypeDesign] = useState("");
 
-    // Edit Profile
-    const [newPicture, setNewPicture] = useState("");
-    const [newName, setNewName] = useState("");
-    const [newMail, setNewMail] = useState("");
-    const [newPassword, setNewPassword] = useState("");
-    const [followers, setFollowers] = useState("");
+  const [selectedId, setSelectedId] = useState(null);
 
-    const [newArtworkName, setNewArtworkName] = useState("")
-    const [newArtworkDescription, setNewArtworkDescription] = useState("")
-    const [newArtworkPrice, setNewArtworkPrice] = useState("")
-    const [newArtworkTypDesign, setNewArtworkTypeDesign] = useState("")
+  const checkValid = () => {
+    let message = "Profile updated successfully: ";
 
-    const [selectedId, setSelectedId] = useState(null);
+    if (newName) {
+      message += "Name ";
+    }
+    if (newMail) {
+      message += "Email ";
+    }
+    if (newPassword) {
+      message += "Password ";
+    }
 
-    const dispatch = useDispatch();
+    return message;
+  };
 
   const handleEditProfile = () => {
     setEdit(true);
   };
 
-    const handleEditArtwork = (artworkId) => {
-        setEditArtwork(true);
-        setSelectedId(artworkId)
-    };
+  const handleEditArtwork = (artworkId) => {
+    setEditArtwork(true);
+    setSelectedId(artworkId);
+  };
 
-    useEffect(() => {
-        const fetchFollowers = () => {
-            const response = axios
-                .get('http://localhost:5000/api/users/:userId/followers')
-                .then((res) => {
-                    setFollowers(res.data.followers);
-                })
-        }
-        fetchFollowers();
-        console.log('response', followers)
-    }, [followers]);
+  useEffect(() => {
+    const fetchFollowers = () => {
+      const response = axios
+        .get("http://localhost:5000/api/users/:userId/followers")
+        .then((res) => {
+          setFollowers(res.data.followers);
+        });
+    };
+    fetchFollowers();
+    console.log("response", followers);
+  }, [followers]);
 
   const fetchEditProfile = (userId) => {
     const response = axios.put(`http://localhost:5000/api/users/${userId}`, {
@@ -86,6 +98,8 @@ const Profile = () => {
 
     if (!response) {
       console.log("Error fetching edit on profile");
+    } else {
+      message.success("Profile Update Successfully");
     }
   };
 
@@ -98,8 +112,9 @@ const Profile = () => {
     }
   }, []);
   useEffect(() => {
-    dispatch(getSavedArtwork(sessionCookie));
-  }, [sessionCookie]);
+
+    dispatch(getSavedArtwork(userId));
+  }, [userId, dispatch]);
 
   const fetchUserPosts = (userId) => {
     axios
@@ -140,20 +155,22 @@ const Profile = () => {
   };
 
   const fetchEditArtwork = (artworkId) => {
-      axios
-          .put(`http://localhost:5000/api/users/${sessionCookie}/artworks/${artworkId}`,
-              {
-                  title: newArtworkName,
-                  description: newArtworkDescription,
-                  typeDesign: newArtworkTypDesign,
-                  price: newArtworkPrice
-              })
-          .then((e) => {
-              console.log(e);
-          })
-          .catch((e) => {
-              console.log(e);
-          })
+    axios
+      .put(
+        `http://localhost:5000/api/users/${sessionCookie}/artworks/${artworkId}`,
+        {
+          title: newArtworkName,
+          description: newArtworkDescription,
+          typeDesign: newArtworkTypDesign,
+          price: newArtworkPrice,
+        }
+      )
+      .then((e) => {
+        console.log(e);
+      })
+      .catch((e) => {
+        console.log(e);
+      });
   };
 
   const [im, setim] = useState(null);

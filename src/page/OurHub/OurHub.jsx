@@ -798,7 +798,7 @@ const OurHub = () => {
                 style={{
                   position: "absolute",
                   right: "180px",
-                  bottom: "45px",
+                  bottom: "80px",
                   alignItems: "center",
                   border: "none",
                   outline: "none",
@@ -819,6 +819,7 @@ const OurHub = () => {
                 id="hearthButton"
                 style={{
                   position: "absolute",
+                  bottom: 80,
                   right: 10,
                   alignItems: "center",
                 }}
