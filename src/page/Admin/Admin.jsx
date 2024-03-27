@@ -18,11 +18,7 @@ import { getAllUser } from "../../redux/slices/userSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { getUserSelector } from "../../redux/selector";
 import { useNavigate } from "react-router-dom";
-const navigate = useNavigate();
 
-const handleViewAll = (userId) => {
-  navigate(`/profile/${userId}`);
-}
 
 const getTagColor = (tag) => {
   switch (tag) {
@@ -108,6 +104,11 @@ const columns = [
 ];
 
 const Admin = () => {
+  const navigate = useNavigate();
+
+  const handleViewAll = (userId) => {
+    navigate(`/profile/${userId}`);
+  }
   const dispatch = useDispatch();
   const userData = useSelector(getUserSelector);
   const getTagColor = (tag) => {
