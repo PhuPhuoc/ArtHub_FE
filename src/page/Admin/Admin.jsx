@@ -17,6 +17,13 @@ import { dataAdmin } from "./dataAdmin";
 import { getAllUser } from "../../redux/slices/userSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { getUserSelector } from "../../redux/selector";
+import { useNavigate } from "react-router-dom";
+const navigate = useNavigate();
+
+const handleViewAll = (userId) => {
+  navigate(`/profile/${userId}`);
+}
+
 const getTagColor = (tag) => {
   switch (tag) {
     case "admin":
@@ -91,10 +98,10 @@ const columns = [
       <Button
         type="link"
         onClick={() => {
-          handleOpenProfile
+
         }}
       >
-        View All Posts
+        View All
       </Button>
     ),
   },
@@ -374,7 +381,7 @@ return (
         onClick={handleOpenProfile}
         disabled={!selectedUser}
       >
-        Open Profile
+        Open
       </Button>
     </div>
 
