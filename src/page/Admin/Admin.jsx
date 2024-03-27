@@ -370,7 +370,7 @@ return (
         Delete
       </Button>
       <Button
-        style={{ backgroundColor: "blue", fontSize: "20px", width: "100px", height: "40px", marginLeft: "20px", width: "150px"}}
+        style={{ backgroundColor: "blue", fontSize: "20px", width: "100px", height: "40px", marginLeft: "20px"}}
         onClick={handleOpenProfile}
         disabled={!selectedUser}
       >

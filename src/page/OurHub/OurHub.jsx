@@ -59,19 +59,23 @@ const OurHub = () => {
   const [modalVisible, setModalVisible] = React.useState(false);
   const [modalContent, setModalContent] = React.useState({});
   const [heartFilled, setHeartFilled] = useState(false);
-  const artworkData = useSelector(getArtworkSelector);
   const likes = useSelector(getArtworkLikeSelector);
   const comment = useSelector(getArtworkCommentSelector);
   const [form] = Form.useForm();
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const [userArtworks, setUserArtworks] = useState([]);
+  const allArtworks = useSelector(getArtworkSelector);
+    const artworkData = allArtworks.filter(artwork => !userArtworks.some(userArtwork => userArtwork._id === artwork._id));
 
-  const [sessionCookie, setSessionCookie] = useState("");
+
+    const [sessionCookie, setSessionCookie] = useState("");
 
   useEffect(() => {
     const cookieValue = Cookies.get("sessionCookie");
     if (cookieValue) {
       setSessionCookie(cookieValue);
+      fetchUserPosts(cookieValue)
     }
   }, []);
   const handleHeartClick = () => {
@@ -86,7 +90,19 @@ const OurHub = () => {
       });
   };
 
-  const handleOpenProfile = () => {
+    const fetchUserPosts = (userId) => {
+        axios
+            .get(`http://localhost:5000/api/users/${userId}/artworks`)
+            .then((response) => {
+                setUserArtworks(prevState => [...prevState, ...response.data]);
+            })
+            .catch((error) => {
+                console.error("Error fetching user posts:", error);
+            });
+    };
+
+
+    const handleOpenProfile = () => {
     if (modalContent.user && modalContent.user._id) {
       const userId = modalContent.user._id;
       window.location.href = `/userprofile/${userId}`; // Navigate to user profile route
@@ -814,7 +830,7 @@ const OurHub = () => {
                 )}
                 {likes ? likes.likes : "0"}
               </button>
-              <Button
+                <Button
                 onClick={handleAddToCart}
                 id="hearthButton"
                 style={{
