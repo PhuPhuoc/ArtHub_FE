@@ -20,7 +20,6 @@ import { getUserSelector } from "../../redux/selector";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 
-
 const getTagColor = (tag) => {
   switch (tag) {
     case "admin":
@@ -33,83 +32,86 @@ const getTagColor = (tag) => {
       return "green";
   }
 };
-const columns = [
-  {
-    title: "Stt",
-    dataIndex: "key",
-    key: "key",
-  },
-  {
-    title: "Name",
-    dataIndex: "name",
-    key: "name",
-    render: (text) => <a>{text}</a>,
-  },
-  {
-    title: "Birthday",
-    dataIndex: "birthday",
-    key: "birthday",
-  },
-  {
-    title: "Email",
-    dataIndex: "email",
-    key: "email",
-  },
-  {
-    title: "Gender",
-    dataIndex: "gender",
-    key: "gender",
-  },
-
-  {
-    title: "Tags",
-    key: "role",
-    dataIndex: "role",
-    render: (record) => (
-      <>
-        {record && (
-          <Tag color={getTagColor(record)} key={record}>
-            {record.toUpperCase()}
-          </Tag>
-        )}
-      </>
-    ),
-  },
-  {
-    title: "Avatar",
-    key: "avatar",
-    dataIndex: "avatarUrl",
-    render: (avatarUrl) => (
-      <img
-        src="https://api.dicebear.com/7.x/miniavs/svg?seed=8"
-        alt="Avatar"
-        style={{ maxWidth: "50px", maxHeight: "50px" }}
-      />
-    ),
-  },
-  {
-    title: "Image",
-    key: "image",
-    dataIndex: "posts",
-    render: (posts) => (
-      <Button
-        type="link"
-        onClick={() => {
-
-        }}
-      >
-        View All
-      </Button>
-    ),
-  },
-];
 
 const Admin = () => {
   const navigate = useNavigate();
+  const Option = Select;
+  const columns = [
+    {
+      title: "Stt",
+      dataIndex: "key",
+      key: "key",
+    },
+    {
+      title: "Name",
+      dataIndex: "name",
+      key: "name",
+      render: (text) => <a>{text}</a>,
+    },
+    {
+      title: "Birthday",
+      dataIndex: "birthday",
+      key: "birthday",
+    },
+    {
+      title: "Email",
+      dataIndex: "email",
+      key: "email",
+    },
+    {
+      title: "Gender",
+      dataIndex: "gender",
+      key: "gender",
+    },
 
-  const handleViewAll = (userId) => {
-    navigate(`/profile/${userId}`);
-  }
+    {
+      title: "Tags",
+      key: "role",
+      dataIndex: "role",
+      render: (record) => (
+          <>
+            {record && (
+                <Tag color={getTagColor(record)} key={record}>
+                  {record.toUpperCase()}
+                </Tag>
+            )}
+          </>
+      ),
+    },
+    {
+      title: "Avatar",
+      key: "avatar",
+      dataIndex: "avatarUrl",
+      render: (avatarUrl) => (
+          <img
+              src="https://api.dicebear.com/7.x/miniavs/svg?seed=8"
+              alt="Avatar"
+              style={{ maxWidth: "50px", maxHeight: "50px" }}
+          />
+      ),
+    },
+    {
+      title: "Manage",
+      key: "image",
+      dataIndex: "posts",
+      render: (posts) => (
+          <Select defaultValue="Select Action" style={{ width: 200 }} onChange={(value) => handleDropdownChange(value, posts)}>
+            <Option value="comments">Manage Comments</Option>
+            <Option value="artworks">Manage Artworks</Option>
+          </Select>
+      ),
+    },
+  ];
+
+  const handleDropdownChange = (value, posts) => {
+    const userId = selectedUser._id;
+    if (value === "comments") {
+      navigate(`/admin/manage/comments/${userId}`);
+    } else if (value === "artworks") {
+      console.log("Manage Artworks for:", posts);
+    }
+  };
+
   const dispatch = useDispatch();
   const userData = useSelector(getUserSelector);
   const getTagColor = (tag) => {
