@@ -20,7 +20,9 @@ import Cookies from "js-cookie";
 import logo from "../assets/images/reallogo.png";
 import { BsCartCheck } from "react-icons/bs";
 import axios from "axios";
+import { AiOutlineTransaction } from "react-icons/ai";
 import { FaHistory } from "react-icons/fa";
+import { CiShoppingBasket } from "react-icons/ci";
 
 function getItem(label, key, icon, children, type) {
   return {
@@ -94,6 +96,24 @@ const DefaultLayout = ({ children }) => {
             }}
           >
             Artwork Purchase History
+          </Menu.Item>
+          <Menu.Item
+            key="purchasedOrder"
+            icon={<CiShoppingBasket />}
+            onClick={() => {
+              navigate("/orderpurchased");
+            }}
+          >
+            Order Purchased
+          </Menu.Item>
+          <Menu.Item
+            key="transactiohistory"
+            icon={<AiOutlineTransaction />}
+            onClick={() => {
+              navigate("/transactionhistory");
+            }}
+          >
+            Transaction History
           </Menu.Item>
           <SubMenu
             key="setting"
