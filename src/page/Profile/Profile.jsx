@@ -112,6 +112,7 @@ const Profile = () => {
     }
   }, []);
   useEffect(() => {
+
     dispatch(getSavedArtwork(userId));
   }, [userId, dispatch]);
 
@@ -222,7 +223,7 @@ const Profile = () => {
       case "Saved":
         return (
           <div>
-            {savedArts?.map((item, index) => {
+            {userArtworks?.map((item, index) => {
               return <></>;
             })}
           </div>
@@ -504,6 +505,48 @@ const Profile = () => {
           </div>
         </Form>
       </Modal>
+
+        <Modal
+            open={editArtwork}
+            onOk={() => setEditArtwork(false)}
+            onCancel={() => setEditArtwork(false)}
+        >
+            <Form>
+                <div
+                    style={{
+                        display: "flex",
+                        flexDirection: "column",
+                        textAlign: "center",
+                        alignItems: "center",
+                    }}
+                >
+                    <p>Enter new title</p>
+                    <input
+                        placeholder={"New title"}
+                        value={newArtworkName}
+                        onChange={(e) => setNewArtworkName(e.target.value)}
+                    />
+                    <p>Enter new description</p>
+                    <input
+                        placeholder={"New description"}
+                        value={newArtworkDescription}
+                        onChange={(e) => setNewArtworkDescription(e.target.value)}
+                    />
+                    <p>Enter new price</p>
+                    <input
+                        placeholder={"New price"}
+                        value={newArtworkPrice}
+                        onChange={(e) => setNewArtworkPrice(e.target.value)}
+                    />
+                    <button
+                        className="submitedit"
+                        onClick={() => fetchEditArtwork(selectedId)}
+                    >
+                        Submit
+                    </button>
+                </div>
+            </Form>
+        </Modal>
     </div>
   );
 };

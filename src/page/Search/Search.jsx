@@ -3,6 +3,7 @@ import { useState, useEffect } from "react";
 import React from 'react';
 import { useParams } from 'react-router-dom';
 import ArtworkCard from "../../components/ArtWorkCard.jsx";
+import {Row} from "antd";
 
 const Search = () => {
     const [artworks, setArtworks] = useState([]);
@@ -23,21 +24,16 @@ const Search = () => {
     }, [item]);
 
     return (
-        <div>
+        <Row gutter={[16, 16]}>
             <div>
                 <p style={{ padding: 15 }}>Here are the results for {item}</p>
                 <div style={{ display: 'flex', flexDirection: 'row', flexWrap: 'wrap' }}>
-                {artworks.map(artwork => (
-                        <ArtworkCard
-                            key={artwork._id}
-                            title={artwork.title}
-                            description={artwork.description}
-                            image={artwork.image}
-                        />
+                {artworks.map((artwork, index) => (
+                    <ArtworkCard key={index} artworkData={artwork} />
                     ))}
                 </div>
             </div>
-        </div>
+        </Row>
     );
 };
 
