@@ -4,7 +4,7 @@ import {
   Button,
   Card,
   Form,
-  Input,
+  Input, message,
   Modal,
   Radio,
   Select,
@@ -18,6 +18,7 @@ import { getAllUser } from "../../redux/slices/userSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { getUserSelector } from "../../redux/selector";
 import { useNavigate } from "react-router-dom";
+import axios from "axios";
 
 
 const getTagColor = (tag) => {
@@ -132,6 +133,16 @@ const Admin = () => {
 
   const [titleBackgroundColor, setTitleBackgroundColor] = useState("#ffffff");
   const [titleTextColor, setTitleTextColor] = useState("#000000");
+
+  // Add User Values
+  const [addName, setAddName] = useState('');
+  const [addPassword, setAddPassword] = useState('');
+  const [addEmail, setAddEmail] = useState('');
+
+  // Edit User Values
+  const [editName, setEditName] = useState('')
+  const [editEMail, setEditEmail] = useState('')
+  const [editPassword, setEditPassword] = useState('')
 
   const titleRef = useRef(null);
 
@@ -260,29 +271,36 @@ const Admin = () => {
     });
 };
 
-const handleAddUser = (values) => {
-  const newUser = {
-    name: values.name,
-    email: values.email,
-    password: values.password,
-    role: values.role,
-  };
-
-  fetch("http://localhost:5000/api/admin/users", {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify(newUser),
-  })
-    .then((response) => response.json())
+const handleAddUser = () => {
+  axios.post('http://localhost:5000/api/register',
+      {
+        name: addName,
+        email: addEmail,
+        password: addPassword,
+      })
     .then((newUserData) => {
-      // Update local state with the added user data
-      setData([...data, newUserData]); // Assuming `newUserData` holds the data of the newly added user
+      setData([...data, newUserData]);
       setIsModalVisible(false);
     })
     .catch((error) => {
       console.error("Error adding user:", error);
     });
 };
+
+const handleEditUser = (userId) => {
+    const response = axios.put(`http://localhost:5000/api/users/${userId}`, {
+      name: editName,
+      email: editEMail,
+      password: editPassword,
+      picture: '',
+    });
+
+    if (!response) {
+      console.log("Error fetching edit on profile");
+    } else {
+      message.success("Profile Update Successfully");
+    }
+  };
 const handleDeleteUser = () => {
   if (selectedUser) {
     Modal.confirm({
@@ -360,7 +378,7 @@ return (
     <div className="btnTableContainer" style={{ height: "100px", transform: "translateX(20px)" }}>
       <Button
         style={{ backgroundColor: "yellow", marginRight: "20px", fontSize: "20px", width: "100px", height: "40px" }}
-        onClick={handleEditClick}
+        onClick={() => setIsModalVisible(true)}
       >
         Edit
       </Button>
@@ -387,6 +405,89 @@ return (
     </div>
 
     {/* Modals */}
+    <Modal
+        open={isModalVisible}
+        onOk={() => setIsModalVisible(false)}
+        onCancel={() => setIsModalVisible(false)}
+    >
+      <Form>
+        <div
+            style={{
+              display: "flex",
+              flexDirection: "column",
+              textAlign: "center",
+              alignItems: "center",
+            }}
+        >
+          <p>Enter the user name</p>
+          <input
+              placeholder={"New name"}
+              value={addName}
+              onChange={(e) => setAddName(e.target.value)}
+          />
+          <p>Enter the email</p>
+          <input
+              placeholder={"New email"}
+              value={addEmail}
+              onChange={(e) => setAddEmail(e.target.value)}
+          />
+          <p>Enter the password</p>
+          <input
+              placeholder={"New password"}
+              value={addPassword}
+              onChange={(e) => setAddPassword(e.target.value)}
+          />
+          <button
+              className="submitedit"
+              onClick={() => handleAddUser()}
+          >
+            Submit
+          </button>
+        </div>
+      </Form>
+    </Modal>
+
+    <Modal
+        open={isModalVisible}
+        onOk={() => setIsModalVisible(false)}
+        onCancel={() => setIsModalVisible(false)}
+    >
+      <Form>
+        <div
+            style={{
+              display: "flex",
+              flexDirection: "column",
+              textAlign: "center",
+              alignItems: "center",
+            }}
+        >
+          <p>Enter the new user name</p>
+          <input
+              placeholder={"New name"}
+              value={editName}
+              onChange={(e) => setEditName(e.target.value)}
+          />
+          <p>Enter the new email</p>
+          <input
+              placeholder={"New email"}
+              value={editEMail}
+              onChange={(e) => setEditEmail(e.target.value)}
+          />
+          <p>Enter the new password</p>
+          <input
+              placeholder={"New password"}
+              value={editPassword}
+              onChange={(e) => setEditPassword(e.target.value)}
+          />
+          <button
+              className="submitedit"
+              onClick={() => handleEditUser(selectedUser._id)}
+          >
+            Submit
+          </button>
+        </div>
+      </Form>
+    </Modal>
   </div>
 );
 };

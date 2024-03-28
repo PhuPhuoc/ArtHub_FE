@@ -91,7 +91,7 @@ const Profile = () => {
   const fetchEditProfile = (userId) => {
     const response = axios.put(`http://localhost:5000/api/users/${userId}`, {
       name: newName,
-      mail: newMail,
+      email: newMail,
       password: newPassword,
       picture: newPicture,
     });
