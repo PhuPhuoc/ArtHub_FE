@@ -108,7 +108,7 @@ const Admin = () => {
     if (value === "comments") {
       navigate(`/admin/manage/comments/${userId}`);
     } else if (value === "artworks") {
-      console.log("Manage Artworks for:", posts);
+      navigate(`/admin/manage/artworks/${userId}`)
     }
   };
 
@@ -180,11 +180,8 @@ const Admin = () => {
 
   const handleRowClick = (user, index) => {
     if (selectedUser && selectedUser.key === user.key && selectedRowIndex === index) {
-      // Si l'utilisateur clique à nouveau sur la même ligne déjà sélectionnée, désélectionner
       setSelectedUser(null);
-      setSelectedRowIndex(null); // Réinitialiser également l'index de la ligne sélectionnée
     } else {
-      // Sinon, sélectionner la ligne cliquée
       setSelectedUser(user);
       setSelectedRowIndex(index);
     }
