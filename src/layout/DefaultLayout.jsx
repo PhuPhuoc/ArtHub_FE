@@ -10,7 +10,6 @@ import {
 } from "@ant-design/icons";
 import { Avatar, Button, Dropdown, Layout, Menu } from "antd";
 import { Content, Footer, Header } from "antd/es/layout/layout";
-import Title from "antd/es/typography/Title";
 import PropTypes from "prop-types";
 import MenuArthub from "../components/Menu/MenuArthub";
 import { useNavigate } from "react-router-dom";
@@ -19,8 +18,6 @@ import Search from "antd/es/input/Search";
 import Cookies from "js-cookie";
 import logo from "../assets/images/reallogo.png";
 import { BsCartCheck } from "react-icons/bs";
-import axios from "axios";
-import { AiOutlineTransaction } from "react-icons/ai";
 import { FaHistory } from "react-icons/fa";
 import { CiShoppingBasket } from "react-icons/ci";
 
@@ -95,7 +92,7 @@ const DefaultLayout = ({ children }) => {
               navigate("/artworkpurchasehistorypage");
             }}
           >
-            Artwork Purchase History
+            Artwork Purchase History & Balance
           </Menu.Item>
           <Menu.Item
             key="purchasedOrder"
@@ -105,15 +102,6 @@ const DefaultLayout = ({ children }) => {
             }}
           >
             Order Purchased
-          </Menu.Item>
-          <Menu.Item
-            key="transactiohistory"
-            icon={<AiOutlineTransaction />}
-            onClick={() => {
-              navigate("/transactionhistory");
-            }}
-          >
-            Transaction History
           </Menu.Item>
           <SubMenu
             key="setting"

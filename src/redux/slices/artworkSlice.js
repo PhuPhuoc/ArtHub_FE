@@ -4,7 +4,8 @@ import {
   getRequest,
   postRequest,
 } from "../../services/httpMethod";
-import { toast } from "react-toastify";
+import { message } from "antd";
+
 const initialState = {
   artworkData: [],
   likes: {},
@@ -15,6 +16,7 @@ const initialState = {
   cart: [],
   saved: [],
   sold: [],
+  history: [],
 };
 
 export const artworkSlice = createSlice({
@@ -60,6 +62,9 @@ export const artworkSlice = createSlice({
       })
       .addCase(getArtworkSold.fulfilled, (state, action) => {
         state.sold = action.payload;
+      })
+      .addCase(getArtworkHistory.fulfilled, (state, action) => {
+        state.history = action.payload;
       });
   },
 });
@@ -165,6 +170,12 @@ export const addToCart = createAsyncThunk(
       const res = await postRequest(
         `users/${values.userId}/cart/${values.artworkId}`
       );
+
+      if (res) {
+        message.success("Add to cart successfully");
+      } else {
+        message.error("Artwork not added successfully");
+      }
       return res.data;
     } catch (error) {
       console.log({ error });
@@ -191,7 +202,7 @@ export const deleteCart = createAsyncThunk(
       );
       return res.data;
     } catch (error) {
-      console.log({ error });
+      ~console.log({ error });
     }
   }
 );
@@ -214,6 +225,18 @@ export const getArtworkSold = createAsyncThunk(
     try {
       const res = await getRequest(`users/${userId}/sold`);
       return res.data.transactions;
+    } catch (error) {
+      console.log({ error });
+    }
+  }
+);
+
+export const getArtworkHistory = createAsyncThunk(
+  "artwork/getArtworkHistory",
+  async (userId) => {
+    try {
+      const res = await getRequest(`users/${userId}/history`);
+      return res.data.list_artwork_of_user;
     } catch (error) {
       console.log({ error });
     }

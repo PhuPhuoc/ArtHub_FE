@@ -19,23 +19,12 @@ import { getUserCart, placeOrder } from "../../redux/slices/artworkSlice";
 import Cookies from "js-cookie";
 import { useNavigate } from "react-router-dom";
 
-const { Option } = Select;
-const countryOptions = [
-  { label: "United States", value: "US" },
-  { label: "United Kingdom", value: "UK" },
-  { label: "Canada", value: "CA" },
-  { label: "VietNam", value: "VN" },
-  { label: "France", value: "FA" },
-  { label: "Japan", value: "JA" },
-  { label: "Germany", value: "GER" },
-];
-const options = [
-  { value: 1, label: "Direct Bank Transfer" },
-  { value: 2, label: "Cash On Delivery" },
-];
-
 const PaymentPage = () => {
-  const [value, setValue] = useState(1);
+  const options = [
+    { value: 1, label: "Bank Transfer" },
+    { value: 2, label: "Direct Transfer" },
+  ];
+  const [value, setValue] = useState(2);
   const [showQR, setShowQR] = useState(false);
   const [isChecked, setIsChecked] = useState(false);
   const cartData = useSelector(getUserCartSelector);
@@ -100,6 +89,33 @@ const PaymentPage = () => {
           Payment Method
           <BsCash size={40} color="green" style={{ marginLeft: "20px" }} />
         </Typography.Title>
+        <div className="rulesText">
+          <Typography.Title level={2} style={{ color: "red" }}>
+            Here are some requirements when purchasing orders:
+          </Typography.Title>
+          <div className="sub1" style={{ marginTop: "40px" }}>
+            <Typography.Text style={{ fontSize: "20px" }}>
+              Product Total Count: Total price of product will be divide to 10%
+              for using services
+            </Typography.Text>
+          </div>
+          <div className="sub2" style={{ marginTop: "40px" }}>
+            <Typography.Text style={{ fontSize: "20px" }}>
+              Admin: Earn 10% incomes from each total transactions
+            </Typography.Text>
+          </div>
+          <div className="sub3" style={{ marginTop: "40px" }}>
+            <Typography.Text style={{ fontSize: "20px" }}>
+              Audience and Creator must follow the instructions
+            </Typography.Text>
+          </div>
+          <div className="sub4" style={{ marginTop: "40px" }}>
+            <Typography.Text style={{ fontSize: "20px" }}>
+              Your Items will be stored in purchased order and you can not buy
+              the item again
+            </Typography.Text>
+          </div>
+        </div>
       </div>
       <div
         className="yourOrders"
@@ -225,13 +241,13 @@ const PaymentPage = () => {
                   fontSize: "40px",
                   height: "100",
                   width: "60%",
-                  backgroundColor: isChecked ? "black" : "grey", // Màu xám nếu checkbox không được chọn
+                  backgroundColor: isChecked ? "black" : "grey",
                   color: "white",
                   borderRadius: "8px",
-                  cursor: isChecked ? "pointer" : "not-allowed", // Không cho phép click nếu checkbox không được chọn
+                  cursor: isChecked ? "pointer" : "not-allowed",
                 }}
-                onClick={handlePlaceOrder} // Gọi hàm xử lý đặt hàng khi click
-                disabled={!isChecked} // Disable button nếu checkbox không được chọn
+                onClick={handlePlaceOrder}
+                disabled={!isChecked}
               >
                 Place Order
               </button>

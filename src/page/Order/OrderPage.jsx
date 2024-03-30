@@ -1,16 +1,18 @@
 import React, { useEffect, useState } from "react";
-import { Button, Table, Divider, Radio, message } from "antd";
+import { Button, Table, Divider, Radio, message, Modal } from "antd";
 import "./OrderPage.css";
 import { useDispatch, useSelector } from "react-redux";
 import { deleteCart, getUserCart } from "../../redux/slices/artworkSlice";
 import Cookies from "js-cookie";
 import { getUserCartSelector } from "../../redux/selector";
 import { useNavigate } from "react-router-dom";
+import { MdDangerous } from "react-icons/md";
 
 const OrderPage = () => {
   const navigate = useNavigate();
   const idUser = Cookies.get("sessionCookie");
   const dispatch = useDispatch();
+  const [showErrorModal, setShowErrorModal] = useState(false);
   const cartData = useSelector(getUserCartSelector);
   useEffect(() => {
     dispatch(getUserCart(idUser));
@@ -25,7 +27,11 @@ const OrderPage = () => {
       });
   };
   const clickToPlaceOrder = () => {
-    navigate("/paymentpage");
+    if (cartData && cartData.length > 0) {
+      navigate("/paymentpage");
+    } else {
+      setShowErrorModal(true);
+    }
   };
   const columns = [
     {
@@ -126,6 +132,28 @@ const OrderPage = () => {
               Click To Continue Pay Order
             </Button>
           </div>
+          <Modal
+            style={{ fontSize: "20px" }}
+            title="Error"
+            visible={showErrorModal}
+            onCancel={() => setShowErrorModal(false)}
+            footer={[
+              <Button onClick={() => navigate("/ourhub")}>
+                Go back to Our Hub Page
+              </Button>,
+            ]}
+          >
+            <MdDangerous
+              style={{
+                fontSize: "30px",
+                color: "#CC2D2D",
+                transform: "translateX(45px)translateY(-34px)",
+              }}
+            />
+            <div className="textModal" style={{ fontSize: "16px" }}>
+              There are no items in your order. Please add items to proceed.
+            </div>
+          </Modal>
         </div>
       </div>
     </div>

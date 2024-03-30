@@ -66,16 +66,18 @@ const OurHub = () => {
   const navigate = useNavigate();
   const [userArtworks, setUserArtworks] = useState([]);
   const allArtworks = useSelector(getArtworkSelector);
-    const artworkData = allArtworks.filter(artwork => !userArtworks.some(userArtwork => userArtwork._id === artwork._id));
+  const artworkData = allArtworks.filter(
+    (artwork) =>
+      !userArtworks.some((userArtwork) => userArtwork._id === artwork._id)
+  );
 
-
-    const [sessionCookie, setSessionCookie] = useState("");
+  const [sessionCookie, setSessionCookie] = useState("");
 
   useEffect(() => {
     const cookieValue = Cookies.get("sessionCookie");
     if (cookieValue) {
       setSessionCookie(cookieValue);
-      fetchUserPosts(cookieValue)
+      fetchUserPosts(cookieValue);
     }
   }, []);
   const handleHeartClick = () => {
@@ -90,19 +92,18 @@ const OurHub = () => {
       });
   };
 
-    const fetchUserPosts = (userId) => {
-        axios
-            .get(`http://localhost:5000/api/users/${userId}/artworks`)
-            .then((response) => {
-                setUserArtworks(prevState => [...prevState, ...response.data]);
-            })
-            .catch((error) => {
-                console.error("Error fetching user posts:", error);
-            });
-    };
+  const fetchUserPosts = (userId) => {
+    axios
+      .get(`http://localhost:5000/api/users/${userId}/artworks`)
+      .then((response) => {
+        setUserArtworks((prevState) => [...prevState, ...response.data]);
+      })
+      .catch((error) => {
+        console.error("Error fetching user posts:", error);
+      });
+  };
 
-
-    const handleOpenProfile = () => {
+  const handleOpenProfile = () => {
     if (modalContent.user && modalContent.user._id) {
       const userId = modalContent.user._id;
       window.location.href = `/userprofile/${userId}`; // Navigate to user profile route
@@ -116,14 +117,12 @@ const OurHub = () => {
       const values = { userId, artworkId };
       dispatch(addToCart(values))
         .unwrap()
-        .then(() => {
-          message.success("Added artwork to the cart");
-        })
+        .then((response) => {})
         .catch((error) => {
           message.error(error);
         });
     } else {
-      navigate("/login");
+      navigate("/loginpage");
     }
   };
   const handleComment = (values) => {
@@ -139,7 +138,7 @@ const OurHub = () => {
           dispatch(getCommentArtwork(modalContent.artworkId));
         });
     } else {
-      navigate("/login");
+      navigate("/loginpage");
     }
   };
   const [justify, setJustify] = React.useState(justifyOptions[0]);
@@ -830,7 +829,7 @@ const OurHub = () => {
                 )}
                 {likes ? likes.likes : "0"}
               </button>
-                <Button
+              <Button
                 onClick={handleAddToCart}
                 id="hearthButton"
                 style={{

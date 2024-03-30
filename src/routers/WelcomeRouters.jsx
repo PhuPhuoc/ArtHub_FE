@@ -7,7 +7,6 @@ import HomePage from "../page/Home/HomePage";
 import Profile from "../page/Profile/Profile";
 import Search from "../page/Search/Search.jsx";
 import UserProfile from "../page/UserProfile/UserProfile.jsx";
-
 import LoginPage from "../page/Login/LoginPage";
 import Admin from "../page/Admin/Admin";
 import Security from "../page/Security/Security";
@@ -17,7 +16,6 @@ import PaymentPage from "../page/Payment/PaymentPage.jsx";
 import OrderPage from "../page/Order/OrderPage.jsx";
 import ArtworkPurchaseHistoryPage from "../page/ArtworkPurchase/ArtworkPurchaseHistoryPage.jsx";
 import OrderPurchased from "../page/OrderPurchased/OrderPurchased.jsx";
-import TransactionHistory from "../page/TransactionHistory/TransactionHistory.jsx";
 import ManageComments from "../page/ManageComments/ManageComments.jsx";
 import ManageArtworks from "../page/ManageArtworks/ManageArtworks.jsx";
 const welcomeRouterData = [
@@ -33,15 +31,14 @@ const welcomeRouterData = [
   { path: "privacyanddata", component: <Privacyanddata /> },
   { path: "paymentpage", component: <PaymentPage /> },
   { path: "orderpage", component: <OrderPage /> },
-  { path: "/admin/manage/comments/:userId", component: <ManageComments/> },
-  { path: "/admin/manage/artworks/:userId", component: <ManageArtworks/> },
+  { path: "/admin/manage/comments/:userId", component: <ManageComments /> },
+  { path: "/admin/manage/artworks/:userId", component: <ManageArtworks /> },
   {
     path: "artworkpurchasehistorypage",
     component: <ArtworkPurchaseHistoryPage />,
   },
   { path: "userprofile/:id", component: <UserProfile /> },
   { path: "orderpurchased", component: <OrderPurchased /> },
-  { path: "transactionhistory", component: <TransactionHistory /> },
 ];
 
 const DefaultComponent = () => {
