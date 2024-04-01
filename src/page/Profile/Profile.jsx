@@ -26,6 +26,7 @@ import { FaFacebook, FaInstagram } from "react-icons/fa";
 import { useDispatch, useSelector } from "react-redux";
 import { getSavedArtworkSelector } from "../../redux/selector";
 import { getSavedArtwork } from "../../redux/slices/artworkSlice";
+import ArtworkCard from "../../components/ArtWorkCard.jsx";
 
 const Profile = () => {
   const [sessionCookie, setSessionCookie] = useState("");
@@ -48,6 +49,7 @@ const Profile = () => {
   const [newArtworkDescription, setNewArtworkDescription] = useState("");
   const [newArtworkPrice, setNewArtworkPrice] = useState("");
   const [newArtworkTypDesign, setNewArtworkTypeDesign] = useState("");
+  const [savedArtworks, setSavedArtworks] = useState([]);
 
   const [selectedId, setSelectedId] = useState(null);
 
@@ -76,16 +78,29 @@ const Profile = () => {
     setSelectedId(artworkId);
   };
 
+  const fetchSavedArtworks = (userId) => {
+      axios
+          .get(`http://localhost:5000/api/${userId}/saved`)
+          .then((res) => {
+              setSavedArtworks(res.data.savedArtworks);
+              console.log(res.data);
+          })
+          .catch((e) => {
+              console.log(e);
+          })
+  };
+
   useEffect(() => {
     const fetchFollowers = () => {
       const response = axios
-        .get("http://localhost:5000/api/users/:userId/followers")
+        .get(`http://localhost:5000/api/users/${sessionCookie}/followers`)
         .then((res) => {
           setFollowers(res.data.followers);
         });
     };
     fetchFollowers();
     console.log("response", followers);
+    fetchSavedArtworks(sessionCookie);
   }, [followers]);
 
   const fetchEditProfile = (userId) => {
@@ -223,8 +238,10 @@ const Profile = () => {
       case "Saved":
         return (
           <div>
-            {userArtworks?.map((item, index) => {
-              return <></>;
+            {savedArtworks?.map((item, index) => {
+                return (
+                    <ArtworkCard key={index} artworkData={item}/>
+                    );
             })}
           </div>
         );
