@@ -13,20 +13,72 @@ import {
   Flex,
   Row,
   Col,
-  Card,
+  Card, message,
 } from "antd";
 import { useSelector } from "react-redux";
+import ArtworkCard from "../../components/ArtWorkCard.jsx";
+import Cookies from "js-cookie";
+import {UserAddOutlined} from "@ant-design/icons";
+import './UserProfile.css';
 const UserProfile = () => {
     
   const { id } = useParams(); // Extract id from URL
   const [im, setim] = useState(null);
   const [pim, setpim] = useState(null);
   const [userArtworks, setUserArtworks] = useState([]);
+  const [follow, setFollow] = useState('Follow')
 
   const [user, setUser] = useState(null);
   const [followers, setFollowers] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [sessionCookie, setSessionCookie] = useState("");
+
+  useEffect(() => {
+    const cookieValue = Cookies.get("sessionCookie");
+    if (cookieValue) {
+      setSessionCookie(cookieValue);
+    }
+  }, []);
+
+  const handleFollowCreator = (creatorId) => {
+    if (follow === 'Follow') {
+      axios
+          .post(`http://localhost:5000/api/users/${sessionCookie}/follow/${creatorId}`)
+          .then(() => {
+            setFollow('Unfollow');
+            setFollowers(prevFollowers => prevFollowers + 1);
+            message.success('Creator followed successfully');
+          })
+          .catch((error) => {
+            console.log(error);
+          });
+    } else {
+      axios
+          .delete(`http://localhost:5000/api/users/${sessionCookie}/follow/${creatorId}`)
+          .then(() => {
+            setFollow('Follow');
+            setFollowers(prevFollowers => prevFollowers - 1);
+            message.success('Creator unfollowed successfully');
+          })
+          .catch((error) => {
+            console.log(error);
+          })
+    }
+  };
+
+
+
+  const fetchFollow = (userId, creatorId) => {
+    axios
+        .get(`http://localhost:5000/api/users/${sessionCookie}/follow/${creatorId}`)
+        .then((res) => {
+          if (res.data.follow === true)
+            setFollow('Unfollow');
+          else
+            setFollow('Follow');
+        })
+  };
 
   useEffect(() => {
     const fetchUser = async () => {
@@ -62,6 +114,7 @@ const UserProfile = () => {
     fetchUserPosts(id);
     fetchUser();
     fetchFollowers();
+    fetchFollow(sessionCookie, id);
   }, [id]);
 
   const renderImages = () => {
@@ -73,16 +126,7 @@ const UserProfile = () => {
       <div className="artworks">
         <div className="artworksContainer">
           {userArtworks.map((artwork, index) => (
-            <div className="artworkCard" key={index}>
-              {artwork.image && (
-                <img src={artwork.image} alt="" className="artworkImage" />
-              )}
-              <p style={{ fontWeight: 800, padding: 5, marginTop: 5 }}>
-                {artwork.title}
-              </p>
-              <p style={{ padding: 5 }}>{artwork.description}</p>
-              {/* Add edit and delete buttons here if needed */}
-            </div>
+              <ArtworkCard key={index} artwork={artwork} />
           ))}
         </div>
       </div>
@@ -102,7 +146,7 @@ const UserProfile = () => {
   return (
     <div>
       {/* Profile header */}
-      <div className="profile-img" style={{ width: "100%", height: "400px" }}>
+      <div className="profile-img" style={{ display: 'flex', alignItems: 'center', flexDirection: 'column', width: "100%", height: "400px" }}>
         <div className="fileupload">
           <img src={im ? im : prf} />
         </div>
@@ -127,7 +171,7 @@ const UserProfile = () => {
         >
           {followers} followers
         </Typography.Text>
-        <Button style={{marginLeft:"47.5%", marginTop:"10px"}}>Follow</Button>
+        <Button className='button' onClick={() => handleFollowCreator(id)}><UserAddOutlined />{follow}</Button>
 
       </div>
 
@@ -142,7 +186,13 @@ const UserProfile = () => {
         </div>
         
         {/* Render user artworks */}
-        {renderImages()}
+        <div className="artworks">
+          <div className="artworksContainer">
+            {userArtworks?.map((artwork, index) => (
+                <ArtworkCard key={index} artworkData={artwork} />
+            ))}
+          </div>
+        </div>
       </div>
     </div>
   );
