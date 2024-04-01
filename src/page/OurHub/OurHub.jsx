@@ -22,6 +22,7 @@ import { HeartFilled, HeartOutlined, SendOutlined } from "@ant-design/icons";
 import Comment from "../../components/Comment";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
+import ArtworkCard from "../../components/ArtWorkCard.jsx";
 import {
   addCommentArtwork,
   addToCart,
@@ -560,60 +561,7 @@ const OurHub = () => {
               <Row gutter={[16, 16]}>
                 {artworkData?.map((item, index) => (
                   <Col span={6} key={index}>
-                    <Card
-                      onClick={() =>
-                        handleArtworkClick(
-                          item.title,
-                          item.description,
-                          item.image,
-                          item.price,
-                          item._id,
-                          item.user[0]
-                        )
-                      }
-                      cover={
-                        <img
-                          src={item.image}
-                          alt="image"
-                          style={{
-                            width: "400px",
-                            height: "400px",
-                            objectFit: "cover",
-                          }}
-                        />
-                      }
-                    >
-                      <Meta
-                        style={{
-                          display: "flex",
-                          justifyContent: "center",
-                          height: "100px",
-                        }}
-                        avatar={
-                          <Avatar
-                            className="avatar"
-                            src="https://api.dicebear.com/7.x/miniavs/svg?seed=8"
-                            style={{ cursor: "pointer" }}
-                          />
-                        }
-                        title={
-                          <span
-                            style={{
-                              color: "black",
-                              fontSize: "15px",
-                              borderBottom: "1px solid black",
-                            }}
-                          >
-                            {item.title}
-                          </span>
-                        }
-                        description={
-                          <span style={{ color: "black", fontSize: "12px" }}>
-                            {item.description}
-                          </span>
-                        }
-                      />
-                    </Card>
+                      <ArtworkCard key={index} artworkData={item} />
                   </Col>
                 ))}
               </Row>
@@ -684,7 +632,7 @@ const OurHub = () => {
               marginTop: "100px",
             }}
           >
-            Dribbble is the leading destination to find & showcase creative work
+            ArtHub is the leading destination to find & showcase creative work
             and <br /> home to the world's best design professionals.
           </p>
           <div

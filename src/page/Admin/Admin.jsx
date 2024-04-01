@@ -19,6 +19,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { getUserSelector } from "../../redux/selector";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
+import Cookies from "js-cookie";
 
 const getTagColor = (tag) => {
   switch (tag) {
@@ -36,6 +37,17 @@ const getTagColor = (tag) => {
 const Admin = () => {
   const navigate = useNavigate();
   const Option = Select;
+
+  const [sessionCookie, setSessionCookie] = useState("");
+  useEffect(() => {
+    const cookieValue = Cookies.get("sessionCookie");
+    if (cookieValue) {
+      setSessionCookie(cookieValue);
+    } else {
+      navigate("/loginpage");
+    }
+  }, []);
+
   const columns = [
     {
       title: "Stt",
@@ -201,74 +213,6 @@ const Admin = () => {
       }
     },
   };
-  const handleEditClick = () => {
-    if (!selectedUser) {
-      Modal.warning({
-        title: "Warning",
-        content: "Please select a user to edit.",
-      });
-      return;
-    }
-
-    formEdit.setFieldsValue(selectedUser);
-    setEditModalVisible(true);
-  };
-
-  const handleBubbleClick = (userId) => {
-    setSelectedUserId(userId);
-  };
-
-  const handleModalVisible = () => {
-    setIsModalVisible(!isModalVisible);
-  };
-
-  const handleSaveEdit = () => {
-    formEdit
-      .validateFields()
-      .then((values) => {
-        const { name, email, password, avatarUrl } = values;
-
-        const updatedUser = {
-          name,
-          mail: email,
-          password,
-          picture: avatarUrl,
-        };
-
-        fetch(`http://localhost:5000/api/users/${selectedUser._id}`, {
-          method: "PUT",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(updatedUser),
-        })
-        .then((response) => {
-          if (response.ok) {
-            // If update successful, update UI
-            const updatedData = data.map((user) =>
-              user.key === selectedUser.key ? { ...user, ...values } : user
-            );
-            setData(updatedData);
-            setEditModalVisible(false);
-            setSelectedUser(null);
-            dispatch(getAllUser());
-          } else {
-            // Handle error response from server
-            throw new Error("Failed to update user");
-          }
-        })
-        .catch((error) => {
-          console.error("Error updating user:", error);
-          Modal.error({
-            title: "Error",
-            content: "Failed to update user. Please try again later.",
-          });
-        });
-    })
-    .catch((errorInfo) => {
-      console.log("Failed:", errorInfo);
-    });
-};
 
 const handleAddUser = () => {
   axios.post('http://localhost:5000/api/register',
