@@ -14,6 +14,7 @@ const OrderPurchased = () => {
   const artWorkHistory = useSelector(getArtworkHistorySelector);
   const [hasData, setHasData] = useState(false);
   const navigate = useNavigate();
+
   const columns = [
     {
       title: "Creator name",

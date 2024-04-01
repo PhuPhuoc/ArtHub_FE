@@ -219,6 +219,19 @@ export const placeOrder = createAsyncThunk(
   }
 );
 
+export const paymentV2 = createAsyncThunk(
+  "artwork/paymentV2",
+  async (userId) => {
+    try {
+      const res = await postRequest(`paymentv2/${userId}`);
+      console.log(res);
+      return res;
+    } catch (error) {
+      console.log({ error });
+    }
+  }
+);
+
 export const getArtworkSold = createAsyncThunk(
   "artwork/getArtworkSold",
   async (userId) => {

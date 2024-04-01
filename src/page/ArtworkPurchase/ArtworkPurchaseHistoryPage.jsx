@@ -3,14 +3,18 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getArtworkSold } from "../../redux/slices/artworkSlice";
 import Cookies from "js-cookie";
-import { getArtworkSoldSelector } from "../../redux/selector";
+import {
+  getArtworkSoldSelector,
+  getSingleUserSelector,
+} from "../../redux/selector";
+import { getUser } from "../../redux/slices/userSlice";
 
 const ArtworkPurchaseHistoryPage = () => {
   const dispatch = useDispatch();
   const userId = Cookies.get("sessionCookie");
   const artworkSold = useSelector(getArtworkSoldSelector);
+  const getSingleUser = useSelector(getSingleUserSelector);
   const [currentTextColor, setCurrentTextColor] = useState("green");
-  const [balance, setBalance] = useState(0);
   const columns = [
     {
       title: "User Name",
@@ -48,6 +52,7 @@ const ArtworkPurchaseHistoryPage = () => {
   ];
   useEffect(() => {
     dispatch(getArtworkSold(userId));
+    dispatch(getUser(userId));
   }, [userId]);
 
   useEffect(() => {
@@ -66,27 +71,7 @@ const ArtworkPurchaseHistoryPage = () => {
     }, 2000);
     return () => clearInterval(interval);
   }, []);
-
-  // balance
-  /* useEffect(() => {
-    // Tính tổng balance dựa trên giá của các item
-    const initialBalance = artworkSold.reduce((accumulator, current) => {
-      return current.artwork.price + accumulator;
-    }, 0);
-    setBalance(initialBalance);
-  }, [artworkSold]); */
-
-  useEffect(() => {
-    // Tính tổng balance dựa trên giá của các item
-    const initialBalance = artworkSold.reduce((accumulator, current) => {
-      // Convert the price to a number using parseFloat or parseInt
-      const price = parseFloat(current.artwork.price);
-      // Add the price to the accumulator
-      return price + accumulator;
-    }, 0);
-    const balance = initialBalance.toLocaleString();
-    setBalance(initialBalance);
-  }, [artworkSold]);
+  console.log(getSingleUser);
   return (
     <div style={{ minHeight: "100vh", width: "100%" }}>
       <div
@@ -110,7 +95,7 @@ const ArtworkPurchaseHistoryPage = () => {
         <Typography.Title
           style={{ fontSize: "120px", color: currentTextColor }}
         >
-          ${parseInt(balance)}
+          {getSingleUser[0]?.balance ? ` $ ${getSingleUser[0]?.balance}` : ""}
         </Typography.Title>
       </div>
       <div className="titleHistory">
@@ -130,10 +115,6 @@ const ArtworkPurchaseHistoryPage = () => {
               typeDesign: item?.artwork?.typeDesign,
               image: item?.artwork?.image,
               likes: item?.artwork?.likes,
-              creatorName: item?.user?.name,
-              creatorEmail: item?.user?.email,
-              buyerName: item?.buyer?.name,
-              buyerEmail: item?.buyer?.email,
               name: item?.user?.name,
               email: item?.user?.email,
               artworkId: item?.artworkId,

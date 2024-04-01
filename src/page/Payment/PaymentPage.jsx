@@ -13,11 +13,19 @@ import {
 import { BsCash } from "react-icons/bs";
 import QRCode from "qrcode.react";
 import QR from "../../assets/images/QR.png";
-import { getUserCartSelector } from "../../redux/selector";
+import {
+  getSingleUserSelector,
+  getUserCartSelector,
+} from "../../redux/selector";
 import { useDispatch, useSelector } from "react-redux";
-import { getUserCart, placeOrder } from "../../redux/slices/artworkSlice";
+import {
+  getUserCart,
+  paymentV2,
+  placeOrder,
+} from "../../redux/slices/artworkSlice";
 import Cookies from "js-cookie";
 import { useNavigate } from "react-router-dom";
+import { getUser } from "../../redux/slices/userSlice";
 
 const PaymentPage = () => {
   const options = [
@@ -27,6 +35,7 @@ const PaymentPage = () => {
   const [value, setValue] = useState(2);
   const [showQR, setShowQR] = useState(false);
   const [isChecked, setIsChecked] = useState(false);
+  const getSingleUser = useSelector(getSingleUserSelector);
   const cartData = useSelector(getUserCartSelector);
   const userId = Cookies.get("sessionCookie");
   const navigate = useNavigate();
@@ -50,11 +59,15 @@ const PaymentPage = () => {
 
   const handlePlaceOrder = () => {
     if (isChecked) {
-      dispatch(placeOrder(userId))
+      dispatch(paymentV2(userId))
         .unwrap()
-        .then(() => {
-          message.success("Order Placed Successfully");
-          navigate("/orderpage");
+        .then((response) => {
+          if (response && response.status === 200) {
+            message.success("Order Placed Successfully");
+            navigate("/orderpage");
+          } else {
+            message.error("You do not have enough money for this artwork");
+          }
         })
         .catch((error) => {
           message.error("Failed to place order: " + error.message);
@@ -63,10 +76,11 @@ const PaymentPage = () => {
       message.warning("Please agree to the terms and conditions.");
     }
   };
-
   useEffect(() => {
     dispatch(getUserCart(userId));
+    dispatch(getUser(userId));
   }, [userId]);
+  console.log(getSingleUser);
 
   return (
     <div
@@ -135,6 +149,12 @@ const PaymentPage = () => {
         >
           Your Orders
         </Typography.Title>
+        <div className="titleBalance" style={{ gap: "10px" }}>
+          <Typography.Title>Your Current Balance</Typography.Title>
+          <Typography.Title>
+            {getSingleUser[0]?.balance ? ` $ ${getSingleUser[0]?.balance}` : ""}
+          </Typography.Title>
+        </div>
         <div
           className="orderDetails"
           style={{
