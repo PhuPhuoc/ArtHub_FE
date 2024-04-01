@@ -1,12 +1,15 @@
-.button {
+.buttonFollow {
     cursor: pointer;
     color: white;
     background-color: #3b59e7;
     border: 1px solid #3b59e7;
     transition: 0.3s ease-in-out;
+    padding: 10px;
+    border-radius: 15px;
+    margin: 10px;
 }
 
-.button:hover {
+.buttonFollow:hover {
     color: #3b59e7;
     background-color: white;
 }
