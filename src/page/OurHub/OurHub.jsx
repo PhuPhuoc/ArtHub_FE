@@ -176,66 +176,9 @@ const OurHub = () => {
                 {artworkData?.map((item, index) => {
                   if (item.typeDesign === "discover") {
                     return (
-                      <Col span={6} key={index}>
-                        <Card
-                          onClick={() =>
-                            handleArtworkClick(
-                              item.title,
-                              item.description,
-                              item.image,
-                              item.price,
-                              item._id,
-                              item.user[0]
-                            )
-                          }
-                          cover={
-                            <img
-                              src={item.image}
-                              alt="image"
-                              style={{
-                                width: "400px",
-                                height: "400px",
-                                objectFit: "cover",
-                                maxWidth: "100%",
-                                maxHeight: "100%",
-                              }}
-                            />
-                          }
-                        >
-                          <Meta
-                            style={{
-                              display: "flex",
-                              justifyContent: "center",
-                              height: "100px",
-                            }}
-                            avatar={
-                              <Avatar
-                                className="avatar"
-                                src="https://api.dicebear.com/7.x/miniavs/svg?seed=8"
-                                style={{ cursor: "pointer" }}
-                              />
-                            }
-                            title={
-                              <span
-                                style={{
-                                  color: "black",
-                                  fontSize: "15px",
-                                  borderBottom: "1px solid black",
-                                }}
-                              >
-                                {item.title}
-                              </span>
-                            }
-                            description={
-                              <span
-                                style={{ color: "black", fontSize: "12px" }}
-                              >
-                                {item.description}
-                              </span>
-                            }
-                          />
-                        </Card>
-                      </Col>
+                        <Col span={6} key={index}>
+                            <ArtworkCard key={index} artworkData={item} />
+                        </Col>
                     );
                   } else {
                     return null;
@@ -256,62 +199,7 @@ const OurHub = () => {
                   if (item.typeDesign === "animation") {
                     return (
                       <Col span={6} key={index}>
-                        <Card
-                          onClick={() =>
-                            handleArtworkClick(
-                              item.title,
-                              item.description,
-                              item.image,
-                              item.price,
-                              item._id,
-                              item.user[0]
-                            )
-                          }
-                          cover={
-                            <img
-                              src={item.image}
-                              alt="image"
-                              style={{
-                                width: "400px",
-                                height: "400px",
-                                objectFit: "cover",
-                              }}
-                            />
-                          }
-                        >
-                          <Meta
-                            style={{
-                              display: "flex",
-                              justifyContent: "center",
-                              height: "100px",
-                            }}
-                            avatar={
-                              <Avatar
-                                className="avatar"
-                                src="https://api.dicebear.com/7.x/miniavs/svg?seed=8"
-                                style={{ cursor: "pointer" }}
-                              />
-                            }
-                            title={
-                              <span
-                                style={{
-                                  color: "black",
-                                  fontSize: "15px",
-                                  borderBottom: "1px solid black",
-                                }}
-                              >
-                                {item.title}
-                              </span>
-                            }
-                            description={
-                              <span
-                                style={{ color: "black", fontSize: "12px" }}
-                              >
-                                {item.description}
-                              </span>
-                            }
-                          />
-                        </Card>
+                          <ArtworkCard key={index} artworkData={item} />
                       </Col>
                     );
                   } else {
@@ -333,62 +221,7 @@ const OurHub = () => {
                   if (item.typeDesign === "culture") {
                     return (
                       <Col span={6} key={index}>
-                        <Card
-                          onClick={() =>
-                            handleArtworkClick(
-                              item.title,
-                              item.description,
-                              item.image,
-                              item.price,
-                              item._id,
-                              item.user[0]
-                            )
-                          }
-                          cover={
-                            <img
-                              src={item.image}
-                              alt="image"
-                              style={{
-                                width: "400px",
-                                height: "400px",
-                                objectFit: "cover",
-                              }}
-                            />
-                          }
-                        >
-                          <Meta
-                            style={{
-                              display: "flex",
-                              justifyContent: "center",
-                              height: "100px",
-                            }}
-                            avatar={
-                              <Avatar
-                                className="avatar"
-                                src="https://api.dicebear.com/7.x/miniavs/svg?seed=8"
-                                style={{ cursor: "pointer" }}
-                              />
-                            }
-                            title={
-                              <span
-                                style={{
-                                  color: "black",
-                                  fontSize: "15px",
-                                  borderBottom: "1px solid black",
-                                }}
-                              >
-                                {item.title}
-                              </span>
-                            }
-                            description={
-                              <span
-                                style={{ color: "black", fontSize: "12px" }}
-                              >
-                                {item.description}
-                              </span>
-                            }
-                          />
-                        </Card>
+                          <ArtworkCard key={index} artworkData={item} />
                       </Col>
                     );
                   } else {
@@ -409,62 +242,7 @@ const OurHub = () => {
                   if (item.typeDesign === "technology") {
                     return (
                       <Col span={6} key={index}>
-                        <Card
-                          onClick={() =>
-                            handleArtworkClick(
-                              item.title,
-                              item.description,
-                              item.image,
-                              item.price,
-                              item._id,
-                              item.user[0]
-                            )
-                          }
-                          cover={
-                            <img
-                              src={item.image}
-                              alt="image"
-                              style={{
-                                width: "400px",
-                                height: "400px",
-                                objectFit: "cover",
-                              }}
-                            />
-                          }
-                        >
-                          <Meta
-                            style={{
-                              display: "flex",
-                              justifyContent: "center",
-                              height: "100px",
-                            }}
-                            avatar={
-                              <Avatar
-                                className="avatar"
-                                src="https://api.dicebear.com/7.x/miniavs/svg?seed=8"
-                                style={{ cursor: "pointer" }}
-                              />
-                            }
-                            title={
-                              <span
-                                style={{
-                                  color: "black",
-                                  fontSize: "15px",
-                                  borderBottom: "1px solid black",
-                                }}
-                              >
-                                {item.title}
-                              </span>
-                            }
-                            description={
-                              <span
-                                style={{ color: "black", fontSize: "12px" }}
-                              >
-                                {item.description}
-                              </span>
-                            }
-                          />
-                        </Card>
+                          <ArtworkCard key={index} artworkData={item} />
                       </Col>
                     );
                   } else {
@@ -486,62 +264,7 @@ const OurHub = () => {
                   if (item.typeDesign === "food") {
                     return (
                       <Col span={6} key={index}>
-                        <Card
-                          onClick={() =>
-                            handleArtworkClick(
-                              item.title,
-                              item.description,
-                              item.image,
-                              item.price,
-                              item._id,
-                              item.user[0]
-                            )
-                          }
-                          cover={
-                            <img
-                              src={item.image}
-                              alt="image"
-                              style={{
-                                width: "400px",
-                                height: "400px",
-                                objectFit: "cover",
-                              }}
-                            />
-                          }
-                        >
-                          <Meta
-                            style={{
-                              display: "flex",
-                              justifyContent: "center",
-                              height: "100px",
-                            }}
-                            avatar={
-                              <Avatar
-                                className="avatar"
-                                src="https://api.dicebear.com/7.x/miniavs/svg?seed=8"
-                                style={{ cursor: "pointer" }}
-                              />
-                            }
-                            title={
-                              <span
-                                style={{
-                                  color: "black",
-                                  fontSize: "15px",
-                                  borderBottom: "1px solid black",
-                                }}
-                              >
-                                {item.title}
-                              </span>
-                            }
-                            description={
-                              <span
-                                style={{ color: "black", fontSize: "12px" }}
-                              >
-                                {item.description}
-                              </span>
-                            }
-                          />
-                        </Card>
+                          <ArtworkCard key={index} artworkData={item} />
                       </Col>
                     );
                   } else {
