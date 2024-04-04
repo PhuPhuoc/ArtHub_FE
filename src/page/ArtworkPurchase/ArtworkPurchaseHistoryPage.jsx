@@ -147,9 +147,9 @@ const ArtworkPurchaseHistoryPage = () => {
     let value = parseInt(e.target.value);
 
     // Check if the value exceeds the maximum allowed (1000)
-    if (value > 2000) {
+    if (value > 3000) {
       // If it exceeds, set the value to the maximum (1000)
-      value = 2000;
+      value = 3000;
     }
 
     // Update the state with the sanitized value
