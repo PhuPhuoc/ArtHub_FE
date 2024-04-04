@@ -4,7 +4,6 @@ import React, { useEffect } from "react";
 import { useCookies } from "react-cookie";
 import { useDispatch, useSelector } from "react-redux";
 import { getAdminProfitHistorySelector } from "../../redux/selector";
-import { getAdminProfitHistory } from "../../redux/slices/artworkSlice";
 
 const AdminProfitPage = () => {
   const columns = [
