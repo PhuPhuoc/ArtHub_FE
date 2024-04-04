@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { useParams } from "react-router-dom";
-import { Table } from 'antd';
+import {message, Table} from 'antd';
 import './ManageComments.css';
 
 const ManageComments = () => {
@@ -64,8 +64,8 @@ const ManageComments = () => {
         axios
             .delete(`http://localhost:5000/api/comment/${commentId}`)
             .then(() => {
-                // Après la suppression, recharger les commentaires
                 fetchComments(userId);
+                message.success('Comment deleted successfully');
             })
             .catch((e) => {
                 console.log(`ERROR DELETE COMMENT: ${e}`);

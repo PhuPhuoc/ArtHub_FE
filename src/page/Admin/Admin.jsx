@@ -144,6 +144,7 @@ const Admin = () => {
   const [selectedUser, setSelectedUser] = useState(null);
   const [formEdit] = Form.useForm();
   const [editModalVisible, setEditModalVisible] = useState(false);
+  const [addModal, setAddModal] = useState(false);
 
   const [titleBackgroundColor, setTitleBackgroundColor] = useState("#ffffff");
   const [titleTextColor, setTitleTextColor] = useState("#000000");
@@ -223,7 +224,8 @@ const handleAddUser = () => {
       })
     .then((newUserData) => {
       setData([...data, newUserData]);
-      setIsModalVisible(false);
+      message.success("Added user successfully");
+      setAddModal(false);
     })
     .catch((error) => {
       console.error("Error adding user:", error);
@@ -231,7 +233,8 @@ const handleAddUser = () => {
 };
 
 const handleEditUser = (userId) => {
-    const response = axios.put(`http://localhost:5000/api/users/${userId}`, {
+    const response = axios
+        .put(`http://localhost:5000/api/users/${userId}`, {
       name: editName,
       email: editEMail,
       password: editPassword,
@@ -289,7 +292,10 @@ useEffect(() => {
 const handleOpenProfile = () => {
   if (selectedUser && selectedUser._id) {
     const userId = selectedUser._id;
-    window.location.href = `/userprofile/${userId}`; // Navigate to user profile route
+    if (userId === sessionCookie)
+      navigate('/profile');
+    else
+      window.location.href = `/userprofile/${userId}`; // Navigate to user profile route
   }
 };
 
@@ -327,7 +333,7 @@ return (
       </Button>
       <Button
         style={{ backgroundColor: "greenyellow", marginRight: "20px", fontSize: "20px", width: "100px", height: "40px" }}
-        onClick={() => setIsModalVisible(true)}
+        onClick={() => setAddModal(true)}
       >
         Add
       </Button>
@@ -349,9 +355,9 @@ return (
 
     {/* Modals */}
     <Modal
-        open={isModalVisible}
-        onOk={() => setIsModalVisible(false)}
-        onCancel={() => setIsModalVisible(false)}
+        open={addModal}
+        onOk={() => setAddModal(false)}
+        onCancel={() => setAddModal(false)}
     >
       <Form>
         <div
