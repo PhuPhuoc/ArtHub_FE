@@ -687,46 +687,6 @@ const OurHub = () => {
             Dribbble is the leading destination to find & showcase creative work
             and <br /> home to the world's best design professionals.
           </p>
-          <div
-            className="searchContainer"
-            style={{
-              display: "flex",
-              justifyContent: "center",
-              marginTop: "50px",
-              height: "50px",
-              width: "100%",
-            }}
-          >
-            <CiSearch className="searchIcon" />
-
-            <input
-              className="inputSearch"
-              type="text"
-              placeholder="Search anything you want !"
-              style={{
-                padding: "10px",
-                fontSize: "16px",
-                width: "500px",
-                borderRadius: "10px",
-                border: "1px solid white",
-                color: "#dbd8e7",
-              }}
-            />
-            <button
-              className="searchBtn"
-              style={{
-                marginLeft: "10px",
-                padding: "10px",
-                fontSize: "16px",
-                width: "100px",
-                color: "White",
-                border: "1px solid white",
-                borderRadius: "10px",
-              }}
-            >
-              Search
-            </button>
-          </div>
         </div>
         <div
           className="secondSection"
