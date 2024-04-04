@@ -8,6 +8,8 @@ import {
   LogoutOutlined,
   SettingOutlined,
 } from "@ant-design/icons";
+import { RiAdminLine, RiLuggageDepositLine } from "react-icons/ri";
+
 import { Avatar, Button, Dropdown, Layout, Menu } from "antd";
 import { Content, Footer, Header } from "antd/es/layout/layout";
 import PropTypes from "prop-types";
@@ -40,6 +42,7 @@ const items_welcomepage = [
 const DefaultLayout = ({ children }) => {
   const [menuVisible, setMenuVisible] = useState(false);
   const [sessionCookie, setSessionCookie] = useState("");
+  const adminState = sessionStorage.getItem("admin");
 
   const handleSearchClick = (item) => {
     if (item === "" || item === undefined || item === null) {
@@ -93,6 +96,28 @@ const DefaultLayout = ({ children }) => {
             }}
           >
             Artwork Purchase History & Balance
+          </Menu.Item>
+          {adminState === "true" ? (
+            <Menu.Item
+              key="adminprofit"
+              icon={<RiAdminLine />}
+              onClick={() => {
+                navigate("/adminprofit");
+              }}
+            >
+              Admin Profit
+            </Menu.Item>
+          ) : (
+            ""
+          )}
+          <Menu.Item
+            key="deposithistory"
+            icon={<RiLuggageDepositLine />}
+            onClick={() => {
+              navigate("/deposithistory");
+            }}
+          >
+            Deposit History
           </Menu.Item>
           <Menu.Item
             key="purchasedOrder"

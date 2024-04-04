@@ -18,6 +18,8 @@ import ArtworkPurchaseHistoryPage from "../page/ArtworkPurchase/ArtworkPurchaseH
 import OrderPurchased from "../page/OrderPurchased/OrderPurchased.jsx";
 import ManageComments from "../page/ManageComments/ManageComments.jsx";
 import ManageArtworks from "../page/ManageArtworks/ManageArtworks.jsx";
+import DepositHistoryPage from "../page/DepositHistory/DepositHistoryPage.jsx";
+import AdminProfitPage from "../page/AdminProfitPage/AdminProfitPage.jsx";
 const welcomeRouterData = [
   { path: "findtalent", component: <FindTalent /> },
   { path: "ourhub", component: <OurHub /> },
@@ -39,6 +41,8 @@ const welcomeRouterData = [
   },
   { path: "userprofile/:id", component: <UserProfile /> },
   { path: "orderpurchased", component: <OrderPurchased /> },
+  { path: "deposithistory", component: <DepositHistoryPage /> },
+  { path: "adminprofit", component: <AdminProfitPage /> },
 ];
 
 const DefaultComponent = () => {

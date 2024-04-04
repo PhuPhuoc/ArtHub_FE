@@ -7,5 +7,10 @@ export const getArtworkSoldSelector = (state) => state.artworkSlice.sold;
 export const getArtworkHistorySelector = (state) => state.artworkSlice.history;
 export const getAllTransactionSelector = (state) =>
   state.artworkSlice.transactions;
+export const getDepositHistorySelector = (state) => state.artworkSlice.deposit;
+export const getCustomerOrderHistorySelector = (state) =>
+  state.artworkSlice.customerOrder;
+export const getAdminProfitHistorySelector = (state) =>
+  state.artworkSlice.adminProfit;
 export const getSingleUserSelector = (state) => state.userSlice.user;
 export const getUserSelector = (state) => state.userSlice.userData;

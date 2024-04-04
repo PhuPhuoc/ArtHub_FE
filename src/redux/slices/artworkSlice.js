@@ -18,6 +18,9 @@ const initialState = {
   sold: [],
   history: [],
   transactions: [],
+  deposit: [],
+  customerOrder: [],
+  adminProfit: [],
 };
 
 export const artworkSlice = createSlice({
@@ -69,6 +72,15 @@ export const artworkSlice = createSlice({
       })
       .addCase(getAllTransaction.fulfilled, (state, action) => {
         state.transactions = action.payload;
+      })
+      .addCase(getDepositHistory.fulfilled, (state, action) => {
+        state.deposit = action.payload;
+      })
+      .addCase(getCustomerOrderHistory.fulfilled, (state, action) => {
+        state.customerOrder = action.payload;
+      })
+      .addCase(getAdminProfitHistory.fulfilled, (state, action) => {
+        state.adminProfit = action.payload;
       });
   },
 });
@@ -266,6 +278,52 @@ export const getAllTransaction = createAsyncThunk(
     try {
       const res = await getRequest(`transactions`);
       return res.data.transactions;
+    } catch (error) {
+      console.log({ error });
+    }
+  }
+);
+export const addBalance = createAsyncThunk(
+  "artwork/addBalance",
+  async (values) => {
+    try {
+      const { userId, amount } = values;
+      const res = await postRequest(`deposit/${userId}`, { amount });
+      console.log(res);
+      return res;
+    } catch (error) {
+      console.log({ error });
+    }
+  }
+);
+export const getDepositHistory = createAsyncThunk(
+  "artwork/getDepositHistory",
+  async (userId) => {
+    try {
+      const res = await getRequest(`payment-history/${userId}`);
+      return res.data.data;
+    } catch (error) {
+      console.log({ error });
+    }
+  }
+);
+export const getCustomerOrderHistory = createAsyncThunk(
+  "artwork/getCustomerOrderHistory",
+  async (creatorId) => {
+    try {
+      const res = await getRequest(`customer-order-history/${creatorId}`);
+      return res.data.data;
+    } catch (error) {
+      console.log({ error });
+    }
+  }
+);
+export const getAdminProfitHistory = createAsyncThunk(
+  "artwork/getAdminProfitHistory",
+  async (adminid) => {
+    try {
+      const res = await getRequest(`admin-profit-history/${adminid}`);
+      return res.data.data;
     } catch (error) {
       console.log({ error });
     }
