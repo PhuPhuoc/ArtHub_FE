@@ -4,13 +4,11 @@ import { useDispatch, useSelector } from "react-redux";
 import {
   addBalance,
   getAllTransaction,
-  getArtworkSold,
   getCustomerOrderHistory,
 } from "../../redux/slices/artworkSlice";
 import Cookies from "js-cookie";
 import {
   getAllTransactionSelector,
-  getArtworkSoldSelector,
   getCustomerOrderHistorySelector,
   getSingleUserSelector,
 } from "../../redux/selector";
@@ -21,7 +19,6 @@ const ArtworkPurchaseHistoryPage = () => {
   const creatorId = Cookies.get("sessionCookie");
   const userId = Cookies.get("sessionCookie");
   const adminState = sessionStorage.getItem("admin");
-  const artworkSold = useSelector(getArtworkSoldSelector);
   const allTransaction = useSelector(getAllTransactionSelector);
   const getSingleUser = useSelector(getSingleUserSelector);
   const customerOrderHistory = useSelector(getCustomerOrderHistorySelector);
