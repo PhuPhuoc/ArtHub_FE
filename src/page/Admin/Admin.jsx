@@ -215,38 +215,6 @@ const Admin = () => {
     },
   };
 
-const handleAddUser = () => {
-  axios.post('http://localhost:5000/api/register',
-      {
-        name: addName,
-        email: addEmail,
-        password: addPassword,
-      })
-    .then((newUserData) => {
-      setData([...data, newUserData]);
-      message.success("Added user successfully");
-      setAddModal(false);
-    })
-    .catch((error) => {
-      console.error("Error adding user:", error);
-    });
-};
-
-const handleEditUser = (userId) => {
-    const response = axios
-        .put(`http://localhost:5000/api/users/${userId}`, {
-      name: editName,
-      email: editEMail,
-      password: editPassword,
-      picture: '',
-    });
-
-    if (!response) {
-      console.log("Error fetching edit on profile");
-    } else {
-      message.success("Profile Update Successfully");
-    }
-  };
 const handleDeleteUser = () => {
   if (selectedUser) {
     Modal.confirm({
@@ -322,21 +290,10 @@ return (
       rowClassName={(record, index) =>
         index === selectedRowIndex ? "selectedRow" : ""
       }
+      indentSize={0}
     />
 
     <div className="btnTableContainer" style={{ height: "100px", transform: "translateX(20px)" }}>
-      <Button
-        style={{ backgroundColor: "yellow", marginRight: "20px", fontSize: "20px", width: "100px", height: "40px" }}
-        onClick={() => setIsModalVisible(true)}
-      >
-        Edit
-      </Button>
-      <Button
-        style={{ backgroundColor: "greenyellow", marginRight: "20px", fontSize: "20px", width: "100px", height: "40px" }}
-        onClick={() => setAddModal(true)}
-      >
-        Add
-      </Button>
       <Button
         style={{ backgroundColor: "red", fontSize: "20px", width: "100px", height: "40px" }}
         onClick={handleDeleteUser}

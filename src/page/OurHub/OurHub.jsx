@@ -833,6 +833,7 @@ const OurHub = () => {
                   key={index}
                   user={item?.user ? `${item?.user?.name}` : "User"}
                   text={item?.text}
+                  date={item?.date}
                 />
               ))}
             </div>

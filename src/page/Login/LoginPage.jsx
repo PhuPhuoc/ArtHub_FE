@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import "./LoginPage.css";
 import Cookies from "js-cookie";
-import { Modal } from "antd";
+import {message, Modal} from "antd";
 import axios from "axios";
 
 function LoginForm() {
@@ -96,6 +96,7 @@ function LoginForm() {
       })
       .then((response) => {
         console.log("Email sent successfully:", response.data);
+        message.success('Email sent successfully')
       })
       .catch((err) => {
         console.log("Error sending email:", err);
@@ -206,7 +207,7 @@ function LoginForm() {
             </a>
           </div>
           <span>or use your email password</span>
-          <div className="error-message">{loginError}</div>
+          <div className="error-message" style={{ color: 'red' }}>{loginError}</div>
           <input
             type="email"
             placeholder="Email"
