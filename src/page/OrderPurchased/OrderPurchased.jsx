@@ -41,7 +41,12 @@ const OrderPurchased = () => {
     },
     {
       render: (record) => (
-        <Button style={{ color: "blue" }}>Download Image</Button>
+        <Button
+          style={{ color: "blue" }}
+          onClick={() => downloadImage(record.image)}
+        >
+          Download Image
+        </Button>
       ),
     },
   ];
@@ -87,6 +92,15 @@ const OrderPurchased = () => {
   }, []);
   const clickToBuyItem = () => {
     navigate("/ourhub");
+  };
+  const downloadImage = (imageUrl) => {
+    const link = document.createElement("a");
+    link.href = imageUrl;
+    link.target = "_blank"; // Mở liên kết trong một tab hoặc cửa sổ mới
+    link.download = "downloaded_image.jpg"; // Đặt tên tệp khi tải xuống
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
   };
   return (
     <div style={{ minHeight: "100vh", width: "100%" }}>
