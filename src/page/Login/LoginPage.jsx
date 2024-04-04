@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
 import "./LoginPage.css";
-import Cookies from 'js-cookie';
+import Cookies from "js-cookie";
 import { Modal } from "antd";
-import axios from 'axios';
+import axios from "axios";
 
 function LoginForm() {
   const [name, setName] = useState("");
@@ -10,8 +10,8 @@ function LoginForm() {
   const [password, setPassword] = useState("");
   const [users, setUsers] = useState([]);
 
-  const [loginMail, setLoginMail] = useState('');
-  const [loginPassword, setLoginPassword] = useState('');
+  const [loginMail, setLoginMail] = useState("");
+  const [loginPassword, setLoginPassword] = useState("");
 
   const [redirect, setRedirect] = useState(false);
   const [loginError, setLoginError] = useState("");
@@ -33,17 +33,17 @@ function LoginForm() {
     })
       .then((response) => {
         if (!response.ok) {
-          throw new Error('Mail already registered');
+          throw new Error("Mail already registered");
         }
         return response.json();
       })
-        .then(() => {
-          setRedirectSignIn(true);
-        })
+      .then(() => {
+        setRedirectSignIn(true);
+      })
       .catch((error) => {
         console.error("Mail already registerd:", error.message);
         setRegisterError(error.message);
-        throw new Error('Mail already registered');
+        throw new Error("Mail already registered");
       });
   };
 
@@ -55,34 +55,33 @@ function LoginForm() {
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(user),
     })
-        .then(response => {
-          if (!response.ok) {
-            throw new Error('Invalid email or password');
-          }
-          return response.json();
-        })
-        .then(data => {
-          Cookies.set('sessionCookie', data.user._id, { expires: 1 });
-          sessionStorage.setItem('userId', data)
-          console.log("Login successful:", data);
-          if (data.admin === true)
-            setRedirectAdmin(true)
-          else
-            setRedirect(true);
-        })
-        .catch(error => {
-          console.error("Error logging in:", error.message);
-          setLoginError(error.message);
-        });
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error("Invalid email or password");
+        }
+        return response.json();
+      })
+      .then((data) => {
+        Cookies.set("sessionCookie", data.user._id, { expires: 1 });
+        sessionStorage.setItem("userId", data);
+        sessionStorage.setItem("admin", data.admin);
+        console.log("Login successful:", data);
+        if (data.admin === true) {
+          setRedirectAdmin(true);
+        } else setRedirect(true);
+      })
+      .catch((error) => {
+        console.error("Error logging in:", error.message);
+        setLoginError(error.message);
+      });
   };
 
-
-  useEffect(()=>{
+  useEffect(() => {
     fetch("http://localhost:5173/api/login")
-        .then((res) => res.json())
-        .then((result) => {
-          setUsers(result);
-        });
+      .then((res) => res.json())
+      .then((result) => {
+        setUsers(result);
+      });
   }, []);
 
   const handleResetPasswordClick = () => {
@@ -90,19 +89,18 @@ function LoginForm() {
   };
 
   const handleSendClick = () => {
-    console.log('Email content:', mailReset);
+    console.log("Email content:", mailReset);
     axios
-        .post('http://localhost:5000/api/send', {
-          mail: mailReset
-        })
-        .then(response => {
-          console.log('Email sent successfully:', response.data);
-        })
-        .catch((err) => {
-          console.log('Error sending email:', err);
-        });
+      .post("http://localhost:5000/api/send", {
+        mail: mailReset,
+      })
+      .then((response) => {
+        console.log("Email sent successfully:", response.data);
+      })
+      .catch((err) => {
+        console.log("Error sending email:", err);
+      });
   };
-
 
   useEffect(() => {
     const container = document.getElementById("container");
@@ -221,7 +219,7 @@ function LoginForm() {
             value={loginPassword}
             onChange={(e) => setLoginPassword(e.target.value)}
           />
-          <p onClick={handleResetPasswordClick} >Forget Your Password?</p>
+          <p onClick={handleResetPasswordClick}>Forget Your Password?</p>
           <button onClick={handleLoginClick}>Sign In</button>
         </form>
       </div>
@@ -249,35 +247,40 @@ function LoginForm() {
         onOk={() => setShowModal(false)}
         onCancel={() => setShowModal(false)}
       >
-        <div style={{
-          textAlign: 'center'
-        }}>
+        <div
+          style={{
+            textAlign: "center",
+          }}
+        >
           <p>We will send you a new password by e-mail.</p>
           <p>Enter your email :</p>
           <input
-              type="email"
-              onChange={(text) => setMailReset(text.target.value)}
-              placeholder={'Your email'}
-              value={mailReset}
-              style={{
-            padding: 5,
-            border: "none",
-            borderRadius: 5,
-            backgroundColor: 'whitesmoke',
-            margin: 10,
-            width: 250
-          }} />
+            type="email"
+            onChange={(text) => setMailReset(text.target.value)}
+            placeholder={"Your email"}
+            value={mailReset}
+            style={{
+              padding: 5,
+              border: "none",
+              borderRadius: 5,
+              backgroundColor: "whitesmoke",
+              margin: 10,
+              width: 250,
+            }}
+          />
           <button
-              onClick={handleSendClick}
-              style={{
-            backgroundColor: '#512da8',
-            color: 'white',
-            padding: 5,
-            borderRadius: 5
-          }}>Send</button>
+            onClick={handleSendClick}
+            style={{
+              backgroundColor: "#512da8",
+              color: "white",
+              padding: 5,
+              borderRadius: 5,
+            }}
+          >
+            Send
+          </button>
         </div>
       </Modal>
-
     </div>
   );
 }

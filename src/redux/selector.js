@@ -5,5 +5,7 @@ export const getSavedArtworkSelector = (state) => state.artworkSlice.saved;
 export const getUserCartSelector = (state) => state.artworkSlice.cart;
 export const getArtworkSoldSelector = (state) => state.artworkSlice.sold;
 export const getArtworkHistorySelector = (state) => state.artworkSlice.history;
+export const getAllTransactionSelector = (state) =>
+  state.artworkSlice.transactions;
 export const getSingleUserSelector = (state) => state.userSlice.user;
 export const getUserSelector = (state) => state.userSlice.userData;

@@ -17,6 +17,7 @@ const initialState = {
   saved: [],
   sold: [],
   history: [],
+  transactions: [],
 };
 
 export const artworkSlice = createSlice({
@@ -65,6 +66,9 @@ export const artworkSlice = createSlice({
       })
       .addCase(getArtworkHistory.fulfilled, (state, action) => {
         state.history = action.payload;
+      })
+      .addCase(getAllTransaction.fulfilled, (state, action) => {
+        state.transactions = action.payload;
       });
   },
 });
@@ -250,6 +254,18 @@ export const getArtworkHistory = createAsyncThunk(
     try {
       const res = await getRequest(`users/${userId}/history`);
       return res.data.list_artwork_of_user;
+    } catch (error) {
+      console.log({ error });
+    }
+  }
+);
+
+export const getAllTransaction = createAsyncThunk(
+  "artwork/getAllTransaction",
+  async () => {
+    try {
+      const res = await getRequest(`transactions`);
+      return res.data.transactions;
     } catch (error) {
       console.log({ error });
     }

@@ -1,9 +1,13 @@
 import { Table, Typography } from "antd";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getArtworkSold } from "../../redux/slices/artworkSlice";
+import {
+  getAllTransaction,
+  getArtworkSold,
+} from "../../redux/slices/artworkSlice";
 import Cookies from "js-cookie";
 import {
+  getAllTransactionSelector,
   getArtworkSoldSelector,
   getSingleUserSelector,
 } from "../../redux/selector";
@@ -12,7 +16,9 @@ import { getUser } from "../../redux/slices/userSlice";
 const ArtworkPurchaseHistoryPage = () => {
   const dispatch = useDispatch();
   const userId = Cookies.get("sessionCookie");
+  const adminState = sessionStorage.getItem("admin");
   const artworkSold = useSelector(getArtworkSoldSelector);
+  const allTransaction = useSelector(getAllTransactionSelector);
   const getSingleUser = useSelector(getSingleUserSelector);
   const [currentTextColor, setCurrentTextColor] = useState("green");
   const columns = [
@@ -50,8 +56,14 @@ const ArtworkPurchaseHistoryPage = () => {
       },
     },
   ];
+  console.log("admin", adminState);
   useEffect(() => {
-    dispatch(getArtworkSold(userId));
+    if (adminState === "true") {
+      dispatch(getAllTransaction());
+    } else {
+      dispatch(getArtworkSold(userId));
+    }
+
     dispatch(getUser(userId));
   }, [userId]);
 
@@ -95,7 +107,9 @@ const ArtworkPurchaseHistoryPage = () => {
         <Typography.Title
           style={{ fontSize: "120px", color: currentTextColor }}
         >
-          {getSingleUser[0]?.balance ? ` $ ${getSingleUser[0]?.balance}` : ""}
+          {Math.round(getSingleUser[0]?.balance)
+            ? ` $ ${Math.round(getSingleUser[0]?.balance)}`
+            : ""}
         </Typography.Title>
       </div>
       <div className="titleHistory">
@@ -106,21 +120,54 @@ const ArtworkPurchaseHistoryPage = () => {
       <div className="historyOrderTable">
         <Table
           columns={columns}
-          dataSource={artworkSold?.map((item) => {
-            return {
-              _id: item?._id,
-              title: item?.artwork?.title,
-              description: item?.artwork?.description,
-              price: item?.artwork?.price,
-              typeDesign: item?.artwork?.typeDesign,
-              image: item?.artwork?.image,
-              likes: item?.artwork?.likes,
-              name: item?.user?.name,
-              email: item?.user?.email,
-              artworkId: item?.artworkId,
-              userId: item?.userId,
-            };
-          })}
+          // dataSource={artworkSold?.map((item) => {
+          //   return {
+          //     _id: item?._id,
+          //     title: item?.artwork?.title,
+          //     description: item?.artwork?.description,
+          //     price: item?.artwork?.price,
+          //     typeDesign: item?.artwork?.typeDesign,
+          //     image: item?.artwork?.image,
+          //     likes: item?.artwork?.likes,
+          //     name: item?.user?.name,
+          //     email: item?.user?.email,
+          //     artworkId: item?.artworkId,
+          //     userId: item?.userId,
+          //   };
+          // })}
+          dataSource={
+            adminState === "true"
+              ? allTransaction?.map((item) => {
+                  return {
+                    _id: item?._id,
+                    title: item?.artwork?.title,
+                    description: item?.artwork?.description,
+                    price: item?.artwork?.price,
+                    typeDesign: item?.artwork?.typeDesign,
+                    image: item?.artwork?.image,
+                    likes: item?.artwork?.likes,
+                    name: item?.creator?.name,
+                    email: item?.creator?.email,
+                    artworkId: item?.artworkId,
+                    userId: item?.userId,
+                  };
+                })
+              : artworkSold?.map((item) => {
+                  return {
+                    _id: item?._id,
+                    title: item?.artwork?.title,
+                    description: item?.artwork?.description,
+                    price: item?.artwork?.price,
+                    typeDesign: item?.artwork?.typeDesign,
+                    image: item?.artwork?.image,
+                    likes: item?.artwork?.likes,
+                    name: item?.user?.name,
+                    email: item?.user?.email,
+                    artworkId: item?.artworkId,
+                    userId: item?.userId,
+                  };
+                })
+          }
         />
       </div>
     </div>
