@@ -182,11 +182,10 @@ export const getArtwork = createAsyncThunk("artwork/getArtwork", async () => {
 export const addToCart = createAsyncThunk(
   "artwork/addToCart",
   async (values) => {
+    const { userId, artworkId } = values;
     try {
-      const res = await postRequest(
-        `users/${values.userId}/cart/${values.artworkId}`
-      );
-
+      const res = await postRequest(`users/${userId}/cart/${artworkId}`);
+      console.log(res);
       if (res) {
         message.success("Add to cart successfully");
       } else {
