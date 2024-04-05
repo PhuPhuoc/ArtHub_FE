@@ -39,7 +39,7 @@ const welcomeRouterData = [
     path: "artworkpurchasehistorypage",
     component: <ArtworkPurchaseHistoryPage />,
   },
-  { path: "userprofile/:id", component: <UserProfile /> },
+  { path: "userprofile/:id/:followed", component: <UserProfile /> },
   { path: "orderpurchased", component: <OrderPurchased /> },
   { path: "deposithistory", component: <DepositHistoryPage /> },
   { path: "adminprofit", component: <AdminProfitPage /> },

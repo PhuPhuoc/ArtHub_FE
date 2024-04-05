@@ -66,6 +66,7 @@ const OurHub = () => {
   const navigate = useNavigate();
   const [userArtworks, setUserArtworks] = useState([]);
   const allArtworks = useSelector(getArtworkSelector);
+  const [follow, setFollow] = useState(null);
   const artworkData = allArtworks.filter(
     (artwork) =>
       !userArtworks.some((userArtwork) => userArtwork._id === artwork._id)
@@ -80,6 +81,22 @@ const OurHub = () => {
       fetchUserPosts(cookieValue);
     }
   }, []);
+
+    const fetchFollow = (creatorId, userId) => {
+        axios
+            .get(`http://localhost:5000/api/users/${userId}/follow/${creatorId}`)
+            .then((res) => {
+                console.log(res.data)
+                if (res.data.follow === false)
+                    setFollow(false)
+                else
+                    setFollow(true)
+            })
+            .catch((e) => {
+                console.log(e);
+            });
+    }
+
   const handleHeartClick = () => {
     setHeartFilled(!heartFilled);
     const userId = Cookies.get("sessionCookie");
@@ -103,10 +120,11 @@ const OurHub = () => {
       });
   };
 
-  const handleOpenProfile = () => {
+  const handleOpenProfile = async () => {
     if (modalContent.user && modalContent.user._id) {
+        fetchFollow(modalContent.user._id, sessionCookie)
       const userId = modalContent.user._id;
-      window.location.href = `/userprofile/${userId}`; // Navigate to user profile route
+      window.location.href = `/userprofile/${userId}/${follow}`; // Navigate to user profile route
     }
   };
 
