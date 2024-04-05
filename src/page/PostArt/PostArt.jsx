@@ -49,6 +49,7 @@ const PostArt = () => {
   const mountains_behindRef = useRef(null);
   const [sessionCookie, setSessionCookie] = useState("");
   const navigate = useNavigate();
+  const [isIdExist, setIsIdExist] = useState(false);
 
   const userId = sessionCookie.toString();
   const handleExploreClick = () => {
@@ -222,6 +223,31 @@ const PostArt = () => {
     setId(e.target.value);
   };
 
+  const handleCheckImageExistence = async () => {
+    if (id) {
+      try {
+        const imageUrl = await getImage(id);
+        if (imageUrl) {
+          setIsIdExist(true);
+          notification.warning({
+            message: "Warning",
+            description: "Image already exists for the provided ID.",
+          });
+        }
+      } catch {
+        notification.success({
+          message: "Success",
+          description: "ID is available for uploading.",
+        });
+      }
+    } else {
+      notification.warning({
+        message: "Warning",
+        description: "Please provide an ID to check the image existence.",
+      });
+    }
+  };
+
   const handleUpload = async () => {
     if (file && id) {
       try {
@@ -272,6 +298,8 @@ const PostArt = () => {
       console.error("Please provide an ID to get the image.");
     }
   };
+
+  // check existed id image
 
   return (
     <div
@@ -495,6 +523,16 @@ const PostArt = () => {
               onChange={handleIdChange}
             />
             <br />
+            <button
+              style={{
+                border: "1px solid black",
+                borderRadius: "5px",
+                margin: "0 10px", // Add margin for spacing between buttons
+              }}
+              onClick={handleCheckImageExistence}
+            >
+              Check Image Existence
+            </button>
             <button
               style={{
                 border: "1px solid black",
