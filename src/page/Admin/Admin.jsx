@@ -236,6 +236,7 @@ const handleDeleteUser = () => {
               const updatedDataWithStt = updateSttColumn(updatedData);
               setData(updatedDataWithStt);
               setSelectedUser(null);
+              message.success('Deleted user succesfully')
 
               // Reload data from the server
               dispatch(getAllUser());
