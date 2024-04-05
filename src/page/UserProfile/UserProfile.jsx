@@ -20,6 +20,7 @@ import {UserAddOutlined} from "@ant-design/icons";
 import './UserProfile.css'
 import Cookies from "js-cookie";
 import {useNavigate } from "react-router-dom";
+import ArtworkCard from "../../components/ArtWorkCard.jsx";
 
 const UserProfile = () => {
   const { id, followed } = useParams(); // Extract id from URL
@@ -172,16 +173,7 @@ const UserProfile = () => {
           <div className="artworks">
             <div className="artworksContainer">
               {userArtworks.map((artwork, index) => (
-                  <div className="artworkCard" key={index}>
-                    {artwork.image && (
-                        <img src={artwork.image} alt="" className="artworkImage" />
-                    )}
-                    <p style={{ fontWeight: 800, padding: 5, marginTop: 5 }}>
-                      {artwork.title}
-                    </p>
-                    <p style={{ padding: 5 }}>{artwork.description}</p>
-                    {/* Add edit and delete buttons here if needed */}
-                  </div>
+                  <ArtworkCard key={index} artworkData={artwork}/>
               ))}
             </div>
           </div>

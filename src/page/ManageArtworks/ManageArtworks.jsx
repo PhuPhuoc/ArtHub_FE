@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { useParams } from "react-router-dom";
-import { Table } from 'antd';
+import {message, Table} from 'antd';
 import './ManageArtworks.css';
 
 const ManageArtworks = () => {
@@ -61,6 +61,7 @@ const ManageArtworks = () => {
             .delete(`http://localhost:5000/api/artworks/${artworkId}`)
             .then(() => {
                 fetchArtworks(userId);
+                message.success("Deleted artwork successfully")
             })
             .catch((e) => {
                 console.log(`ERROR DELETE COMMENT: ${e}`);
